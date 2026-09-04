@@ -1,0 +1,125 @@
+/* ========================================================================
+   03 — BRAND ECOSYSTEM DESIGN (triptych + interactive Method)
+   ======================================================================== */
+
+.section-brand-ecosystem {
+  background: var(--color-black);
+  color: var(--color-white);
+  padding-bottom: var(--space-6);
+}
+
+.triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  width: 100%;
+}
+
+.triptych img {
+  width: 100%;
+  height: clamp(220px, 34vw, 420px);
+  object-fit: cover;
+  display: block;
+}
+
+.brand-ecosystem__intro {
+  padding-block: var(--space-5) var(--space-4);
+}
+
+.brand-ecosystem__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  letter-spacing: var(--ls-wide);
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.brand-ecosystem__text {
+  max-width: 52rem;
+  margin-inline: auto;
+  text-align: center;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  color: rgba(255,255,255,0.9);
+}
+
+/* ---- Interactive Method ---- */
+.method {
+  padding-top: var(--space-4);
+}
+
+.method__list {
+  border-top: 1px solid var(--color-border-inverse);
+}
+
+.method__row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-4);
+  align-items: center;
+  padding-block: clamp(1.1rem, 1.6vw, 1.6rem);
+  border-bottom: 1px solid var(--color-border-inverse);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.method__title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+}
+
+.method__marker {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1rem, 0.8rem + 1vw, 1.4rem);
+  color: rgba(255,255,255,0.35);
+  width: 0.7em;
+  opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-editorial);
+}
+
+.method__row.is-active .method__marker { opacity: 0; }
+
+.method__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 1rem + 1.6vw, 2.1rem);
+  color: var(--color-white);
+  transition: color var(--dur-base) var(--ease-editorial);
+}
+
+.method__row.is-active .method__title,
+.method__row:hover .method__title {
+  color: var(--color-accent);
+}
+
+.method__desc {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: rgba(255,255,255,0.65);
+  transition: color var(--dur-base) var(--ease-editorial), opacity var(--dur-base) var(--ease-editorial);
+  opacity: 0.85;
+}
+
+.method__row.is-active .method__desc {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+.method__desc-inner {
+  display: inline-block;
+  animation: method-fade var(--dur-base) var(--ease-editorial);
+}
+
+@keyframes method-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .triptych { grid-template-columns: 1fr; }
+  .triptych img { height: 46vw; }
+  .method__row { grid-template-columns: 1fr; gap: 0.5rem; }
+}

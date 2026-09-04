@@ -1,0 +1,109 @@
+/* ========================================================================
+   04 — WAYS TO WORK TOGETHER
+   ======================================================================== */
+
+.section-work-together {
+  position: relative;
+  background: var(--color-black);
+  padding-block: var(--space-6);
+}
+
+.work-bg {
+  position: absolute;
+  inset: 0;
+}
+.work-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+  opacity: 0.9;
+}
+
+.work-card {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin-inline: auto;
+  background: var(--color-offwhite);
+  border-radius: var(--radius-card);
+  padding: clamp(1.75rem, 3vw, 3.5rem);
+}
+
+.work-card__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.work-card__eyebrow {
+  margin-bottom: var(--space-3);
+  opacity: 0.6;
+}
+
+.work-card__name {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-display-md);
+  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  margin-bottom: var(--space-3);
+}
+
+.work-card__portrait {
+  width: clamp(120px, 16vw, 190px);
+  aspect-ratio: 3 / 4;
+  border-radius: calc(var(--radius-card) * 0.55);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.work-card__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.work-card__divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-3);
+}
+
+.work-card__bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-4);
+}
+
+.work-service__title {
+  font-weight: 700;
+  font-size: var(--fs-body);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-bottom: 0.4em;
+}
+
+.work-service__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  opacity: 0.85;
+}
+
+.work-credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-border);
+  font-size: var(--fs-body);
+}
+
+.work-credentials strong { font-weight: 700; }
+
+@media (max-width: 900px) {
+  .work-card__bottom { grid-template-columns: 1fr; }
+  .work-credentials { border-left: none; padding-left: 0; border-top: 1px solid var(--color-border); padding-top: var(--space-2); }
+}
