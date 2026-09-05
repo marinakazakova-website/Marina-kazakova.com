@@ -74,7 +74,15 @@
   padding-block: var(--space-4) var(--space-6);
 }
 
-.profile-info__text { max-width: 64rem; }
+/* Even, uniform row rhythm via flex gap rather than per-line margins —
+   margins compound unevenly (fixed rem next to em-based values); gap
+   guarantees identical spacing between every line. */
+.profile-info__text {
+  max-width: 64rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
 
 /* Per the client's mockup: all four lines share one font-size — hierarchy
    comes only from weight (bold on name + closing line, regular on the
@@ -90,13 +98,11 @@
 .profile-info__name {
   font-family: var(--font-body);
   font-weight: 700;
-  margin-bottom: 0.35em;
 }
 
 .profile-info__roles {
   font-weight: 400;
   opacity: 0.7;
-  margin-bottom: var(--space-2);
 }
 
 .profile-info__bold {
@@ -105,7 +111,6 @@
 
 .profile-info__body {
   font-weight: 700;
-  margin-top: 0.4em;
 }
 
 .profile-info__cta { flex-shrink: 0; }
