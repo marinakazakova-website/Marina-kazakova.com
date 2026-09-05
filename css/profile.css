@@ -24,6 +24,19 @@
   filter: grayscale(100%) contrast(1.05);
 }
 
+/* Delicate light scrim, visible only during the opening sequence so the
+   centered MARINA KAZAKOVA title reads cleanly over the photo; fades out
+   once the title has docked into the header. */
+.profile-media__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(244, 241, 234, 0.45);
+  opacity: 1;
+  transition: opacity 600ms var(--ease-editorial);
+}
+.profile-media__scrim.is-hidden { opacity: 0; }
+
 /* Headline straddles the seam between the photo and the white profile zone:
    negative margin pulls line 1 back over the image, line 2 lands on white. */
 .profile-reveal {
@@ -33,37 +46,36 @@
 }
 
 .profile-reveal__line {
-  display: flex;
-  flex-wrap: wrap;
   font-size: var(--fs-display-xl);
-  gap: 0 0.22em;
-  overflow: hidden;
+  line-height: var(--lh-tight);
+}
+
+/* Mask reveal: the text itself never moves or fades — clip-path opens
+   left to right, like a shutter, independent of whatever is behind it
+   (photo or white). */
+.profile-reveal__line-inner {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 550ms var(--ease-editorial);
+}
+
+.profile-reveal__line:nth-child(2) .profile-reveal__line-inner {
+  transition-delay: 150ms;
+}
+
+.is-revealed .profile-reveal__line-inner {
+  clip-path: inset(0 0 0 0);
 }
 
 .profile-reveal__word {
-  display: inline-block;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-xl);
-  line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
   color: var(--color-black);
-  transform: translateY(110%);
-  opacity: 0;
-  transition: transform 900ms var(--ease-editorial), opacity 700ms var(--ease-editorial);
 }
 
 .profile-reveal__word.is-accent { color: var(--color-accent); }
-
-.is-revealed .profile-reveal__word {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* stagger */
-.profile-reveal__line:nth-child(1) .profile-reveal__word { transition-delay: 120ms; }
-.profile-reveal__line:nth-child(2) .profile-reveal__word { transition-delay: 260ms; }
 
 .profile-info {
   display: flex;

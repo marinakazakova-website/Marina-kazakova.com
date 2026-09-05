@@ -52,6 +52,41 @@
   margin-right: auto;
 }
 
+/* ---- Opening title: MARINA KAZAKOVA appears large and centered, then
+   flies/shrinks into the header mark's exact position (see
+   js/opening-animation.js). Same font/weight/tracking as .site-nav__mark
+   throughout — only size and position animate, for a seamless morph. */
+body.is-opening { overflow: hidden; }
+
+.opening-title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 1.2rem + 3vw, 3.8rem);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-black);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--s, 1));
+  transition: opacity 350ms ease;
+}
+
+.opening-title.is-visible { opacity: 1; }
+
+.opening-title.is-flying {
+  transition: opacity 350ms ease, transform 600ms var(--ease-editorial);
+}
+
+.opening-title.is-done {
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
 .site-nav__links {
   display: flex;
   align-items: center;

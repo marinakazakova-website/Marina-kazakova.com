@@ -9,7 +9,13 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Loaded non-blocking: a slow/unreachable font request must never stall
+     page scripts (a render-blocking <link rel="stylesheet"> here can delay
+     DOMContentLoaded, and with it the opening animation, by several
+     seconds if the request hangs). -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"></noscript>
 
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
@@ -24,7 +30,7 @@
 <!-- ============ NAVIGATION ============ -->
 <header class="site-nav" id="siteNav">
   <div class="container site-nav__inner">
-    <a href="#profile" class="site-nav__mark">M. Kazakova</a>
+    <a href="#profile" class="site-nav__mark">Marina Kazakova</a>
 
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -47,12 +53,16 @@
   </div>
 </header>
 
+<!-- Opening title: morphs into the header mark above (js/opening-animation.js) -->
+<div class="opening-title" id="openingTitle" aria-hidden="true">Marina Kazakova</div>
+
 <main>
 
   <!-- ============ 01 PROFILE ============ -->
   <section id="profile" class="section-profile">
     <div class="profile-media">
       <img class="profile-media__img" src="assets/images/profile/marina-eyes-hero.jpg" alt="Marina Kazakova">
+      <div class="profile-media__scrim" id="mediaScrim"></div>
     </div>
 
     <div class="container profile-reveal" id="profileReveal">
