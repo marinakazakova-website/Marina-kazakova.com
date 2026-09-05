@@ -9,9 +9,9 @@
 .profile-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 2.45 / 1;
-  min-height: 300px;
-  max-height: 480px;
+  aspect-ratio: 3.15 / 1;
+  min-height: 250px;
+  max-height: 380px;
   overflow: hidden;
   background: var(--color-black);
 }
@@ -25,11 +25,11 @@
 }
 
 /* Headline straddles the seam between the photo and the white profile zone:
-   negative margin pulls it up over the image, its lower half sits on white. */
+   negative margin pulls line 1 back over the image, line 2 lands on white. */
 .profile-reveal {
   position: relative;
   z-index: 2;
-  margin-top: calc(-1 * var(--fs-display-xl) * 0.62);
+  margin-top: calc(-1 * var(--fs-display-xl) * var(--lh-tight));
 }
 
 .profile-reveal__line {
@@ -68,41 +68,41 @@
 .profile-info {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-5) 0 var(--space-6);
+  padding-block: var(--space-4) var(--space-6);
 }
 
-.profile-info__text { max-width: 56rem; }
+.profile-info__text { max-width: 64rem; }
 
 .profile-info__name {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: var(--fs-body-lg);
-  margin-bottom: 0.4em;
+  font-size: var(--fs-body);
+  margin-bottom: 0.35em;
 }
 
 .profile-info__roles {
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-body);
   opacity: 0.75;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .profile-info__bold {
   font-weight: 700;
-  font-size: var(--fs-heading);
+  font-size: var(--fs-body-lg);
   line-height: var(--lh-snug);
 }
 
 .profile-info__body {
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-body);
   opacity: 0.85;
   line-height: var(--lh-relaxed);
-  margin-top: 0.5em;
+  margin-top: 0.4em;
 }
 
-.profile-info__cta { flex-shrink: 0; margin-top: 0.4em; }
+.profile-info__cta { flex-shrink: 0; }
 
 @media (max-width: 760px) {
   .profile-media { aspect-ratio: 4 / 3; max-height: none; }
