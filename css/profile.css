@@ -9,9 +9,9 @@
 .profile-media {
   position: relative;
   width: 100%;
-  height: 78vh;
-  min-height: 480px;
-  max-height: 920px;
+  aspect-ratio: 2.45 / 1;
+  min-height: 300px;
+  max-height: 480px;
   overflow: hidden;
   background: var(--color-black);
 }
@@ -20,17 +20,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center center;
   filter: grayscale(100%) contrast(1.05);
 }
 
+/* Headline straddles the seam between the photo and the white profile zone:
+   negative margin pulls it up over the image, its lower half sits on white. */
 .profile-reveal {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: clamp(1rem, 4vh, 3.5rem);
-  padding-inline: var(--container-pad);
-  pointer-events: none;
+  position: relative;
+  z-index: 2;
+  margin-top: calc(-1 * var(--fs-display-xl) * 0.62);
 }
 
 .profile-reveal__line {
@@ -49,8 +48,7 @@
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
-  color: var(--color-white);
-  text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  color: var(--color-black);
   transform: translateY(110%);
   opacity: 0;
   transition: transform 900ms var(--ease-editorial), opacity 700ms var(--ease-editorial);
@@ -70,43 +68,44 @@
 .profile-info {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-4) 0 var(--space-5);
+  gap: var(--space-4);
+  padding: var(--space-5) 0 var(--space-6);
 }
 
-.profile-info__text { max-width: 46rem; }
+.profile-info__text { max-width: 56rem; }
 
 .profile-info__name {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: var(--fs-body-lg);
-  margin-bottom: 0.35em;
+  margin-bottom: 0.4em;
 }
 
 .profile-info__roles {
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-lg);
   opacity: 0.75;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .profile-info__bold {
   font-weight: 700;
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-heading);
   line-height: var(--lh-snug);
 }
 
 .profile-info__body {
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-lg);
   opacity: 0.85;
   line-height: var(--lh-relaxed);
-  margin-top: 0.4em;
+  margin-top: 0.5em;
 }
 
-.profile-info__cta { flex-shrink: 0; }
+.profile-info__cta { flex-shrink: 0; margin-top: 0.4em; }
 
 @media (max-width: 760px) {
-  .profile-media { height: 62vh; min-height: 420px; }
+  .profile-media { aspect-ratio: 4 / 3; max-height: none; }
+  .profile-reveal { margin-top: calc(-1 * var(--fs-display-xl) * 0.4); }
   .profile-info { flex-direction: column; align-items: flex-start; }
 }

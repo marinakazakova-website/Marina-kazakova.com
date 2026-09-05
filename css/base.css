@@ -75,11 +75,12 @@ ul {
   white-space: nowrap;
 }
 
+/* Shared label system: EXPERIENCE / BRAND ECOSYSTEM DESIGN™ / WAYS TO WORK TOGETHER */
 .eyebrow {
   font-family: var(--font-body);
-  font-size: var(--fs-small);
+  font-size: var(--fs-label);
   font-weight: 700;
-  letter-spacing: var(--ls-wider);
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
 }
 
@@ -88,13 +89,13 @@ ul {
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  padding: 0.95em 2em;
+  padding: 0.9em 2.1em;
   font-family: var(--font-body);
   font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-btn);
   transition: background var(--dur-base) var(--ease-editorial), color var(--dur-base) var(--ease-editorial), transform var(--dur-fast) var(--ease-editorial);
   white-space: nowrap;
 }

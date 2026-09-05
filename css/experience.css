@@ -8,9 +8,10 @@
 
 /* ---- Intro (purple) ---- */
 .experience-intro {
+  position: relative;
   background: var(--color-accent);
   color: var(--color-black);
-  padding-block: var(--space-6) var(--space-6);
+  padding: var(--space-6) 0 var(--space-7);
 }
 
 .experience-intro__grid {
@@ -25,7 +26,7 @@
 }
 
 .experience-intro__lead {
-  font-size: var(--fs-display-md);
+  font-size: var(--fs-heading);
   font-weight: 400;
   line-height: var(--lh-snug);
   margin-bottom: 0.2em;
@@ -34,15 +35,16 @@
 .experience-intro__formula {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.6rem);
+  font-size: clamp(1.8rem, 1.2rem + 2.6vw, 3.1rem);
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-tight);
 }
 
 .experience-intro__quote {
-  margin-top: var(--space-4);
-  max-width: 34rem;
-  font-size: var(--fs-body);
+  margin-top: var(--space-5);
+  margin-left: auto;
+  max-width: 30rem;
+  font-size: var(--fs-body-lg);
   line-height: var(--lh-relaxed);
 }
 
@@ -54,7 +56,9 @@
 }
 
 .experience-intro__cta {
-  margin-top: var(--space-4);
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
 }
 
 .experience-intro__portrait {
@@ -73,14 +77,16 @@
 }
 
 .experience-intro__mark {
-  margin-top: var(--space-5);
-  width: 44px;
+  position: absolute;
+  left: var(--container-pad);
+  bottom: var(--space-3);
+  width: clamp(44px, 3.4vw, 58px);
   opacity: 0.9;
 }
 
 /* ---- Typographic nav (RETAIL / BUSINESS / BRANDS / FILMS) ---- */
 .experience-typo-nav {
-  padding-block: var(--space-6) var(--space-5);
+  padding-block: var(--space-5) var(--space-4);
 }
 
 .experience-typo-nav__item {
@@ -89,13 +95,12 @@
   text-align: left;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-lg);
-  line-height: 0.98;
+  font-size: var(--fs-display-huge);
+  line-height: 0.9;
   letter-spacing: var(--ls-tight);
   text-transform: capitalize;
   color: var(--color-pale-grey);
   transition: color var(--dur-base) var(--ease-editorial);
-  padding-block: 0.02em;
 }
 
 .experience-typo-nav__item:hover,

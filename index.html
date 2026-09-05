@@ -52,11 +52,12 @@
   <!-- ============ 01 PROFILE ============ -->
   <section id="profile" class="section-profile">
     <div class="profile-media">
-      <img class="profile-media__img" src="assets/images/profile/marina-eyes.jpg" alt="Marina Kazakova">
-      <div class="profile-reveal" id="profileReveal">
-        <div class="profile-reveal__line" id="revealLine1"></div>
-        <div class="profile-reveal__line" id="revealLine2"></div>
-      </div>
+      <img class="profile-media__img" src="assets/images/profile/marina-eyes-hero.jpg" alt="Marina Kazakova">
+    </div>
+
+    <div class="container profile-reveal" id="profileReveal">
+      <div class="profile-reveal__line" id="revealLine1"></div>
+      <div class="profile-reveal__line" id="revealLine2"></div>
     </div>
 
     <div class="container profile-info">
@@ -83,14 +84,15 @@
             <span data-i18n="experienceIntro.quote"></span>
             <span class="experience-intro__quote-author" data-i18n="experienceIntro.quoteAuthor"></span>
           </blockquote>
-          <a class="btn btn--dark experience-intro__cta" data-i18n="experienceIntro.cta" href="https://t.me/marinakazakova_ru" target="_blank" rel="noopener"></a>
-          <img class="experience-intro__mark" src="assets/icons/bed-mark-small.png" alt="Brand Ecosystem Design mark">
         </div>
 
         <div class="experience-intro__portrait">
           <img src="assets/images/profile/marina-portrait-experience.jpeg" alt="Marina Kazakova — strategic thinking, brand building, creative direction, experience growth">
+          <a class="btn btn--dark experience-intro__cta" data-i18n="experienceIntro.cta" href="https://t.me/marinakazakova_ru" target="_blank" rel="noopener"></a>
         </div>
       </div>
+
+      <img class="experience-intro__mark" src="assets/icons/bed-mark-small.png" alt="Brand Ecosystem Design mark">
     </div>
 
     <div class="container experience-typo-nav" id="experienceTypoNav" role="tablist" aria-label="Experience directions"></div>
@@ -110,7 +112,7 @@
     <div class="triptych" id="triptych"></div>
 
     <div class="container brand-ecosystem__intro">
-      <h2 class="brand-ecosystem__title">BRAND ECOSYSTEM DESIGN&trade;</h2>
+      <h2 class="eyebrow brand-ecosystem__title">BRAND ECOSYSTEM DESIGN&trade;</h2>
       <p class="brand-ecosystem__text" data-i18n="brandEcosystem.intro"></p>
     </div>
 
@@ -130,13 +132,14 @@
         <p class="eyebrow work-card__eyebrow">Ways to Work Together</p>
 
         <div class="work-card__top">
-          <h2 class="work-card__name">Marina Kazakova</h2>
+          <div>
+            <h2 class="work-card__name"><span>Marina</span><span>Kazakova</span></h2>
+            <a class="btn btn--dark" data-i18n="workTogether.cta" href="https://t.me/marinakazakova_ru" target="_blank" rel="noopener"></a>
+          </div>
           <div class="work-card__portrait">
             <img src="assets/images/profile/marina-portrait-bw.png" alt="Marina Kazakova">
           </div>
         </div>
-
-        <a class="btn btn--dark" data-i18n="workTogether.cta" href="https://t.me/marinakazakova_ru" target="_blank" rel="noopener"></a>
 
         <hr class="work-card__divider">
 
@@ -146,6 +149,14 @@
   </section>
 
 </main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <nav class="site-footer__links" id="footerLinks" aria-label="Contact"></nav>
+    <p class="site-footer__copy" data-i18n="footer.copy"></p>
+  </div>
+</footer>
 
 <script src="data/content.js"></script>
 <script src="js/i18n.js"></script>

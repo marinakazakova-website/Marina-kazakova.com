@@ -24,13 +24,15 @@
   --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Fluid type scale — clamp(min, preferred, max) */
-  --fs-display-xl: clamp(2.75rem, 2rem + 6vw, 7.5rem);   /* hero I SEE / oversized direction words */
-  --fs-display-lg: clamp(2.25rem, 1.5rem + 4.5vw, 5.5rem); /* RETAIL/BUSINESS/BRANDS/FILMS nav */
-  --fs-display-md: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);   /* panel titles, MARINA KAZAKOVA */
-  --fs-heading: clamp(1.4rem, 1rem + 1.2vw, 1.9rem);       /* Brand Ecosystem Design title */
-  --fs-body-lg: clamp(1.05rem, 0.95rem + 0.4vw, 1.35rem);  /* quote, tagline */
+  --fs-display-huge: clamp(4rem, 1rem + 19.5vw, 18.5rem);  /* RETAIL/BUSINESS/BRANDS/FILMS poster nav */
+  --fs-display-xl: clamp(2.75rem, 2rem + 6vw, 7.5rem);     /* hero I SEE / oversized direction words */
+  --fs-display-lg: clamp(2.5rem, 1.6rem + 5vw, 6.5rem);    /* MARINA KAZAKOVA, panel titles */
+  --fs-display-md: clamp(1.9rem, 1.3rem + 2.4vw, 3.2rem);  /* method titles */
+  --fs-heading: clamp(1.7rem, 1.2rem + 1.6vw, 2.4rem);     /* Brand Ecosystem Design statement */
+  --fs-body-lg: clamp(1.1rem, 1rem + 0.5vw, 1.45rem);      /* quote, tagline, method description, work grid */
   --fs-body: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);      /* paragraphs */
-  --fs-small: clamp(0.78rem, 0.75rem + 0.1vw, 0.875rem);   /* eyebrows, nav, labels */
+  --fs-small: clamp(0.78rem, 0.75rem + 0.1vw, 0.875rem);   /* nav links */
+  --fs-label: clamp(0.7rem, 0.68rem + 0.1vw, 0.8rem);      /* EXPERIENCE / BRAND ECOSYSTEM DESIGN / WAYS TO WORK TOGETHER */
   --fs-micro: 0.7rem;                                       /* year stamps etc */
 
   --lh-tight: 1.02;
@@ -42,6 +44,7 @@
   --ls-normal: 0;
   --ls-wide: 0.08em;
   --ls-wider: 0.14em;
+  --ls-label: 0.06em;
 
   /* Spacing */
   --space-1: 0.5rem;
@@ -56,7 +59,7 @@
   --container-pad: clamp(1.25rem, 1rem + 2vw, 4rem);
 
   --radius-card: clamp(18px, 1.4vw, 28px);
-  --radius-pill: 999px;
+  --radius-btn: 4px;
 
   --nav-height: 76px;
 

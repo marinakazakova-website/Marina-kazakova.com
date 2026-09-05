@@ -221,7 +221,6 @@ window.SITE_CONTENT = {
 
   workTogether: {
     eyebrow: "WAYS TO WORK TOGETHER",
-    name: "MARINA KAZAKOVA",
     cta: "LET'S TALK",
     services: [
       {
@@ -241,6 +240,20 @@ window.SITE_CONTENT = {
       { bold: "10 years", rest: "as Founder & CEO" },
       { bold: "International", rest: "brand experience" },
       { bold: "Working", rest: "internationally" }
+    ]
+  },
+
+  /**
+   * Only Telegram has a confirmed URL from the client. Email / Instagram /
+   * LinkedIn were requested in the footer spec but no real handles were
+   * provided — add them here (same {label, href} shape) once available;
+   * js/main.js renders whatever this array contains.
+   */
+  footer: {
+    en: { copy: "© Marina Kazakova · Bangkok · Working internationally" },
+    ru: { copy: "© Марина Казакова · Бангкок · Работает на международном рынке" },
+    links: [
+      { label: "Telegram", href: "https://t.me/marinakazakova_ru" }
     ]
   }
 };
