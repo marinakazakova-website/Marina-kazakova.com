@@ -6,12 +6,12 @@
   position: relative;
 }
 
+/* Aspect ratio matches the client-supplied crop (800x500) exactly, so
+   object-fit: cover never trims it further — this is the crop as given. */
 .profile-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 3.15 / 1;
-  min-height: 250px;
-  max-height: 380px;
+  aspect-ratio: 1.6 / 1;
   overflow: hidden;
   background: var(--color-black);
 }
@@ -96,7 +96,7 @@
 }
 
 .profile-info__body {
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-lg);
   opacity: 0.85;
   line-height: var(--lh-relaxed);
   margin-top: 0.4em;
