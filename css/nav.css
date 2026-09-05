@@ -52,25 +52,6 @@
   margin-right: auto;
 }
 
-/* Nav sits directly over the hero photo before scrolling — no background
-   plate is used (per spec), so a soft white glow keeps text legible over
-   dark hair without looking like a bar. Fades out once .is-scrolled adds
-   a real background, since it's redundant there. */
-.site-nav__mark,
-.site-nav__link,
-.lang-switch__btn,
-.lang-switch__sep {
-  text-shadow: 0 0 5px #fff, 0 0 10px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.6);
-  transition: text-shadow var(--dur-base) var(--ease-editorial), opacity var(--dur-fast) var(--ease-editorial);
-}
-
-.site-nav.is-scrolled .site-nav__mark,
-.site-nav.is-scrolled .site-nav__link,
-.site-nav.is-scrolled .lang-switch__btn,
-.site-nav.is-scrolled .lang-switch__sep {
-  text-shadow: none;
-}
-
 .site-nav__links {
   display: flex;
   align-items: center;

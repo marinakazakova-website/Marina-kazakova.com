@@ -6,12 +6,12 @@
   position: relative;
 }
 
-/* Aspect ratio matches the client-supplied crop (800x500) exactly, so
+/* Aspect ratio matches the client-supplied crop (1662x665) exactly, so
    object-fit: cover never trims it further — this is the crop as given. */
 .profile-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.6 / 1;
+  aspect-ratio: 2.5 / 1;
   overflow: hidden;
   background: var(--color-black);
 }
@@ -76,29 +76,35 @@
 
 .profile-info__text { max-width: 64rem; }
 
-.profile-info__name {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: var(--fs-body);
-  margin-bottom: 0.35em;
-}
-
-.profile-info__roles {
-  font-size: var(--fs-body);
-  opacity: 0.75;
-  margin-bottom: var(--space-2);
-}
-
-.profile-info__bold {
-  font-weight: 700;
+/* Per the client's mockup: all four lines share one font-size — hierarchy
+   comes only from weight (bold on name + closing line, regular on the
+   other two), not from size or emphasis-through-scale. */
+.profile-info__name,
+.profile-info__roles,
+.profile-info__bold,
+.profile-info__body {
   font-size: var(--fs-body-lg);
   line-height: var(--lh-snug);
 }
 
+.profile-info__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  margin-bottom: 0.35em;
+}
+
+.profile-info__roles {
+  font-weight: 400;
+  opacity: 0.7;
+  margin-bottom: var(--space-2);
+}
+
+.profile-info__bold {
+  font-weight: 400;
+}
+
 .profile-info__body {
-  font-size: var(--fs-body-lg);
-  opacity: 0.85;
-  line-height: var(--lh-relaxed);
+  font-weight: 700;
   margin-top: 0.4em;
 }
 
