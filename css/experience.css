@@ -16,8 +16,8 @@
 
 .experience-intro__grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: var(--space-5);
+  grid-template-columns: 1fr 0.85fr;
+  gap: var(--space-3);
   align-items: start;
 }
 
