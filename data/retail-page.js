@@ -32,12 +32,17 @@ window.DIRECTION_PAGE_DATA = {
   // Client logos — compact vertical strip under the functional links.
   // Only brands whose logo file has actually been uploaded are listed;
   // no logo is redrawn or substituted. Still missing a file: INGKA,
-  // Rive Gauche, One Move, East Step, ORTEKA, Yandex Market, Catcher.
+  // Rive Gauche, One Move, East Step, ORTEKA, Catcher.
+  //
+  // Sizing: every logo is capped to IKEA's own footprint (see .client-strip
+  // in direction-page.css: max-height 20px / max-width 112px) so nothing
+  // outweighs the reference mark. Optional `maxH` overrides that cap for a
+  // logo whose typeface still reads heavier than IKEA at the same geometry.
   clientLogos: [
     { src: "assets/logos/clients/client-ikea.png", alt: "IKEA" },
     { src: "assets/logos/clients/client-mega.png", alt: "MEGA" },
     { src: "assets/logos/clients/client-underline.png", alt: "Underline" },
-    { src: "assets/logos/clients/client-fujifilm.png", alt: "Fujifilm" },
+    { src: "assets/logos/clients/client-fujifilm.png", alt: "Fujifilm", maxH: 17 },
     { src: "assets/logos/clients/client-tele2.png", alt: "Tele2" },
     { src: "assets/logos/clients/client-askona.png", alt: "Askona" },
     { src: "assets/logos/clients/client-letoile.png", alt: "L'Etoile" },

@@ -88,6 +88,7 @@
       img.src = "../" + logo.src;
       img.alt = logo.alt || "";
       img.loading = "lazy";
+      if (logo.maxH) img.style.maxHeight = logo.maxH + "px";
       item.appendChild(img);
       wrap.appendChild(item);
     });

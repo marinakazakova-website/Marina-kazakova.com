@@ -70,8 +70,13 @@
 
 .client-strip__item img {
   display: block;
-  height: 20px;
+  height: auto;
   width: auto;
+  max-height: 20px;
+  /* IKEA's own rendered width at max-height — every other mark is capped to
+     this footprint so an unusually wide wordmark (G-STAR RAW, EURODECOR,
+     L'Etoile, No One, Underline) can't visually outweigh the reference. */
+  max-width: 112px;
   transition: transform var(--dur-fast) var(--ease-editorial);
   transform-origin: left center;
 }
