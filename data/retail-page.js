@@ -34,7 +34,7 @@ window.DIRECTION_PAGE_DATA = {
     {
       emphasis: "right",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: null },
+        { src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: null, ar: "3/4", op: "center" },
         { src: "assets/images/experience/retail/new/retail-new-02-gstar-raw.jpeg", caption: null, ar: "3/4", op: "right" }
       ],
       right: [
@@ -79,11 +79,11 @@ window.DIRECTION_PAGE_DATA = {
     {
       emphasis: "right",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: null },
+        { src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: null, ar: "3/4", op: "center" },
         { src: "assets/images/experience/retail/new/retail-new-12-underline.jpeg", caption: null, ar: "3/4", op: "center" }
       ],
       right: [
-        { src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: null, ar: "3/4", op: "25% center" }
+        { src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: null, ar: "3/4", op: "35% center" }
       ]
     }
   ]
