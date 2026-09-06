@@ -131,13 +131,13 @@
 }
 
 /* ========================================================================
-   PORTFOLIO — one central vertical axis, left/right zones, modeled
-   directly on retail-design.ru (references/*.png): each row splits into
-   a LEFT and a RIGHT zone around a shared gutter (the "axis"); a zone
-   holds either one large project or two smaller ones side by side. The
-   alternation between "2 small + 1 large" / "1 + 1" / "1 large + 2
-   small" from row to row is what creates the rhythm — not an automatic
-   masonry fill.
+   PORTFOLIO — shared LEFT | RIGHT row primitive, two different characters:
+   - Retail (editorial/asymmetric): rows carry `emphasis` + duo/solo zones,
+     modeled on retail-design.ru (references/*.png) — a deliberately uneven
+     "2 small + 1 large" / "1 + 1" / "1 large + 2 small" rhythm.
+   - Business (structured/geometric): rows are just two solo zones with no
+     emphasis, which already renders as a strict even 1fr/1fr grid — every
+     photo the same visual size, rows aligned across the page.
    ======================================================================== */
 .pf-composition {
   display: flex;
@@ -202,6 +202,30 @@
   font-weight: 400;
   line-height: var(--lh-snug);
   color: var(--color-black);
+}
+
+/* ---- Case-intro row (Business: M&W / Woodi Bureau openers) — one side
+   is a plain photo, the other adds a small logo + name/years caption
+   above/below it. Same .pf-row / .pf-project__figure primitives as the
+   regular grid, just with this extra meta block on one cell. ---- */
+.pf-intro-case {
+  display: flex;
+  flex-direction: column;
+}
+.pf-intro-case__meta {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+.pf-intro-case__logo {
+  display: block;
+  height: 36px;
+  width: auto;
+}
+.pf-intro-case__meta .pf-caption {
+  margin-top: 0;
 }
 
 /* video slot — same "clean until a source exists" approach as Films on the homepage */

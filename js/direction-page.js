@@ -70,6 +70,7 @@
     if (direction.links.website) linkRow("website", direction.links.website);
     linkRow("portfolio", direction.links.portfolio, "Check our projects");
     linkRow("collaboration", direction.links.collaboration, "Let's talk");
+    if (direction.links.trainings) linkRow("trainings", direction.links.trainings);
 
     renderClientLogos();
   }
@@ -150,6 +151,57 @@
     return wrap;
   }
 
+  function renderIntroCell(cell) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-intro-case";
+
+    var fig = document.createElement("div");
+    fig.className = "pf-project__figure";
+    if (cell.photo.ar) fig.style.setProperty("--ar", cell.photo.ar.replace("/", " / "));
+    var img = document.createElement("img");
+    img.src = "../" + cell.photo.src;
+    img.alt = "";
+    img.loading = "lazy";
+    fig.appendChild(img);
+    wrap.appendChild(fig);
+
+    if (cell.logo || cell.caption) {
+      var meta = document.createElement("div");
+      meta.className = "pf-intro-case__meta";
+
+      if (cell.logo) {
+        var logoImg = document.createElement("img");
+        logoImg.className = "pf-intro-case__logo";
+        logoImg.src = "../" + cell.logo.src;
+        logoImg.alt = cell.logo.alt || "";
+        meta.appendChild(logoImg);
+      }
+      if (cell.caption) {
+        var cap = document.createElement("div");
+        cap.className = "pf-caption";
+        var brand = document.createElement("p");
+        brand.className = "pf-caption__brand";
+        brand.textContent = cell.caption.brand;
+        var desc = document.createElement("p");
+        desc.className = "pf-caption__desc";
+        desc.textContent = cell.caption.desc;
+        cap.appendChild(brand);
+        cap.appendChild(desc);
+        meta.appendChild(cap);
+      }
+      wrap.appendChild(meta);
+    }
+    return wrap;
+  }
+
+  function renderIntroBlock(row) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-row";
+    wrap.appendChild(renderIntroCell(row.left));
+    wrap.appendChild(renderIntroCell(row.right));
+    return wrap;
+  }
+
   function renderZone(items) {
     var zone = document.createElement("div");
     zone.className = "pf-zone" + (items.length > 1 ? " pf-zone--duo" : " pf-zone--solo");
@@ -171,7 +223,11 @@
     var wrap = document.getElementById("portfolioFlow");
     wrap.innerHTML = "";
     window.DIRECTION_PAGE_DATA.rows.forEach(function (row) {
-      wrap.appendChild(row.type === "cta" ? renderCta() : renderRow(row));
+      var el;
+      if (row.type === "cta") el = renderCta();
+      else if (row.type === "intro-block") el = renderIntroBlock(row);
+      else el = renderRow(row);
+      wrap.appendChild(el);
     });
   }
 

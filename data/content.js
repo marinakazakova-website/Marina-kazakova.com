@@ -99,9 +99,10 @@ window.SITE_CONTENT = {
       media: { type: "slider", cover: "assets/images/experience/business/cover.jpeg",
         images: Array.from({length: 17}, (_, i) => `assets/images/experience/business/business-${String(i+1).padStart(2,"0")}.jpeg`) },
       links: {
-        website: { label: "retail-design.ru", href: "https://retail-design.ru/" },
-        portfolio: { label: "Portfolio", href: "assets/downloads/retail-design-presentation.pdf" },
-        collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" }
+        website: { label: "retail-design.ru", href: null },
+        portfolio: { label: "Portfolio", href: null },
+        collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" },
+        trainings: { label: "Trainings", href: "https://retail-design.ru/corporate_edu" }
       },
       clients: [],
       en: {
