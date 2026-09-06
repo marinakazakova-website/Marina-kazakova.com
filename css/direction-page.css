@@ -99,35 +99,39 @@
 }
 
 /* ========================================================================
-   PORTFOLIO FLOW — parametric, editorial rhythm (not a grid system).
-   Every image's width / alignment / aspect ratio / crop is set per
-   instance (inline custom properties from data/*-page.js), so no two
-   moments in the flow need to repeat the same combination.
+   PORTFOLIO — CSS masonry, modeled on retail-design.ru's own project grid:
+   independent column flow, each project keeps its natural photo
+   proportions (no forced aspect-ratio/crop), so heights vary organically
+   and nothing lines up into rows. Repeat-brand projects are still separate
+   cards, matching how her own site treats them.
    ======================================================================== */
-.portfolio-flow {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(3.5rem, 3rem + 3vw, 7rem);
+.pf-masonry {
+  column-count: 3;
+  column-gap: var(--space-4);
   padding-bottom: var(--space-7);
 }
+@media (max-width: 1100px) { .pf-masonry { column-count: 2; } }
+@media (max-width: 640px) { .pf-masonry { column-count: 1; } }
 
-.pf-figure {
-  position: relative;
+.pf-project {
+  break-inside: avoid;
+  margin-bottom: var(--space-4);
+}
+
+.pf-project__figure {
+  display: block;
   overflow: hidden;
-  aspect-ratio: var(--ar, 3 / 2);
   background: var(--color-pale-grey-soft);
 }
-.pf-figure img {
+.pf-project__figure img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--op, center);
+  height: auto;
   display: block;
   transition: transform 550ms var(--ease-editorial);
 }
 /* Premium, clean hover: image scales slightly inside its fixed-size
    container — nothing else moves, no dimming. */
-.pf-figure:hover img {
+.pf-project__figure:hover img {
   transform: scale(1.045);
 }
 
@@ -138,34 +142,13 @@
   opacity: 0.55;
 }
 
-/* ---- Single image, own width + alignment ---- */
-.pf-single {
-  width: var(--w, 100%);
-}
-.pf-single.align-left { margin-right: auto; }
-.pf-single.align-right { margin-left: auto; }
-.pf-single.align-center { margin-inline: auto; }
-
-/* ---- Multiple images in one row, uneven weights/heights allowed ---- */
-.pf-multi {
-  display: flex;
-  gap: var(--space-3);
-  align-items: var(--valign, flex-start);
-}
-.pf-multi .pf-item {
-  flex: var(--flex, 1) 1 0;
-  min-width: 0;
-}
-.pf-multi .pf-item.offset {
-  margin-top: var(--offset-y, 0px);
-}
-
 /* video slot — same "clean until a source exists" approach as Films on the homepage */
 .pf-video .pf-figure { aspect-ratio: 16 / 9; background: rgba(11, 11, 12, 0.045); }
 .pf-video video, .pf-video iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-/* ---- Mid-page editorial CTA ---- */
-.pf-cta {
+/* ---- Mid-page editorial CTA — breaks across all masonry columns ---- */
+.pf-masonry .pf-cta {
+  column-span: all;
   max-width: 34rem;
   margin-inline: auto;
   text-align: center;
@@ -200,7 +183,4 @@
 @media (max-width: 900px) {
   .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
   .direction-intro__links { position: static; }
-  .pf-single { width: 100% !important; margin-inline: 0 !important; }
-  .pf-multi { flex-direction: column; }
-  .pf-multi .pf-item.offset { margin-top: 0; }
 }

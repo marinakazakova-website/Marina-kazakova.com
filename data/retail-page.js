@@ -1,33 +1,21 @@
 /**
- * RETAIL direction page — portfolio flow layout.
+ * RETAIL direction page — portfolio section.
  *
- * This is the master template: the block *types* and CSS (direction-page.css)
- * are meant to be reused for Business/Brands/Films once their material is
- * ready — only this data array (images + captions) changes per direction.
+ * Layout: CSS multi-column masonry (see .pf-masonry in direction-page.css),
+ * modeled on the client's own retail-design.ru — independent column flow,
+ * each image kept at its natural aspect ratio (no forced crop), varied
+ * heights create the rhythm rather than a fixed grid. Referencing her own
+ * site's actual behaviour, repeat-brand photos (Ecco, Catcher, Underline
+ * each appear twice) are kept as separate, independent project cards
+ * rather than merged into one composition — that's what retail-design.ru
+ * itself does.
  *
  * Title / tagline / body / clients / links are NOT duplicated here — they
- * already live in data/content.js -> experienceDirections (id: "retail"),
- * approved text, bilingual. js/direction-page.js reads them from there.
+ * already live in data/content.js -> experienceDirections (id: "retail").
  *
- * Captions: intentionally left `null`. Per the client's instruction, project
- * names/captions are not to be invented — this only sets up the structure
- * (each block/item can carry a `caption` string once supplied). Nothing
- * renders a <figcaption> while caption is null.
- *
- * Layout model — deliberately NOT a grid. Two block shapes:
- *   { type: "single", src, w, align, ar, op, caption }
- *     w      - CSS width, e.g. "100%", "68%", "30%"
- *     align  - "left" | "right" | "center" (how it sits in the free space)
- *     ar     - aspect-ratio, e.g. "21/9", "3/4", "1/1"
- *     op     - object-position (crop anchor), e.g. "center", "top", "30% 50%"
- *   { type: "multi", valign, items: [{ src, flex, ar, op, offsetY, caption }] }
- *     valign   - "flex-start" | "flex-end" | "center" (row alignment)
- *     flex     - relative width weight within the row
- *     offsetY  - optional vertical stagger, e.g. "3rem"
- * Every image gets its own aspect ratio / crop anchor rather than a shared
- * default, specifically so the same 15 landscape source photos read as a
- * mix of horizontal, square and portrait moments (per instruction: crop via
- * layout only, object-fit/object-position, source files untouched).
+ * Captions: intentionally null. Filenames told us which project is which
+ * (for sequencing only) — per instruction, no project names/descriptions
+ * are invented. Each project is ready to take a `caption` once supplied.
  */
 window.DIRECTION_PAGE_DATA = {
   directionId: "retail",
@@ -39,64 +27,21 @@ window.DIRECTION_PAGE_DATA = {
   },
 
   blocks: [
-    // Opening statement — the cover art card, nearly full width, wide letterbox.
-    { type: "single", src: "assets/images/experience/retail/cover.jpeg",
-      w: "100%", align: "center", ar: "21/9", op: "center", caption: null },
-
-    // Small vertical moment, pulled left, lots of air to its right.
-    { type: "single", src: "assets/images/experience/retail/retail-01.jpeg",
-      w: "30%", align: "left", ar: "3/4", op: "center 30%", caption: null },
-
-    // Two unequal photos on one baseline — large landscape + small square.
-    { type: "multi", valign: "flex-end", items: [
-      { src: "assets/images/experience/retail/retail-02.jpeg", flex: 1.7, ar: "3/2", op: "center", caption: null },
-      { src: "assets/images/experience/retail/retail-03.jpeg", flex: 1, ar: "1/1", op: "center", caption: null }
-    ]},
-
-    // Wide but not full — anchored right, generous space on the left.
-    { type: "single", src: "assets/images/experience/retail/retail-04.jpeg",
-      w: "68%", align: "right", ar: "3/2", op: "center", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-02-gstar-raw.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-03-sleep8.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-04-rive-gauche.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-05-underline.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-06-ecco.jpeg", caption: null },
 
     { type: "cta" },
 
-    // Single centered portrait, moderate scale.
-    { type: "single", src: "assets/images/experience/retail/retail-05.jpeg",
-      w: "36%", align: "center", ar: "3/4", op: "center", caption: null },
-
-    // Two photos, staggered vertically rather than aligned.
-    { type: "multi", valign: "flex-start", items: [
-      { src: "assets/images/experience/retail/retail-06.jpeg", flex: 1, ar: "4/3", op: "center", caption: null },
-      { src: "assets/images/experience/retail/retail-07.jpeg", flex: 1, ar: "1/1", op: "center", offsetY: "3.5rem", caption: null }
-    ]},
-
-    // Full-width breather.
-    { type: "single", src: "assets/images/experience/retail/retail-08.jpeg",
-      w: "100%", align: "center", ar: "16/9", op: "center", caption: null },
-
-    // Small square, pulled right this time.
-    { type: "single", src: "assets/images/experience/retail/retail-09.jpeg",
-      w: "27%", align: "right", ar: "1/1", op: "center", caption: null },
-
-    // Reversed uneven pair — small square first, large landscape after.
-    { type: "multi", valign: "flex-start", items: [
-      { src: "assets/images/experience/retail/retail-10.jpeg", flex: 1, ar: "3/4", op: "center", caption: null },
-      { src: "assets/images/experience/retail/retail-11.jpeg", flex: 1.7, ar: "3/2", op: "center", offsetY: "2rem", caption: null }
-    ]},
-
-    // Wide, anchored left.
-    { type: "single", src: "assets/images/experience/retail/retail-12.jpeg",
-      w: "65%", align: "left", ar: "3/2", op: "center", caption: null },
-
-    // Portrait, anchored right.
-    { type: "single", src: "assets/images/experience/retail/retail-13.jpeg",
-      w: "32%", align: "right", ar: "3/4", op: "center 35%", caption: null },
-
-    // Small, offset left, big surrounding space.
-    { type: "single", src: "assets/images/experience/retail/retail-14.jpeg",
-      w: "30%", align: "left", ar: "1/1", op: "center", caption: null },
-
-    // Closing full-width image.
-    { type: "single", src: "assets/images/experience/retail/retail-15.jpeg",
-      w: "100%", align: "center", ar: "16/9", op: "center", caption: null }
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-07-catcher.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-08-ascona.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-09-moppi.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-10-albione.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-12-underline.jpeg", caption: null },
+    { type: "project", src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: null }
   ]
 };

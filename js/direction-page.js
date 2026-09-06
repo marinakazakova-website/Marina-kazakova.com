@@ -72,33 +72,10 @@
     linkRow("collaboration", direction.links.collaboration, "Let's talk");
   }
 
-  function figure(item) {
-    var fig = document.createElement("div");
-    fig.className = "pf-figure";
-    if (item.ar) fig.style.setProperty("--ar", item.ar.replace("/", " / "));
-    if (item.op) fig.style.setProperty("--op", item.op);
-
-    var img = document.createElement("img");
-    img.src = "../" + item.src;
-    img.alt = "";
-    img.loading = "lazy";
-    fig.appendChild(img);
-
-    var wrap = document.createElement("div");
-    wrap.appendChild(fig);
-    if (item.caption) {
-      var cap = document.createElement("p");
-      cap.className = "pf-caption";
-      cap.textContent = item.caption;
-      wrap.appendChild(cap);
-    }
-    return wrap;
-  }
-
   function renderCta() {
     var data = window.DIRECTION_PAGE_DATA.ctaText;
     var wrap = document.createElement("div");
-    wrap.className = "pf-block pf-cta";
+    wrap.className = "pf-cta";
 
     var lead = document.createElement("p");
     lead.className = "pf-cta__lead";
@@ -119,34 +96,31 @@
     return wrap;
   }
 
-  function renderSingle(block) {
+  function renderProject(block) {
     var wrap = document.createElement("div");
-    wrap.className = "pf-block pf-single align-" + (block.align || "center");
-    wrap.style.setProperty("--w", block.w || "100%");
-    wrap.appendChild(figure(block));
-    return wrap;
-  }
+    wrap.className = "pf-project";
 
-  function renderMulti(block) {
-    var wrap = document.createElement("div");
-    wrap.className = "pf-block pf-multi";
-    wrap.style.setProperty("--valign", block.valign || "flex-start");
+    var fig = document.createElement("div");
+    fig.className = "pf-project__figure";
+    var img = document.createElement("img");
+    img.src = "../" + block.src;
+    img.alt = "";
+    img.loading = "lazy";
+    fig.appendChild(img);
+    wrap.appendChild(fig);
 
-    block.items.forEach(function (item) {
-      var col = document.createElement("div");
-      col.className = "pf-item" + (item.offsetY ? " offset" : "");
-      col.style.setProperty("--flex", item.flex || 1);
-      if (item.offsetY) col.style.setProperty("--offset-y", item.offsetY);
-      col.appendChild(figure(item));
-      wrap.appendChild(col);
-    });
+    if (block.caption) {
+      var cap = document.createElement("p");
+      cap.className = "pf-caption";
+      cap.textContent = block.caption;
+      wrap.appendChild(cap);
+    }
     return wrap;
   }
 
   function renderBlock(block) {
     if (block.type === "cta") return renderCta();
-    if (block.type === "multi") return renderMulti(block);
-    return renderSingle(block);
+    return renderProject(block);
   }
 
   function renderFlow() {
