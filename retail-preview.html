@@ -423,21 +423,23 @@ body.is-opening { overflow: hidden; }
 .direction-intro__links {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  align-items: flex-start;
+  gap: 0.6em;
   align-self: start;
   position: sticky;
   top: calc(var(--nav-height) + var(--space-4));
 }
 
 .direction-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.6em;
+  width: max-content;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   letter-spacing: var(--ls-normal);
   text-transform: uppercase;
-  padding: 0.9em 1.1em;
+  padding: 0.7em 1em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
@@ -499,73 +501,67 @@ body.is-opening { overflow: hidden; }
   line-height: var(--lh-relaxed);
 }
 
-/* ---- Portfolio flow ---- */
+/* ========================================================================
+   PORTFOLIO FLOW — parametric, editorial rhythm (not a grid system).
+   Every image's width / alignment / aspect ratio / crop is set per
+   instance (inline custom properties from data/*-page.js), so no two
+   moments in the flow need to repeat the same combination.
+   ======================================================================== */
 .portfolio-flow {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: clamp(3.5rem, 3rem + 3vw, 7rem);
   padding-bottom: var(--space-7);
 }
 
-.pf-block { width: 100%; }
-
-.pf-figure { position: relative; }
+.pf-figure {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ar, 3 / 2);
+  background: var(--color-pale-grey-soft);
+}
 .pf-figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--op, center);
   display: block;
+  transition: transform 550ms var(--ease-editorial);
 }
+/* Premium, clean hover: image scales slightly inside its fixed-size
+   container — nothing else moves, no dimming. */
+.pf-figure:hover img {
+  transform: scale(1.045);
+}
+
 .pf-caption {
-  margin-top: 0.6em;
+  margin-top: 0.7em;
   font-size: var(--fs-small);
   color: var(--color-text);
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
-/* full-width single image */
-.pf-full .pf-figure { aspect-ratio: 16 / 9; }
-.pf-full.pf-hero .pf-figure { aspect-ratio: 16 / 10; }
+/* ---- Single image, own width + alignment ---- */
+.pf-single {
+  width: var(--w, 100%);
+}
+.pf-single.align-left { margin-right: auto; }
+.pf-single.align-right { margin-left: auto; }
+.pf-single.align-center { margin-inline: auto; }
 
-/* two images side by side */
-.pf-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* ---- Multiple images in one row, uneven weights/heights allowed ---- */
+.pf-multi {
+  display: flex;
   gap: var(--space-3);
+  align-items: var(--valign, flex-start);
 }
-.pf-pair .pf-figure { aspect-ratio: 4 / 3; }
-
-/* three images in a row */
-.pf-trio {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
+.pf-multi .pf-item {
+  flex: var(--flex, 1) 1 0;
+  min-width: 0;
 }
-.pf-trio .pf-figure { aspect-ratio: 3 / 4; }
-
-/* single vertical portrait, centered with generous surrounding space */
-.pf-portrait {
-  max-width: 34%;
-  margin-inline: auto;
+.pf-multi .pf-item.offset {
+  margin-top: var(--offset-y, 0px);
 }
-.pf-portrait .pf-figure { aspect-ratio: 3 / 4; }
-
-/* small image, deliberately modest, offset rather than centered */
-.pf-small {
-  max-width: 30%;
-}
-.pf-small.is-end { margin-left: auto; }
-.pf-small .pf-figure { aspect-ratio: 4 / 3; }
-
-/* two images, unequal weight */
-.pf-asymmetric {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: var(--space-3);
-  align-items: end;
-}
-.pf-asymmetric .pf-figure { aspect-ratio: 4 / 3; }
-.pf-asymmetric > :last-child .pf-figure { aspect-ratio: 3 / 4; }
 
 /* video slot — same "clean until a source exists" approach as Films on the homepage */
 .pf-video .pf-figure { aspect-ratio: 16 / 9; background: rgba(11, 11, 12, 0.045); }
@@ -606,10 +602,10 @@ body.is-opening { overflow: hidden; }
 
 @media (max-width: 900px) {
   .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
-  .direction-intro__links { position: static; flex-direction: row; flex-wrap: wrap; }
-  .pf-pair, .pf-trio { grid-template-columns: 1fr; }
-  .pf-asymmetric { grid-template-columns: 1fr; }
-  .pf-portrait, .pf-small { max-width: 60%; }
+  .direction-intro__links { position: static; }
+  .pf-single { width: 100% !important; margin-inline: 0 !important; }
+  .pf-multi { flex-direction: column; }
+  .pf-multi .pf-item.offset { margin-top: 0; }
 }
 
 </style>
@@ -946,11 +942,27 @@ window.SITE_CONTENT = {
  *
  * Captions: intentionally left `null`. Per the client's instruction, project
  * names/captions are not to be invented — this only sets up the structure
- * (each block can carry a `caption` string once supplied). A block renders
- * no <figcaption> at all while caption is null.
+ * (each block/item can carry a `caption` string once supplied). Nothing
+ * renders a <figcaption> while caption is null.
+ *
+ * Layout model — deliberately NOT a grid. Two block shapes:
+ *   { type: "single", src, w, align, ar, op, caption }
+ *     w      - CSS width, e.g. "100%", "68%", "30%"
+ *     align  - "left" | "right" | "center" (how it sits in the free space)
+ *     ar     - aspect-ratio, e.g. "21/9", "3/4", "1/1"
+ *     op     - object-position (crop anchor), e.g. "center", "top", "30% 50%"
+ *   { type: "multi", valign, items: [{ src, flex, ar, op, offsetY, caption }] }
+ *     valign   - "flex-start" | "flex-end" | "center" (row alignment)
+ *     flex     - relative width weight within the row
+ *     offsetY  - optional vertical stagger, e.g. "3rem"
+ * Every image gets its own aspect ratio / crop anchor rather than a shared
+ * default, specifically so the same 15 landscape source photos read as a
+ * mix of horizontal, square and portrait moments (per instruction: crop via
+ * layout only, object-fit/object-position, source files untouched).
  */
 window.DIRECTION_PAGE_DATA = {
   directionId: "retail",
+
   ctaText: {
     lead: "Ready to have a project?",
     sub: "Leave a request, it’s free. I’d love to chat.",
@@ -958,31 +970,65 @@ window.DIRECTION_PAGE_DATA = {
   },
 
   blocks: [
-    { type: "full", hero: true, src: "assets/images/experience/retail/cover.jpeg", caption: null },
-    { type: "pair", items: [
-      { src: "assets/images/experience/retail/retail-01.jpeg", caption: null },
-      { src: "assets/images/experience/retail/retail-02.jpeg", caption: null }
+    // Opening statement — the cover art card, nearly full width, wide letterbox.
+    { type: "single", src: "assets/images/experience/retail/cover.jpeg",
+      w: "100%", align: "center", ar: "21/9", op: "center", caption: null },
+
+    // Small vertical moment, pulled left, lots of air to its right.
+    { type: "single", src: "assets/images/experience/retail/retail-01.jpeg",
+      w: "30%", align: "left", ar: "3/4", op: "center 30%", caption: null },
+
+    // Two unequal photos on one baseline — large landscape + small square.
+    { type: "multi", valign: "flex-end", items: [
+      { src: "assets/images/experience/retail/retail-02.jpeg", flex: 1.7, ar: "3/2", op: "center", caption: null },
+      { src: "assets/images/experience/retail/retail-03.jpeg", flex: 1, ar: "1/1", op: "center", caption: null }
     ]},
-    { type: "full", src: "assets/images/experience/retail/retail-03.jpeg", caption: null },
-    { type: "portrait", src: "assets/images/experience/retail/retail-04.jpeg", caption: null },
+
+    // Wide but not full — anchored right, generous space on the left.
+    { type: "single", src: "assets/images/experience/retail/retail-04.jpeg",
+      w: "68%", align: "right", ar: "3/2", op: "center", caption: null },
+
     { type: "cta" },
-    { type: "trio", items: [
-      { src: "assets/images/experience/retail/retail-05.jpeg", caption: null },
-      { src: "assets/images/experience/retail/retail-06.jpeg", caption: null },
-      { src: "assets/images/experience/retail/retail-07.jpeg", caption: null }
+
+    // Single centered portrait, moderate scale.
+    { type: "single", src: "assets/images/experience/retail/retail-05.jpeg",
+      w: "36%", align: "center", ar: "3/4", op: "center", caption: null },
+
+    // Two photos, staggered vertically rather than aligned.
+    { type: "multi", valign: "flex-start", items: [
+      { src: "assets/images/experience/retail/retail-06.jpeg", flex: 1, ar: "4/3", op: "center", caption: null },
+      { src: "assets/images/experience/retail/retail-07.jpeg", flex: 1, ar: "1/1", op: "center", offsetY: "3.5rem", caption: null }
     ]},
-    { type: "asymmetric", items: [
-      { src: "assets/images/experience/retail/retail-08.jpeg", caption: null },
-      { src: "assets/images/experience/retail/retail-09.jpeg", caption: null }
+
+    // Full-width breather.
+    { type: "single", src: "assets/images/experience/retail/retail-08.jpeg",
+      w: "100%", align: "center", ar: "16/9", op: "center", caption: null },
+
+    // Small square, pulled right this time.
+    { type: "single", src: "assets/images/experience/retail/retail-09.jpeg",
+      w: "27%", align: "right", ar: "1/1", op: "center", caption: null },
+
+    // Reversed uneven pair — small square first, large landscape after.
+    { type: "multi", valign: "flex-start", items: [
+      { src: "assets/images/experience/retail/retail-10.jpeg", flex: 1, ar: "3/4", op: "center", caption: null },
+      { src: "assets/images/experience/retail/retail-11.jpeg", flex: 1.7, ar: "3/2", op: "center", offsetY: "2rem", caption: null }
     ]},
-    { type: "full", src: "assets/images/experience/retail/retail-10.jpeg", caption: null },
-    { type: "pair", items: [
-      { src: "assets/images/experience/retail/retail-11.jpeg", caption: null },
-      { src: "assets/images/experience/retail/retail-12.jpeg", caption: null }
-    ]},
-    { type: "portrait", src: "assets/images/experience/retail/retail-13.jpeg", caption: null },
-    { type: "small", end: true, src: "assets/images/experience/retail/retail-14.jpeg", caption: null },
-    { type: "full", src: "assets/images/experience/retail/retail-15.jpeg", caption: null }
+
+    // Wide, anchored left.
+    { type: "single", src: "assets/images/experience/retail/retail-12.jpeg",
+      w: "65%", align: "left", ar: "3/2", op: "center", caption: null },
+
+    // Portrait, anchored right.
+    { type: "single", src: "assets/images/experience/retail/retail-13.jpeg",
+      w: "32%", align: "right", ar: "3/4", op: "center 35%", caption: null },
+
+    // Small, offset left, big surrounding space.
+    { type: "single", src: "assets/images/experience/retail/retail-14.jpeg",
+      w: "30%", align: "left", ar: "1/1", op: "center", caption: null },
+
+    // Closing full-width image.
+    { type: "single", src: "assets/images/experience/retail/retail-15.jpeg",
+      w: "100%", align: "center", ar: "16/9", op: "center", caption: null }
   ]
 };
 
@@ -1234,6 +1280,9 @@ window.DIRECTION_PAGE_DATA = {
   function figure(item) {
     var fig = document.createElement("div");
     fig.className = "pf-figure";
+    if (item.ar) fig.style.setProperty("--ar", item.ar.replace("/", " / "));
+    if (item.op) fig.style.setProperty("--op", item.op);
+
     var img = document.createElement("img");
     img.src = "" + item.src;
     img.alt = "";
@@ -1275,20 +1324,34 @@ window.DIRECTION_PAGE_DATA = {
     return wrap;
   }
 
+  function renderSingle(block) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-block pf-single align-" + (block.align || "center");
+    wrap.style.setProperty("--w", block.w || "100%");
+    wrap.appendChild(figure(block));
+    return wrap;
+  }
+
+  function renderMulti(block) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-block pf-multi";
+    wrap.style.setProperty("--valign", block.valign || "flex-start");
+
+    block.items.forEach(function (item) {
+      var col = document.createElement("div");
+      col.className = "pf-item" + (item.offsetY ? " offset" : "");
+      col.style.setProperty("--flex", item.flex || 1);
+      if (item.offsetY) col.style.setProperty("--offset-y", item.offsetY);
+      col.appendChild(figure(item));
+      wrap.appendChild(col);
+    });
+    return wrap;
+  }
+
   function renderBlock(block) {
     if (block.type === "cta") return renderCta();
-
-    var wrap = document.createElement("div");
-    wrap.className = "pf-block pf-" + block.type;
-    if (block.hero) wrap.classList.add("pf-hero");
-    if (block.end) wrap.classList.add("is-end");
-
-    if (block.items) {
-      block.items.forEach(function (item) { wrap.appendChild(figure(item)); });
-    } else {
-      wrap.appendChild(figure(block));
-    }
-    return wrap;
+    if (block.type === "multi") return renderMulti(block);
+    return renderSingle(block);
   }
 
   function renderFlow() {
