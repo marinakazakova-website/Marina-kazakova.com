@@ -99,23 +99,32 @@
 }
 
 /* ========================================================================
-   PORTFOLIO — CSS masonry, modeled on retail-design.ru's own project grid:
-   independent column flow, each project keeps its natural photo
-   proportions (no forced aspect-ratio/crop), so heights vary organically
-   and nothing lines up into rows. Repeat-brand projects are still separate
-   cards, matching how her own site treats them.
+   PORTFOLIO — one central vertical axis, left/right zones, modeled
+   directly on retail-design.ru (references/*.png): each row splits into
+   a LEFT and a RIGHT zone around a shared gutter (the "axis"); a zone
+   holds either one large project or two smaller ones side by side. The
+   alternation between "2 small + 1 large" / "1 + 1" / "1 large + 2
+   small" from row to row is what creates the rhythm — not an automatic
+   masonry fill.
    ======================================================================== */
-.pf-masonry {
-  column-count: 3;
-  column-gap: var(--space-4);
+.pf-composition {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
   padding-bottom: var(--space-7);
 }
-@media (max-width: 1100px) { .pf-masonry { column-count: 2; } }
-@media (max-width: 640px) { .pf-masonry { column-count: 1; } }
 
-.pf-project {
-  break-inside: avoid;
-  margin-bottom: var(--space-4);
+.pf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.pf-zone--duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
 }
 
 .pf-project__figure {
@@ -128,6 +137,14 @@
   height: auto;
   display: block;
   transition: transform 550ms var(--ease-editorial);
+}
+.pf-project__figure[style*="--ar"] {
+  aspect-ratio: var(--ar);
+}
+.pf-project__figure[style*="--ar"] img {
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--op, center);
 }
 /* Premium, clean hover: image scales slightly inside its fixed-size
    container — nothing else moves, no dimming. */
@@ -146,9 +163,8 @@
 .pf-video .pf-figure { aspect-ratio: 16 / 9; background: rgba(11, 11, 12, 0.045); }
 .pf-video video, .pf-video iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-/* ---- Mid-page editorial CTA — breaks across all masonry columns ---- */
-.pf-masonry .pf-cta {
-  column-span: all;
+/* ---- Mid-page editorial CTA ---- */
+.pf-cta {
   max-width: 34rem;
   margin-inline: auto;
   text-align: center;
@@ -183,4 +199,5 @@
 @media (max-width: 900px) {
   .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
   .direction-intro__links { position: static; }
+  .pf-row { grid-template-columns: 1fr; gap: var(--space-3); }
 }

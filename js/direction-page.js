@@ -96,38 +96,53 @@
     return wrap;
   }
 
-  function renderProject(block) {
+  function renderProject(project) {
     var wrap = document.createElement("div");
     wrap.className = "pf-project";
 
     var fig = document.createElement("div");
     fig.className = "pf-project__figure";
+    if (project.ar) fig.style.setProperty("--ar", project.ar.replace("/", " / "));
+    if (project.op) fig.style.setProperty("--op", project.op);
+
     var img = document.createElement("img");
-    img.src = "../" + block.src;
+    img.src = "../" + project.src;
     img.alt = "";
     img.loading = "lazy";
     fig.appendChild(img);
     wrap.appendChild(fig);
 
-    if (block.caption) {
+    if (project.caption) {
       var cap = document.createElement("p");
       cap.className = "pf-caption";
-      cap.textContent = block.caption;
+      cap.textContent = project.caption;
       wrap.appendChild(cap);
     }
     return wrap;
   }
 
-  function renderBlock(block) {
-    if (block.type === "cta") return renderCta();
-    return renderProject(block);
+  function renderZone(items) {
+    var zone = document.createElement("div");
+    zone.className = "pf-zone" + (items.length > 1 ? " pf-zone--duo" : " pf-zone--solo");
+    items.forEach(function (project) { zone.appendChild(renderProject(project)); });
+    return zone;
+  }
+
+  function renderRow(row) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-row";
+    if (row.emphasis === "left") wrap.style.gridTemplateColumns = "1.5fr 1fr";
+    else if (row.emphasis === "right") wrap.style.gridTemplateColumns = "1fr 1.5fr";
+    wrap.appendChild(renderZone(row.left));
+    wrap.appendChild(renderZone(row.right));
+    return wrap;
   }
 
   function renderFlow() {
     var wrap = document.getElementById("portfolioFlow");
     wrap.innerHTML = "";
-    window.DIRECTION_PAGE_DATA.blocks.forEach(function (block) {
-      wrap.appendChild(renderBlock(block));
+    window.DIRECTION_PAGE_DATA.rows.forEach(function (row) {
+      wrap.appendChild(row.type === "cta" ? renderCta() : renderRow(row));
     });
   }
 
