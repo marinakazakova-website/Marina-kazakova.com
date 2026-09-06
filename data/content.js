@@ -104,7 +104,8 @@ window.SITE_CONTENT = {
         collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" },
         trainings: { label: "Trainings", href: "https://retail-design.ru/corporate_edu" }
       },
-      clients: [],
+      clientsIntro: "Over 10 years of developing M&W, we trained employees and independent professionals from the following companies:",
+      clients: ["INGKA", "IKEA", "OFFPRICE", "H&M", "Inditex", "ZARA", "12 STOREEZ", "TSUM Moscow", "United Colors of Benetton", "21 Shop", "Helly Hansen", "Debenhams", "Спортмастер", "Gloria Jeans", "BAON", "Intimissimi", "Calzedonia", "Clarks", "Ralf Ringer", "Stenders", "ALLSAINTS", "LYYK TEAM", "KIXBOX", "Fred Perry", "Albione", "BASK Kids", "COZY HOME", "TOGAS", "KARE Design"],
       en: {
         body: [
           "For almost 10 years, I ran my own **Retail Design Bureau, Woodi**, and the **M&W** educational platform — one of the first professional schools in Russia specialising in Visual Merchandising and Retail Design.",

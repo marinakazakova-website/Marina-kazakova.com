@@ -122,6 +122,17 @@
 }
 .direction-intro__body p:last-child { margin-bottom: 0; }
 
+.direction-intro__clients-intro {
+  margin-top: var(--space-3);
+  max-width: 42rem;
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+}
+.direction-intro__clients-intro + .direction-intro__clients {
+  margin-top: var(--space-2);
+}
+
 .direction-intro__clients {
   margin-top: var(--space-3);
   max-width: 42rem;
@@ -228,9 +239,19 @@
   margin-top: 0;
 }
 
-/* video slot — same "clean until a source exists" approach as Films on the homepage */
-.pf-video .pf-figure { aspect-ratio: 16 / 9; background: rgba(11, 11, 12, 0.045); }
-.pf-video video, .pf-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+/* ---- Video slots — sit inside the same pf-project__figure/--ar card as a
+   photo (locked 16:9, object-fit: cover) so a video never looks like a
+   bare browser player breaking the grid. No source yet = the figure's own
+   background shows through, clean, no placeholder image — same "clean
+   until a source exists" approach as Films on the homepage. Excluded from
+   the hover-zoom (native controls, not a passive image). ---- */
+.pf-project__figure[style*="--ar"] video {
+  height: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: var(--op, center);
+}
 
 /* ---- Mid-page editorial CTA ---- */
 .pf-cta {

@@ -31,6 +31,16 @@
       body.appendChild(p);
     });
 
+    var clientsIntroEl = document.getElementById("directionClientsIntro");
+    if (clientsIntroEl) {
+      if (direction.clientsIntro) {
+        clientsIntroEl.textContent = direction.clientsIntro;
+        clientsIntroEl.hidden = false;
+      } else {
+        clientsIntroEl.hidden = true;
+      }
+    }
+
     var clientsEl = document.getElementById("directionClients");
     if (direction.clients && direction.clients.length) {
       clientsEl.textContent = direction.clients.join(" · ") + " · ";
@@ -68,9 +78,9 @@
     }
 
     if (direction.links.website) linkRow("website", direction.links.website);
-    linkRow("portfolio", direction.links.portfolio, "Check our projects");
-    linkRow("collaboration", direction.links.collaboration, "Let's talk");
+    if (direction.links.portfolio && direction.links.portfolio.href) linkRow("portfolio", direction.links.portfolio, "Check our projects");
     if (direction.links.trainings) linkRow("trainings", direction.links.trainings);
+    linkRow("collaboration", direction.links.collaboration, "Let's talk");
 
     renderClientLogos();
   }
@@ -89,6 +99,7 @@
       img.src = "../" + logo.src;
       img.alt = logo.alt || "";
       img.loading = "lazy";
+      if (logo.h) img.style.height = logo.h + "px";
       if (logo.maxH) img.style.maxHeight = logo.maxH + "px";
       item.appendChild(img);
       wrap.appendChild(item);
@@ -202,6 +213,35 @@
     return wrap;
   }
 
+  function renderVideoCell(cell) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-project";
+
+    var fig = document.createElement("div");
+    fig.className = "pf-project__figure";
+    fig.style.setProperty("--ar", "16 / 9");
+
+    if (cell && cell.src) {
+      var video = document.createElement("video");
+      video.src = "../" + cell.src;
+      if (cell.poster) video.poster = "../" + cell.poster;
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      fig.appendChild(video);
+    }
+    wrap.appendChild(fig);
+    return wrap;
+  }
+
+  function renderVideoRow(row) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-row";
+    wrap.appendChild(renderVideoCell(row.left));
+    wrap.appendChild(renderVideoCell(row.right));
+    return wrap;
+  }
+
   function renderZone(items) {
     var zone = document.createElement("div");
     zone.className = "pf-zone" + (items.length > 1 ? " pf-zone--duo" : " pf-zone--solo");
@@ -226,6 +266,7 @@
       var el;
       if (row.type === "cta") el = renderCta();
       else if (row.type === "intro-block") el = renderIntroBlock(row);
+      else if (row.type === "video-row") el = renderVideoRow(row);
       else el = renderRow(row);
       wrap.appendChild(el);
     });
