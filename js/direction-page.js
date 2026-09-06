@@ -135,9 +135,16 @@
     wrap.appendChild(fig);
 
     if (project.caption) {
-      var cap = document.createElement("p");
+      var cap = document.createElement("div");
       cap.className = "pf-caption";
-      cap.textContent = project.caption;
+      var brand = document.createElement("p");
+      brand.className = "pf-caption__brand";
+      brand.textContent = project.caption.brand;
+      var desc = document.createElement("p");
+      desc.className = "pf-caption__desc";
+      desc.textContent = project.caption.desc;
+      cap.appendChild(brand);
+      cap.appendChild(desc);
       wrap.appendChild(cap);
     }
     return wrap;
