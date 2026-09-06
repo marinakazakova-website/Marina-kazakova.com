@@ -75,6 +75,9 @@
   function figure(item) {
     var fig = document.createElement("div");
     fig.className = "pf-figure";
+    if (item.ar) fig.style.setProperty("--ar", item.ar.replace("/", " / "));
+    if (item.op) fig.style.setProperty("--op", item.op);
+
     var img = document.createElement("img");
     img.src = "../" + item.src;
     img.alt = "";
@@ -116,20 +119,34 @@
     return wrap;
   }
 
+  function renderSingle(block) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-block pf-single align-" + (block.align || "center");
+    wrap.style.setProperty("--w", block.w || "100%");
+    wrap.appendChild(figure(block));
+    return wrap;
+  }
+
+  function renderMulti(block) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-block pf-multi";
+    wrap.style.setProperty("--valign", block.valign || "flex-start");
+
+    block.items.forEach(function (item) {
+      var col = document.createElement("div");
+      col.className = "pf-item" + (item.offsetY ? " offset" : "");
+      col.style.setProperty("--flex", item.flex || 1);
+      if (item.offsetY) col.style.setProperty("--offset-y", item.offsetY);
+      col.appendChild(figure(item));
+      wrap.appendChild(col);
+    });
+    return wrap;
+  }
+
   function renderBlock(block) {
     if (block.type === "cta") return renderCta();
-
-    var wrap = document.createElement("div");
-    wrap.className = "pf-block pf-" + block.type;
-    if (block.hero) wrap.classList.add("pf-hero");
-    if (block.end) wrap.classList.add("is-end");
-
-    if (block.items) {
-      block.items.forEach(function (item) { wrap.appendChild(figure(item)); });
-    } else {
-      wrap.appendChild(figure(block));
-    }
-    return wrap;
+    if (block.type === "multi") return renderMulti(block);
+    return renderSingle(block);
   }
 
   function renderFlow() {
