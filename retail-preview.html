@@ -502,23 +502,32 @@ body.is-opening { overflow: hidden; }
 }
 
 /* ========================================================================
-   PORTFOLIO — CSS masonry, modeled on retail-design.ru's own project grid:
-   independent column flow, each project keeps its natural photo
-   proportions (no forced aspect-ratio/crop), so heights vary organically
-   and nothing lines up into rows. Repeat-brand projects are still separate
-   cards, matching how her own site treats them.
+   PORTFOLIO — one central vertical axis, left/right zones, modeled
+   directly on retail-design.ru (references/*.png): each row splits into
+   a LEFT and a RIGHT zone around a shared gutter (the "axis"); a zone
+   holds either one large project or two smaller ones side by side. The
+   alternation between "2 small + 1 large" / "1 + 1" / "1 large + 2
+   small" from row to row is what creates the rhythm — not an automatic
+   masonry fill.
    ======================================================================== */
-.pf-masonry {
-  column-count: 3;
-  column-gap: var(--space-4);
+.pf-composition {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
   padding-bottom: var(--space-7);
 }
-@media (max-width: 1100px) { .pf-masonry { column-count: 2; } }
-@media (max-width: 640px) { .pf-masonry { column-count: 1; } }
 
-.pf-project {
-  break-inside: avoid;
-  margin-bottom: var(--space-4);
+.pf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.pf-zone--duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
 }
 
 .pf-project__figure {
@@ -531,6 +540,14 @@ body.is-opening { overflow: hidden; }
   height: auto;
   display: block;
   transition: transform 550ms var(--ease-editorial);
+}
+.pf-project__figure[style*="--ar"] {
+  aspect-ratio: var(--ar);
+}
+.pf-project__figure[style*="--ar"] img {
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--op, center);
 }
 /* Premium, clean hover: image scales slightly inside its fixed-size
    container — nothing else moves, no dimming. */
@@ -549,9 +566,8 @@ body.is-opening { overflow: hidden; }
 .pf-video .pf-figure { aspect-ratio: 16 / 9; background: rgba(11, 11, 12, 0.045); }
 .pf-video video, .pf-video iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-/* ---- Mid-page editorial CTA — breaks across all masonry columns ---- */
-.pf-masonry .pf-cta {
-  column-span: all;
+/* ---- Mid-page editorial CTA ---- */
+.pf-cta {
   max-width: 34rem;
   margin-inline: auto;
   text-align: center;
@@ -586,6 +602,7 @@ body.is-opening { overflow: hidden; }
 @media (max-width: 900px) {
   .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
   .direction-intro__links { position: static; }
+  .pf-row { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 
 </style>
@@ -635,7 +652,7 @@ body.is-opening { overflow: hidden; }
   </div>
 
   <div class="container">
-    <div class="pf-masonry" id="portfolioFlow"></div>
+    <div class="pf-composition" id="portfolioFlow"></div>
   </div>
 
   <div class="direction-end">
@@ -912,21 +929,24 @@ window.SITE_CONTENT = {
 /**
  * RETAIL direction page — portfolio section.
  *
- * Layout: CSS multi-column masonry (see .pf-masonry in direction-page.css),
- * modeled on the client's own retail-design.ru — independent column flow,
- * each image kept at its natural aspect ratio (no forced crop), varied
- * heights create the rhythm rather than a fixed grid. Referencing her own
- * site's actual behaviour, repeat-brand photos (Ecco, Catcher, Underline
- * each appear twice) are kept as separate, independent project cards
- * rather than merged into one composition — that's what retail-design.ru
- * itself does.
+ * Layout: one central vertical axis with a LEFT and a RIGHT zone per row
+ * (see .pf-row / .pf-zone--duo in direction-page.css), modeled directly on
+ * the client's retail-design.ru screenshots (references/*.png). A zone
+ * holds either one large project ("solo") or two smaller ones side by
+ * side ("duo"). Rows also carry an `emphasis` ("left"/"right") that widens
+ * the heavier zone — even a 1-vs-1 row reads as "one large, one small" on
+ * her reference, not an even 50/50 split.
  *
  * Title / tagline / body / clients / links are NOT duplicated here — they
  * already live in data/content.js -> experienceDirections (id: "retail").
  *
- * Captions: intentionally null. Filenames told us which project is which
- * (for sequencing only) — per instruction, no project names/descriptions
- * are invented. Each project is ready to take a `caption` once supplied.
+ * Each project: { src, caption, ar?, op? }
+ *   ar / op are optional — only set when a photo needs a deliberate crop
+ *   to hold its place in the rhythm (object-fit: cover); otherwise the
+ *   image keeps its natural proportions. Source files untouched.
+ *
+ * Captions: intentionally null throughout. Filenames only told us which
+ * project is which, for sequencing — no names/descriptions invented.
  */
 window.DIRECTION_PAGE_DATA = {
   directionId: "retail",
@@ -937,23 +957,63 @@ window.DIRECTION_PAGE_DATA = {
     cta: "LET'S TALK"
   },
 
-  blocks: [
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-02-gstar-raw.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-03-sleep8.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-04-rive-gauche.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-05-underline.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-06-ecco.jpeg", caption: null },
+  rows: [
+    // 2 small (left) + 1 large (right)
+    {
+      emphasis: "right",
+      left: [
+        { src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: null },
+        { src: "assets/images/experience/retail/new/retail-new-02-gstar-raw.jpeg", caption: null }
+      ],
+      right: [
+        { src: "assets/images/experience/retail/new/retail-new-03-sleep8.jpeg", caption: null, ar: "3/4", op: "center" }
+      ]
+    },
+    // 1 large (left) + 1 small (right)
+    {
+      emphasis: "left",
+      left: [
+        { src: "assets/images/experience/retail/new/retail-new-04-rive-gauche.jpeg", caption: null }
+      ],
+      right: [
+        { src: "assets/images/experience/retail/new/retail-new-05-underline.jpeg", caption: null, ar: "4/3", op: "center" }
+      ]
+    },
+    // 1 small (left) + 1 large (right)
+    {
+      emphasis: "right",
+      left: [
+        { src: "assets/images/experience/retail/new/retail-new-06-ecco.jpeg", caption: null, ar: "1/1", op: "center" }
+      ],
+      right: [
+        { src: "assets/images/experience/retail/new/retail-new-07-catcher.jpeg", caption: null, ar: "3/4", op: "center" }
+      ]
+    },
 
     { type: "cta" },
 
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-07-catcher.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-08-ascona.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-09-moppi.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-10-albione.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-12-underline.jpeg", caption: null },
-    { type: "project", src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: null }
+    // 1 large (left) + 2 small (right)
+    {
+      emphasis: "left",
+      left: [
+        { src: "assets/images/experience/retail/new/retail-new-08-ascona.jpeg", caption: null }
+      ],
+      right: [
+        { src: "assets/images/experience/retail/new/retail-new-09-moppi.jpeg", caption: null },
+        { src: "assets/images/experience/retail/new/retail-new-10-albione.jpeg", caption: null }
+      ]
+    },
+    // 2 small (left) + 1 large (right)
+    {
+      emphasis: "right",
+      left: [
+        { src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: null },
+        { src: "assets/images/experience/retail/new/retail-new-12-underline.jpeg", caption: null }
+      ],
+      right: [
+        { src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: null, ar: "3/4", op: "center" }
+      ]
+    }
   ]
 };
 
@@ -1226,38 +1286,53 @@ window.DIRECTION_PAGE_DATA = {
     return wrap;
   }
 
-  function renderProject(block) {
+  function renderProject(project) {
     var wrap = document.createElement("div");
     wrap.className = "pf-project";
 
     var fig = document.createElement("div");
     fig.className = "pf-project__figure";
+    if (project.ar) fig.style.setProperty("--ar", project.ar.replace("/", " / "));
+    if (project.op) fig.style.setProperty("--op", project.op);
+
     var img = document.createElement("img");
-    img.src = "" + block.src;
+    img.src = "" + project.src;
     img.alt = "";
     img.loading = "lazy";
     fig.appendChild(img);
     wrap.appendChild(fig);
 
-    if (block.caption) {
+    if (project.caption) {
       var cap = document.createElement("p");
       cap.className = "pf-caption";
-      cap.textContent = block.caption;
+      cap.textContent = project.caption;
       wrap.appendChild(cap);
     }
     return wrap;
   }
 
-  function renderBlock(block) {
-    if (block.type === "cta") return renderCta();
-    return renderProject(block);
+  function renderZone(items) {
+    var zone = document.createElement("div");
+    zone.className = "pf-zone" + (items.length > 1 ? " pf-zone--duo" : " pf-zone--solo");
+    items.forEach(function (project) { zone.appendChild(renderProject(project)); });
+    return zone;
+  }
+
+  function renderRow(row) {
+    var wrap = document.createElement("div");
+    wrap.className = "pf-row";
+    if (row.emphasis === "left") wrap.style.gridTemplateColumns = "1.5fr 1fr";
+    else if (row.emphasis === "right") wrap.style.gridTemplateColumns = "1fr 1.5fr";
+    wrap.appendChild(renderZone(row.left));
+    wrap.appendChild(renderZone(row.right));
+    return wrap;
   }
 
   function renderFlow() {
     var wrap = document.getElementById("portfolioFlow");
     wrap.innerHTML = "";
-    window.DIRECTION_PAGE_DATA.blocks.forEach(function (block) {
-      wrap.appendChild(renderBlock(block));
+    window.DIRECTION_PAGE_DATA.rows.forEach(function (row) {
+      wrap.appendChild(row.type === "cta" ? renderCta() : renderRow(row));
     });
   }
 
