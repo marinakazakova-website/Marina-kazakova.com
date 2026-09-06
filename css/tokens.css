@@ -22,6 +22,7 @@
   /* Fonts */
   --font-display: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: Consolas, Monaco, "Courier New", monospace; /* direction-page functional links / buttons */
 
   /* Fluid type scale — clamp(min, preferred, max) */
   --fs-display-huge: clamp(4rem, 1rem + 19.5vw, 18.5rem);  /* RETAIL/BUSINESS/BRANDS/FILMS poster nav */

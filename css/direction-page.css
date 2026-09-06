@@ -1,0 +1,210 @@
+/* ========================================================================
+   DIRECTION PAGES — Retail / Business / Brands / Films
+   Long-scroll editorial portfolio pages. One shared system (this file +
+   js/direction-page.js + a per-direction data file) so Business/Brands/
+   Films can reuse it once their content is ready.
+   ======================================================================== */
+
+.direction-page {
+  padding-top: var(--nav-height);
+}
+
+/* ---- Intro: functional links (left) + title/tagline/text (right) ---- */
+.direction-intro {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: var(--space-6);
+  padding-block: var(--space-6) var(--space-7);
+}
+
+.direction-intro__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-self: start;
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-4));
+}
+
+.direction-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-normal);
+  text-transform: uppercase;
+  padding: 0.9em 1.1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+
+.direction-link:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.direction-link.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.direction-intro__back {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  opacity: 0.55;
+  margin-bottom: var(--space-2);
+  display: inline-block;
+}
+.direction-intro__back:hover { opacity: 1; }
+
+.direction-intro__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-lg);
+  line-height: 0.95;
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.direction-intro__tagline {
+  font-weight: 700;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-snug);
+  margin-bottom: var(--space-3);
+  max-width: 38rem;
+}
+
+.direction-intro__body {
+  max-width: 42rem;
+}
+.direction-intro__body p {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  margin-bottom: 1em;
+}
+.direction-intro__body p:last-child { margin-bottom: 0; }
+
+.direction-intro__clients {
+  margin-top: var(--space-3);
+  max-width: 42rem;
+  font-weight: 700;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+}
+
+/* ---- Portfolio flow ---- */
+.portfolio-flow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+
+.pf-block { width: 100%; }
+
+.pf-figure { position: relative; }
+.pf-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pf-caption {
+  margin-top: 0.6em;
+  font-size: var(--fs-small);
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+/* full-width single image */
+.pf-full .pf-figure { aspect-ratio: 16 / 9; }
+.pf-full.pf-hero .pf-figure { aspect-ratio: 16 / 10; }
+
+/* two images side by side */
+.pf-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+.pf-pair .pf-figure { aspect-ratio: 4 / 3; }
+
+/* three images in a row */
+.pf-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+.pf-trio .pf-figure { aspect-ratio: 3 / 4; }
+
+/* single vertical portrait, centered with generous surrounding space */
+.pf-portrait {
+  max-width: 34%;
+  margin-inline: auto;
+}
+.pf-portrait .pf-figure { aspect-ratio: 3 / 4; }
+
+/* small image, deliberately modest, offset rather than centered */
+.pf-small {
+  max-width: 30%;
+}
+.pf-small.is-end { margin-left: auto; }
+.pf-small .pf-figure { aspect-ratio: 4 / 3; }
+
+/* two images, unequal weight */
+.pf-asymmetric {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: var(--space-3);
+  align-items: end;
+}
+.pf-asymmetric .pf-figure { aspect-ratio: 4 / 3; }
+.pf-asymmetric > :last-child .pf-figure { aspect-ratio: 3 / 4; }
+
+/* video slot — same "clean until a source exists" approach as Films on the homepage */
+.pf-video .pf-figure { aspect-ratio: 16 / 9; background: rgba(11, 11, 12, 0.045); }
+.pf-video video, .pf-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ---- Mid-page editorial CTA ---- */
+.pf-cta {
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+  padding-block: var(--space-4);
+}
+.pf-cta__lead {
+  font-size: var(--fs-heading);
+  line-height: var(--lh-snug);
+  margin-bottom: var(--space-3);
+}
+.pf-cta__sub {
+  font-size: var(--fs-body-lg);
+  opacity: 0.75;
+  margin-bottom: var(--space-4);
+}
+
+/* ---- End of page ---- */
+.direction-end {
+  padding-block: var(--space-5) var(--space-6);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+.direction-end__back {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  transition: opacity var(--dur-fast) var(--ease-editorial);
+}
+.direction-end__back:hover { opacity: 0.6; }
+
+@media (max-width: 900px) {
+  .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
+  .direction-intro__links { position: static; flex-direction: row; flex-wrap: wrap; }
+  .pf-pair, .pf-trio { grid-template-columns: 1fr; }
+  .pf-asymmetric { grid-template-columns: 1fr; }
+  .pf-portrait, .pf-small { max-width: 60%; }
+}

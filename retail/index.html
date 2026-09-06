@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retail | Marina Kazakova</title>
+<meta name="description" content="Retail | Brand into Experience — Retail Design and Visual Merchandising portfolio by Marina Kazakova.">
+<link rel="icon" type="image/png" href="../assets/logos/bed-logo-black.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"></noscript>
+
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/direction-page.css">
+</head>
+<body>
+
+<!-- ============ NAVIGATION (links back to the homepage sections) ============ -->
+<header class="site-nav" id="siteNav">
+  <div class="container site-nav__inner">
+    <a href="../index.html" class="site-nav__mark">Marina Kazakova</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav__links" id="navLinks">
+      <a class="site-nav__link" data-i18n-nav="profile" href="../index.html#profile">Profile</a>
+      <a class="site-nav__link" data-i18n-nav="experience" href="../index.html#experience">Experience</a>
+      <a class="site-nav__link" data-i18n-nav="method" href="../index.html#brand-ecosystem">Method</a>
+      <a class="site-nav__link" data-i18n-nav="work" href="../index.html#work-together">Work With Me</a>
+    </nav>
+
+    <div class="site-nav__right">
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
+        <button class="lang-switch__btn" data-lang="en">EN</button>
+        <span class="lang-switch__sep">/</span>
+        <button class="lang-switch__btn" data-lang="ru">RU</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="direction-page">
+
+  <div class="container direction-intro">
+    <div class="direction-intro__links">
+      <a class="direction-intro__back" href="../index.html#experience">← Experience</a>
+      <div id="directionLinks"></div>
+    </div>
+
+    <div>
+      <h1 class="direction-intro__title" id="directionTitle"></h1>
+      <p class="direction-intro__tagline" id="directionTagline"></p>
+      <div class="direction-intro__body" id="directionBody"></div>
+      <p class="direction-intro__clients" id="directionClients" hidden></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="portfolio-flow" id="portfolioFlow"></div>
+  </div>
+
+  <div class="direction-end">
+    <a class="direction-end__back" href="../index.html#experience">BACK TO PROJECTS PAGE</a>
+  </div>
+
+</main>
+
+<script src="../data/content.js"></script>
+<script src="../data/retail-page.js"></script>
+<script src="../js/i18n.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/direction-page.js"></script>
+</body>
+</html>
