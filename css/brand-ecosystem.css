@@ -11,10 +11,10 @@
 .triptych {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(10px, 1.2vw, 18px);
+  gap: clamp(20px, 2.4vw, 36px);
   width: 100%;
   background: var(--color-black);
-  padding-inline: clamp(10px, 1.2vw, 18px);
+  padding: clamp(20px, 2.4vw, 36px) clamp(20px, 2.4vw, 36px) 0;
 }
 
 .triptych img {
@@ -31,7 +31,7 @@
 
 .brand-ecosystem__title {
   color: var(--color-accent);
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--space-3);
   display: block;
 }
@@ -75,9 +75,9 @@
 .method__marker {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.3rem, 1rem + 1.2vw, 1.9rem);
+  font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.5rem);
   color: rgba(255,255,255,0.35);
-  width: 0.7em;
+  width: 1.1em;
   opacity: 1;
   transition: opacity var(--dur-base) var(--ease-editorial);
 }
@@ -86,7 +86,7 @@
 
 .method__title {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 900;
   font-size: var(--fs-display-md);
   color: var(--color-white);
   transition: color var(--dur-base) var(--ease-editorial);
