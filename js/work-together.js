@@ -13,14 +13,36 @@
     data.services.forEach(function (service) {
       var col = document.createElement("div");
       col.className = "work-service";
+
+      var label = document.createElement("p");
+      label.className = "work-service__label";
+      label.textContent = service.label[lang];
+      col.appendChild(label);
+
       var title = document.createElement("p");
       title.className = "work-service__title";
       title.textContent = service.title;
-      var text = document.createElement("p");
-      text.className = "work-service__text";
-      text.textContent = service[lang];
       col.appendChild(title);
-      col.appendChild(text);
+
+      service.before.forEach(function (line) {
+        var p = document.createElement("p");
+        p.className = "work-service__text";
+        p.textContent = line[lang];
+        col.appendChild(p);
+      });
+
+      var tags = document.createElement("p");
+      tags.className = "work-service__tags";
+      tags.textContent = service.tags.join(" · ");
+      col.appendChild(tags);
+
+      service.after.forEach(function (line) {
+        var p = document.createElement("p");
+        p.className = "work-service__text";
+        p.textContent = line[lang];
+        col.appendChild(p);
+      });
+
       wrap.appendChild(col);
     });
 

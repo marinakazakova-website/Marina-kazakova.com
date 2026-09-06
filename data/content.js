@@ -226,14 +226,29 @@ window.SITE_CONTENT = {
     cta: "LET'S TALK",
     services: [
       {
-        title: "Brand Strategy & Advisory",
-        en: "Strategic partnership with the founder / owner and team: creating, relaunching and developing the brand.",
-        ru: "Стратегическое партнёрство с founder / собственником и командой: создание, перезапуск и развитие бренда."
+        label: { en: "SERVICE 01", ru: "УСЛУГА 01" },
+        title: "STRATEGIC CONSULTING",
+        before: [
+          { en: "A 4-hour strategic session for a specific business request.", ru: "4-часовая стратегическая сессия для конкретного бизнес-запроса." }
+        ],
+        tags: ["Brand Strategy", "Positioning", "Visual Direction", "Retail Design", "Digital Marketing"],
+        after: [
+          { en: "For situations that call for a strong outside perspective, a decision and clear direction.", ru: "Для ситуаций, когда нужен сильный внешний взгляд, решение и чёткое направление." },
+          { en: "No long-term engagement.", ru: "Без долгосрочного сопровождения." }
+        ]
       },
       {
-        title: "Retail Design & Experience Advisory",
-        en: "Expert advisory in Retail Design & Visual Merchandising.",
-        ru: "Экспертное сопровождение в области Retail Design и Visual Merchandising."
+        label: { en: "SERVICE 02", ru: "УСЛУГА 02" },
+        title: "STRATEGIC BRAND PARTNERSHIP",
+        before: [
+          { en: "Long-term work with the founder / owner and team.", ru: "Долгосрочная работа с founder / собственником и командой." },
+          { en: "I join the project as a strategic brand partner and guide the brand from strategy through to execution:", ru: "Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации:" }
+        ],
+        tags: ["Positioning", "Product", "Identity", "Communication", "Digital", "Creative Direction"],
+        after: [
+          { en: "I build the specialist team the project needs and launch execution together with them.", ru: "Формирую необходимую команду специалистов и вместе с ней запускаю реализацию." },
+          { en: "Engagements from 6 months.", ru: "Сотрудничество от 6 месяцев." }
+        ]
       }
     ],
     credentials: [
