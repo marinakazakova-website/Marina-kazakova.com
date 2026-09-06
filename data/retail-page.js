@@ -29,6 +29,31 @@ window.DIRECTION_PAGE_DATA = {
     cta: "LET'S TALK"
   },
 
+  // Client logos — compact vertical strip under the functional links.
+  // Only brands whose logo file has actually been uploaded are listed;
+  // no logo is redrawn or substituted. Still missing a file: INGKA,
+  // Rive Gauche, One Move, East Step, ORTEKA, Yandex Market, Catcher.
+  clientLogos: [
+    { src: "assets/logos/clients/client-ikea.png", alt: "IKEA" },
+    { src: "assets/logos/clients/client-mega.png", alt: "MEGA" },
+    { src: "assets/logos/clients/client-underline.png", alt: "Underline" },
+    { src: "assets/logos/clients/client-fujifilm.png", alt: "Fujifilm" },
+    { src: "assets/logos/clients/client-tele2.png", alt: "Tele2" },
+    { src: "assets/logos/clients/client-askona.png", alt: "Askona" },
+    { src: "assets/logos/clients/client-letoile.png", alt: "L'Etoile" },
+    { src: "assets/logos/clients/client-adidas-originals.png", alt: "Adidas Originals" },
+    { src: "assets/logos/clients/client-reebok-classic.png", alt: "Reebok Classic" },
+    { src: "assets/logos/clients/client-ecco.png", alt: "ECCO" },
+    { src: "assets/logos/clients/client-g-star-raw.png", alt: "G-STAR RAW" },
+    { src: "assets/logos/clients/client-no-one.png", alt: "No One" },
+    { src: "assets/logos/clients/client-simple-wine.png", alt: "Simple Wine" },
+    { src: "assets/logos/clients/client-u-boat.png", alt: "U-BOAT" },
+    { src: "assets/logos/clients/client-eurodecor.png", alt: "EURODECOR" },
+    { src: "assets/logos/clients/client-moppi.png", alt: "Moppi" },
+    { src: "assets/logos/clients/client-lamoda.png", alt: "Lamoda" },
+    { src: "assets/logos/clients/client-gloria-jeans.png", alt: "Gloria Jeans" }
+  ],
+
   rows: [
     // 2 small (left) + 1 large (right)
     {

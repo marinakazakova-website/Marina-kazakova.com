@@ -70,6 +70,27 @@
     if (direction.links.website) linkRow("website", direction.links.website);
     linkRow("portfolio", direction.links.portfolio, "Check our projects");
     linkRow("collaboration", direction.links.collaboration, "Let's talk");
+
+    renderClientLogos();
+  }
+
+  function renderClientLogos() {
+    var wrap = document.getElementById("clientStrip");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    var logos = window.DIRECTION_PAGE_DATA.clientLogos;
+    if (!logos || !logos.length) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    logos.forEach(function (logo) {
+      var item = document.createElement("div");
+      item.className = "client-strip__item";
+      var img = document.createElement("img");
+      img.src = "../" + logo.src;
+      img.alt = logo.alt || "";
+      img.loading = "lazy";
+      item.appendChild(img);
+      wrap.appendChild(item);
+    });
   }
 
   function renderCta() {

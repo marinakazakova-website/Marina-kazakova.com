@@ -53,6 +53,33 @@
   pointer-events: none;
 }
 
+/* ---- Client logo strip: compact vertical column of small black
+   logos below the functional links. Height-normalized, natural width. ---- */
+.client-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1em;
+  margin-top: var(--space-4);
+}
+
+.client-strip__item {
+  display: block;
+  line-height: 0;
+}
+
+.client-strip__item img {
+  display: block;
+  height: 20px;
+  width: auto;
+  transition: transform var(--dur-fast) var(--ease-editorial);
+  transform-origin: left center;
+}
+
+.client-strip__item:hover img {
+  transform: scale(1.15);
+}
+
 .direction-intro__back {
   font-family: var(--font-mono);
   font-size: var(--fs-small);

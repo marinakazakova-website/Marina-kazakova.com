@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
-  STANDALONE PREVIEW BUILD of retail/index.html — all CSS/JS inlined so
+  STANDALONE PREVIEW BUILD of retail/index.html -- all CSS/JS inlined so
   this can be opened directly (file://). Keep it at the repo ROOT
-  (alongside assets/), NOT inside retail/ — paths are adjusted for that.
+  (alongside assets/), NOT inside retail/ -- paths are adjusted for that.
   Not the source of truth; regenerated from retail/index.html on request.
 -->
 <html lang="en">
@@ -20,7 +20,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"></noscript>
 
 <style>
-/* ==== css/tokens.css ==== */
+/* ==== ../css/tokens.css ==== */
 /* ==========================================================================
    Design tokens — colors, type scale, spacing, motion.
    Values are a professional responsive interpretation of the Keynote/PDF
@@ -94,7 +94,9 @@
   --dur-slow: 600ms;
 }
 
-/* ==== css/base.css ==== */
+</style>
+<style>
+/* ==== ../css/base.css ==== */
 /* ========================================================================
    Reset + base element styles
    ======================================================================== */
@@ -205,7 +207,9 @@ ul {
 }
 .btn--dark:hover { background: var(--color-accent); color: var(--color-black); }
 
-/* ==== css/nav.css ==== */
+</style>
+<style>
+/* ==== ../css/nav.css ==== */
 /* ========================================================================
    Top navigation — minimal, editorial, sticky on desktop
    ======================================================================== */
@@ -400,7 +404,9 @@ body.is-opening { overflow: hidden; }
   .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 }
 
-/* ==== css/direction-page.css ==== */
+</style>
+<style>
+/* ==== ../css/direction-page.css ==== */
 /* ========================================================================
    DIRECTION PAGES — Retail / Business / Brands / Films
    Long-scroll editorial portfolio pages. One shared system (this file +
@@ -454,6 +460,33 @@ body.is-opening { overflow: hidden; }
 .direction-link.is-disabled {
   opacity: 0.35;
   pointer-events: none;
+}
+
+/* ---- Client logo strip: compact vertical column of small black
+   logos below the functional links. Height-normalized, natural width. ---- */
+.client-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1em;
+  margin-top: var(--space-4);
+}
+
+.client-strip__item {
+  display: block;
+  line-height: 0;
+}
+
+.client-strip__item img {
+  display: block;
+  height: 20px;
+  width: auto;
+  transition: transform var(--dur-fast) var(--ease-editorial);
+  transform-origin: left center;
+}
+
+.client-strip__item:hover img {
+  transform: scale(1.15);
 }
 
 .direction-intro__back {
@@ -641,6 +674,7 @@ body.is-opening { overflow: hidden; }
     <div class="direction-intro__links">
       <a class="direction-intro__back" href="index.html#experience">← Experience</a>
       <div id="directionLinks"></div>
+      <div class="client-strip" id="clientStrip"></div>
     </div>
 
     <div>
@@ -662,7 +696,7 @@ body.is-opening { overflow: hidden; }
 </main>
 
 <script>
-/* ==== data/content.js ==== */
+/* ==== ../data/content.js ==== */
 /**
  * Bilingual site content (EN / RU), sourced verbatim from "Тексты на сайт.docx".
  * Titles, taglines, credentials and CTA labels are kept in English in both
@@ -925,7 +959,7 @@ window.SITE_CONTENT = {
 
 </script>
 <script>
-/* ==== data/retail-page.js ==== */
+/* ==== ../data/retail-page.js ==== */
 /**
  * RETAIL direction page — portfolio section.
  *
@@ -956,6 +990,31 @@ window.DIRECTION_PAGE_DATA = {
     sub: "Leave a request, it’s free. I’d love to chat.",
     cta: "LET'S TALK"
   },
+
+  // Client logos — compact vertical strip under the functional links.
+  // Only brands whose logo file has actually been uploaded are listed;
+  // no logo is redrawn or substituted. Still missing a file: INGKA,
+  // Rive Gauche, One Move, East Step, ORTEKA, Yandex Market, Catcher.
+  clientLogos: [
+    { src: "assets/logos/clients/client-ikea.png", alt: "IKEA" },
+    { src: "assets/logos/clients/client-mega.png", alt: "MEGA" },
+    { src: "assets/logos/clients/client-underline.png", alt: "Underline" },
+    { src: "assets/logos/clients/client-fujifilm.png", alt: "Fujifilm" },
+    { src: "assets/logos/clients/client-tele2.png", alt: "Tele2" },
+    { src: "assets/logos/clients/client-askona.png", alt: "Askona" },
+    { src: "assets/logos/clients/client-letoile.png", alt: "L'Etoile" },
+    { src: "assets/logos/clients/client-adidas-originals.png", alt: "Adidas Originals" },
+    { src: "assets/logos/clients/client-reebok-classic.png", alt: "Reebok Classic" },
+    { src: "assets/logos/clients/client-ecco.png", alt: "ECCO" },
+    { src: "assets/logos/clients/client-g-star-raw.png", alt: "G-STAR RAW" },
+    { src: "assets/logos/clients/client-no-one.png", alt: "No One" },
+    { src: "assets/logos/clients/client-simple-wine.png", alt: "Simple Wine" },
+    { src: "assets/logos/clients/client-u-boat.png", alt: "U-BOAT" },
+    { src: "assets/logos/clients/client-eurodecor.png", alt: "EURODECOR" },
+    { src: "assets/logos/clients/client-moppi.png", alt: "Moppi" },
+    { src: "assets/logos/clients/client-lamoda.png", alt: "Lamoda" },
+    { src: "assets/logos/clients/client-gloria-jeans.png", alt: "Gloria Jeans" }
+  ],
 
   rows: [
     // 2 small (left) + 1 large (right)
@@ -1019,7 +1078,7 @@ window.DIRECTION_PAGE_DATA = {
 
 </script>
 <script>
-/* ==== js/i18n.js ==== */
+/* ==== ../js/i18n.js ==== */
 /**
  * Minimal i18n layer. Default language: English.
  * Switching language only swaps text — structure, images, layout and
@@ -1101,7 +1160,7 @@ window.DIRECTION_PAGE_DATA = {
 
 </script>
 <script>
-/* ==== js/nav.js ==== */
+/* ==== ../js/nav.js ==== */
 /**
  * Sticky navigation: scroll shadow, offset smooth-scroll, mobile toggle,
  * active-section highlighting.
@@ -1187,7 +1246,7 @@ window.DIRECTION_PAGE_DATA = {
 
 </script>
 <script>
-/* ==== js/direction-page.js ==== */
+/* ==== ../js/direction-page.js ==== */
 /**
  * Generic renderer for direction pages (Retail/Business/Brands/Films).
  * Reads title/tagline/body/clients/links from SITE_CONTENT.experienceDirections
@@ -1260,6 +1319,27 @@ window.DIRECTION_PAGE_DATA = {
     if (direction.links.website) linkRow("website", direction.links.website);
     linkRow("portfolio", direction.links.portfolio, "Check our projects");
     linkRow("collaboration", direction.links.collaboration, "Let's talk");
+
+    renderClientLogos();
+  }
+
+  function renderClientLogos() {
+    var wrap = document.getElementById("clientStrip");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    var logos = window.DIRECTION_PAGE_DATA.clientLogos;
+    if (!logos || !logos.length) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    logos.forEach(function (logo) {
+      var item = document.createElement("div");
+      item.className = "client-strip__item";
+      var img = document.createElement("img");
+      img.src = "" + logo.src;
+      img.alt = logo.alt || "";
+      img.loading = "lazy";
+      item.appendChild(img);
+      wrap.appendChild(item);
+    });
   }
 
   function renderCta() {
