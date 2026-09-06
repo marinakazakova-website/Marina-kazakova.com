@@ -75,7 +75,7 @@ window.SITE_CONTENT = {
         portfolio: { label: "Portfolio", href: "assets/downloads/retail-design-presentation.pdf" },
         collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" }
       },
-      clients: ["IKEA", "Adidas Originals", "Fujifilm", "Yandex Market", "ECCO", "Rive Gauche", "L’etual", "Reebok Classic", "No One", "One move", "G STAR RAW"],
+      clients: ["IKEA", "MEGA", "Underline", "Fujifilm", "Tele2", "Askona", "L’Etoile", "Adidas Originals", "Reebok Classic", "ECCO", "G-STAR RAW", "No One", "Simple Wine", "U-BOAT", "EURODECOR", "Moppi", "Lamoda", "Gloria Jeans", "Yandex Market", "Alisa AI", "Sleep.8"],
       en: {
         body: [
           "I have deep expertise in **Retail Design and Visual Merchandising**, bringing together brand strategy, business objectives, customer behaviour and current retail design trends. For me, a store is **the home of the brand** — the place where strategy becomes customer experience and commercial performance.",
