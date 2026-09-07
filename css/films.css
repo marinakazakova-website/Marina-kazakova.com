@@ -60,7 +60,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.08);
 }
 
 .fff-hero__scrim {
@@ -115,14 +114,17 @@
   overflow: hidden;
 }
 
+/* Oversized, near-full-bleed FFF monogram behind the text — the signature
+   graphic device from the FFF presentation (huge, barely-there dark grey
+   letterforms filling the frame), not a small decorative corner mark. */
 .fff-transition__mark {
   position: absolute;
   top: 50%;
-  right: -6vw;
-  transform: translateY(-50%);
-  width: 34vw;
-  max-width: 460px;
-  opacity: 0.06;
+  left: 50%;
+  width: 150vw;
+  min-width: 1400px;
+  transform: translate(-50%, -50%);
+  opacity: 0.08;
   pointer-events: none;
 }
 
@@ -171,13 +173,11 @@
   margin-block: var(--space-5);
 }
 
+/* Stacked vertically — one discipline per line, thin rule between each —
+   matching the presentation's own layout, not a horizontal wrapped row. */
 .fff-disciplines__formula {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1rem, 2vw, 2.5rem);
-  text-align: center;
+  flex-direction: column;
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
@@ -185,27 +185,42 @@
 }
 
 .fff-disciplines__term {
-  font-size: clamp(1.6rem, 1rem + 3.4vw, 4rem);
-  line-height: 0.98;
-  color: var(--color-white);
-}
-
-.fff-disciplines__term--outline {
+  padding-block: 0.35em;
+  border-top: 1px solid var(--color-border-inverse);
+  font-size: clamp(1.9rem, 1rem + 4vw, 4.6rem);
+  line-height: 1.15;
   -webkit-text-stroke: 1.5px var(--color-white);
   color: transparent;
+  cursor: default;
+  transition: color var(--dur-base) var(--ease-editorial), -webkit-text-stroke-color var(--dur-base) var(--ease-editorial);
+}
+.fff-disciplines__formula li.fff-disciplines__term:last-child {
+  border-bottom: 1px solid var(--color-border-inverse);
+}
+
+/* Interactive accent stays the Marina Kazakova purple even inside this
+   otherwise black/white/grey world — the one deliberate exception. */
+.fff-disciplines__term:hover {
+  color: var(--color-accent);
+  -webkit-text-stroke-color: var(--color-accent);
 }
 
 .fff-disciplines__x {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: clamp(1.4rem, 1rem + 2vw, 2.4rem);
-  opacity: 0.5;
+  display: inline-block;
+  margin-right: 0.25em;
+  -webkit-text-stroke: 0;
+  color: var(--color-white);
+  opacity: 0.45;
+}
+.fff-disciplines__term:hover .fff-disciplines__x {
+  color: var(--color-accent);
+  opacity: 1;
 }
 
 /* ---- 05 — STUDIO ---- */
 .fff-studio {
-  background: var(--color-white);
-  color: var(--color-black);
+  background: var(--color-black);
+  color: var(--color-white);
   padding-top: var(--space-7);
 }
 
@@ -228,12 +243,12 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-inverse);
 }
 
 .fff-studio__col {
   padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-inverse);
 }
 
 .fff-studio__col-num {
@@ -278,7 +293,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.05);
   transition: transform 700ms var(--ease-editorial);
 }
 .fff-studio__frame:hover img {
@@ -330,12 +344,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.05);
-  transition: transform 600ms var(--ease-editorial), filter 600ms var(--ease-editorial);
+  transition: transform 600ms var(--ease-editorial);
 }
 .fff-film-card:hover .fff-film-card__figure img {
   transform: scale(1.045);
-  filter: grayscale(0%) contrast(1.05);
 }
 
 .fff-film-card__play {
@@ -351,10 +363,11 @@
   color: var(--color-white);
   background: rgba(11, 11, 12, 0.55);
   border-radius: 50%;
-  transition: background var(--dur-fast) var(--ease-editorial), transform var(--dur-fast) var(--ease-editorial);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), transform var(--dur-fast) var(--ease-editorial);
 }
 .fff-film-card:hover .fff-film-card__play {
-  background: var(--color-black);
+  background: var(--color-accent);
+  color: var(--color-black);
   transform: scale(1.08);
 }
 
@@ -390,8 +403,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.1);
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 .fff-final__scrim {
@@ -436,13 +448,12 @@
   letter-spacing: var(--ls-normal);
   text-transform: uppercase;
 }
-.fff-final__contacts a { opacity: 0.7; transition: opacity var(--dur-fast) var(--ease-editorial); }
-.fff-final__contacts a:hover { opacity: 1; }
+.fff-final__contacts a { opacity: 0.7; transition: opacity var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial); }
+.fff-final__contacts a:hover { opacity: 1; color: var(--color-accent); }
 .fff-final__sep { margin-inline: 0.6em; opacity: 0.35; }
 
 @media (max-width: 900px) {
   .fff-studio__columns { grid-template-columns: 1fr; gap: var(--space-3); }
   .fff-studio__strip { grid-template-columns: repeat(3, 1fr); }
   .fff-films__grid { grid-template-columns: 1fr; }
-  .fff-disciplines__formula { flex-direction: column; }
 }
