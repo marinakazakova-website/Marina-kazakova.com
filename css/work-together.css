@@ -181,6 +181,14 @@
 
 .work-credentials strong { font-weight: 700; }
 
+.work-credentials p::before {
+  content: "—";
+  display: inline-block;
+  margin-right: 0.5em;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+}
+
 @media (max-width: 900px) {
   .work-card__bottom { grid-template-columns: 1fr; }
   .work-credentials { border-left: none; padding-left: 0; border-top: 1px solid var(--color-border); padding-top: var(--space-2); }
