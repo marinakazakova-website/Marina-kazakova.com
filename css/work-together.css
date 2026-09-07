@@ -163,6 +163,20 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
+  opacity: 0;
+}
+
+.work-service__steps.is-visible .work-service__step {
+  animation: work-step-reveal 450ms var(--ease-editorial) forwards;
+}
+
+@keyframes work-step-reveal {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-service__step { opacity: 1; animation: none !important; }
 }
 
 .work-service__step-arrow {

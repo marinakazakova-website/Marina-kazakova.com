@@ -54,6 +54,7 @@
         service.steps.forEach(function (step, i) {
           var unit = document.createElement("span");
           unit.className = "work-service__step";
+          unit.style.animationDelay = (i * 0.15) + "s";
           var pill = document.createElement("span");
           pill.className = "work-service__pill";
           pill.textContent = step;
@@ -67,6 +68,7 @@
           steps.appendChild(unit);
         });
         col.appendChild(steps);
+        observeSteps(steps);
       }
 
       wrap.appendChild(col);
@@ -80,6 +82,26 @@
       credWrap.appendChild(line);
     });
     wrap.appendChild(credWrap);
+  }
+
+  // Reveals the "Cooperation Strategy" process chain one step at a time
+  // (each pill + arrow fades/slides in with a short stagger) the first time
+  // it scrolls into view, so it reads as a sequence rather than a static
+  // bag of tags. Plays once per element.
+  function observeSteps(stepsEl) {
+    if (!("IntersectionObserver" in window)) {
+      stepsEl.classList.add("is-visible");
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    observer.observe(stepsEl);
   }
 
   document.addEventListener("mk:langchange", render);
