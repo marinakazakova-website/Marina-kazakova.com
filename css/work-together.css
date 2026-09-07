@@ -90,7 +90,7 @@
 .work-service__head {
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.6em;
   margin-bottom: 0.5em;
 }
@@ -101,6 +101,7 @@
   letter-spacing: var(--ls-normal);
   text-decoration: underline;
   text-underline-offset: 4px;
+  white-space: nowrap;
 }
 
 .work-service__timing {
