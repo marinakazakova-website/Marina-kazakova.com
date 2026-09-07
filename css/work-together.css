@@ -128,15 +128,13 @@
 }
 
 .work-service__section-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-body);
   letter-spacing: var(--ls-normal);
   text-transform: uppercase;
-  background: var(--color-accent);
   color: var(--color-black);
-  padding: 0.35em 0.6em;
-  border-radius: var(--radius-btn);
   margin-bottom: 0.5em;
 }
 
