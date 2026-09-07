@@ -228,27 +228,22 @@ window.SITE_CONTENT = {
       {
         label: { en: "SERVICE 01", ru: "УСЛУГА 01" },
         title: "STRATEGIC CONSULTING",
+        timing: "4 HOURS",
         before: [
-          { en: "A 4-hour strategic session for a specific business request.", ru: "4-часовая стратегическая сессия для конкретного бизнес-запроса." }
+          { en: "A strategic session for a specific business request.", ru: "Стратегическая сессия для конкретного бизнес-запроса." },
+          { en: "For situations when a founder needs a strong outside perspective, a decision and direction.", ru: "Для ситуаций, когда фаундеру нужен сильный внешний взгляд, решение и направление." }
         ],
-        tags: ["Brand Strategy", "Positioning", "Visual Direction", "Retail Design", "Digital Marketing"],
-        after: [
-          { en: "For situations that call for a strong outside perspective, a decision and clear direction.", ru: "Для ситуаций, когда нужен сильный внешний взгляд, решение и чёткое направление." },
-          { en: "No long-term engagement.", ru: "Без долгосрочного сопровождения." }
-        ]
+        tags: ["BRAND STRATEGY", "POSITIONING", "PRODUCT", "VISUAL DIRECTION", "RETAIL DESIGN", "DIGITAL MARKETING"]
       },
       {
         label: { en: "SERVICE 02", ru: "УСЛУГА 02" },
         title: "STRATEGIC BRAND PARTNERSHIP",
+        timing: "UP TO 6 MONTHS",
         before: [
-          { en: "Long-term work with the founder / owner and team.", ru: "Долгосрочная работа с founder / собственником и командой." },
-          { en: "I join the project as a strategic brand partner and guide the brand from strategy through to execution:", ru: "Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации:" }
+          { en: "Long-term work with the brand, the owner and the team.", ru: "Долгосрочная работа с брендом, собственником и командой." },
+          { en: "I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.", ru: "Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу." }
         ],
-        tags: ["Positioning", "Product", "Identity", "Communication", "Digital", "Creative Direction"],
-        after: [
-          { en: "I build the specialist team the project needs and launch execution together with them.", ru: "Формирую необходимую команду специалистов и вместе с ней запускаю реализацию." },
-          { en: "Engagements from 6 months.", ru: "Сотрудничество от 6 месяцев." }
-        ]
+        steps: ["AUDIT", "BRAND FOUNDATION", "BRAND IDENTITY", "PRODUCT", "DIGITAL", "BRAND DEVELOPMENT"]
       }
     ],
     credentials: [

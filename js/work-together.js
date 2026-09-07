@@ -19,10 +19,17 @@
       label.textContent = service.label[lang];
       col.appendChild(label);
 
+      var head = document.createElement("div");
+      head.className = "work-service__head";
       var title = document.createElement("p");
       title.className = "work-service__title";
       title.textContent = service.title;
-      col.appendChild(title);
+      var timing = document.createElement("span");
+      timing.className = "work-service__timing";
+      timing.textContent = service.timing;
+      head.appendChild(title);
+      head.appendChild(timing);
+      col.appendChild(head);
 
       service.before.forEach(function (line) {
         var p = document.createElement("p");
@@ -31,17 +38,38 @@
         col.appendChild(p);
       });
 
-      var tags = document.createElement("p");
-      tags.className = "work-service__tags";
-      tags.textContent = service.tags.join(" · ");
-      col.appendChild(tags);
+      if (service.tags) {
+        var pills = document.createElement("div");
+        pills.className = "work-service__pills";
+        service.tags.forEach(function (tag) {
+          var pill = document.createElement("span");
+          pill.className = "work-service__pill";
+          pill.textContent = tag;
+          pills.appendChild(pill);
+        });
+        col.appendChild(pills);
+      }
 
-      service.after.forEach(function (line) {
-        var p = document.createElement("p");
-        p.className = "work-service__text";
-        p.textContent = line[lang];
-        col.appendChild(p);
-      });
+      if (service.steps) {
+        var steps = document.createElement("div");
+        steps.className = "work-service__steps";
+        service.steps.forEach(function (step, i) {
+          var unit = document.createElement("span");
+          unit.className = "work-service__step";
+          var pill = document.createElement("span");
+          pill.className = "work-service__pill";
+          pill.textContent = step;
+          unit.appendChild(pill);
+          if (i < service.steps.length - 1) {
+            var arrow = document.createElement("span");
+            arrow.className = "work-service__step-arrow";
+            arrow.textContent = "→";
+            unit.appendChild(arrow);
+          }
+          steps.appendChild(unit);
+        });
+        col.appendChild(steps);
+      }
 
       wrap.appendChild(col);
     });
