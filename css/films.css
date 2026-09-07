@@ -1,0 +1,448 @@
+/* ========================================================================
+   FILMS — Future Film Foundation cinematic world.
+   Everything from here down is deliberately outside the Marina Kazakova
+   purple/editorial system: black / white / grey only, large type, thin
+   rules, crosses — a separate "cinematic world" nested inside the site,
+   built from the FFF presentation's own character (not its slides).
+   ======================================================================== */
+
+.fff {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.fff section { position: relative; }
+
+/* Restrained reveal system: fade + light slide-up + mask-wipe only.
+   No bounce, no spring, no parallax — see prefers-reduced-motion in
+   base.css, which already zeroes every transition/animation duration. */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease-editorial), transform 700ms var(--ease-editorial);
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 900ms var(--ease-editorial);
+}
+.reveal-fade.is-visible { opacity: 1; }
+
+.reveal-mask {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 900ms var(--ease-editorial);
+}
+.reveal-mask.is-visible {
+  clip-path: inset(0 0 0% 0);
+}
+
+/* ---- 02 — FFF HERO VIDEO ---- */
+.fff-hero {
+  height: 100vh;
+  min-height: 640px;
+  max-height: 980px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fff-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.fff-hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.08);
+}
+
+.fff-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.fff-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-inline: var(--container-pad);
+}
+
+.fff-hero__wordmark {
+  width: clamp(220px, 20vw, 340px);
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.fff-hero__tagline {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  letter-spacing: var(--ls-wide);
+  color: var(--color-white);
+  opacity: 0.9;
+}
+
+.fff-hero__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-4);
+  transform: translateX(-50%);
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--color-white);
+  opacity: 0.5;
+}
+
+/* ---- 03 — STUDIO & FOUNDATION (compact editorial transition, not a full slide) ---- */
+.fff-transition {
+  padding-block: var(--space-6);
+  overflow: hidden;
+}
+
+.fff-transition__mark {
+  position: absolute;
+  top: 50%;
+  right: -6vw;
+  transform: translateY(-50%);
+  width: 34vw;
+  max-width: 460px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.fff-transition__inner {
+  position: relative;
+  max-width: 46rem;
+}
+
+.fff-transition__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  line-height: 0.98;
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.fff-transition__title span {
+  -webkit-text-stroke: 1.5px var(--color-white);
+  color: transparent;
+}
+
+.fff-transition__body {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  max-width: 34rem;
+  opacity: 0.85;
+}
+
+/* ---- 04 — НАШ ПОДХОД / 3 DISCIPLINES ---- */
+.fff-disciplines {
+  background: var(--color-black);
+  padding-block: var(--space-7);
+}
+
+.fff-disciplines__intro {
+  max-width: 42rem;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  opacity: 0.85;
+}
+
+.fff-disciplines__rule {
+  height: 1px;
+  background: var(--color-border-inverse);
+  margin-block: var(--space-5);
+}
+
+.fff-disciplines__formula {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+}
+
+.fff-disciplines__term {
+  font-size: clamp(1.6rem, 1rem + 3.4vw, 4rem);
+  line-height: 0.98;
+  color: var(--color-white);
+}
+
+.fff-disciplines__term--outline {
+  -webkit-text-stroke: 1.5px var(--color-white);
+  color: transparent;
+}
+
+.fff-disciplines__x {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1rem + 2vw, 2.4rem);
+  opacity: 0.5;
+}
+
+/* ---- 05 — STUDIO ---- */
+.fff-studio {
+  background: var(--color-white);
+  color: var(--color-black);
+  padding-top: var(--space-7);
+}
+
+.fff-studio__eyebrow {
+  opacity: 0.55;
+  margin-bottom: var(--space-3);
+}
+
+.fff-studio__title {
+  max-width: 52rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-heading);
+  line-height: var(--lh-snug);
+  margin-bottom: var(--space-6);
+}
+
+.fff-studio__columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.fff-studio__col {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.fff-studio__col-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  opacity: 0.45;
+  margin-bottom: var(--space-2);
+}
+
+.fff-studio__col-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-body-lg);
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+}
+
+.fff-studio__col-text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  opacity: 0.75;
+  max-width: 24rem;
+}
+
+/* Horizontal strip of film stills — the "genuine web section" texture
+   for Studio, not a presentation screenshot. */
+.fff-studio__strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-top: var(--space-6);
+  background: var(--color-black);
+}
+
+.fff-studio__frame {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+.fff-studio__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+  transition: transform 700ms var(--ease-editorial);
+}
+.fff-studio__frame:hover img {
+  transform: scale(1.045);
+}
+
+/* ---- 06 — СМОТРЕТЬ НАШИ ФИЛЬМЫ ---- */
+.fff-films {
+  background: var(--color-white);
+  color: var(--color-black);
+  padding-block: var(--space-7);
+}
+
+.fff-films__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+.fff-films__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.fff-film-card {
+  display: block;
+  color: var(--color-black);
+}
+
+.fff-film-card__num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  opacity: 0.45;
+  margin-bottom: var(--space-2);
+}
+
+.fff-film-card__figure {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--color-pale-grey-soft);
+}
+.fff-film-card__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+  transition: transform 600ms var(--ease-editorial), filter 600ms var(--ease-editorial);
+}
+.fff-film-card:hover .fff-film-card__figure img {
+  transform: scale(1.045);
+  filter: grayscale(0%) contrast(1.05);
+}
+
+.fff-film-card__play {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-small);
+  color: var(--color-white);
+  background: rgba(11, 11, 12, 0.55);
+  border-radius: 50%;
+  transition: background var(--dur-fast) var(--ease-editorial), transform var(--dur-fast) var(--ease-editorial);
+}
+.fff-film-card:hover .fff-film-card__play {
+  background: var(--color-black);
+  transform: scale(1.08);
+}
+
+.fff-film-card__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-snug);
+}
+
+.fff-film-card__meta {
+  margin-top: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: var(--lh-normal);
+  opacity: 0.6;
+}
+
+/* ---- 07 — FINAL: Explore → Create → Share ---- */
+.fff-final {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-block: var(--space-7);
+}
+
+.fff-final__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  opacity: 0.55;
+}
+
+.fff-final__scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 100% at 50% 40%, rgba(11, 11, 12, 0.55) 0%, rgba(11, 11, 12, 0.92) 100%);
+}
+
+.fff-final__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.fff-final__line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 1.2rem + 4vw, 5rem);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+}
+
+.fff-final__arrow {
+  display: inline-block;
+  margin-inline: 0.15em;
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+.fff-final__names {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body-lg);
+  letter-spacing: var(--ls-normal);
+  opacity: 0.85;
+}
+
+.fff-final__contacts {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-normal);
+  text-transform: uppercase;
+}
+.fff-final__contacts a { opacity: 0.7; transition: opacity var(--dur-fast) var(--ease-editorial); }
+.fff-final__contacts a:hover { opacity: 1; }
+.fff-final__sep { margin-inline: 0.6em; opacity: 0.35; }
+
+@media (max-width: 900px) {
+  .fff-studio__columns { grid-template-columns: 1fr; gap: var(--space-3); }
+  .fff-studio__strip { grid-template-columns: repeat(3, 1fr); }
+  .fff-films__grid { grid-template-columns: 1fr; }
+  .fff-disciplines__formula { flex-direction: column; }
+}

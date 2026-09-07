@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Films | Marina Kazakova</title>
+<meta name="description" content="Films | Documentary for Brands — Marina Kazakova's role at Future Film Foundation, branded documentary filmmaking at the intersection of cinema, brand strategy and founder storytelling.">
+<link rel="icon" type="image/png" href="../assets/logos/bed-logo-black.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"></noscript>
+
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/direction-page.css">
+<link rel="stylesheet" href="../css/films.css">
+</head>
+<body>
+
+<!-- ============ NAVIGATION (links back to the homepage sections) ============ -->
+<header class="site-nav" id="siteNav">
+  <div class="container site-nav__inner">
+    <a href="../index.html" class="site-nav__mark">Marina Kazakova</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav__links" id="navLinks">
+      <a class="site-nav__link" data-i18n-nav="profile" href="../index.html#profile">Profile</a>
+      <a class="site-nav__link" data-i18n-nav="experience" href="../index.html#experience">Experience</a>
+      <a class="site-nav__link" data-i18n-nav="method" href="../index.html#brand-ecosystem">Method</a>
+      <a class="site-nav__link" data-i18n-nav="work" href="../index.html#work-together">Work With Me</a>
+    </nav>
+
+    <div class="site-nav__right">
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
+        <button class="lang-switch__btn" data-lang="en">EN</button>
+        <span class="lang-switch__sep">/</span>
+        <button class="lang-switch__btn" data-lang="ru">RU</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="direction-page">
+
+  <!-- ============ 01 — FILMS intro (shared Marina Kazakova design system) ============ -->
+  <div class="container direction-intro">
+    <div class="direction-intro__links">
+      <a class="direction-intro__back" href="../index.html#experience">← Experience</a>
+      <div id="directionLinks"></div>
+      <div class="client-strip" id="clientStrip"></div>
+    </div>
+
+    <div>
+      <h1 class="direction-intro__title" id="directionTitle"></h1>
+      <p class="direction-intro__tagline" id="directionTagline"></p>
+      <div class="direction-intro__body" id="directionBody"></div>
+      <p class="direction-intro__clients" id="directionClients" hidden></p>
+    </div>
+  </div>
+
+  <div id="portfolioFlow" hidden></div>
+
+  <!-- ============ FFF — separate cinematic world (Future Film Foundation) ============ -->
+  <div class="fff">
+
+    <!-- 02 — FFF HERO VIDEO -->
+    <section class="fff-hero" id="fffHero">
+      <div class="fff-hero__media">
+        <video class="fff-hero__video" autoplay muted loop playsinline poster="../assets/images/experience/films/fff-hero-bg.jpg"></video>
+        <div class="fff-hero__scrim"></div>
+      </div>
+      <div class="fff-hero__content">
+        <img class="fff-hero__wordmark reveal-mask" src="../assets/logos/fff/fff-wordmark-vertical.png" alt="future / film.foundation">
+        <p class="fff-hero__tagline reveal-fade">Кино о настоящем будущем.</p>
+      </div>
+      <span class="fff-hero__scroll-cue" aria-hidden="true">Scroll</span>
+    </section>
+
+    <!-- 03 — STUDIO & FOUNDATION -->
+    <section class="fff-transition">
+      <img class="fff-transition__mark" src="../assets/logos/fff/fff-mark-outline.png" alt="" aria-hidden="true">
+      <div class="container fff-transition__inner reveal-up">
+        <h2 class="fff-transition__title">Studio &amp;<br><span>.foundation</span></h2>
+        <p class="fff-transition__body">Мы — Студия и Фонд документального кино о людях, культуре и явлениях, влияющих на будущее.</p>
+      </div>
+    </section>
+
+    <!-- 04 — НАШ ПОДХОД / 3 DISCIPLINES -->
+    <section class="fff-disciplines">
+      <div class="container">
+        <p class="fff-disciplines__intro reveal-up">FFF работает на пересечении 3-х дисциплин. Именно здесь рождаются фильмы, способные вызвать интерес у аудитории, усиливать ценность бренда и сохранять историю для будущих поколений.</p>
+
+        <div class="fff-disciplines__rule" aria-hidden="true"></div>
+
+        <h3 class="fff-disciplines__formula reveal-up">
+          <span class="fff-disciplines__term">documentary<br>filmmaking</span>
+          <span class="fff-disciplines__x" aria-hidden="true">×</span>
+          <span class="fff-disciplines__term fff-disciplines__term--outline">brand<br>strategy</span>
+          <span class="fff-disciplines__x" aria-hidden="true">×</span>
+          <span class="fff-disciplines__term">founder<br>storytelling</span>
+        </h3>
+
+        <div class="fff-disciplines__rule" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- 05 — STUDIO -->
+    <section class="fff-studio">
+      <div class="container">
+        <p class="eyebrow fff-studio__eyebrow">Studio</p>
+        <h2 class="fff-studio__title reveal-up">Мы снимаем фильмы для компаний, которые фиксируют историю и уникальность бренда и подчёркивают личность основателя.</h2>
+
+        <div class="fff-studio__columns">
+          <div class="fff-studio__col reveal-up">
+            <span class="fff-studio__col-num">01</span>
+            <h3 class="fff-studio__col-title">Brand Story</h3>
+            <p class="fff-studio__col-text">История и уникальность бренда / основателя.</p>
+          </div>
+          <div class="fff-studio__col reveal-up">
+            <span class="fff-studio__col-num">02</span>
+            <h3 class="fff-studio__col-title">Brand Value</h3>
+            <p class="fff-studio__col-text">Репутация, ценность бренда, сильная человеческая история.</p>
+          </div>
+          <div class="fff-studio__col reveal-up">
+            <span class="fff-studio__col-num">03</span>
+            <h3 class="fff-studio__col-title">Long-Term Asset</h3>
+            <p class="fff-studio__col-text">Контент для коммуникации, PR, HR, инвесторов и внутренних команд.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fff-studio__strip" aria-hidden="true">
+        <div class="fff-studio__frame"><img src="../assets/images/experience/films/fff-studio-still-01.jpg" alt=""></div>
+        <div class="fff-studio__frame"><img src="../assets/images/experience/films/fff-studio-still-02.jpg" alt=""></div>
+        <div class="fff-studio__frame"><img src="../assets/images/experience/films/fff-studio-still-03.jpg" alt=""></div>
+        <div class="fff-studio__frame"><img src="../assets/images/experience/films/fff-studio-still-04.jpg" alt=""></div>
+        <div class="fff-studio__frame"><img src="../assets/images/experience/films/fff-studio-still-05.jpg" alt=""></div>
+      </div>
+    </section>
+
+    <!-- 06 — СМОТРЕТЬ НАШИ ФИЛЬМЫ -->
+    <section class="fff-films">
+      <div class="container">
+        <h2 class="fff-films__title reveal-up">Смотреть наши фильмы</h2>
+
+        <div class="fff-films__grid">
+          <a class="fff-film-card reveal-up" href="https://www.youtube.com/watch?v=cK6Shh7koXI" target="_blank" rel="noopener">
+            <span class="fff-film-card__num">01</span>
+            <div class="fff-film-card__figure">
+              <img src="../assets/images/experience/films/fff-film-01-gorizont-sobytiy.jpg" alt="">
+              <span class="fff-film-card__play" aria-hidden="true">▶</span>
+            </div>
+            <h3 class="fff-film-card__title">«Горизонт событий»</h3>
+            <p class="fff-film-card__meta">Brand | БИ-2<br>2019 | Documentary Film<br>Director | Igor Shmelev</p>
+          </a>
+
+          <a class="fff-film-card reveal-up" href="https://www.kinopoisk.ru/film/5639025/" target="_blank" rel="noopener">
+            <span class="fff-film-card__num">02</span>
+            <div class="fff-film-card__figure">
+              <img src="../assets/images/experience/films/fff-film-02-tochno-ne-keramika.jpg" alt="">
+              <span class="fff-film-card__play" aria-hidden="true">▶</span>
+            </div>
+            <h3 class="fff-film-card__title">«Точно не керамика»</h3>
+            <p class="fff-film-card__meta">Brand | Dymov Ceramics<br>2023 | Documentary Short Film<br>Directors | Igor Shmelev &amp; Kira Altman</p>
+          </a>
+
+          <a class="fff-film-card reveal-up" href="https://www.youtube.com/watch?v=Owj1NmwSZOc" target="_blank" rel="noopener">
+            <span class="fff-film-card__num">03</span>
+            <div class="fff-film-card__figure">
+              <img src="../assets/images/experience/films/fff-film-03-tigr-lastochka.jpg" alt="">
+              <span class="fff-film-card__play" aria-hidden="true">▶</span>
+            </div>
+            <h3 class="fff-film-card__title">«Тигр, ласточка и «Джеки Чан»»</h3>
+            <p class="fff-film-card__meta">Brand | 12 STOREEZ<br>2025 | Documentary Film<br>Directors | Igor Shmelev &amp; Kira Altman</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — FINAL: Explore → Create → Share -->
+    <section class="fff-final">
+      <img class="fff-final__bg" src="../assets/images/experience/films/fff-final-bg.jpg" alt="" aria-hidden="true">
+      <div class="fff-final__scrim"></div>
+      <div class="container fff-final__content">
+        <h2 class="fff-final__line reveal-up">Explore <span class="fff-final__arrow">→</span> Create <span class="fff-final__arrow">→</span> Share</h2>
+        <p class="fff-final__names reveal-up">Igor Shmelev · Marina Kazakova · Ivan Ershov</p>
+        <p class="fff-final__contacts reveal-up">
+          <a href="mailto:hello@futurefilm.foundation">hello@futurefilm.foundation</a>
+          <span class="fff-final__sep">/</span>
+          <a href="https://futurefilm.foundation/" target="_blank" rel="noopener">futurefilm.foundation</a>
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="direction-end">
+    <a class="direction-end__back" href="../index.html#experience">BACK TO PROJECTS PAGE</a>
+  </div>
+
+</main>
+
+<script src="../data/content.js"></script>
+<script src="../data/films-page.js"></script>
+<script src="../js/i18n.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/direction-page.js"></script>
+<script src="../js/films.js"></script>
+</body>
+</html>

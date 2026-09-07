@@ -77,8 +77,9 @@
       wrap.appendChild(el);
     }
 
+    var portfolioLabel = window.DIRECTION_PAGE_DATA.portfolioLabel || "Check our projects";
     if (direction.links.website) linkRow("website", direction.links.website);
-    if (direction.links.portfolio && direction.links.portfolio.href) linkRow("portfolio", direction.links.portfolio, "Check our projects");
+    if (direction.links.portfolio && direction.links.portfolio.href) linkRow("portfolio", direction.links.portfolio, portfolioLabel);
     if (direction.links.trainings) linkRow("trainings", direction.links.trainings);
     linkRow("collaboration", direction.links.collaboration, "Let's talk");
 
@@ -261,6 +262,7 @@
 
   function renderFlow() {
     var wrap = document.getElementById("portfolioFlow");
+    if (!wrap) return;
     wrap.innerHTML = "";
     window.DIRECTION_PAGE_DATA.rows.forEach(function (row) {
       var el;
