@@ -132,3 +132,25 @@
   .profile-reveal { margin-top: calc(-1 * var(--fs-display-xl) * 0.4); }
   .profile-info { flex-direction: column; align-items: flex-start; }
 }
+
+/* ========================================================================
+   LAPTOP / LOW-HEIGHT DESKTOP — same aesthetic as the large-desktop scale
+   above, compressed for small-laptop viewports (e.g. 1366x768 at 100%
+   zoom) so the first screen doesn't crowd out the start of Experience.
+   Large desktop (outside this width/height band) is untouched.
+   ======================================================================== */
+@media (min-width: 1100px) and (max-width: 1440px) and (max-height: 900px) {
+  /* ~22% shorter hero photo — same crop, same object-position, just less
+     of the frame's height claimed by the viewport. */
+  .profile-media { aspect-ratio: 16 / 5; }
+
+  /* ~18% smaller headline; the pull-up margin is recomputed from this
+     same reduced size (not the shared --fs-display-xl token) so the
+     two-line reveal keeps its composition relative to the photo. */
+  .profile-reveal { margin-top: calc(-1 * clamp(2rem, 1.4rem + 4.4vw, 5.4rem) * var(--lh-tight)); }
+  .profile-reveal__line { font-size: clamp(2rem, 1.4rem + 4.4vw, 5.4rem); }
+
+  /* Tighter vertical rhythm below the headline — body copy size untouched. */
+  .profile-info { gap: 1.8rem; padding-block: 1.8rem 4.1rem; }
+  .profile-info__text { gap: 0.35em; }
+}

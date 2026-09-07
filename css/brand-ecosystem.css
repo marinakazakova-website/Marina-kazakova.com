@@ -125,3 +125,21 @@
   .triptych img { height: 46vw; }
   .method__row { grid-template-columns: 1fr; gap: 0.5rem; }
 }
+
+/* ========================================================================
+   LAPTOP / LOW-HEIGHT DESKTOP — see profile.css for the breakpoint's
+   rationale. Resolved sizes only (~10-15%); --fs-heading/--fs-display-md
+   are shared with Films/direction pages, so overridden here directly
+   rather than at the token, which stays untouched for those pages.
+   ======================================================================== */
+@media (min-width: 1100px) and (max-width: 1440px) and (max-height: 900px) {
+  .section-brand-ecosystem { padding-bottom: 4.9rem; }
+  .triptych { gap: clamp(18px, 2.1vw, 32px); padding: clamp(18px, 2.1vw, 32px) clamp(18px, 2.1vw, 32px) 0; }
+  .triptych img { aspect-ratio: 6 / 6.3; }
+  .brand-ecosystem__intro { padding-block: 4.8rem 3.1rem; }
+  .brand-ecosystem__text { font-size: clamp(1.55rem, 1.1rem + 1.44vw, 2.2rem); }
+
+  .method { padding-top: 2rem; }
+  .method__row { padding-block: clamp(1.15rem, 1.6vw, 1.75rem); }
+  .method__title { font-size: clamp(1.7rem, 1.15rem + 2.1vw, 2.8rem); }
+}

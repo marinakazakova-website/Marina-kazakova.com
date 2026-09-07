@@ -313,3 +313,23 @@
 @media (max-width: 560px) {
   .experience-typo-nav__item { letter-spacing: -0.02em; }
 }
+
+/* ========================================================================
+   LAPTOP / LOW-HEIGHT DESKTOP — see profile.css for the breakpoint's
+   rationale. Composition, hover logic and structure are unchanged; only
+   the resolved sizes shrink (~10-20%, heaviest on the oversized nav
+   words). Shared tokens (--fs-heading, --fs-display-huge, --fs-display-md)
+   are not touched here — this file overrides the resolved property
+   directly so Retail/Business/Films (which reuse those same tokens) are
+   unaffected.
+   ======================================================================== */
+@media (min-width: 1100px) and (max-width: 1440px) and (max-height: 900px) {
+  .experience-intro { padding: 4.8rem 0 7rem; }
+  .experience-intro__lead { font-size: clamp(1.55rem, 1.1rem + 1.44vw, 2.2rem); }
+  .experience-intro__formula { font-size: clamp(1.6rem, 1.05rem + 2.26vw, 2.7rem); }
+  .experience-intro__portrait { max-width: 88%; margin-left: auto; }
+
+  /* The main oversized element — down ~18%, still very large. */
+  .experience-typo-nav { padding-block: 3.1rem 2rem; }
+  .experience-typo-nav__item { font-size: clamp(3.3rem, 0.8rem + 16vw, 15rem); }
+}

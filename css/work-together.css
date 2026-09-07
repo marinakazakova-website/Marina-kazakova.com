@@ -209,6 +209,20 @@
   .work-credentials { border-left: none; padding-left: 0; border-top: 1px solid var(--color-border); padding-top: var(--space-2); }
 }
 
+/* ========================================================================
+   LAPTOP / LOW-HEIGHT DESKTOP — see profile.css for the breakpoint's
+   rationale. This block is already approved, so the touch is light
+   (~8-10%): outer padding, the card's own padding, the name headline
+   (--fs-display-lg is shared with direction-page.css, so overridden here
+   directly) and the portrait. Everything else is untouched.
+   ======================================================================== */
+@media (min-width: 1100px) and (max-width: 1440px) and (max-height: 900px) {
+  .section-work-together { padding-block: 4.9rem; }
+  .work-card { padding: clamp(1.8rem, 3vw, 3.6rem); }
+  .work-card__name { font-size: clamp(2.3rem, 1.5rem + 4.6vw, 6rem); }
+  .work-card__portrait { width: clamp(90px, 11.5vw, 148px); }
+}
+
 /* ---- Footer ---- */
 .site-footer {
   background: var(--color-black);
