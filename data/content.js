@@ -31,7 +31,7 @@ window.SITE_CONTENT = {
       headlineWords: [
         { w: "Я", accent: true }, { w: "ВИЖУ,", accent: true },
         { w: "ЧЕМ", accent: false }, { w: "ЭТО", accent: false },
-        { w: "МОЖЕТ", accent: true }, { w: "СТАТЬ.", accent: true }
+        { w: "МОЖЕТ", accent: true }, { w: "СТАТЬ", accent: true }
       ],
       name: "Марина Казакова",
       roles: "Strategic Brand Advisor · Brand Strategist · Retail Experience Expert",
