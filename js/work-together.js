@@ -14,11 +14,6 @@
       var col = document.createElement("div");
       col.className = "work-service";
 
-      var label = document.createElement("p");
-      label.className = "work-service__label";
-      label.textContent = service.label[lang];
-      col.appendChild(label);
-
       var head = document.createElement("div");
       head.className = "work-service__head";
       var title = document.createElement("p");
@@ -26,25 +21,28 @@
       title.textContent = service.title;
       var timing = document.createElement("span");
       timing.className = "work-service__timing";
-      timing.textContent = service.timing;
+      timing.textContent = service.timing[lang];
       head.appendChild(title);
       head.appendChild(timing);
       col.appendChild(head);
 
-      service.before.forEach(function (line) {
-        var p = document.createElement("p");
-        p.className = "work-service__text";
-        p.textContent = line[lang];
-        col.appendChild(p);
-      });
+      var body = document.createElement("p");
+      body.className = "work-service__text";
+      body.textContent = service.body[lang];
+      col.appendChild(body);
 
-      if (service.tags) {
+      var sectionLabel = document.createElement("span");
+      sectionLabel.className = "work-service__section-label";
+      sectionLabel.textContent = service.sectionLabel[lang];
+      col.appendChild(sectionLabel);
+
+      if (service.items) {
         var pills = document.createElement("div");
         pills.className = "work-service__pills";
-        service.tags.forEach(function (tag) {
+        service.items.forEach(function (item) {
           var pill = document.createElement("span");
           pill.className = "work-service__pill";
-          pill.textContent = tag;
+          pill.textContent = item;
           pills.appendChild(pill);
         });
         col.appendChild(pills);
