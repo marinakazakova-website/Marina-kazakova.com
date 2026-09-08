@@ -103,7 +103,10 @@
 .profile-info__roles,
 .profile-info__bold,
 .profile-info__body {
-  font-size: var(--fs-body-lg);
+  /* Matches the intro body-text scale used under the BRANDS headline
+     (css/brands.css), so the main page reads as the same typographic
+     system as the direction pages rather than a bigger, separate scale. */
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-snug);
 }
 

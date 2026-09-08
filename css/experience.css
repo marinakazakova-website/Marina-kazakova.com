@@ -55,7 +55,8 @@
   margin-top: var(--space-5);
   margin-left: auto;
   max-width: 30rem;
-  font-size: var(--fs-body-lg);
+  /* Same intro body-text scale as BRANDS (css/brands.css) — see profile.css. */
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-relaxed);
 }
 

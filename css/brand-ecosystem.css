@@ -40,9 +40,12 @@
   max-width: 56rem;
   margin-inline: auto;
   text-align: center;
-  font-size: var(--fs-heading);
+  /* Same intro body-text scale as BRANDS (css/brands.css) — see profile.css.
+     This is a long descriptive paragraph, not a short lead/CTA line, so it
+     belongs with the other body-text blocks brought down to that scale. */
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   font-weight: 400;
-  line-height: var(--lh-normal);
+  line-height: var(--lh-relaxed);
   color: rgba(255,255,255,0.95);
 }
 
@@ -98,7 +101,8 @@
 }
 
 .method__desc {
-  font-size: var(--fs-body-lg);
+  /* Same intro body-text scale as BRANDS (css/brands.css) — see profile.css. */
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-relaxed);
   color: rgba(255,255,255,0.65);
   transition: color var(--dur-base) var(--ease-editorial), opacity var(--dur-base) var(--ease-editorial);
@@ -137,7 +141,6 @@
   .triptych { gap: clamp(18px, 2.1vw, 32px); padding: clamp(18px, 2.1vw, 32px) clamp(18px, 2.1vw, 32px) 0; }
   .triptych img { aspect-ratio: 6 / 6.3; }
   .brand-ecosystem__intro { padding-block: 4.8rem 3.1rem; }
-  .brand-ecosystem__text { font-size: clamp(1.55rem, 1.1rem + 1.44vw, 2.2rem); }
 
   .method { padding-top: 2rem; }
   .method__row { padding-block: clamp(1.15rem, 1.6vw, 1.75rem); }
