@@ -47,7 +47,14 @@
   </div>
 </header>
 
-<main class="direction-page">
+<main class="direction-page brands-page">
+
+  <!-- Gradient-motion background — covers the intro + method nav zone
+       only; sized in JS to that combined height, hard-cut before
+       0 | Brand Audit. Same shared animation as homepage Block 2. -->
+  <div class="brands-hero-bg" id="brandsHeroBg">
+    <canvas aria-hidden="true"></canvas>
+  </div>
 
   <!-- ============ 01 — BRANDS intro (shared Marina Kazakova design system) ============ -->
   <div class="container direction-intro">
@@ -95,6 +102,7 @@
 <script src="../js/i18n.js"></script>
 <script src="../js/nav.js"></script>
 <script src="../js/direction-page.js"></script>
+<script src="../js/gradient-motion.js"></script>
 <script src="../js/brands.js"></script>
 </body>
 </html>

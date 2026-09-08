@@ -1,16 +1,26 @@
 /**
- * Gradient Motion — ambient looping background for Block 2 (Experience
- * intro). Two purple tones (site palette) drift slowly over the site's
- * own pale-grey token, with a soft grey "void" blob for negative space
- * — grey rather than black so the block's existing black text stays
- * readable throughout the loop. Purple + pale-grey only, no lime — a
- * more restrained, deliberate two-tone read.
+ * Gradient Motion — ambient looping background, one shared implementation
+ * reused wherever it's needed (homepage Block 2, the Brands page hero
+ * zone, ...). Two purple tones (site palette) drift slowly over the
+ * site's own pale-grey token, with a soft grey "void" blob for negative
+ * space — grey rather than black so black text placed on top of it
+ * stays readable throughout the loop. Purple + pale-grey only, no lime
+ * — a restrained, deliberate two-tone read. Do not fork a second
+ * variant of this animation; give it a differently-sized container
+ * instead.
  *
  * The canvas is padded well beyond its container and CSS-blurred (not
  * Canvas2D's own ctx.filter, which renders solid black under some
  * software/no-GPU renderers) for the soft organic edges. Sized against
  * the container's own bounding box, not the viewport, so it fills
- * exactly the block it sits behind.
+ * exactly whichever block it sits behind.
+ *
+ * Usage: give a <canvas data-gradient-motion> as a direct child of the
+ * element whose box it should fill (that parent needs its own
+ * position/z-index so the canvas — position:absolute — layers behind
+ * sibling content correctly); it auto-inits on DOMContentLoaded. Call
+ * window.MK.gradientMotion.init(container, canvas) directly for cases
+ * where the sizing reference isn't simply canvas.parentElement.
  */
 (function () {
   "use strict";
@@ -101,9 +111,12 @@
     rafId = requestAnimationFrame(frame);
   }
 
+  window.MK = window.MK || {};
+  window.MK.gradientMotion = { init: init };
+
   document.addEventListener("DOMContentLoaded", function () {
-    var canvas = document.getElementById("experienceIntroBgCanvas");
-    if (!canvas) return;
-    init(canvas.parentElement, canvas);
+    document.querySelectorAll("[data-gradient-motion]").forEach(function (canvas) {
+      init(canvas.parentElement, canvas);
+    });
   });
 })();

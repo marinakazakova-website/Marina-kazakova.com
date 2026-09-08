@@ -8,6 +8,37 @@
 
 .brands { background: var(--color-white); }
 
+/* ---- Hero gradient zone: intro + method nav only, hard-cut before
+   0 | Brand Audit's white section. .brands-page gives the absolutely
+   positioned bg a positioning root; .direction-intro/.brands get their
+   own stacking context so they paint above it (scoped to this page only
+   — direction-page.css itself stays untouched for Retail/Business/Films). ---- */
+.brands-page { position: relative; }
+
+/* Only .direction-intro needs promoting: its content is plain static
+   flow, which paints *below* positioned siblings regardless of DOM
+   order. .brands doesn't need this — its sticky .brands-method child is
+   already explicitly positioned (z-index:50) and stacks above the
+   hero-bg on its own; making .brands positioned too would just give
+   .brands-method a closer offsetParent than .brands-page, throwing off
+   the offsetTop measurement js/brands.js relies on for sizing. */
+.brands-page > .direction-intro {
+  position: relative;
+  z-index: 1;
+}
+
+.brands-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  overflow: hidden; /* clean, hard edge at the bottom — no fade section */
+}
+.brands-hero-bg canvas {
+  position: absolute;
+}
+
 /* Restrained reveal system — fade + light slide-up only, no bounce or
    spring (see prefers-reduced-motion in base.css, which already zeroes
    every transition/animation duration). */
@@ -45,13 +76,14 @@
   position: sticky;
   top: calc(var(--nav-height) + 10px);
   z-index: 50;
-  background: var(--color-white);
+  background: transparent; /* lets the hero gradient show through while still in flow */
   padding-block: var(--space-5) var(--space-6);
   border-bottom: 1px solid transparent;
-  transition: padding-block var(--dur-base) var(--ease-editorial), border-color var(--dur-base) var(--ease-editorial);
+  transition: padding-block var(--dur-base) var(--ease-editorial), background var(--dur-base) var(--ease-editorial), border-color var(--dur-base) var(--ease-editorial);
 }
 
 .brands-method.is-stuck {
+  background: var(--color-white); /* opaque once pinned, to cleanly occlude the stage content scrolling underneath */
   padding-block: 0.85rem;
   border-bottom-color: var(--color-border);
 }

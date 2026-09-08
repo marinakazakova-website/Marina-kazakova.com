@@ -213,11 +213,32 @@
     observer.observe(sentinel);
   }
 
+  // Sizes the hero gradient's wrapper to exactly the intro + method
+  // block's combined natural height, then hands it to the shared
+  // gradient-motion module (same animation as homepage Block 2 - not a
+  // new variant). methodEl.offsetTop already accounts for everything
+  // above it (intro included), since its offsetParent is .brands-page.
+  function initHeroGradient() {
+    var wrap = document.getElementById("brandsHeroBg");
+    var canvas = wrap && wrap.querySelector("canvas");
+    var methodEl = document.getElementById("brandsMethod");
+    if (!wrap || !canvas || !methodEl || !window.MK || !window.MK.gradientMotion) return;
+
+    function sizeWrap() {
+      wrap.style.height = (methodEl.offsetTop + methodEl.offsetHeight) + "px";
+    }
+    window.addEventListener("resize", sizeWrap);
+    sizeWrap();
+
+    window.MK.gradientMotion.init(wrap, canvas);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderMethodNav();
     renderStages();
     observeReveals();
     observeActiveStage();
     observeStickyMethod();
+    initHeroGradient();
   });
 })();
