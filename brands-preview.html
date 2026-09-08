@@ -883,6 +883,11 @@ body.is-opening { overflow: hidden; }
   transition: color var(--dur-base) var(--ease-editorial);
 }
 
+.brands-stage__index,
+.brands-stage__name {
+  font-family: var(--font-display);
+}
+
 .brands-stage__index {
   color: var(--color-pale-grey);
   transition: color var(--dur-base) var(--ease-editorial);
@@ -1354,15 +1359,15 @@ window.SITE_CONTENT = {
       clients: [],
       en: {
         body: [
-          "Today, I work with projects as a **Strategic Brand Advisor**. Bringing together strategic thinking, creative expertise and experience in leading teams, I help founders **move from an initial brand vision to its full expression in the market**.",
-          "Vision → Strategy → Positioning → Product → Identity → Experience → Communication → Activation",
+          "I join projects as a **Strategic Brand Partner**. Bringing together strategic thinking, creative expertise and experience in leading teams, I help founders **move from an initial brand vision to its full expression in the market**.",
+          "Vision · Strategy · Positioning · Product · Identity · Experience · Communication · Activation",
           "I build the brand ecosystem, bring together the right specialists and guide implementation — maintaining a clear strategic logic at every stage."
         ]
       },
       ru: {
         body: [
-          "Сегодня я вхожу в проекты как **Strategic Brand Advisor**. Соединяя стратегическое мышление, креативную экспертизу и опыт управления командами, я помогаю founder’у пройти путь **от первоначального видения бренда до его полноценного проявления на рынке**.",
-          "Vision → Strategy → Positioning → Product → Identity → Experience → Communication → Activation",
+          "Я вхожу в проекты как **Strategic Brand Partner**. Соединяя стратегическое мышление, креативную экспертизу и опыт управления командами, я помогаю founder’у пройти путь **от первоначального видения бренда до его полноценного проявления на рынке**.",
+          "Vision · Strategy · Positioning · Product · Identity · Experience · Communication · Activation",
           "Я формирую экосистему бренда, собираю необходимых специалистов и сопровождаю реализацию — сохраняя единую стратегическую логику на всех этапах."
         ]
       }
@@ -1445,20 +1450,41 @@ window.SITE_CONTENT = {
     cta: "LET'S TALK",
     services: [
       {
-        title: "STRATEGIC CONSULTING",
+        title: { en: "STRATEGIC CONSULTING", ru: "СТРАТЕГИЧЕСКИЙ КОНСАЛТИНГ" },
         timing: { en: "4 HOURS", ru: "4 ЧАСА" },
         body: {
           en: "A strategic session for a specific business request. For situations when a founder needs a strong outside perspective, a decision and direction.",
           ru: "Стратегическая сессия для конкретного бизнес-запроса. Для ситуаций, когда фаундеру нужен сильный внешний взгляд, решение и направление."
         },
         sectionLabel: { en: "POSSIBLE REQUESTS", ru: "ВОЗМОЖНЫЕ ЗАПРОСЫ" },
-        // Best-effort transcription from the client's own mockup image (small
-        // text in a screenshot) -- flagged for her to confirm/correct.
-        items: ["ПЕРЕЗАПУСК БРЕНДА / BRAND RELAUNCH", "АКТУАЛЬНОСТЬ БРЕНДА И ПРОДУКТА", "ПРОБЛЕМЫ РИТЕЙЛ КОНЦЕПТА / DIGITAL"]
+        // Each request pill reveals its real underlying ask on hover/tap.
+        items: [
+          {
+            title: { en: "SCALE REVENUE", ru: "МАСШТАБИРОВАТЬ ДОХОД" },
+            hover: {
+              en: "For service founders — to rethink the business model, product and their role in order to grow through strategy.",
+              ru: "Для владельцев услуг — пересобрать бизнес-модель, продукт и свою роль, чтобы расти за счёт стратегии."
+            }
+          },
+          {
+            title: { en: "RELAUNCH THE BRAND", ru: "ПЕРЕЗАПУСТИТЬ БРЕНД" },
+            hover: {
+              en: "For brands that have outgrown their current positioning, product and visual expression.",
+              ru: "Для брендов, которые выросли из своего текущего позиционирования, продукта и визуального образа."
+            }
+          },
+          {
+            title: { en: "TRANSFORM RETAIL", ru: "ТРАНСФОРМИРОВАТЬ РИТЕЙЛ" },
+            hover: {
+              en: "For companies that need to rethink customer experience and the retail concept.",
+              ru: "Для компаний, которым нужно переосмыслить клиентский опыт и ритейл-концепт."
+            }
+          }
+        ]
       },
       {
-        title: "STRATEGIC BRAND PARTNERSHIP",
-        timing: { en: "UP TO 6 MONTHS", ru: "6 МЕСЯЦЕВ" },
+        title: { en: "STRATEGIC BRAND PARTNERSHIP", ru: "СТРАТЕГИЧЕСКОЕ БРЕНД-ПАРТНЁРСТВО" },
+        timing: { en: "UP TO 6 MONTHS", ru: "ДО 6 МЕСЯЦЕВ" },
         body: {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",
           ru: "Долгосрочная работа с брендом, собственником и командой. Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу."
@@ -2289,7 +2315,16 @@ window.BRANDS_PAGE_DATA = {
     indexEl.className = "brands-stage__index";
     indexEl.textContent = stage.index;
     title.appendChild(indexEl);
-    title.appendChild(document.createTextNode(" | " + stage.title));
+    // The " | " divider stays in the title's own (Consolas) font; the
+    // index and stage name switch to Montserrat via their own spans.
+    var divider = document.createElement("span");
+    divider.className = "brands-stage__divider";
+    divider.textContent = " | ";
+    title.appendChild(divider);
+    var nameEl = document.createElement("span");
+    nameEl.className = "brands-stage__name";
+    nameEl.textContent = stage.title;
+    title.appendChild(nameEl);
     inner.appendChild(title);
 
     var meta = document.createElement("div");

@@ -135,15 +135,15 @@ window.SITE_CONTENT = {
       clients: [],
       en: {
         body: [
-          "Today, I work with projects as a **Strategic Brand Advisor**. Bringing together strategic thinking, creative expertise and experience in leading teams, I help founders **move from an initial brand vision to its full expression in the market**.",
-          "Vision → Strategy → Positioning → Product → Identity → Experience → Communication → Activation",
+          "I join projects as a **Strategic Brand Partner**. Bringing together strategic thinking, creative expertise and experience in leading teams, I help founders **move from an initial brand vision to its full expression in the market**.",
+          "Vision · Strategy · Positioning · Product · Identity · Experience · Communication · Activation",
           "I build the brand ecosystem, bring together the right specialists and guide implementation — maintaining a clear strategic logic at every stage."
         ]
       },
       ru: {
         body: [
-          "Сегодня я вхожу в проекты как **Strategic Brand Advisor**. Соединяя стратегическое мышление, креативную экспертизу и опыт управления командами, я помогаю founder’у пройти путь **от первоначального видения бренда до его полноценного проявления на рынке**.",
-          "Vision → Strategy → Positioning → Product → Identity → Experience → Communication → Activation",
+          "Я вхожу в проекты как **Strategic Brand Partner**. Соединяя стратегическое мышление, креативную экспертизу и опыт управления командами, я помогаю founder’у пройти путь **от первоначального видения бренда до его полноценного проявления на рынке**.",
+          "Vision · Strategy · Positioning · Product · Identity · Experience · Communication · Activation",
           "Я формирую экосистему бренда, собираю необходимых специалистов и сопровождаю реализацию — сохраняя единую стратегическую логику на всех этапах."
         ]
       }

@@ -159,6 +159,11 @@
   transition: color var(--dur-base) var(--ease-editorial);
 }
 
+.brands-stage__index,
+.brands-stage__name {
+  font-family: var(--font-display);
+}
+
 .brands-stage__index {
   color: var(--color-pale-grey);
   transition: color var(--dur-base) var(--ease-editorial);

@@ -83,7 +83,16 @@
     indexEl.className = "brands-stage__index";
     indexEl.textContent = stage.index;
     title.appendChild(indexEl);
-    title.appendChild(document.createTextNode(" | " + stage.title));
+    // The " | " divider stays in the title's own (Consolas) font; the
+    // index and stage name switch to Montserrat via their own spans.
+    var divider = document.createElement("span");
+    divider.className = "brands-stage__divider";
+    divider.textContent = " | ";
+    title.appendChild(divider);
+    var nameEl = document.createElement("span");
+    nameEl.className = "brands-stage__name";
+    nameEl.textContent = stage.title;
+    title.appendChild(nameEl);
     inner.appendChild(title);
 
     var meta = document.createElement("div");
