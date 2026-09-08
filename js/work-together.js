@@ -48,7 +48,7 @@
       head.className = "work-service__head";
       var title = document.createElement("p");
       title.className = "work-service__title";
-      title.textContent = service.title;
+      title.textContent = service.title[lang];
       var timing = document.createElement("span");
       timing.className = "work-service__timing";
       timing.textContent = service.timing[lang];

@@ -226,7 +226,7 @@ window.SITE_CONTENT = {
     cta: "LET'S TALK",
     services: [
       {
-        title: "STRATEGIC CONSULTING",
+        title: { en: "STRATEGIC CONSULTING", ru: "СТРАТЕГИЧЕСКИЙ КОНСАЛТИНГ" },
         timing: { en: "4 HOURS", ru: "4 ЧАСА" },
         body: {
           en: "A strategic session for a specific business request. For situations when a founder needs a strong outside perspective, a decision and direction.",
@@ -259,8 +259,8 @@ window.SITE_CONTENT = {
         ]
       },
       {
-        title: "STRATEGIC BRAND PARTNERSHIP",
-        timing: { en: "UP TO 6 MONTHS", ru: "6 МЕСЯЦЕВ" },
+        title: { en: "STRATEGIC BRAND PARTNERSHIP", ru: "СТРАТЕГИЧЕСКОЕ БРЕНД-ПАРТНЁРСТВО" },
+        timing: { en: "UP TO 6 MONTHS", ru: "ДО 6 МЕСЯЦЕВ" },
         body: {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",
           ru: "Долгосрочная работа с брендом, собственником и командой. Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу."
