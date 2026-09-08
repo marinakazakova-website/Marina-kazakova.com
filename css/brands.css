@@ -27,6 +27,16 @@
   z-index: 1;
 }
 
+/* Lighter, more compact intro typography — BRANDS itself (the h1) stays
+   at its normal editorial scale; everything under it (tagline, body
+   copy including the Vision -> ... -> Activation line) comes down
+   ~17%, scoped to this page only (--fs-body-lg is shared with
+   Retail/Business/Films via direction-page.css). */
+.brands-page .direction-intro__tagline,
+.brands-page .direction-intro__body p {
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
+}
+
 .brands-hero-bg {
   position: absolute;
   top: 0;
@@ -134,7 +144,7 @@
 
 /* ---- Stage sections ---- */
 .brands-stage {
-  padding-block: var(--space-6);
+  padding-block: 4.4rem;
   border-top: 1px solid var(--color-border);
 }
 
@@ -145,11 +155,28 @@
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
   color: var(--color-black);
-  margin-bottom: var(--space-4);
+  margin-bottom: 1.6rem;
+  transition: color var(--dur-base) var(--ease-editorial);
 }
 
 .brands-stage__index {
   color: var(--color-pale-grey);
+  transition: color var(--dur-base) var(--ease-editorial);
+}
+
+/* Follows the user down the page: whichever stage is currently active
+   (js/brands.js observeActiveStage) picks up the same purple accent as
+   its sticky-nav button — number, name, and this stage's own divider
+   lines all move together. */
+.brands-stage.is-active .brands-stage__index,
+.brands-stage.is-active .brands-stage__title {
+  color: var(--color-accent);
+}
+.brands-stage.is-active .brands-meta__row {
+  border-top-color: var(--color-accent);
+}
+.brands-stage.is-active .brands-meta__row:last-child {
+  border-bottom-color: var(--color-accent);
 }
 
 /* ---- Meta rows: ЦЕЛЬ / СОСТАВ РАБОТ / РЕЗУЛЬТАТ / КОМАНДА / СРОК ---- */
@@ -159,31 +186,37 @@
 
 .brands-meta__row {
   display: grid;
-  grid-template-columns: 11.5rem 1fr;
+  grid-template-columns: 9.75rem 1fr;
   gap: var(--space-3);
   align-items: start;
-  padding-block: var(--space-2);
+  padding-block: 0.7rem;
   border-top: 1px solid var(--color-border);
+  transition: border-color var(--dur-base) var(--ease-editorial);
 }
-.brands-meta__row:last-child { border-bottom: 1px solid var(--color-border); }
+.brands-meta__row:last-child {
+  border-bottom: 1px solid var(--color-border);
+  transition: border-color var(--dur-base) var(--ease-editorial);
+}
 
 .brands-meta__label {
-  display: inline-block;
-  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9.75rem;
+  height: 2.2em;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   background: var(--color-black);
   color: var(--color-white);
-  padding: 0.45em 0.7em;
   border-radius: var(--radius-btn);
   white-space: nowrap;
 }
 
 .brands-meta__value {
   font-size: var(--fs-body);
-  line-height: var(--lh-relaxed);
+  line-height: var(--lh-normal);
   white-space: pre-line;
 }
 
@@ -192,7 +225,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  margin-top: var(--space-4);
+  margin-top: 1.25rem;
   padding: 0.7em 1.1em;
   font-family: var(--font-mono);
   font-size: var(--fs-small);

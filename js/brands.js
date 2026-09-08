@@ -187,6 +187,9 @@
       navItems.forEach(function (item) {
         item.classList.toggle("is-active", item.getAttribute("data-target") === activeId);
       });
+      sections.forEach(function (s) {
+        s.classList.toggle("is-active", s.id === activeId);
+      });
     }
 
     var observer = new IntersectionObserver(function (entries) {
