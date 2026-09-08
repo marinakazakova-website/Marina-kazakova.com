@@ -9,12 +9,11 @@
 
   var directions = window.SITE_CONTENT.experienceDirections;
 
-  // Only directions with a built page get a real link. Brands has none
-  // yet, so it renders as a plain (non-clickable) label rather than a
-  // dead link.
+  // Only directions with a built page get a real link.
   var PAGE_HREF = {
     retail: "retail/index.html",
     business: "business/index.html",
+    brands: "brands/index.html",
     films: "films/index.html"
   };
 

@@ -1,0 +1,289 @@
+/* ========================================================================
+   BRANDS — method sequence + anchor nav + five always-visible stage
+   sections, each with an inline-expanding workflow plan. Visual system:
+   white background, black/pale-grey typography, the site's own purple
+   as the one interactive/active accent, Consolas for every functional
+   label for numbered stage (matches the client's own BRANDS mockup).
+   ======================================================================== */
+
+.brands { background: var(--color-white); }
+
+/* Restrained reveal system — fade + light slide-up only, no bounce or
+   spring (see prefers-reduced-motion in base.css, which already zeroes
+   every transition/animation duration). */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease-editorial), transform 600ms var(--ease-editorial);
+}
+.reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+
+.reveal-fade-in {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-editorial);
+}
+.reveal-fade-in.is-visible { opacity: 1; }
+
+.reveal-seq {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 450ms var(--ease-editorial), transform 450ms var(--ease-editorial);
+}
+.reveal-seq.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---- Method sequence: reveal animation + anchor nav in one ---- */
+.brands-method {
+  padding-block: var(--space-5) var(--space-6);
+}
+
+.brands-method__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+.brands-method__item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-normal);
+  text-transform: uppercase;
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: 0.85em 1.2em;
+  border-radius: var(--radius-btn);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+}
+
+.brands-method__item:hover,
+.brands-method__item:focus-visible,
+.brands-method__item.is-active {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.brands-method__tagline {
+  margin-top: var(--space-3);
+  font-weight: 700;
+  font-size: var(--fs-body-lg);
+  color: var(--color-black);
+}
+
+/* ---- Stage sections ---- */
+.brands-stage {
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.brands-stage__title {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: clamp(2rem, 1.4rem + 3vw, 4rem);
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  color: var(--color-black);
+  margin-bottom: var(--space-4);
+}
+
+.brands-stage__index {
+  color: var(--color-pale-grey);
+}
+
+/* ---- Meta rows: ЦЕЛЬ / СОСТАВ РАБОТ / РЕЗУЛЬТАТ / КОМАНДА / СРОК ---- */
+.brands-meta {
+  max-width: 62rem;
+}
+
+.brands-meta__row {
+  display: grid;
+  grid-template-columns: 11.5rem 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+.brands-meta__row:last-child { border-bottom: 1px solid var(--color-border); }
+
+.brands-meta__label {
+  display: inline-block;
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: 0.45em 0.7em;
+  border-radius: var(--radius-btn);
+  white-space: nowrap;
+}
+
+.brands-meta__value {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  white-space: pre-line;
+}
+
+/* ---- CHECK WORKFLOW PLAN toggle ---- */
+.brands-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  margin-top: var(--space-4);
+  padding: 0.7em 1.1em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-normal);
+  text-transform: uppercase;
+  color: var(--color-black);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+.brands-toggle:hover,
+.brands-toggle[aria-expanded="true"] {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.brands-toggle__icon {
+  font-family: var(--font-mono);
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* Smooth inline expand via the grid-rows 0fr->1fr technique — no JS
+   height math, no bounce. */
+.brands-workflow-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms var(--ease-editorial);
+}
+.brands-workflow-wrap.is-open { grid-template-rows: 1fr; }
+
+.brands-workflow {
+  overflow: hidden;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 0.85fr 2.15fr;
+  gap: var(--space-4);
+  align-items: start;
+  padding-top: var(--space-4);
+}
+
+.brands-workflow__quote {
+  font-size: var(--fs-body-lg);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  max-width: 22rem;
+}
+
+/* ---- Media grids — deliberately varied per stage, not one uniform
+   grid (see brands-page.js `layout` per stage). ---- */
+.brands-grid { display: grid; gap: var(--space-3); }
+
+.brands-media { display: flex; flex-direction: column; }
+
+.brands-media__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  margin-bottom: 0.6em;
+}
+.brands-media__num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-pale-grey);
+}
+.brands-media__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  color: var(--color-black);
+}
+
+.brands-media__window {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-pale-grey-soft);
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius-card) * 0.4);
+  overflow: hidden;
+}
+.brands-media--open .brands-media__window { border-style: dashed; }
+
+.brands-media__plus {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  color: var(--color-pale-grey);
+}
+
+/* Row of 3 equal cells — Brand Audit (01/02/03). */
+.brands-grid--row3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.brands-grid--row3 .brands-media__window { aspect-ratio: 4 / 3; }
+
+/* Cascading staircase of 4 — Brand Foundation (1.1-1.4): each step sits
+   a little lower than the one before it. */
+.brands-grid--cascade4 {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.brands-grid--cascade4 .brands-media { flex: 1; }
+.brands-grid--cascade4 .brands-media__window { aspect-ratio: 3 / 4; }
+.brands-grid--cascade4 .brands-media:nth-child(1) { margin-top: 0; }
+.brands-grid--cascade4 .brands-media:nth-child(2) { margin-top: 8%; }
+.brands-grid--cascade4 .brands-media:nth-child(3) { margin-top: 16%; }
+.brands-grid--cascade4 .brands-media:nth-child(4) { margin-top: 24%; }
+
+/* Two-row, asymmetric 4-cell grid — Visual Foundation / Market
+   Development: one big cell, two stacked, one tall open-ended cell. */
+.brands-grid--grid2x4 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  min-height: 30rem;
+}
+.brands-grid--grid2x4 .brands-media:nth-child(1) { grid-column: 1 / span 2; grid-row: 1 / span 2; }
+.brands-grid--grid2x4 .brands-media:nth-child(2) { grid-column: 3; grid-row: 1; }
+.brands-grid--grid2x4 .brands-media:nth-child(3) { grid-column: 3; grid-row: 2; }
+.brands-grid--grid2x4 .brands-media:nth-child(4) { grid-column: 4; grid-row: 1 / span 2; }
+
+/* Same family, mirrored — Product Experience — so the long page doesn't
+   repeat one identical pattern stage after stage. */
+.brands-grid--grid2x4-alt {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  min-height: 30rem;
+}
+.brands-grid--grid2x4-alt .brands-media:nth-child(1) { grid-column: 1; grid-row: 1; }
+.brands-grid--grid2x4-alt .brands-media:nth-child(2) { grid-column: 1; grid-row: 2; }
+.brands-grid--grid2x4-alt .brands-media:nth-child(3) { grid-column: 2 / span 2; grid-row: 1 / span 2; }
+.brands-grid--grid2x4-alt .brands-media:nth-child(4) { grid-column: 4; grid-row: 1 / span 2; }
+
+@media (max-width: 900px) {
+  .brands-workflow { grid-template-columns: 1fr; }
+  .brands-meta__row { grid-template-columns: 1fr; }
+  .brands-grid--row3 { grid-template-columns: 1fr; }
+  .brands-grid--cascade4 { flex-direction: column; }
+  .brands-grid--cascade4 .brands-media { margin-top: 0 !important; }
+  .brands-grid--grid2x4,
+  .brands-grid--grid2x4-alt { grid-template-columns: 1fr 1fr; min-height: 0; }
+  .brands-grid--grid2x4 .brands-media:nth-child(1),
+  .brands-grid--grid2x4-alt .brands-media:nth-child(3) { grid-column: 1 / span 2; grid-row: auto; }
+  .brands-grid--grid2x4 .brands-media:nth-child(2),
+  .brands-grid--grid2x4 .brands-media:nth-child(3),
+  .brands-grid--grid2x4-alt .brands-media:nth-child(1),
+  .brands-grid--grid2x4-alt .brands-media:nth-child(2) { grid-column: span 1; grid-row: auto; }
+  .brands-grid--grid2x4 .brands-media:nth-child(4),
+  .brands-grid--grid2x4-alt .brands-media:nth-child(4) { grid-column: 1 / span 2; grid-row: auto; }
+  .brands-grid--grid2x4 .brands-media__window,
+  .brands-grid--grid2x4-alt .brands-media__window { aspect-ratio: 4 / 3; }
+}
