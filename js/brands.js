@@ -167,22 +167,50 @@
   }
 
   // Highlights the method-nav item matching whichever stage section is
-  // currently in view while scrolling straight through the page.
+  // currently in view while scrolling straight through the page. Tracks
+  // every section's visibility (not just the entries in the latest
+  // batch) and always resolves to the topmost one currently qualifying,
+  // so two sections crossing the 50% threshold in the same batch can't
+  // let the wrong one win by virtue of being processed last.
   function observeActiveStage() {
     if (!("IntersectionObserver" in window)) return;
     var navItems = document.querySelectorAll(".brands-method__item");
     var sections = document.querySelectorAll(".brands-stage");
     if (!sections.length) return;
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        navItems.forEach(function (item) {
-          item.classList.toggle("is-active", item.getAttribute("data-target") === entry.target.id);
-        });
+    var visible = {};
+    function applyActive() {
+      var activeId = null;
+      for (var i = 0; i < sections.length; i++) {
+        if (visible[sections[i].id]) { activeId = sections[i].id; break; }
+      }
+      navItems.forEach(function (item) {
+        item.classList.toggle("is-active", item.getAttribute("data-target") === activeId);
       });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { visible[entry.target.id] = entry.isIntersecting; });
+      applyActive();
     }, { threshold: 0.5 });
     sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  // Toggles .is-stuck on the method bar the moment position:sticky
+  // actually engages, via a 1px sentinel placed just above it. The
+  // observer's rootMargin is shifted up by the bar's own sticky `top`
+  // offset, so "sentinel scrolled out" lines up exactly with "bar is
+  // now pinned" rather than merely "scrolled past the viewport top".
+  function observeStickyMethod() {
+    var methodEl = document.getElementById("brandsMethod");
+    var sentinel = document.getElementById("brandsMethodSentinel");
+    if (!methodEl || !sentinel || !("IntersectionObserver" in window)) return;
+
+    var topOffset = parseFloat(window.getComputedStyle(methodEl).top) || 0;
+    var observer = new IntersectionObserver(function (entries) {
+      methodEl.classList.toggle("is-stuck", !entries[0].isIntersecting);
+    }, { rootMargin: "-" + Math.ceil(topOffset) + "px 0px 0px 0px", threshold: 0 });
+    observer.observe(sentinel);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -190,5 +218,6 @@
     renderStages();
     observeReveals();
     observeActiveStage();
+    observeStickyMethod();
   });
 })();

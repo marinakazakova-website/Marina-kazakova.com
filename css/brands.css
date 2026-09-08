@@ -31,9 +31,29 @@
 }
 .reveal-seq.is-visible { opacity: 1; transform: translateY(0); }
 
-/* ---- Method sequence: reveal animation + anchor nav in one ---- */
+/* ---- Method sequence: reveal animation + sticky anchor nav in one ----
+   Sits in normal flow until scrolling carries it up to the header, then
+   sticks just below it and stays put while the five stages scroll past
+   underneath. .is-stuck (toggled by the sentinel in js/brands.js) swaps
+   in a compact height once it's actually pinned, so the fixed bar never
+   eats more vertical space than it needs to. */
+.brands-method-sentinel {
+  height: 1px;
+}
+
 .brands-method {
+  position: sticky;
+  top: calc(var(--nav-height) + 10px);
+  z-index: 50;
+  background: var(--color-white);
   padding-block: var(--space-5) var(--space-6);
+  border-bottom: 1px solid transparent;
+  transition: padding-block var(--dur-base) var(--ease-editorial), border-color var(--dur-base) var(--ease-editorial);
+}
+
+.brands-method.is-stuck {
+  padding-block: 0.85rem;
+  border-bottom-color: var(--color-border);
 }
 
 .brands-method__nav {
@@ -53,7 +73,11 @@
   color: var(--color-white);
   padding: 0.85em 1.2em;
   border-radius: var(--radius-btn);
-  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial);
+}
+
+.is-stuck .brands-method__item {
+  padding: 0.55em 1em;
 }
 
 .brands-method__item:hover,
@@ -68,6 +92,12 @@
   font-weight: 700;
   font-size: var(--fs-body-lg);
   color: var(--color-black);
+  transition: margin-top var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial);
+}
+
+.is-stuck .brands-method__tagline {
+  margin-top: 0.5em;
+  font-size: var(--fs-body);
 }
 
 /* ---- Stage sections ---- */
