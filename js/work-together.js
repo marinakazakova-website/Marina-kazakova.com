@@ -4,6 +4,36 @@
 (function () {
   "use strict";
 
+  // A black "possible request" pill that reveals its real underlying ask
+  // in a panel sliding out to the right — on hover (desktop), and on tap
+  // (mobile, where hover doesn't exist): first tap opens, second closes.
+  function buildRequestPill(item, lang) {
+    var req = document.createElement("div");
+    req.className = "work-service__request";
+
+    var pill = document.createElement("button");
+    pill.type = "button";
+    pill.className = "work-service__pill";
+    pill.textContent = item.title[lang];
+    pill.setAttribute("aria-expanded", "false");
+
+    var expand = document.createElement("div");
+    expand.className = "work-service__pill-expand";
+    var panel = document.createElement("div");
+    panel.className = "work-service__pill-panel";
+    panel.textContent = item.hover[lang];
+    expand.appendChild(panel);
+
+    pill.addEventListener("click", function () {
+      var isOpen = req.classList.toggle("is-open");
+      pill.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    req.appendChild(pill);
+    req.appendChild(expand);
+    return req;
+  }
+
   function render() {
     var lang = window.MK.i18n.getLang();
     var data = window.SITE_CONTENT.workTogether;
@@ -40,10 +70,7 @@
         var pills = document.createElement("div");
         pills.className = "work-service__pills";
         service.items.forEach(function (item) {
-          var pill = document.createElement("span");
-          pill.className = "work-service__pill";
-          pill.textContent = item;
-          pills.appendChild(pill);
+          pills.appendChild(buildRequestPill(item, lang));
         });
         col.appendChild(pills);
       }

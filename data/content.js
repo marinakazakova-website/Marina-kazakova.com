@@ -233,9 +233,30 @@ window.SITE_CONTENT = {
           ru: "Стратегическая сессия для конкретного бизнес-запроса. Для ситуаций, когда фаундеру нужен сильный внешний взгляд, решение и направление."
         },
         sectionLabel: { en: "POSSIBLE REQUESTS", ru: "ВОЗМОЖНЫЕ ЗАПРОСЫ" },
-        // Best-effort transcription from the client's own mockup image (small
-        // text in a screenshot) -- flagged for her to confirm/correct.
-        items: ["ПЕРЕЗАПУСК БРЕНДА / BRAND RELAUNCH", "АКТУАЛЬНОСТЬ БРЕНДА И ПРОДУКТА", "ПРОБЛЕМЫ РИТЕЙЛ КОНЦЕПТА / DIGITAL"]
+        // Each request pill reveals its real underlying ask on hover/tap.
+        items: [
+          {
+            title: { en: "SCALE EXPERTISE & REVENUE", ru: "МАСШТАБИРОВАТЬ ЭКСПЕРТИЗУ И ДОХОД" },
+            hover: {
+              en: "For experts and service founders — to rethink the business model, product and their own role in order to grow through strategy.",
+              ru: "Для экспертов и фаундеров услуг — пересобрать бизнес-модель, продукт и свою роль, чтобы расти за счёт стратегии."
+            }
+          },
+          {
+            title: { en: "TAKE THE BRAND TO THE NEXT LEVEL", ru: "ВЫВЕСТИ БРЕНД НА НОВЫЙ УРОВЕНЬ" },
+            hover: {
+              en: "For an existing brand that has outgrown its current strategy, product and visual expression.",
+              ru: "Для существующего бренда, который вырос из своей нынешней стратегии, продукта и визуального образа."
+            }
+          },
+          {
+            title: { en: "RETHINK BRAND / RETAIL EXPERIENCE", ru: "ПЕРЕОСМЫСЛИТЬ БРЕНД / РИТЕЙЛ-ОПЫТ" },
+            hover: {
+              en: "For companies that need to transform the brand, customer experience and physical space.",
+              ru: "Для компаний, которым нужна трансформация бренда, клиентского опыта и физического пространства."
+            }
+          }
+        ]
       },
       {
         title: "STRATEGIC BRAND PARTNERSHIP",

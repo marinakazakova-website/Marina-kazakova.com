@@ -148,6 +148,9 @@
 }
 
 .work-service__pill {
+  display: inline-flex;
+  align-items: center;
+  font: inherit;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: var(--ls-normal);
@@ -156,7 +159,72 @@
   background: var(--color-black);
   color: var(--color-white);
   padding: 0.3em 0.55em;
+  border: none;
   border-radius: var(--radius-btn);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+}
+
+.work-service__request .work-service__pill {
+  cursor: pointer;
+}
+
+/* ---- "Possible requests" pills: hover/tap reveals the real underlying
+   ask in a panel that slides out to the right. The panel is rendered at
+   its full fixed width from the start (text wraps once, stays stable);
+   the reveal is a pure width-clip via grid-template-columns 0 -> full,
+   so opening it never reflows the text mid-animation. ---- */
+.work-service__request {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.work-service__request:hover .work-service__pill,
+.work-service__request.is-open .work-service__pill,
+.work-service__pill:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.work-service__pill-expand {
+  --panel-w: min(15.5rem, 78vw);
+  --panel-gap: 0.6em;
+  display: grid;
+  grid-template-columns: 0px;
+  overflow: hidden;
+  transition: grid-template-columns 380ms var(--ease-editorial);
+}
+
+.work-service__request:hover .work-service__pill-expand,
+.work-service__request.is-open .work-service__pill-expand,
+.work-service__pill:focus-visible + .work-service__pill-expand {
+  grid-template-columns: calc(var(--panel-gap) + var(--panel-w));
+}
+
+.work-service__pill-panel {
+  width: var(--panel-w);
+  margin-left: var(--panel-gap);
+  padding: 0.45em 0.7em;
+  background: var(--color-pale-grey-soft);
+  color: var(--color-black);
+  font-size: var(--fs-micro);
+  line-height: 1.35;
+  letter-spacing: var(--ls-normal);
+  text-transform: none;
+  border-radius: var(--radius-btn);
+  opacity: 0;
+  transition: opacity 220ms var(--ease-editorial);
+}
+
+.work-service__request:hover .work-service__pill-panel,
+.work-service__request.is-open .work-service__pill-panel,
+.work-service__pill:focus-visible + .work-service__pill-expand .work-service__pill-panel {
+  opacity: 1;
+  transition-delay: 100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-service__pill-expand,
+  .work-service__pill-panel { transition: none; }
 }
 
 .work-service__step {
