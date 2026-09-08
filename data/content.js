@@ -236,24 +236,24 @@ window.SITE_CONTENT = {
         // Each request pill reveals its real underlying ask on hover/tap.
         items: [
           {
-            title: { en: "SCALE EXPERTISE & REVENUE", ru: "МАСШТАБИРОВАТЬ ЭКСПЕРТИЗУ И ДОХОД" },
+            title: { en: "SCALE REVENUE", ru: "МАСШТАБИРОВАТЬ ДОХОД" },
             hover: {
-              en: "For experts and service founders — to rethink the business model, product and their own role in order to grow through strategy.",
-              ru: "Для экспертов и фаундеров услуг — пересобрать бизнес-модель, продукт и свою роль, чтобы расти за счёт стратегии."
+              en: "For service founders — to rethink the business model, product and their role in order to grow through strategy.",
+              ru: "Для владельцев услуг — пересобрать бизнес-модель, продукт и свою роль, чтобы расти за счёт стратегии."
             }
           },
           {
-            title: { en: "TAKE THE BRAND TO THE NEXT LEVEL", ru: "ВЫВЕСТИ БРЕНД НА НОВЫЙ УРОВЕНЬ" },
+            title: { en: "RELAUNCH THE BRAND", ru: "ПЕРЕЗАПУСТИТЬ БРЕНД" },
             hover: {
-              en: "For an existing brand that has outgrown its current strategy, product and visual expression.",
-              ru: "Для существующего бренда, который вырос из своей нынешней стратегии, продукта и визуального образа."
+              en: "For brands that have outgrown their current positioning, product and visual expression.",
+              ru: "Для брендов, которые выросли из своего текущего позиционирования, продукта и визуального образа."
             }
           },
           {
-            title: { en: "RETHINK BRAND / RETAIL EXPERIENCE", ru: "ПЕРЕОСМЫСЛИТЬ БРЕНД / РИТЕЙЛ-ОПЫТ" },
+            title: { en: "TRANSFORM RETAIL", ru: "ТРАНСФОРМИРОВАТЬ РИТЕЙЛ" },
             hover: {
-              en: "For companies that need to transform the brand, customer experience and physical space.",
-              ru: "Для компаний, которым нужна трансформация бренда, клиентского опыта и физического пространства."
+              en: "For companies that need to rethink customer experience and the retail concept.",
+              ru: "Для компаний, которым нужно переосмыслить клиентский опыт и ритейл-концепт."
             }
           }
         ]

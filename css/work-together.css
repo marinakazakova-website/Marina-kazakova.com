@@ -80,9 +80,13 @@
   display: grid;
   /* minmax(0, 1fr): the two service columns must never let a transient
      child (the pill-expand hover panel) grow their track past the
-     available width and squeeze the credentials column into wrapping. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
-  gap: var(--space-4);
+     available width and squeeze the credentials column into wrapping.
+     A slightly tighter gap (vs. --space-4) hands the freed width to
+     Strategic Consulting/Brand Partnership and shifts the credentials
+     column's divider a bit further right, so the block reads less
+     center-squeezed. */
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) auto;
+  gap: var(--space-3);
 }
 
 .work-service {
@@ -142,7 +146,14 @@
   margin-bottom: 0.5em;
 }
 
-.work-service__pills,
+.work-service__pills {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5em;
+  margin-top: 0.2em;
+}
+
 .work-service__steps {
   display: flex;
   flex-wrap: wrap;
@@ -177,13 +188,25 @@
 }
 
 /* ---- "Possible requests" pills: hover/tap reveals the real underlying
-   ask in a panel that slides out to the right. The panel is rendered at
-   its full fixed width from the start (text wraps once, stays stable);
-   the reveal is a pure width-clip via grid-template-columns 0 -> full,
-   so opening it never reflows the text mid-animation. ---- */
+   ask in a panel that slides out to the right. The panel is taken out of
+   flow (absolute, anchored to the pill) so a collapsed/hidden panel can
+   never inflate its own row's height or interfere with any other pill —
+   each request stays a compact, single-line label at rest, regardless of
+   how long its hover text is. Opening one reserves a bit of extra space
+   below it (margin-bottom) so the panel doesn't sit on top of the next
+   pill in the vertical stack — a small, deliberate "structure moves a
+   little" instead of an overlap. */
 .work-service__request {
+  position: relative;
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
+  margin-bottom: 0;
+  transition: margin-bottom 380ms var(--ease-editorial);
+}
+
+.work-service__request:hover,
+.work-service__request.is-open {
+  margin-bottom: 3.4rem;
 }
 
 .work-service__request:hover .work-service__pill,
@@ -196,16 +219,21 @@
 .work-service__pill-expand {
   --panel-w: min(17rem, 78vw);
   --panel-gap: 0.6em;
-  display: grid;
-  grid-template-columns: 0px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 0;
   overflow: hidden;
-  transition: grid-template-columns 380ms var(--ease-editorial);
+  pointer-events: none;
+  z-index: 1;
+  transition: width 380ms var(--ease-editorial);
 }
 
 .work-service__request:hover .work-service__pill-expand,
 .work-service__request.is-open .work-service__pill-expand,
 .work-service__pill:focus-visible + .work-service__pill-expand {
-  grid-template-columns: calc(var(--panel-gap) + var(--panel-w));
+  width: calc(var(--panel-gap) + var(--panel-w));
+  pointer-events: auto;
 }
 
 .work-service__pill-panel {
@@ -231,6 +259,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .work-service__request,
   .work-service__pill-expand,
   .work-service__pill-panel { transition: none; }
 }
@@ -282,7 +311,7 @@
 }
 
 @media (max-width: 900px) {
-  .work-card__bottom { grid-template-columns: 1fr; }
+  .work-card__bottom { grid-template-columns: 1fr; gap: var(--space-4); }
   .work-credentials {
     border-left: none;
     padding-left: 0;
@@ -290,6 +319,17 @@
     border-top: 1px solid var(--color-border);
     padding-top: var(--space-2);
   }
+  /* On narrow screens the pill + gap + panel no longer fits the 17rem
+     cap without running past the viewport edge — shrink the panel to
+     whatever room is actually left after the card's own padding and the
+     pill itself. */
+  .work-service__pill-expand { --panel-w: calc(100vw - 16rem); }
+  /* The long RU service titles ("СТРАТЕГИЧЕСКОЕ БРЕНД-ПАРТНЁРСТВО") don't
+     fit next to their timing pill in one nowrap line at this width —
+     let the head wrap instead of forcing the whole column wider than
+     the viewport. */
+  .work-service__head { flex-wrap: wrap; }
+  .work-service__title { white-space: normal; }
 }
 
 /* ========================================================================
