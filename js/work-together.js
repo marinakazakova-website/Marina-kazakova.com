@@ -46,9 +46,10 @@
 
       var head = document.createElement("div");
       head.className = "work-service__head";
-      var title = document.createElement("p");
+      var title = document.createElement(service.titleLink ? "a" : "p");
       title.className = "work-service__title";
       title.textContent = service.title[lang];
+      if (service.titleLink) title.href = service.titleLink;
       var timing = document.createElement("span");
       timing.className = "work-service__timing";
       timing.textContent = service.timing[lang];

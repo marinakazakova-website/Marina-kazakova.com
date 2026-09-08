@@ -48,13 +48,13 @@ window.SITE_CONTENT = {
       lead: "My work connects:",
       quote: "“As a Brand Strategist and strategic partner, I step into a brand at moments of creation, relaunch or transformation. I see its potential, define the strategic direction, build the right system, bring in the specialists needed and guide the process through implementation. I have been working with brands in this role for more than 20 years — across different scales, industries and business contexts.”",
       quoteAuthor: "Marina Kazakova",
-      cta: "LET'S TALK"
+      cta: "HOW I WORK WITH BRANDS"
     },
     ru: {
       lead: "Моя работа соединяет:",
       quote: "«Как Brand Strategist и strategic partner, я вхожу в бренд в момент создания, перезапуска или трансформации. Вижу его потенциал, формирую стратегическое направление, выстраиваю систему, подключаю нужных специалистов и сопровождаю реализацию. Именно в такой роли я работаю с брендами уже более 20 лет — в разных масштабах, индустриях и бизнес-контекстах».",
       quoteAuthor: "Марина Казакова",
-      cta: "LET'S TALK"
+      cta: "HOW I WORK WITH BRANDS"
     }
   },
 
@@ -260,6 +260,7 @@ window.SITE_CONTENT = {
       },
       {
         title: { en: "STRATEGIC BRAND PARTNERSHIP", ru: "СТРАТЕГИЧЕСКОЕ БРЕНД-ПАРТНЁРСТВО" },
+        titleLink: "brands/index.html",
         timing: { en: "UP TO 6 MONTHS", ru: "ДО 6 МЕСЯЦЕВ" },
         body: {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",

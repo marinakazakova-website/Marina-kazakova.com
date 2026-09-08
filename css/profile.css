@@ -128,6 +128,14 @@
   font-weight: 700;
 }
 
+.profile-info__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
 .profile-info__cta { flex-shrink: 0; }
 
 @media (max-width: 760px) {

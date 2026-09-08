@@ -103,12 +103,18 @@
 }
 
 .work-service__title {
+  color: var(--color-black);
   font-weight: 700;
   font-size: var(--fs-body);
   letter-spacing: var(--ls-normal);
   text-decoration: underline;
   text-underline-offset: 4px;
   white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-editorial);
+}
+
+a.work-service__title:hover {
+  color: var(--color-accent);
 }
 
 .work-service__timing {
