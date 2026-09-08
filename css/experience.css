@@ -9,12 +9,26 @@
 /* ---- Intro (purple) ---- */
 .experience-intro {
   position: relative;
-  background: var(--color-accent);
+  overflow: hidden;
+  background: var(--color-accent); /* fallback shown until/unless the video plays */
   color: var(--color-black);
   padding: var(--space-6) 0 var(--space-7);
 }
 
+/* Background motion layer — sits behind the text/portrait, filling the
+   block edge-to-edge without distorting its own proportions. */
+.experience-intro__bg-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .experience-intro__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 0.85fr;
   gap: var(--space-3);
@@ -78,6 +92,7 @@
 
 .experience-intro__mark {
   position: absolute;
+  z-index: 1;
   left: var(--container-pad);
   bottom: var(--space-3);
   width: clamp(44px, 3.4vw, 58px);
