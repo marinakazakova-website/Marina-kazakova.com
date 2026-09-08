@@ -92,9 +92,14 @@
 
 .site-nav__mark {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: var(--ls-wide);
+  /* Thinner, smaller, airier — ~18% down, weight cut from 800 to 500,
+     tracking opened up to --ls-wider so the name reads light rather
+     than heavier than the nav links next to it (FFF-style editorial
+     header). .opening-title mirrors weight/tracking so its shrink-into-
+     place animation still lands on a matching mark, not a weight jump. */
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   flex-shrink: 0;
   margin-right: auto;
@@ -112,9 +117,9 @@ body.is-opening { overflow: hidden; }
   left: 0;
   z-index: 900;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(1.8rem, 1.2rem + 3vw, 3.8rem);
-  letter-spacing: var(--ls-wide);
+  letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   color: var(--color-black);
   white-space: nowrap;
@@ -142,9 +147,12 @@ body.is-opening { overflow: hidden; }
 }
 
 .site-nav__link {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: var(--ls-wide);
+  /* ~17% down from --fs-small, weight cut from 600 to 500, tracking
+     opened up to --ls-wider — thinner, more compact, airier reading
+     (nav bar height/layout untouched, only the type inside it). */
+  font-size: clamp(0.65rem, 0.63rem + 0.08vw, 0.73rem);
+  font-weight: 500;
+  letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   color: var(--color-text);
   opacity: 0.62;
@@ -179,24 +187,67 @@ body.is-opening { overflow: hidden; }
   gap: var(--space-3);
 }
 
+/* ---- Language: a small segmented pill toggle (FFF-style) instead of a
+   plain "EN / RU" text pair — the active language sits inside its own
+   soft, translucent rounded chip. ---- */
 .lang-switch {
   display: flex;
   align-items: center;
-  gap: 0.4em;
-  font-size: var(--fs-small);
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(11, 11, 12, 0.06);
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: var(--ls-wide);
+  letter-spacing: var(--ls-wider);
 }
 
 .lang-switch__btn {
-  opacity: 0.4;
-  transition: opacity var(--dur-fast) var(--ease-editorial);
+  padding: 0.35em 0.7em;
+  border-radius: 999px;
+  color: var(--color-black);
+  opacity: 0.45;
+  transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
 }
-.lang-switch__btn.is-active { opacity: 1; }
+.lang-switch__btn.is-active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.85);
+}
 .lang-switch__btn:hover { opacity: 0.8; }
 
-.lang-switch__sep {
-  opacity: 0.3;
+.site-nav.is-scrolled .lang-switch { background: rgba(11, 11, 12, 0.08); }
+
+/* ---- Music toggle: small, round, quiet — a placeholder control until
+   audio is wired up. Purely visual state for now (no autoplay). ---- */
+.music-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: none;
+  color: var(--color-black);
+  opacity: 0.5;
+  transition: opacity var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
+}
+.music-toggle:hover {
+  opacity: 1;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.music-toggle[aria-pressed="true"] {
+  opacity: 1;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(122, 129, 255, 0.12);
+}
+.music-toggle__icon {
+  font-size: 0.75rem;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
 .nav-toggle {

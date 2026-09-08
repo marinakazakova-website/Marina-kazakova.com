@@ -59,6 +59,18 @@
     nav.classList.add("is-visible");
   }
 
+  // Visual on/off toggle only — no audio is wired up yet, so this never
+  // plays or autoplays anything. Just flips aria-pressed/state for now;
+  // becomes the real music on/off switch once a track is attached.
+  function initMusicToggle() {
+    var btn = document.getElementById("musicToggle");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var isOn = btn.getAttribute("aria-pressed") !== "true";
+      btn.setAttribute("aria-pressed", String(isOn));
+    });
+  }
+
   function init() {
     nav = document.getElementById("siteNav");
     toggle = document.getElementById("navToggle");
@@ -75,6 +87,7 @@
 
     initSmoothScroll();
     initActiveHighlight();
+    initMusicToggle();
   }
 
   window.MK = window.MK || {};

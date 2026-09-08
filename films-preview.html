@@ -211,6 +211,14 @@ ul {
 }
 .btn--dark:hover { background: var(--color-accent); color: var(--color-black); }
 
+.btn--outline {
+  background: none;
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
+  padding: calc(0.9em - 1px) calc(2.1em - 1px);
+}
+.btn--outline:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
 </style>
 <style>
 /* ========================================================================
@@ -307,9 +315,14 @@ ul {
 
 .site-nav__mark {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: var(--ls-wide);
+  /* Thinner, smaller, airier — ~18% down, weight cut from 800 to 500,
+     tracking opened up to --ls-wider so the name reads light rather
+     than heavier than the nav links next to it (FFF-style editorial
+     header). .opening-title mirrors weight/tracking so its shrink-into-
+     place animation still lands on a matching mark, not a weight jump. */
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   flex-shrink: 0;
   margin-right: auto;
@@ -327,9 +340,9 @@ body.is-opening { overflow: hidden; }
   left: 0;
   z-index: 900;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(1.8rem, 1.2rem + 3vw, 3.8rem);
-  letter-spacing: var(--ls-wide);
+  letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   color: var(--color-black);
   white-space: nowrap;
@@ -357,9 +370,12 @@ body.is-opening { overflow: hidden; }
 }
 
 .site-nav__link {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: var(--ls-wide);
+  /* ~17% down from --fs-small, weight cut from 600 to 500, tracking
+     opened up to --ls-wider — thinner, more compact, airier reading
+     (nav bar height/layout untouched, only the type inside it). */
+  font-size: clamp(0.65rem, 0.63rem + 0.08vw, 0.73rem);
+  font-weight: 500;
+  letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   color: var(--color-text);
   opacity: 0.62;
@@ -394,24 +410,67 @@ body.is-opening { overflow: hidden; }
   gap: var(--space-3);
 }
 
+/* ---- Language: a small segmented pill toggle (FFF-style) instead of a
+   plain "EN / RU" text pair — the active language sits inside its own
+   soft, translucent rounded chip. ---- */
 .lang-switch {
   display: flex;
   align-items: center;
-  gap: 0.4em;
-  font-size: var(--fs-small);
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(11, 11, 12, 0.06);
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: var(--ls-wide);
+  letter-spacing: var(--ls-wider);
 }
 
 .lang-switch__btn {
-  opacity: 0.4;
-  transition: opacity var(--dur-fast) var(--ease-editorial);
+  padding: 0.35em 0.7em;
+  border-radius: 999px;
+  color: var(--color-black);
+  opacity: 0.45;
+  transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
 }
-.lang-switch__btn.is-active { opacity: 1; }
+.lang-switch__btn.is-active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.85);
+}
 .lang-switch__btn:hover { opacity: 0.8; }
 
-.lang-switch__sep {
-  opacity: 0.3;
+.site-nav.is-scrolled .lang-switch { background: rgba(11, 11, 12, 0.08); }
+
+/* ---- Music toggle: small, round, quiet — a placeholder control until
+   audio is wired up. Purely visual state for now (no autoplay). ---- */
+.music-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: none;
+  color: var(--color-black);
+  opacity: 0.5;
+  transition: opacity var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
+}
+.music-toggle:hover {
+  opacity: 1;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.music-toggle[aria-pressed="true"] {
+  opacity: 1;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(122, 129, 255, 0.12);
+}
+.music-toggle__icon {
+  font-size: 0.75rem;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
 .nav-toggle {
@@ -1276,9 +1335,11 @@ body.is-opening { overflow: hidden; }
     <div class="site-nav__right">
       <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
         <button class="lang-switch__btn" data-lang="en">EN</button>
-        <span class="lang-switch__sep">/</span>
         <button class="lang-switch__btn" data-lang="ru">RU</button>
       </div>
+      <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Music">
+        <span class="music-toggle__icon" aria-hidden="true">♪</span>
+      </button>
     </div>
   </div>
 </header>
@@ -1490,13 +1551,13 @@ window.SITE_CONTENT = {
       lead: "My work connects:",
       quote: "“As a Brand Strategist and strategic partner, I step into a brand at moments of creation, relaunch or transformation. I see its potential, define the strategic direction, build the right system, bring in the specialists needed and guide the process through implementation. I have been working with brands in this role for more than 20 years — across different scales, industries and business contexts.”",
       quoteAuthor: "Marina Kazakova",
-      cta: "LET'S TALK"
+      cta: "HOW I WORK WITH BRANDS"
     },
     ru: {
       lead: "Моя работа соединяет:",
       quote: "«Как Brand Strategist и strategic partner, я вхожу в бренд в момент создания, перезапуска или трансформации. Вижу его потенциал, формирую стратегическое направление, выстраиваю систему, подключаю нужных специалистов и сопровождаю реализацию. Именно в такой роли я работаю с брендами уже более 20 лет — в разных масштабах, индустриях и бизнес-контекстах».",
       quoteAuthor: "Марина Казакова",
-      cta: "LET'S TALK"
+      cta: "HOW I WORK WITH BRANDS"
     }
   },
 
@@ -1702,6 +1763,7 @@ window.SITE_CONTENT = {
       },
       {
         title: { en: "STRATEGIC BRAND PARTNERSHIP", ru: "СТРАТЕГИЧЕСКОЕ БРЕНД-ПАРТНЁРСТВО" },
+        titleLink: "brands/index.html",
         timing: { en: "UP TO 6 MONTHS", ru: "ДО 6 МЕСЯЦЕВ" },
         body: {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",
@@ -1900,6 +1962,18 @@ window.DIRECTION_PAGE_DATA = {
     nav.classList.add("is-visible");
   }
 
+  // Visual on/off toggle only — no audio is wired up yet, so this never
+  // plays or autoplays anything. Just flips aria-pressed/state for now;
+  // becomes the real music on/off switch once a track is attached.
+  function initMusicToggle() {
+    var btn = document.getElementById("musicToggle");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var isOn = btn.getAttribute("aria-pressed") !== "true";
+      btn.setAttribute("aria-pressed", String(isOn));
+    });
+  }
+
   function init() {
     nav = document.getElementById("siteNav");
     toggle = document.getElementById("navToggle");
@@ -1916,6 +1990,7 @@ window.DIRECTION_PAGE_DATA = {
 
     initSmoothScroll();
     initActiveHighlight();
+    initMusicToggle();
   }
 
   window.MK = window.MK || {};
