@@ -291,3 +291,23 @@
   .direction-intro__links { position: static; }
   .pf-row { grid-template-columns: 1fr; gap: var(--space-3); }
 }
+
+/* ========================================================================
+   LAPTOP / LOW-HEIGHT DESKTOP — same breakpoint and rationale as the
+   homepage (see profile.css): 1100-1440px wide, up to 900px tall (e.g.
+   1366x768 at 100% zoom). Shared here across Retail/Business/Films/Brands
+   since they all reuse this file's intro + portfolio system. Large
+   desktop is untouched.
+   ======================================================================== */
+@media (min-width: 1100px) and (max-width: 1440px) and (max-height: 900px) {
+  .direction-intro { gap: 4.84rem; padding-block: 4.84rem 7rem; }
+  .direction-intro__title { font-size: clamp(2.2rem, 1.4rem + 4.35vw, 5.7rem); }
+
+  .pf-composition { gap: clamp(2.1rem, 1.7rem + 2.13vw, 4.25rem); }
+
+  /* A solo portrait/hero-style photo at ar:3/4 (or similar) otherwise
+     renders taller than the viewport itself on a small laptop screen —
+     cap it so no single image forces an extra scroll of its own. Small
+     duo photos are already well under this cap and are unaffected. */
+  .pf-project__figure[style*="--ar"] { max-height: 68vh; }
+}
