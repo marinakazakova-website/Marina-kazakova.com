@@ -245,7 +245,7 @@ window.SITE_CONTENT = {
           ru: "Долгосрочная работа с брендом, собственником и командой. Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу."
         },
         sectionLabel: { en: "COOPERATION STRATEGY", ru: "СТРАТЕГИЯ СОТРУДНИЧЕСТВА" },
-        steps: ["AUDIT", "BRAND FOUNDATION", "BRAND IDENTITY", "PRODUCT", "DIGITAL", "BRAND DEVELOPMENT"]
+        steps: ["BRAND AUDIT", "BRAND FOUNDATION", "VISUAL FOUNDATION", "PRODUCT EXPERIENCE", "MARKET DEVELOPMENT", "SMM", "RETAIL DESIGN"]
       }
     ],
     credentials: [
