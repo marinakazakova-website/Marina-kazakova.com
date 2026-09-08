@@ -9,12 +9,23 @@
 /* ---- Intro (purple) ---- */
 .experience-intro {
   position: relative;
-  background: var(--color-accent);
+  overflow: hidden;
+  background: var(--color-accent); /* fallback shown until the canvas animation starts */
   color: var(--color-black);
   padding: var(--space-6) 0 var(--space-7);
 }
 
+/* Background motion layer (js/gradient-motion.js) — sized/positioned via
+   JS to its container's own box, padded beyond it for the blur. Sits
+   behind the text/portrait without affecting their layout. */
+.experience-intro__bg-canvas {
+  position: absolute;
+  z-index: 0;
+}
+
 .experience-intro__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 0.85fr;
   gap: var(--space-3);
@@ -78,6 +89,7 @@
 
 .experience-intro__mark {
   position: absolute;
+  z-index: 1;
   left: var(--container-pad);
   bottom: var(--space-3);
   width: clamp(44px, 3.4vw, 58px);
