@@ -1068,6 +1068,7 @@ body.is-opening { overflow: hidden; }
    a little lower than the one before it, same window proportions as the
    other stages (not tall vertical cards). */
 .brands-grid--cascade4 {
+  --cascade-step: 4.5rem;
   display: flex;
   gap: var(--space-3);
   align-items: flex-start;
@@ -1075,9 +1076,9 @@ body.is-opening { overflow: hidden; }
 .brands-grid--cascade4 .brands-media { flex: 1; }
 .brands-grid--cascade4 .brands-media__window { aspect-ratio: 4 / 3; }
 .brands-grid--cascade4 .brands-media:nth-child(1) { margin-top: 0; }
-.brands-grid--cascade4 .brands-media:nth-child(2) { margin-top: 6%; }
-.brands-grid--cascade4 .brands-media:nth-child(3) { margin-top: 12%; }
-.brands-grid--cascade4 .brands-media:nth-child(4) { margin-top: 18%; }
+.brands-grid--cascade4 .brands-media:nth-child(2) { margin-top: var(--cascade-step); }
+.brands-grid--cascade4 .brands-media:nth-child(3) { margin-top: calc(var(--cascade-step) * 2); }
+.brands-grid--cascade4 .brands-media:nth-child(4) { margin-top: calc(var(--cascade-step) * 3); }
 
 /* Thin brand-purple dividers between consecutive media windows within a
    workflow row — reads as one step leading into the next, not a loose
@@ -1097,6 +1098,23 @@ body.is-opening { overflow: hidden; }
   left: calc(var(--space-3) / -2);
   width: 1px;
   background: var(--color-accent);
+}
+
+/* Cascade4's items are staggered via margin-top, so a plain top:0/bottom:0
+   (relative to each item) only spans that one item's own height. Override
+   per step so every divider instead runs the full block height — from the
+   top of the first photo to the bottom of the last. */
+.brands-grid--cascade4 .brands-media:nth-child(2)::before {
+  top: calc(-1 * var(--cascade-step));
+  bottom: calc(-2 * var(--cascade-step));
+}
+.brands-grid--cascade4 .brands-media:nth-child(3)::before {
+  top: calc(-2 * var(--cascade-step));
+  bottom: calc(-1 * var(--cascade-step));
+}
+.brands-grid--cascade4 .brands-media:nth-child(4)::before {
+  top: calc(-3 * var(--cascade-step));
+  bottom: 0;
 }
 
 @media (max-width: 900px) {
