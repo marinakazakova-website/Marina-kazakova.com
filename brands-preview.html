@@ -1049,6 +1049,12 @@ body.is-opening { overflow: hidden; }
   color: var(--color-white);
   border-radius: var(--radius-btn);
   white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+}
+
+.brands-meta__row:hover .brands-meta__label {
+  background: var(--color-accent);
+  color: var(--color-black);
 }
 
 .brands-meta__value {
@@ -1061,27 +1067,42 @@ body.is-opening { overflow: hidden; }
   font-weight: 700;
 }
 
-/* ---- CHECK WORKFLOW PLAN toggle ---- */
+/* ---- CHECK WORKFLOW PLAN / DISCUSS YOUR PROJECT — stacked CTA pair,
+   same visual system for both; Workflow itself lives after this group,
+   never between the two buttons. ---- */
+.brands-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
 .brands-toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  margin-top: 1.25rem;
   padding: 0.7em 1.1em;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   letter-spacing: var(--ls-normal);
   text-transform: uppercase;
+  text-decoration: none;
   color: var(--color-black);
   background: none;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
 }
-.brands-toggle:hover,
 .brands-toggle[aria-expanded="true"] {
   color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.brands-toggle:hover,
+.brands-toggle[aria-expanded="true"]:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
   border-color: var(--color-accent);
 }
 
@@ -2459,6 +2480,9 @@ window.BRANDS_PAGE_DATA = {
     meta.appendChild(buildMetaRow("СРОК", stage.meta.timing));
     inner.appendChild(meta);
 
+    var ctaGroup = document.createElement("div");
+    ctaGroup.className = "brands-cta-group";
+
     var toggle = document.createElement("button");
     toggle.className = "brands-toggle";
     toggle.type = "button";
@@ -2471,7 +2495,19 @@ window.BRANDS_PAGE_DATA = {
     toggleIcon.textContent = "+";
     toggle.appendChild(toggleLabel);
     toggle.appendChild(toggleIcon);
-    inner.appendChild(toggle);
+    ctaGroup.appendChild(toggle);
+
+    // Same visual system as the workflow toggle (font/size/border/radius/
+    // height) — just a plain contact link, not an expand control.
+    var discuss = document.createElement("a");
+    discuss.className = "brands-toggle brands-toggle--cta";
+    discuss.href = "https://t.me/marinakazakova_ru";
+    discuss.target = "_blank";
+    discuss.rel = "noopener";
+    discuss.textContent = "DISCUSS YOUR PROJECT";
+    ctaGroup.appendChild(discuss);
+
+    inner.appendChild(ctaGroup);
 
     var wrap = document.createElement("div");
     wrap.className = "brands-workflow-wrap";

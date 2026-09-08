@@ -104,6 +104,9 @@
     meta.appendChild(buildMetaRow("СРОК", stage.meta.timing));
     inner.appendChild(meta);
 
+    var ctaGroup = document.createElement("div");
+    ctaGroup.className = "brands-cta-group";
+
     var toggle = document.createElement("button");
     toggle.className = "brands-toggle";
     toggle.type = "button";
@@ -116,7 +119,19 @@
     toggleIcon.textContent = "+";
     toggle.appendChild(toggleLabel);
     toggle.appendChild(toggleIcon);
-    inner.appendChild(toggle);
+    ctaGroup.appendChild(toggle);
+
+    // Same visual system as the workflow toggle (font/size/border/radius/
+    // height) — just a plain contact link, not an expand control.
+    var discuss = document.createElement("a");
+    discuss.className = "brands-toggle brands-toggle--cta";
+    discuss.href = "https://t.me/marinakazakova_ru";
+    discuss.target = "_blank";
+    discuss.rel = "noopener";
+    discuss.textContent = "DISCUSS YOUR PROJECT";
+    ctaGroup.appendChild(discuss);
+
+    inner.appendChild(ctaGroup);
 
     var wrap = document.createElement("div");
     wrap.className = "brands-workflow-wrap";
