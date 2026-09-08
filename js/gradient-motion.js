@@ -1,9 +1,10 @@
 /**
  * Gradient Motion — ambient looping background for Block 2 (Experience
- * intro). Purple + lime blobs (site palette) drift slowly over the
- * site's own pale-grey token, with a soft grey "void" blob for negative
- * space — grey rather than black so the block's existing black text
- * stays readable throughout the loop.
+ * intro). Two purple tones (site palette) drift slowly over the site's
+ * own pale-grey token, with a soft grey "void" blob for negative space
+ * — grey rather than black so the block's existing black text stays
+ * readable throughout the loop. Purple + pale-grey only, no lime — a
+ * more restrained, deliberate two-tone read.
  *
  * The canvas is padded well beyond its container and CSS-blurred (not
  * Canvas2D's own ctx.filter, which renders solid black under some
@@ -17,7 +18,6 @@
   var GREY = "#d6d6d6";
   var PURPLE = "#7a81ff";
   var PURPLE_DIM = "#5b62d9";
-  var LIME = "#C6E298";
   var BLUR = 90;
 
   function init(container, canvas) {
@@ -82,23 +82,18 @@
       blobPath(ox + W * 0.22 + d1.x, oy + H * 0.78 + d1.y, W * 0.44, t, 1.1);
       ctx.fill();
 
-      // Deeper purple, adds weight lower-right — same hue family.
+      // Deeper purple, upper-right — same hue family, fills the space
+      // the lime blob used to occupy, keeping the two-tone read.
       var d2 = drift(t, 0.00009, W * 0.08, H * 0.07, 2.4);
       ctx.fillStyle = PURPLE_DIM;
-      blobPath(ox + W * 0.66 + d2.x, oy + H * 0.86 + d2.y, W * 0.34, t, 3.3);
-      ctx.fill();
-
-      // Lime, upper-right — the accent glow.
-      var d3 = drift(t, 0.00014, W * 0.09, H * 0.09, 4.2);
-      ctx.fillStyle = LIME;
-      blobPath(ox + W * 0.78 + d3.x, oy + H * 0.18 + d3.y, W * 0.40, t, 5.6);
+      blobPath(ox + W * 0.74 + d2.x, oy + H * 0.22 + d2.y, W * 0.38, t, 3.3);
       ctx.fill();
 
       // The void — a grey blob overlapping the glow from below, the
       // negative-space "dome"; grey (not black) keeps text readable.
-      var d4 = drift(t, 0.0001, W * 0.06, H * 0.05, 1.7);
+      var d3 = drift(t, 0.0001, W * 0.06, H * 0.05, 1.7);
       ctx.fillStyle = GREY;
-      blobPath(ox + W * 0.38 + d4.x, oy + H * 1.02 + d4.y, W * 0.46, t, 7.0);
+      blobPath(ox + W * 0.38 + d3.x, oy + H * 1.02 + d3.y, W * 0.46, t, 7.0);
       ctx.fill();
 
       rafId = requestAnimationFrame(frame);
