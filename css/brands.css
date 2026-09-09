@@ -673,6 +673,15 @@
 }
 .brands-grid--row4 .brands-media__window { aspect-ratio: 4 / 3; }
 
+/* Visual Foundation's own frames (client-supplied mockups: Brand ID,
+   Photo Content, SMM Guide, Web Design) are vertical, not the 4:3
+   default the other row4 stages (still placeholders) use — scoped to
+   this stage only so Product Experience / Market Development are
+   unaffected until they get their own real content. */
+#visual-foundation .brands-grid--row4 .brands-media__window {
+  aspect-ratio: 4 / 5;
+}
+
 /* Brand Audit's own layout: all three steps in one horizontal row,
    top- and bottom-aligned, same gap throughout — one continuous
    workflow, not a 2-up-plus-1-below split. Strategy & Road Map's column

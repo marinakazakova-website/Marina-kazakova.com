@@ -197,11 +197,55 @@ window.BRANDS_PAGE_DATA = {
         timing: { en: "4-6 weeks", ru: "4-6 недель" }
       },
       layout: "row4",
+      // Client-supplied mockups, one per sub-step — used as-is (see
+      // css/brands.css's #visual-foundation override: a uniform 4:5
+      // window since the four source images arrive at different
+      // aspect ratios).
       workflow: [
-        { id: "2.1", label: "" },
-        { id: "2.2", label: "" },
-        { id: "2.3", label: "" },
-        { id: "2.4", label: "", open: true }
+        {
+          id: "01",
+          label: "Brand ID",
+          visual: "image",
+          image: "assets/images/brands/visual-foundation/brand-id.jpg",
+          caseTag: "MOV | Fashion Brand",
+          caption: {
+            en: "Development of the brand’s visual identity system: logo, typography, colour palette, key visuals and brand applications.",
+            ru: "Разработка визуальной системы бренда: логотип, типографика, цветовая палитра, key visuals и основные носители."
+          }
+        },
+        {
+          id: "02",
+          label: "Photo Content",
+          visual: "image",
+          image: "assets/images/brands/visual-foundation/photo-content.jpg",
+          caseTag: "Bogdan Kanuka | Artist",
+          caption: {
+            en: "Development and production of founder or product photo content — from creative concept and art direction to the final shoot.",
+            ru: "Разработка и создание фотоконтента фаундера или продукта — от креативной концепции и art direction до финальной съёмки."
+          }
+        },
+        {
+          id: "03",
+          label: "SMM Guide",
+          visual: "image",
+          image: "assets/images/brands/visual-foundation/smm-guide.jpg",
+          caseTag: "Bogdan Kanuka | Artist",
+          caption: {
+            en: "Development of a social media visual system: content structure, templates, layouts, feed logic and application rules.",
+            ru: "Разработка визуальной системы социальных медиа: структура контента, шаблоны, макеты, логика ленты и правила применения."
+          }
+        },
+        {
+          id: "04",
+          label: "Web Design",
+          visual: "image",
+          image: "assets/images/brands/visual-foundation/web-design.jpg",
+          caseTag: "Brand Ecosystem Design",
+          caption: {
+            en: "Translating the brand system into a digital experience through web design, interface logic and visual communication.",
+            ru: "Перевод системы бренда в digital-среду через веб-дизайн, логику интерфейса и визуальную коммуникацию."
+          }
+        }
       ]
     },
     {
