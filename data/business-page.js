@@ -29,13 +29,8 @@
  * (M&W / Woodi Bureau names + years) are transcribed verbatim from her
  * own mockup, not invented.
  *
- * Video slots (`type: "video-row"`): a left/right pair of cells, each
- * either `{ src, poster? }` (renders a <video>) or `null` (an empty,
- * architecturally-ready slot — no placeholder image, just the figure's
- * own background). Same pf-project__figure/--ar card as a photo, locked
- * to 16:9. M&W has one real video + one open slot, right under its
- * case-intro; Woodi Bureau has two open slots at the end of its story
- * (source files are too large for the repo — external links to follow).
+ * Photos only, no video — the two case-intro rows lead straight into
+ * the regular photo grid.
  */
 window.DIRECTION_PAGE_DATA = {
   directionId: "business",
@@ -102,18 +97,6 @@ window.DIRECTION_PAGE_DATA = {
       }
     },
 
-    // Two video slots, right under the case-intro. Real footage on the
-    // left ("Диплом Basic #17" — a graduation/diploma event); right slot
-    // is architecturally ready for the second video, source TBD.
-    {
-      type: "video-row",
-      left: {
-        src: "assets/videos/business/mw-diploma-basic-17.mp4",
-        poster: "assets/images/experience/business/mw-video-poster.jpg"
-      },
-      right: null
-    },
-
     {
       left: [{ src: "assets/images/experience/business/new/business-new-03.jpeg", caption: null, ar: "3/2" }],
       right: [{ src: "assets/images/experience/business/new/business-new-04.jpeg", caption: null, ar: "3/2" }]
@@ -160,17 +143,6 @@ window.DIRECTION_PAGE_DATA = {
     {
       left: [{ src: "assets/images/experience/business/new/business-new-19.jpeg", caption: null, ar: "3/2" }],
       right: [{ src: "assets/images/experience/business/new/business-new-20.jpeg", caption: null, ar: "3/2" }]
-    },
-
-    // Two more video slots at the end of the Woodi Bureau story — no
-    // footage yet (source files too large for the repo; client will send
-    // external hosting links later). Both architecturally ready: once a
-    // src is added here, it renders exactly like the M&W video above,
-    // nothing else to change.
-    {
-      type: "video-row",
-      left: null,
-      right: null
     }
   ]
 };
