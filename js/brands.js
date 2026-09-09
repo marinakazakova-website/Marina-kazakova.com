@@ -35,18 +35,56 @@
     document.getElementById("brandsTagline").textContent = DATA.tagline;
   }
 
-  function buildMetaRow(labelText, valueText) {
+  // The five meta labels are the interface around the content, not the
+  // content itself — same set on every stage, so kept once here rather
+  // than repeated per stage in the data file.
+  var META_LABELS = {
+    en: { goal: "GOAL", scope: "SCOPE OF WORK", result: "RESULT", team: "TEAM", timing: "TIMELINE" },
+    ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", timing: "СРОК" }
+  };
+
+  // A meta field is either a plain string (same in both languages — the
+  // client's own English scope/team terms) or an { en, ru } pair (the
+  // explanatory prose that actually needs translating). Mirrors the
+  // fallback shape window.MK.i18n.t() already uses site-wide.
+  function metaText(field, lang) {
+    if (field && typeof field === "object") return field[lang] || field.en || field.ru || "";
+    return field || "";
+  }
+
+  function buildMetaRow(key, stage) {
+    var lang = window.MK.i18n.getLang();
     var row = document.createElement("div");
     row.className = "brands-meta__row";
+    row.dataset.metaKey = key;
     var label = document.createElement("span");
     label.className = "brands-meta__label";
-    label.textContent = labelText;
+    label.textContent = META_LABELS[lang][key];
     var value = document.createElement("p");
     value.className = "brands-meta__value";
-    value.textContent = valueText;
+    value.textContent = metaText(stage.meta[key], lang);
     row.appendChild(label);
     row.appendChild(value);
     return row;
+  }
+
+  // Re-applies just the label/value text on every existing stage section
+  // when the language switches — never rebuilds the stage DOM, so open
+  // "CHECK WORKFLOW PLAN" panels and the running GIF animations are left
+  // completely undisturbed (only their surrounding copy changes).
+  function applyBrandsLang() {
+    var lang = window.MK.i18n.getLang();
+    DATA.stages.forEach(function (stage) {
+      var section = document.getElementById(stage.id);
+      if (!section) return;
+      section.querySelectorAll(".brands-meta__row").forEach(function (row) {
+        var key = row.dataset.metaKey;
+        row.querySelector(".brands-meta__label").textContent = META_LABELS[lang][key];
+        row.querySelector(".brands-meta__value").textContent = metaText(stage.meta[key], lang);
+      });
+      var quote = section.querySelector(".brands-workflow__quote");
+      if (quote) quote.textContent = metaText(stage.meta.goal, lang);
+    });
   }
 
   // Shared accumulation meter for Research + Unpacking (see
@@ -332,11 +370,11 @@
 
     var meta = document.createElement("div");
     meta.className = "brands-meta reveal-up";
-    meta.appendChild(buildMetaRow("ЦЕЛЬ", stage.meta.goal));
-    meta.appendChild(buildMetaRow("СОСТАВ РАБОТ", stage.meta.scope));
-    meta.appendChild(buildMetaRow("РЕЗУЛЬТАТ", stage.meta.result));
-    meta.appendChild(buildMetaRow("КОМАНДА", stage.meta.team));
-    meta.appendChild(buildMetaRow("СРОК", stage.meta.timing));
+    meta.appendChild(buildMetaRow("goal", stage));
+    meta.appendChild(buildMetaRow("scope", stage));
+    meta.appendChild(buildMetaRow("result", stage));
+    meta.appendChild(buildMetaRow("team", stage));
+    meta.appendChild(buildMetaRow("timing", stage));
     inner.appendChild(meta);
 
     var ctaGroup = document.createElement("div");
@@ -375,7 +413,7 @@
 
     var quote = document.createElement("p");
     quote.className = "brands-workflow__quote";
-    quote.textContent = stage.meta.goal;
+    quote.textContent = metaText(stage.meta.goal, window.MK.i18n.getLang());
     workflow.appendChild(quote);
 
     var grid = document.createElement("div");
@@ -494,6 +532,14 @@
 
     window.MK.gradientMotion.init(wrap, canvas);
   }
+
+  // Stage meta text (goal/scope/result/team/timing) is the one part of
+  // this page that actually changes with the language switch — method
+  // nav, workflow labels and both CTAs stay English by design, so they
+  // need no listener here. Updates text in place rather than re-running
+  // renderStages(), so open workflow panels and the GIF animations
+  // already running inside them are left untouched.
+  document.addEventListener("mk:langchange", applyBrandsLang);
 
   document.addEventListener("DOMContentLoaded", function () {
     renderMethodNav();
