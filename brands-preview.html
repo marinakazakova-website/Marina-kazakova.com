@@ -1213,6 +1213,9 @@ body.is-opening { overflow: hidden; }
 
 .audit-cycle {
   --audit-line-h: clamp(1.9rem, 1.5rem + 1vw, 2.6rem);
+  /* Reserves room on the right for the accumulation meter so long words
+     (e.g. "Competitors") never run under it. */
+  --audit-right-gutter: 22%;
   position: relative;
   width: 100%;
   height: 100%;
@@ -1220,7 +1223,7 @@ body.is-opening { overflow: hidden; }
 
 .audit-cycle__mask {
   position: absolute;
-  inset: 0;
+  inset: 0 var(--audit-right-gutter) 0 0;
   overflow: hidden;
   mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
@@ -1229,7 +1232,7 @@ body.is-opening { overflow: hidden; }
 .audit-cycle__highlight {
   position: absolute;
   left: 0;
-  right: 0;
+  right: var(--audit-right-gutter);
   top: 50%;
   height: var(--audit-line-h);
   overflow: hidden;
@@ -1297,6 +1300,64 @@ body.is-opening { overflow: hidden; }
   border-radius: 50%;
   background: var(--color-accent);
   font-size: clamp(1rem, 0.86rem + 0.5vw, 1.3rem);
+}
+
+/* ---- Brand Audit / Research + Unpacking — shared accumulation meter ----
+   A thin vertical, segmented indicator on the right edge of both cards:
+   reads at once as a loading scale, a battery/storage level, and simply
+   "information piling up" — filling bottom-to-top in the site's accent
+   purple over the same clock as each card's own cycle, then resetting
+   with it. One shared track/fill structure; only the timing function
+   differs (--meter-in: stepped "data points arriving" for Research,
+   smooth "gathered through conversation" for Unpacking) so the two
+   cards read as one system while still speaking to their own step. */
+.progress-meter {
+  position: absolute;
+  top: 14%;
+  bottom: 14%;
+  right: 5%;
+  width: clamp(4px, 0.6vw, 6px);
+  pointer-events: none;
+}
+.progress-meter__track,
+.progress-meter__fill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 14%;
+}
+.progress-meter__track .progress-meter__cell {
+  background: rgba(255, 255, 255, 0.12);
+}
+.progress-meter__fill .progress-meter__cell {
+  background: var(--color-accent);
+}
+.progress-meter__track .progress-meter__cell,
+.progress-meter__fill .progress-meter__cell {
+  flex: 1;
+  border-radius: 1px;
+}
+.progress-meter__fill {
+  clip-path: inset(96% 0 0 0);
+  animation-name: progress-meter-fill;
+  animation-iteration-count: infinite;
+}
+.progress-meter--stepped .progress-meter__fill {
+  animation-duration: 24s;
+  animation-timing-function: steps(6, end);
+}
+.progress-meter--smooth .progress-meter__fill {
+  animation-duration: 33s;
+  animation-timing-function: linear;
+}
+/* Interview-collage's own bottom-right corner word sits lower than
+   Research's dot/word-list content, so the smooth variant needs a
+   taller bottom clearance to stay clear of it. */
+.progress-meter--smooth { bottom: 27%; }
+@keyframes progress-meter-fill {
+  from { clip-path: inset(96% 0 0 0); }
+  to   { clip-path: inset(0% 0 0 0); }
 }
 
 /* ---- Brand Audit / Unpacking — looping interview-photo cycle ----
@@ -1389,31 +1450,19 @@ body.is-opening { overflow: hidden; }
 }
 .brands-grid--row4 .brands-media__window { aspect-ratio: 4 / 3; }
 
-/* Brand Audit's own layout: Research + Unpacking sit as two equal
-   columns on top; Strategy & Roadmap spans the full width below it —
-   the roadmap animation is composed at a real hero scale (SVG viewBox
-   1280x720) and needs the extra room to stay legible, not a 1/3-width
-   card like its siblings. */
-.brands-grid--row2wide {
-  grid-template-columns: repeat(2, 1fr);
+/* Brand Audit's own layout: all three steps in one horizontal row,
+   top- and bottom-aligned, same gap throughout — one continuous
+   workflow, not a 2-up-plus-1-below split. Strategy & Road Map's column
+   is proportionally wider (its SVG is native 16:9 vs the other two
+   cards' 4:3), and that exact ratio (4/3 : 4/3 : 16/9) is what keeps
+   all three windows the same height despite the different widths — no
+   separate alignment rule needed. */
+.brands-grid--row3wide {
+  grid-template-columns: 1fr 1fr 1.333fr;
 }
-.brands-grid--row2wide .brands-media__window { aspect-ratio: 4 / 3; }
-.brands-grid--row2wide .brands-media:nth-child(3) {
-  grid-column: 1 / -1;
-  margin-top: var(--space-3);
-  position: relative;
-}
-.brands-grid--row2wide .brands-media:nth-child(3) .brands-media__window {
+.brands-grid--row3wide .brands-media__window { aspect-ratio: 4 / 3; }
+.brands-grid--row3wide .brands-media:nth-child(3) .brands-media__window {
   aspect-ratio: 16 / 9;
-}
-.brands-grid--row2wide .brands-media:nth-child(3)::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--space-3) / -2);
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--color-accent);
 }
 
 /* Cascading staircase of 4 — Brand Foundation (1.1-1.4): each step sits
@@ -1438,13 +1487,13 @@ body.is-opening { overflow: hidden; }
 .brands-grid--row3 .brands-media:not(:first-child),
 .brands-grid--row4 .brands-media:not(:first-child),
 .brands-grid--cascade4 .brands-media:not(:first-child),
-.brands-grid--row2wide .brands-media:nth-child(2) {
+.brands-grid--row3wide .brands-media:not(:first-child) {
   position: relative;
 }
 .brands-grid--row3 .brands-media:not(:first-child)::before,
 .brands-grid--row4 .brands-media:not(:first-child)::before,
 .brands-grid--cascade4 .brands-media:not(:first-child)::before,
-.brands-grid--row2wide .brands-media:nth-child(2)::before {
+.brands-grid--row3wide .brands-media:not(:first-child)::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1476,14 +1525,13 @@ body.is-opening { overflow: hidden; }
   .brands-meta__row { grid-template-columns: 1fr; }
   .brands-grid--row3,
   .brands-grid--row4,
-  .brands-grid--row2wide { grid-template-columns: 1fr; }
+  .brands-grid--row3wide { grid-template-columns: 1fr; }
   .brands-grid--cascade4 { flex-direction: column; }
   .brands-grid--cascade4 .brands-media { margin-top: 0 !important; }
-  .brands-grid--row2wide .brands-media:nth-child(3) { margin-top: var(--space-3); }
   .brands-grid--row3 .brands-media:not(:first-child)::before,
   .brands-grid--row4 .brands-media:not(:first-child)::before,
   .brands-grid--cascade4 .brands-media:not(:first-child)::before,
-  .brands-grid--row2wide .brands-media:nth-child(2)::before {
+  .brands-grid--row3wide .brands-media:not(:first-child)::before {
     left: 0;
     right: 0;
     top: calc(var(--space-3) / -2);
@@ -2153,10 +2201,10 @@ window.BRANDS_PAGE_DATA = {
         team: "Marina Kazakova — Brand Strategist / Strategic Lead · Analyst / Industry Expert when required",
         timing: "3 недели"
       },
-      // Research + Unpacking sit side by side; Strategy & Road Map spans
-      // the full width below (see .brands-grid--row2wide) — its roadmap
-      // animation needs real room to stay legible.
-      layout: "row2wide",
+      // All three steps in one row (see .brands-grid--row3wide) —
+      // Strategy & Road Map's column is proportionally wider since its
+      // graphic is native 16:9 against the other two's 4:3.
+      layout: "row3wide",
       workflow: [
         {
           id: "01",
@@ -2949,6 +2997,30 @@ window.BRANDS_PAGE_DATA = {
     return row;
   }
 
+  // Shared accumulation meter for Research + Unpacking (see
+  // css/brands.css) — a thin segmented bar that fills bottom-to-top in
+  // sync with the host card's own cycle, then resets with it. variant is
+  // "stepped" (Research: data points arriving) or "smooth" (Unpacking:
+  // gathered gradually through conversation).
+  function buildProgressMeter(variant) {
+    var CELLS = 6;
+    var meter = document.createElement("div");
+    meter.className = "progress-meter progress-meter--" + variant;
+    meter.setAttribute("aria-hidden", "true");
+
+    var track = document.createElement("div");
+    track.className = "progress-meter__track";
+    var fill = document.createElement("div");
+    fill.className = "progress-meter__fill";
+    for (var i = 0; i < CELLS; i++) {
+      track.appendChild(document.createElement("div")).className = "progress-meter__cell";
+      fill.appendChild(document.createElement("div")).className = "progress-meter__cell";
+    }
+    meter.appendChild(track);
+    meter.appendChild(fill);
+    return meter;
+  }
+
   // Vertical looping word list (Brand Audit / Research): two identical
   // word tracks scroll in lockstep — a dim full-height one and a purple
   // one clipped to a single center line — so whichever word is passing
@@ -2987,6 +3059,8 @@ window.BRANDS_PAGE_DATA = {
     dots.className = "audit-cycle__dots";
     for (var i = 0; i < 3; i++) dots.appendChild(document.createElement("i"));
     wrap.appendChild(dots);
+
+    wrap.appendChild(buildProgressMeter("stepped"));
 
     return wrap;
   }
@@ -3036,6 +3110,8 @@ window.BRANDS_PAGE_DATA = {
       });
       wrap.appendChild(word);
     });
+
+    wrap.appendChild(buildProgressMeter("smooth"));
 
     return wrap;
   }

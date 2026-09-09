@@ -49,6 +49,30 @@
     return row;
   }
 
+  // Shared accumulation meter for Research + Unpacking (see
+  // css/brands.css) — a thin segmented bar that fills bottom-to-top in
+  // sync with the host card's own cycle, then resets with it. variant is
+  // "stepped" (Research: data points arriving) or "smooth" (Unpacking:
+  // gathered gradually through conversation).
+  function buildProgressMeter(variant) {
+    var CELLS = 6;
+    var meter = document.createElement("div");
+    meter.className = "progress-meter progress-meter--" + variant;
+    meter.setAttribute("aria-hidden", "true");
+
+    var track = document.createElement("div");
+    track.className = "progress-meter__track";
+    var fill = document.createElement("div");
+    fill.className = "progress-meter__fill";
+    for (var i = 0; i < CELLS; i++) {
+      track.appendChild(document.createElement("div")).className = "progress-meter__cell";
+      fill.appendChild(document.createElement("div")).className = "progress-meter__cell";
+    }
+    meter.appendChild(track);
+    meter.appendChild(fill);
+    return meter;
+  }
+
   // Vertical looping word list (Brand Audit / Research): two identical
   // word tracks scroll in lockstep — a dim full-height one and a purple
   // one clipped to a single center line — so whichever word is passing
@@ -87,6 +111,8 @@
     dots.className = "audit-cycle__dots";
     for (var i = 0; i < 3; i++) dots.appendChild(document.createElement("i"));
     wrap.appendChild(dots);
+
+    wrap.appendChild(buildProgressMeter("stepped"));
 
     return wrap;
   }
@@ -136,6 +162,8 @@
       });
       wrap.appendChild(word);
     });
+
+    wrap.appendChild(buildProgressMeter("smooth"));
 
     return wrap;
   }

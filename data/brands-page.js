@@ -37,10 +37,10 @@ window.BRANDS_PAGE_DATA = {
         team: "Marina Kazakova — Brand Strategist / Strategic Lead · Analyst / Industry Expert when required",
         timing: "3 недели"
       },
-      // Research + Unpacking sit side by side; Strategy & Road Map spans
-      // the full width below (see .brands-grid--row2wide) — its roadmap
-      // animation needs real room to stay legible.
-      layout: "row2wide",
+      // All three steps in one row (see .brands-grid--row3wide) —
+      // Strategy & Road Map's column is proportionally wider since its
+      // graphic is native 16:9 against the other two's 4:3.
+      layout: "row3wide",
       workflow: [
         {
           id: "01",
