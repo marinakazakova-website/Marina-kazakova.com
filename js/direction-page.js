@@ -13,6 +13,15 @@
     collaboration: "../assets/icons/icon-telegram.png"
   };
 
+  // Assets are stored relative to the site root; pages under a
+  // subdirectory (business/, retail/, ...) need "../" to reach them.
+  // A standalone preview build inlines assets as absolute data: URIs —
+  // prepending "../" to those would corrupt them, so leave any already-
+  // absolute URL (data:, http(s):, blob:) untouched.
+  function assetUrl(src) {
+    return /^(data|https?|blob):/.test(src) ? src : "../" + src;
+  }
+
   function getDirection() {
     var id = window.DIRECTION_PAGE_DATA.directionId;
     return window.SITE_CONTENT.experienceDirections.filter(function (d) { return d.id === id; })[0];
@@ -65,7 +74,7 @@
         el.href = "javascript:void(0)";
         el.setAttribute("aria-disabled", "true");
       } else {
-        el.href = /^https?:/.test(data.href) ? data.href : "../" + data.href;
+        el.href = assetUrl(data.href);
         if (kind === "portfolio") {
           el.setAttribute("download", "");
         } else {
@@ -97,7 +106,7 @@
       var item = document.createElement("div");
       item.className = "client-strip__item";
       var img = document.createElement("img");
-      img.src = "../" + logo.src;
+      img.src = assetUrl(logo.src);
       img.alt = logo.alt || "";
       img.loading = "lazy";
       if (logo.h) img.style.height = logo.h + "px";
@@ -141,7 +150,7 @@
     if (project.op) fig.style.setProperty("--op", project.op);
 
     var img = document.createElement("img");
-    img.src = "../" + project.src;
+    img.src = assetUrl(project.src);
     img.alt = "";
     img.loading = "lazy";
     fig.appendChild(img);
@@ -171,7 +180,7 @@
     fig.className = "pf-project__figure";
     if (cell.photo.ar) fig.style.setProperty("--ar", cell.photo.ar.replace("/", " / "));
     var img = document.createElement("img");
-    img.src = "../" + cell.photo.src;
+    img.src = assetUrl(cell.photo.src);
     img.alt = "";
     img.loading = "lazy";
     fig.appendChild(img);
@@ -184,7 +193,7 @@
       if (cell.logo) {
         var logoImg = document.createElement("img");
         logoImg.className = "pf-intro-case__logo";
-        logoImg.src = "../" + cell.logo.src;
+        logoImg.src = assetUrl(cell.logo.src);
         logoImg.alt = cell.logo.alt || "";
         meta.appendChild(logoImg);
       }
@@ -224,8 +233,8 @@
 
     if (cell && cell.src) {
       var video = document.createElement("video");
-      video.src = "../" + cell.src;
-      if (cell.poster) video.poster = "../" + cell.poster;
+      video.src = assetUrl(cell.src);
+      if (cell.poster) video.poster = assetUrl(cell.poster);
       video.controls = true;
       video.playsInline = true;
       video.preload = "metadata";
