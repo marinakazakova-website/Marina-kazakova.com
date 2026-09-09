@@ -140,6 +140,101 @@
     return wrap;
   }
 
+  // Brand Audit / Strategy & Road Map: one continuous animated SVG,
+  // built from a static template (no per-instance data to loop over,
+  // unlike the two cycles above) — INFORMATION -> CONNECTIONS ->
+  // DIRECTION -> ROADMAP -> STRATEGY. Every element's timing lives in
+  // css/brands.css as plain percentage keyframes sharing one --sr-dur
+  // clock, so this function only needs to emit the markup once.
+  function buildStrategyRoadmap() {
+    var wrap = document.createElement("div");
+    wrap.className = "strategy-roadmap";
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML =
+      '<svg viewBox="0 0 1280 720">' +
+        '<g>' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.0s"  d="M -40,120  C 260,60  420,260  680,180  C 900,120 1100,220 1330,140" />' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.15s" d="M 1330,560 C 1040,640 860,420  620,500  C 420,560  220,460  -40,560" />' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.3s"  d="M 120,-40  C 200,180  60,320  220,480  C 340,600 260,700 320,760" />' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.45s" d="M 1180,-40 C 1080,160 1220,300 1040,440 C 900,540 980,640 900,760" />' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.6s"  d="M -40,340  C 220,300 380,420 640,360  C 880,300 1040,380 1330,320" />' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.2s"  d="M 640,-40  C 560,140 760,220 660,380  C 580,520 720,600 640,760" />' +
+          '<path class="strategy-roadmap__chaos-line" style="animation-delay:0.5s"  d="M 1330,240 C 1080,180 940,300 760,240 C 560,180 360,260 -40,200" />' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-1 var(--sr-dur) linear infinite;" x="260" y="150">BRAND</text>' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-2 var(--sr-dur) linear infinite;" x="760" y="120">FOUNDER</text>' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-3 var(--sr-dur) linear infinite;" x="900" y="560">PRODUCT</text>' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-4 var(--sr-dur) linear infinite;" x="220" y="440">AUDIENCE</text>' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-5 var(--sr-dur) linear infinite;" x="980" y="300">MARKET</text>' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-6 var(--sr-dur) linear infinite;" x="440" y="600">COMPETITORS</text>' +
+          '<text class="strategy-roadmap__chaos-word" style="animation: sr-chaos-word-7 var(--sr-dur) linear infinite;" x="720" y="420">INSIGHTS</text>' +
+        '</g>' +
+        '<g>' +
+          '<path class="strategy-roadmap__converge-line" d="M 60,220  C 320,240 480,300 640,360" />' +
+          '<path class="strategy-roadmap__converge-line" d="M 60,540  C 320,460 480,400 640,360" />' +
+          '<path class="strategy-roadmap__converge-line" d="M 1220,180 C 940,240 760,300 640,360" />' +
+          '<circle class="strategy-roadmap__converge-dot" cx="420" cy="290" r="0" />' +
+          '<circle class="strategy-roadmap__converge-dot" cx="820" cy="270" r="0" />' +
+          '<circle class="strategy-roadmap__converge-dot" cx="640" cy="360" r="0" />' +
+        '</g>' +
+        '<g class="strategy-roadmap__group">' +
+          '<path class="strategy-roadmap__line-base" d="M 170,380 L 1110,380" />' +
+          '<path class="strategy-roadmap__line-purple" d="M 170,380 L 1110,380" />' +
+          '<g class="strategy-roadmap__dot n0"><circle cx="170" cy="380" r="7" /></g>' +
+          '<g class="strategy-roadmap__dot n1"><circle cx="405" cy="380" r="7" /></g>' +
+          '<g class="strategy-roadmap__dot n2"><circle cx="640" cy="380" r="7" /></g>' +
+          '<g class="strategy-roadmap__dot n3"><circle cx="875" cy="380" r="7" /></g>' +
+          '<g class="strategy-roadmap__dot n4"><circle cx="1110" cy="380" r="7" /></g>' +
+          '<text class="strategy-roadmap__label l0" x="170" y="340" text-anchor="middle">FOUNDATION</text>' +
+          '<text class="strategy-roadmap__label l1" x="405" y="340" text-anchor="middle">POSITIONING</text>' +
+          '<text class="strategy-roadmap__label l2" x="640" y="340" text-anchor="middle">PRODUCT</text>' +
+          '<text class="strategy-roadmap__label l3" x="875" y="340" text-anchor="middle">IDENTITY</text>' +
+          '<text class="strategy-roadmap__label l4" x="1110" y="340" text-anchor="middle">MARKET</text>' +
+          '<g class="strategy-roadmap__detail d0">' +
+            '<text class="strategy-roadmap__detail-head" x="170" y="430" text-anchor="middle">FOUNDATION</text>' +
+            '<text class="strategy-roadmap__detail-line" x="170" y="452" text-anchor="middle">Meaning</text>' +
+            '<text class="strategy-roadmap__detail-line" x="170" y="472" text-anchor="middle">Positioning</text>' +
+            '<text class="strategy-roadmap__detail-line" x="170" y="492" text-anchor="middle">Audience</text>' +
+          '</g>' +
+          '<g class="strategy-roadmap__detail d1">' +
+            '<text class="strategy-roadmap__detail-head" x="640" y="430" text-anchor="middle">PRODUCT</text>' +
+            '<text class="strategy-roadmap__detail-line" x="640" y="452" text-anchor="middle">Offer</text>' +
+            '<text class="strategy-roadmap__detail-line" x="640" y="472" text-anchor="middle">Experience</text>' +
+            '<text class="strategy-roadmap__detail-line" x="640" y="492" text-anchor="middle">Value</text>' +
+          '</g>' +
+          '<g class="strategy-roadmap__detail d2">' +
+            '<text class="strategy-roadmap__detail-head" x="1110" y="430" text-anchor="middle">MARKET</text>' +
+            '<text class="strategy-roadmap__detail-line" x="1110" y="452" text-anchor="middle">Launch</text>' +
+            '<text class="strategy-roadmap__detail-line" x="1110" y="472" text-anchor="middle">Communication</text>' +
+            '<text class="strategy-roadmap__detail-line" x="1110" y="492" text-anchor="middle">Growth</text>' +
+          '</g>' +
+          '<g class="strategy-roadmap__card c0">' +
+            '<rect x="130" y="180" width="80" height="110" rx="4" fill="none" stroke="var(--color-accent)" stroke-width="1.5" />' +
+            '<line x1="130" y1="290" x2="210" y2="180" stroke="var(--sr-muted-strong)" stroke-width="1" />' +
+            '<rect x="130" y="180" width="80" height="110" fill="url(#srRefGrad)" opacity="0.5" />' +
+          '</g>' +
+          '<g class="strategy-roadmap__card c1">' +
+            '<rect x="600" y="150" width="80" height="110" rx="4" fill="none" stroke="var(--color-accent)" stroke-width="1.5" />' +
+            '<line x1="600" y1="260" x2="680" y2="150" stroke="var(--sr-muted-strong)" stroke-width="1" />' +
+            '<rect x="600" y="150" width="80" height="110" fill="url(#srRefGrad)" opacity="0.5" />' +
+          '</g>' +
+          '<g class="strategy-roadmap__card c2">' +
+            '<rect x="1070" y="180" width="80" height="110" rx="4" fill="none" stroke="var(--color-accent)" stroke-width="1.5" />' +
+            '<line x1="1070" y1="290" x2="1150" y2="180" stroke="var(--sr-muted-strong)" stroke-width="1" />' +
+            '<rect x="1070" y="180" width="80" height="110" fill="url(#srRefGrad)" opacity="0.5" />' +
+          '</g>' +
+          '<circle class="strategy-roadmap__pulse" r="9" fill="var(--color-accent)" style="filter:blur(1px)" />' +
+        '</g>' +
+        '<defs>' +
+          '<linearGradient id="srRefGrad" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="#3a3d55" />' +
+            '<stop offset="1" stop-color="#15151d" />' +
+          '</linearGradient>' +
+        '</defs>' +
+      '</svg>' +
+      '<div class="strategy-roadmap__title"><h3>STRATEGY<br>&amp; ROADMAP</h3></div>';
+    return wrap;
+  }
+
   function buildMediaCell(step) {
     var cell = document.createElement("div");
     cell.className = "brands-media" + (step.open ? " brands-media--open" : "");
@@ -167,6 +262,9 @@
     } else if (step.visual === "interview-collage" && step.images) {
       win.classList.add("brands-media__window--interview-collage");
       win.appendChild(buildInterviewCollage(step));
+    } else if (step.visual === "strategy-roadmap") {
+      win.classList.add("brands-media__window--strategy-roadmap");
+      win.appendChild(buildStrategyRoadmap());
     } else {
       var placeholder = document.createElement("span");
       placeholder.className = "brands-media__plus";

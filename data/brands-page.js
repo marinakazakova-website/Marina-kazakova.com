@@ -37,7 +37,10 @@ window.BRANDS_PAGE_DATA = {
         team: "Marina Kazakova — Brand Strategist / Strategic Lead · Analyst / Industry Expert when required",
         timing: "3 недели"
       },
-      layout: "row3",
+      // Research + Unpacking sit side by side; Strategy & Road Map spans
+      // the full width below (see .brands-grid--row2wide) — its roadmap
+      // animation needs real room to stay legible.
+      layout: "row2wide",
       workflow: [
         {
           id: "01",
@@ -78,7 +81,18 @@ window.BRANDS_PAGE_DATA = {
             "assets/images/brands/unpacking/unpacking-11.jpg"
           ]
         },
-        { id: "03", label: "Strategy & Road Map" }
+        {
+          id: "03",
+          label: "Strategy & Road Map",
+          // INFORMATION -> CONNECTIONS -> DIRECTION -> ROADMAP -> STRATEGY,
+          // one continuous 20s loop: chaotic dashed lines carrying the
+          // Research word-set converge into a single line, straighten
+          // into a horizontal roadmap, pick up the 5 Development Strategy
+          // stage names, a few short detail lines and neutral visual-
+          // reference frames, then a final accent pulse sweeps the whole
+          // route before it resolves to the title card and loops.
+          visual: "strategy-roadmap"
+        }
       ]
     },
     {
