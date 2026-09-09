@@ -30,29 +30,28 @@
   display: block;
 }
 
-/* A thin light band drifts left to right over the arrow/growth frame,
-   then holds off-frame before repeating — "forward motion", not a
-   constant shimmer. screen blend keeps it a highlight, never a wash. */
+/* A crisp light streak (soft accent aura + bright white core) drifts left
+   to right over the arrow/growth frame, then holds off-frame before
+   repeating — "forward motion", not a constant shimmer. Drawn at full
+   opacity (no blend mode) so it reads clearly even against the arrow's
+   own bright accent-purple fill, not just against the darker photo. */
 .triptych__item--sweep::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg,
-    transparent 32%,
-    rgba(255, 255, 255, 0.22) 48%,
-    rgba(122, 129, 255, 0.28) 52%,
-    transparent 68%);
-  background-size: 260% 100%;
-  background-position: -40% 0;
-  mix-blend-mode: screen;
+  background-image:
+    linear-gradient(100deg, transparent 34%, rgba(122, 129, 255, 0.55) 50%, transparent 66%),
+    linear-gradient(100deg, transparent 47%, rgba(255, 255, 255, 0.95) 50%, transparent 53%);
+  background-size: 260% 100%, 260% 100%;
+  background-position: -40% 0, -40% 0;
   pointer-events: none;
   animation: triptych-sweep 7s ease-in-out infinite;
 }
 
 @keyframes triptych-sweep {
-  0% { background-position: -40% 0; }
-  32% { background-position: 140% 0; }
-  100% { background-position: 140% 0; }
+  0% { background-position: -40% 0, -40% 0; }
+  32% { background-position: 140% 0, 140% 0; }
+  100% { background-position: 140% 0, 140% 0; }
 }
 
 .brand-ecosystem__intro {
