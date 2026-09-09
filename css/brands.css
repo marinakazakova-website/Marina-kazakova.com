@@ -37,6 +37,17 @@
   font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
 }
 
+/* Trailing space after the last intro paragraph, before the method nav
+   — was 128px (direction-page.css's shared --space-7) stacking with
+   .brands-method's own 56px top padding for a ~185px gap. Cut to ~44%
+   of that (128px -> 48px = ~104px total), scoped to Brands only so
+   Retail/Business/Films keep the shared default. The intro's own top
+   padding/content position is untouched — only this bottom gap shrinks,
+   pulling the method nav + tagline + stages up as one block. */
+.brands-page .direction-intro {
+  padding-bottom: 3rem;
+}
+
 .brands-hero-bg {
   position: absolute;
   top: 0;
