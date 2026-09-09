@@ -131,11 +131,49 @@ window.BRANDS_PAGE_DATA = {
         timing: { en: "3-6 weeks", ru: "3-6 недель" }
       },
       layout: "cascade4",
+      // Client-supplied vertical collage frames (one per sub-step),
+      // same visual logic as her mockup — used as-is, not rebuilt.
       workflow: [
-        { id: "1.1", label: "" },
-        { id: "1.2", label: "" },
-        { id: "1.3", label: "" },
-        { id: "1.4", label: "" }
+        {
+          id: "1.1",
+          label: "Founder Identity",
+          visual: "image",
+          image: "assets/images/brands/foundation/founder-identity.jpg",
+          caption: {
+            en: "Researching the founder’s expertise, journey and role → defining their distinctive strength.",
+            ru: "Исследование экспертизы, пути и роли фаундера → формулирование его ключевой силы."
+          }
+        },
+        {
+          id: "1.2",
+          label: "Brand Platform",
+          visual: "image",
+          image: "assets/images/brands/foundation/brand-platform.jpg",
+          caption: {
+            en: "Defining the brand’s meaning, vision, positioning, values, audience and architecture.",
+            ru: "Определение смысла, видения, позиционирования, ценностей, аудитории и архитектуры бренда."
+          }
+        },
+        {
+          id: "1.3",
+          label: "Brand Narrative",
+          visual: "image",
+          image: "assets/images/brands/foundation/brand-narrative.jpg",
+          caption: {
+            en: "Building the central brand story, key messages and tone of voice.",
+            ru: "Разработка центральной истории бренда, ключевых сообщений и tone of voice."
+          }
+        },
+        {
+          id: "1.4",
+          label: "Creative Direction",
+          visual: "image",
+          image: "assets/images/brands/foundation/creative-direction.jpg",
+          caption: {
+            en: "Translating strategy and narrative into a visual direction for the brand and founder.",
+            ru: "Перевод стратегии и нарратива в визуальное направление бренда и фаундера."
+          }
+        }
       ]
     },
     {

@@ -84,6 +84,11 @@
       });
       var quote = section.querySelector(".brands-workflow__quote");
       if (quote) quote.textContent = metaText(stage.meta.goal, lang);
+      stage.workflow.forEach(function (step) {
+        if (!step.caption) return;
+        var caption = section.querySelector('.brands-media__caption[data-step-id="' + step.id + '"]');
+        if (caption) caption.textContent = metaText(step.caption, lang);
+      });
     });
   }
 
@@ -331,6 +336,13 @@
     } else if (step.visual === "strategy-roadmap") {
       win.classList.add("brands-media__window--strategy-roadmap");
       win.appendChild(buildStrategyRoadmap());
+    } else if (step.visual === "image" && step.image) {
+      win.classList.add("brands-media__window--image");
+      var img = document.createElement("img");
+      img.src = assetUrl(step.image);
+      img.alt = step.label || "";
+      img.loading = "lazy";
+      win.appendChild(img);
     } else {
       var placeholder = document.createElement("span");
       placeholder.className = "brands-media__plus";
@@ -338,6 +350,14 @@
       win.appendChild(placeholder);
     }
     cell.appendChild(win);
+
+    if (step.caption) {
+      var caption = document.createElement("p");
+      caption.className = "brands-media__caption";
+      caption.dataset.stepId = step.id;
+      caption.textContent = metaText(step.caption, window.MK.i18n.getLang());
+      cell.appendChild(caption);
+    }
 
     return cell;
   }
