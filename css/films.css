@@ -6,6 +6,47 @@
    built from the FFF presentation's own character (not its slides).
    ======================================================================== */
 
+/* ---- Outline-only letterforms (STUDIO & .FOUNDATION, the 3 discipline
+   terms) ----
+   -webkit-text-stroke on transparent-fill text was rendering stray
+   fragments inside the letterforms on some devices — a real rendering
+   bug in that specific CSS property, confirmed still present after
+   removing text-transform and lowering the weight (neither is the
+   actual cause). A text-shadow-ring fake stroke was tried next but
+   text-shadow paints a solid dilated silhouette, not a hollow outline,
+   so it just filled the letters solid instead.
+   This uses real vector stroking instead: the visible text stays a
+   normal (invisible, color:transparent) inline-block for accessibility
+   and layout sizing exactly as before, and an absolutely-positioned SVG
+   <text> — a completely different, correctly-hollow rendering path —
+   draws the actual outline on top, sized to match its wrapper exactly
+   (no manual width/viewBox math, no separate responsive scaling to keep
+   in sync with the rest of the heading/list). */
+.fff-outline-wrap {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+}
+.fff-outline-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.fff-outline-svg text {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  fill: none;
+  stroke: var(--color-white);
+  stroke-width: 1.5px;
+  paint-order: stroke fill;
+  transition: stroke var(--dur-base) var(--ease-editorial);
+}
+
 .fff {
   background: var(--color-black);
   color: var(--color-white);
@@ -139,20 +180,7 @@
   font-size: var(--fs-display-md);
   line-height: 0.98;
   letter-spacing: var(--ls-tight);
-  /* Text is written pre-uppercased in the HTML rather than transformed
-     here — combining text-transform with -webkit-text-stroke on this
-     weight was producing stray interior artifacts in the stroked
-     letterforms (see .fff-transition__title span below). */
   margin-bottom: var(--space-3);
-}
-.fff-transition__title span {
-  /* Slightly lighter than the solid "STUDIO &" above it — at 800 this
-     weight's tightly-curved counters (O, D, U, A) were where the
-     text-stroke artifacts showed up; 700 keeps the same bold, dense
-     look while stroking cleanly. */
-  font-weight: 700;
-  -webkit-text-stroke: 1.5px var(--color-white);
-  color: transparent;
 }
 
 .fff-transition__body {
@@ -187,13 +215,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-display);
-  /* Slightly lighter than the section's other display weights — 800's
-     tightly-curved counters (O, D, U, A) were where combining
-     text-stroke with these letterforms produced stray interior
-     artifacts; 700 keeps the same bold, dense look but strokes cleanly.
-     Text is written pre-uppercased in the HTML rather than transformed
-     here, for the same reason. */
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: var(--ls-tight);
 }
 
@@ -202,10 +224,7 @@
   border-top: 1px solid var(--color-border-inverse);
   font-size: clamp(1.9rem, 1rem + 4vw, 4.6rem);
   line-height: 1.15;
-  -webkit-text-stroke: 1.5px var(--color-white);
-  color: transparent;
   cursor: default;
-  transition: color var(--dur-base) var(--ease-editorial), -webkit-text-stroke-color var(--dur-base) var(--ease-editorial);
 }
 .fff-disciplines__formula li.fff-disciplines__term:last-child {
   border-bottom: 1px solid var(--color-border-inverse);
@@ -213,15 +232,13 @@
 
 /* Interactive accent stays the Marina Kazakova purple even inside this
    otherwise black/white/grey world — the one deliberate exception. */
-.fff-disciplines__term:hover {
-  color: var(--color-accent);
-  -webkit-text-stroke-color: var(--color-accent);
+.fff-disciplines__term:hover .fff-outline-svg text {
+  stroke: var(--color-accent);
 }
 
 .fff-disciplines__x {
   display: inline-block;
   margin-right: 0.25em;
-  -webkit-text-stroke: 0;
   color: var(--color-white);
   opacity: 0.45;
 }
