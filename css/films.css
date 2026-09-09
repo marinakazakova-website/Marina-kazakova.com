@@ -26,6 +26,15 @@
   position: relative;
   display: inline-block;
   color: transparent;
+  /* Switching stroke techniques (CSS -> SVG) made no difference, which
+     means both were stroking the same corrupted glyph-outline data —
+     something specific to how this Mac's Chrome rasterizes the
+     Montserrat *web font* at this weight/size when it's stroked at all,
+     not the stroking method. This is the one remaining variable fully
+     in our control: a system font needs no network fetch and isn't
+     Montserrat's font file, so it can't hit whatever's wrong with that
+     one specifically. */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .fff-outline-svg {
   position: absolute;
