@@ -382,6 +382,33 @@
   transform: scale(1.045);
 }
 
+/* Case tag / project label — not a CTA, just identifies which project
+   the frame is drawn from. Pinned bottom-right inside the image, same
+   corner/inset on all four cards. Colors invert on hover (site's usual
+   brand-purple accent) rather than reusing .direction-link's own
+   black-on-hover, so it reads as a small tag, not a clickable action. */
+.brands-media__tag {
+  position: absolute;
+  right: 0.6em;
+  bottom: 0.6em;
+  z-index: 1;
+  max-width: calc(100% - 1.2em);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.3;
+  letter-spacing: var(--ls-normal);
+  text-align: right;
+  padding: 0.5em 0.7em;
+  border-radius: var(--radius-btn);
+  background: var(--color-black);
+  color: var(--color-white);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+}
+.brands-media__tag:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
 /* Short process description under each frame — secondary to the
    FOUNDER IDENTITY / BRAND PLATFORM / ... label above the image:
    body font, regular weight, muted. */

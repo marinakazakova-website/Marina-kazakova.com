@@ -343,6 +343,12 @@
       img.alt = step.label || "";
       img.loading = "lazy";
       win.appendChild(img);
+      if (step.caseTag) {
+        var tag = document.createElement("span");
+        tag.className = "brands-media__tag";
+        tag.textContent = step.caseTag;
+        win.appendChild(tag);
+      }
     } else {
       var placeholder = document.createElement("span");
       placeholder.className = "brands-media__plus";

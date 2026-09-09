@@ -139,6 +139,8 @@ window.BRANDS_PAGE_DATA = {
           label: "Founder Identity",
           visual: "image",
           image: "assets/images/brands/foundation/founder-identity.jpg",
+          // Case tag — the project's own name, not translated.
+          caseTag: "Bogdan Kanuka Artist",
           caption: {
             en: "Researching the founder’s expertise, journey and role → defining their distinctive strength.",
             ru: "Исследование экспертизы, пути и роли фаундера → формулирование его ключевой силы."
@@ -149,6 +151,7 @@ window.BRANDS_PAGE_DATA = {
           label: "Brand Platform",
           visual: "image",
           image: "assets/images/brands/foundation/brand-platform.jpg",
+          caseTag: "Retail Design | Online Education Platform",
           caption: {
             en: "Defining the brand’s meaning, vision, positioning, values, audience and architecture.",
             ru: "Определение смысла, видения, позиционирования, ценностей, аудитории и архитектуры бренда."
@@ -159,6 +162,7 @@ window.BRANDS_PAGE_DATA = {
           label: "Brand Narrative",
           visual: "image",
           image: "assets/images/brands/foundation/brand-narrative.jpg",
+          caseTag: "PORTAL | MultiSpace Amsterdam",
           caption: {
             en: "Building the central brand story, key messages and tone of voice.",
             ru: "Разработка центральной истории бренда, ключевых сообщений и tone of voice."
@@ -169,6 +173,7 @@ window.BRANDS_PAGE_DATA = {
           label: "Creative Direction",
           visual: "image",
           image: "assets/images/brands/foundation/creative-direction.jpg",
+          caseTag: "Homeless | Creative Women Accessories",
           caption: {
             en: "Translating strategy and narrative into a visual direction for the brand and founder.",
             ru: "Перевод стратегии и нарратива в визуальное направление бренда и фаундера."
