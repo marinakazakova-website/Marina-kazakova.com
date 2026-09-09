@@ -54,25 +54,28 @@ window.BRANDS_PAGE_DATA = {
         {
           id: "02",
           label: "Unpacking",
-          // Looping photo cycle through real interview/Zoom-call stills,
-          // framed by four corner words — visualizes founder unpacking
-          // through interview (brand unpacking starts with unpacking the
-          // founder). Images pre-cropped to a uniform clean portrait
-          // frame (see assets/images/brands/unpacking/).
+          // Looping cycle through real Zoom-call screenshots (full
+          // gallery view, not cropped to one face), framed by two
+          // two-line corner words — visualizes founder unpacking through
+          // interview (brand unpacking starts with unpacking the
+          // founder). Per client's reference composition: black canvas,
+          // accent-purple Montserrat corners, grayscale center. Images
+          // pre-processed to a uniform frame (see
+          // assets/images/brands/unpacking/).
           visual: "interview-collage",
-          corners: { tl: "Brand", bl: "Founder", tr: "Interview", br: "Unpacking" },
+          corners: { tl: ["Founder", "Brand"], br: ["Interview", "Unpacking"] },
           images: [
-            "assets/images/brands/unpacking/interview-01.jpg",
-            "assets/images/brands/unpacking/interview-02.jpg",
-            "assets/images/brands/unpacking/interview-03.jpg",
-            "assets/images/brands/unpacking/interview-04.jpg",
-            "assets/images/brands/unpacking/interview-05.jpg",
-            "assets/images/brands/unpacking/interview-06.jpg",
-            "assets/images/brands/unpacking/interview-07.jpg",
-            "assets/images/brands/unpacking/interview-08.jpg",
-            "assets/images/brands/unpacking/interview-09.jpg",
-            "assets/images/brands/unpacking/interview-10.jpg",
-            "assets/images/brands/unpacking/interview-11.jpg"
+            "assets/images/brands/unpacking/unpacking-01.jpg",
+            "assets/images/brands/unpacking/unpacking-02.jpg",
+            "assets/images/brands/unpacking/unpacking-03.jpg",
+            "assets/images/brands/unpacking/unpacking-04.jpg",
+            "assets/images/brands/unpacking/unpacking-05.jpg",
+            "assets/images/brands/unpacking/unpacking-06.jpg",
+            "assets/images/brands/unpacking/unpacking-07.jpg",
+            "assets/images/brands/unpacking/unpacking-08.jpg",
+            "assets/images/brands/unpacking/unpacking-09.jpg",
+            "assets/images/brands/unpacking/unpacking-10.jpg",
+            "assets/images/brands/unpacking/unpacking-11.jpg"
           ]
         },
         { id: "03", label: "Strategy & Road Map" }

@@ -95,8 +95,9 @@
   // absolutely stacked and shares one fade keyframe, each offset by a
   // negative delay to its own slot — exactly one is visible at a time,
   // in order, forever (same shared-animation approach as the audit
-  // cycle above). Four corner words frame the cycling frame, echoing
-  // the reference composition at a scale that fits this card.
+  // cycle above). Two two-line corner words frame the cycling frame,
+  // matching the client's reference composition at a scale that fits
+  // this card.
   function buildInterviewCollage(step) {
     var wrap = document.createElement("div");
     wrap.className = "interview-collage";
@@ -123,11 +124,16 @@
     wrap.appendChild(stage);
 
     var corners = step.corners || {};
-    [["tl", corners.tl], ["bl", corners.bl], ["tr", corners.tr], ["br", corners.br]].forEach(function (pair) {
+    [["tl", corners.tl], ["br", corners.br]].forEach(function (pair) {
       if (!pair[1]) return;
       var word = document.createElement("span");
       word.className = "interview-collage__word interview-collage__word--" + pair[0];
-      word.textContent = pair[1];
+      pair[1].forEach(function (line) {
+        var lineEl = document.createElement("span");
+        lineEl.className = "interview-collage__word-line";
+        lineEl.textContent = line;
+        word.appendChild(lineEl);
+      });
       wrap.appendChild(word);
     });
 

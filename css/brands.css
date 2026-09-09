@@ -464,11 +464,12 @@
 }
 
 /* ---- Brand Audit / Unpacking — looping interview-photo cycle ----
-   Real Zoom-call stills (pre-cropped to a uniform clean portrait frame,
-   see assets/images/brands/unpacking/) cross-fade one at a time, framed
-   by four corner words — a scaled-down echo of the reference composition
-   (big edge words / center visual) sized to fit this workflow card
-   rather than a full hero frame. */
+   Real Zoom-call screenshots (full gallery view, not cropped to one
+   face — see assets/images/brands/unpacking/) cross-fade one at a time
+   in the center, framed by two two-line corner words — matching the
+   client's reference composition (black canvas, accent-purple
+   Montserrat corners, grayscale center), scaled to fit this workflow
+   card rather than a full hero frame. */
 .brands-media__window--interview-collage {
   background: var(--color-black);
   border-color: var(--color-black);
@@ -482,8 +483,12 @@
 
 .interview-collage__stage {
   position: absolute;
-  inset: 10%;
-  border-radius: calc(var(--radius-card) * 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46%;
+  aspect-ratio: 1.85;
+  border-radius: calc(var(--radius-card) * 0.25);
   overflow: hidden;
 }
 
@@ -504,31 +509,35 @@
   filter: grayscale(100%) contrast(1.05);
 }
 
-/* One image visible at a time: brief cross-fade in/out, long hold,
-   staggered per-frame via animation-delay (see js/brands.js) so the 11
-   frames chase each other in order around one shared 33s loop. */
+/* One image visible at a time, staggered per-frame via animation-delay
+   (see js/brands.js) so the 11 frames chase each other around one
+   shared 33s loop. Each frame's own slot is exactly 100/11%  (~9.09%)
+   of the cycle, so frame i's fade-out lands exactly on frame i+1's
+   fade-in — a seamless crossfade with no gap where nothing is visible.
+   Hardcoded for 11 images; update alongside js/brands.js if that count
+   ever changes. */
 @keyframes interview-cycle {
   0% { opacity: 0; }
-  1.5% { opacity: 1; }
-  7.5% { opacity: 1; }
-  9% { opacity: 0; }
+  1% { opacity: 1; }
+  8.09% { opacity: 1; }
+  9.09% { opacity: 0; }
   100% { opacity: 0; }
 }
 
 .interview-collage__word {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(0.68rem, 0.55rem + 0.4vw, 0.95rem);
+  font-size: clamp(0.66rem, 0.5rem + 0.7vw, 1.05rem);
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
-  color: var(--color-white);
-  line-height: 1;
+  color: var(--color-accent);
+  line-height: 1.05;
 }
-.interview-collage__word--tl { top: 0.5em; left: 0.5em; }
-.interview-collage__word--bl { bottom: 0.5em; left: 0.5em; }
-.interview-collage__word--tr { top: 0.5em; right: 0.5em; text-align: right; }
-.interview-collage__word--br { bottom: 0.5em; right: 0.5em; text-align: right; }
+.interview-collage__word--tl { top: 0.5em; left: 0.5em; align-items: flex-start; }
+.interview-collage__word--br { bottom: 0.5em; right: 0.5em; align-items: flex-end; text-align: right; }
 
 /* Row of 3 equal cells — Brand Audit (01/02/03). */
 .brands-grid--row3 {
