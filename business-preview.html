@@ -616,7 +616,12 @@ body.is-opening { overflow: hidden; }
 
 .direction-intro__tagline {
   font-weight: 700;
-  font-size: var(--fs-body-lg);
+  /* Same intro body-text scale as BRANDS (css/brands.css scopes this
+     same clamp to .brands-page only, since it got there first — this is
+     now the shared default so RETAIL/BUSINESS/FILMS read as the same
+     typographic system instead of a bigger, separate scale). Hero
+     titles (--fs-display-lg above) are untouched. */
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-snug);
   margin-bottom: var(--space-3);
   max-width: 38rem;
@@ -626,7 +631,7 @@ body.is-opening { overflow: hidden; }
   max-width: 42rem;
 }
 .direction-intro__body p {
-  font-size: var(--fs-body-lg);
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-relaxed);
   margin-bottom: 1em;
 }
