@@ -875,13 +875,17 @@ body.is-opening { overflow: hidden; }
 
 /* Trailing space after the last intro paragraph, before the method nav
    — was 128px (direction-page.css's shared --space-7) stacking with
-   .brands-method's own 56px top padding for a ~185px gap. Cut to ~44%
-   of that (128px -> 48px = ~104px total), scoped to Brands only so
-   Retail/Business/Films keep the shared default. The intro's own top
-   padding/content position is untouched — only this bottom gap shrinks,
-   pulling the method nav + tagline + stages up as one block. */
+   .brands-method's own top padding. First cut to 3rem (48px), then to
+   2rem (32px) after client review still read the combined gap (this
+   padding + .brands-method's own top padding) as too airy — scoped to
+   Brands only so Retail/Business/Films keep the shared default. The
+   intro's own top padding/content position is untouched — only this
+   bottom gap shrinks, pulling the method nav + tagline + stages up as
+   one block. Same value in EN and RU (this isn't language-dependent —
+   the two only differ in how many lines the translated paragraphs
+   wrap to, which is expected). */
 .brands-page .direction-intro {
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }
 
 .brands-hero-bg {
