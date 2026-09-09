@@ -68,14 +68,24 @@
 }
 
 .profile-reveal__word {
+  display: inline-block;
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
   color: var(--color-black);
+  transform: scale(1);
+  transition: transform var(--dur-base) var(--ease-editorial), color var(--dur-base) var(--ease-editorial);
 }
 
 .profile-reveal__word.is-accent { color: var(--color-accent); }
+
+/* Very small, deliberate — a hint of life on an otherwise static hero
+   line, not a party trick. Scale only (no layout-affecting properties),
+   so neighboring words never reflow. */
+.profile-reveal__word:hover {
+  transform: scale(1.06);
+}
 
 .profile-info {
   display: flex;

@@ -18,7 +18,16 @@
   };
 
   function renderStaticIntroBits() {
-    document.getElementById("experienceFormula").textContent = window.SITE_CONTENT.experienceIntro.formula;
+    var formulaEl = document.getElementById("experienceFormula");
+    formulaEl.innerHTML = "";
+    var terms = window.SITE_CONTENT.experienceIntro.formula.split(" × ");
+    terms.forEach(function (term, i) {
+      if (i > 0) formulaEl.appendChild(document.createTextNode(" × "));
+      var span = document.createElement("span");
+      span.className = "experience-intro__term";
+      span.textContent = term;
+      formulaEl.appendChild(span);
+    });
   }
 
   function renderTypoNav() {

@@ -7,12 +7,17 @@
   function renderTriptych() {
     var wrap = document.getElementById("triptych");
     wrap.innerHTML = "";
-    window.SITE_CONTENT.brandEcosystem.triptych.forEach(function (src) {
+    window.SITE_CONTENT.brandEcosystem.triptych.forEach(function (src, i) {
+      var item = document.createElement("div");
+      // Last frame carries the arrow/growth graphic — the one spot a
+      // slow light sweep reads as "forward motion" rather than noise.
+      item.className = "triptych__item" + (i === window.SITE_CONTENT.brandEcosystem.triptych.length - 1 ? " triptych__item--sweep" : "");
       var img = document.createElement("img");
       img.src = src;
       img.alt = "";
       img.loading = "lazy";
-      wrap.appendChild(img);
+      item.appendChild(img);
+      wrap.appendChild(item);
     });
   }
 

@@ -17,12 +17,42 @@
   padding: clamp(20px, 2.4vw, 36px) clamp(20px, 2.4vw, 36px) 0;
 }
 
-.triptych img {
+.triptych__item {
+  position: relative;
+  overflow: hidden;
+}
+
+.triptych__item img {
   width: 100%;
   aspect-ratio: 6 / 7;
   object-fit: cover;
   object-position: center top;
   display: block;
+}
+
+/* A thin light band drifts left to right over the arrow/growth frame,
+   then holds off-frame before repeating — "forward motion", not a
+   constant shimmer. screen blend keeps it a highlight, never a wash. */
+.triptych__item--sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.22) 48%,
+    rgba(122, 129, 255, 0.28) 52%,
+    transparent 68%);
+  background-size: 260% 100%;
+  background-position: -40% 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: triptych-sweep 7s ease-in-out infinite;
+}
+
+@keyframes triptych-sweep {
+  0% { background-position: -40% 0; }
+  32% { background-position: 140% 0; }
+  100% { background-position: 140% 0; }
 }
 
 .brand-ecosystem__intro {
