@@ -10,6 +10,15 @@
 
   var DATA = window.BRANDS_PAGE_DATA;
 
+  // Assets are relative to the site root; this page lives one level
+  // down (brands/), so it normally needs "../" to reach them. A
+  // standalone preview build inlines images as absolute data: URIs —
+  // prepending "../" to those would corrupt them, so leave any
+  // already-absolute URL untouched (see js/direction-page.js).
+  function assetUrl(src) {
+    return /^(data|https?|blob):/.test(src) ? src : "../" + src;
+  }
+
   function renderMethodNav() {
     var nav = document.getElementById("brandsMethodNav");
     nav.innerHTML = "";
@@ -82,6 +91,49 @@
     return wrap;
   }
 
+  // Looping photo cycle (Brand Audit / Unpacking): every frame is
+  // absolutely stacked and shares one fade keyframe, each offset by a
+  // negative delay to its own slot — exactly one is visible at a time,
+  // in order, forever (same shared-animation approach as the audit
+  // cycle above). Four corner words frame the cycling frame, echoing
+  // the reference composition at a scale that fits this card.
+  function buildInterviewCollage(step) {
+    var wrap = document.createElement("div");
+    wrap.className = "interview-collage";
+    wrap.setAttribute("aria-hidden", "true");
+
+    var stage = document.createElement("div");
+    stage.className = "interview-collage__stage";
+    var n = step.images.length;
+    // Must match the animation-duration set on .interview-collage__frame
+    // in css/brands.css — animation-delay takes a time value, not a
+    // percentage, so the per-image offset is computed from it directly.
+    var CYCLE_SECONDS = 33;
+    step.images.forEach(function (src, i) {
+      var frame = document.createElement("div");
+      frame.className = "interview-collage__frame";
+      frame.style.animationDelay = (-(i * CYCLE_SECONDS / n)) + "s";
+      var img = document.createElement("img");
+      img.src = assetUrl(src);
+      img.alt = "";
+      img.loading = "lazy";
+      frame.appendChild(img);
+      stage.appendChild(frame);
+    });
+    wrap.appendChild(stage);
+
+    var corners = step.corners || {};
+    [["tl", corners.tl], ["bl", corners.bl], ["tr", corners.tr], ["br", corners.br]].forEach(function (pair) {
+      if (!pair[1]) return;
+      var word = document.createElement("span");
+      word.className = "interview-collage__word interview-collage__word--" + pair[0];
+      word.textContent = pair[1];
+      wrap.appendChild(word);
+    });
+
+    return wrap;
+  }
+
   function buildMediaCell(step) {
     var cell = document.createElement("div");
     cell.className = "brands-media" + (step.open ? " brands-media--open" : "");
@@ -106,6 +158,9 @@
     if (step.visual === "audit-cycle" && step.words) {
       win.classList.add("brands-media__window--audit-cycle");
       win.appendChild(buildAuditCycle(step.words));
+    } else if (step.visual === "interview-collage" && step.images) {
+      win.classList.add("brands-media__window--interview-collage");
+      win.appendChild(buildInterviewCollage(step));
     } else {
       var placeholder = document.createElement("span");
       placeholder.className = "brands-media__plus";
