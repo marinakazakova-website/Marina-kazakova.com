@@ -9,6 +9,7 @@
 }
 
 .triptych {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(20px, 2.4vw, 36px);
@@ -30,28 +31,37 @@
   display: block;
 }
 
-/* A crisp light streak (soft accent aura + bright white core) drifts left
-   to right over the arrow/growth frame, then holds off-frame before
+/* The connecting line/arrow is one continuous graphic baked across all
+   three source photos (dot in frame 1 → bar through frame 2 → arrowhead
+   in frame 3), so the light travels the full row in one pass rather than
+   being confined to a single tile. A crisp streak (soft accent aura +
+   bright white core) drifts left to right, then holds off-frame before
    repeating — "forward motion", not a constant shimmer. Drawn at full
    opacity (no blend mode) so it reads clearly even against the arrow's
    own bright accent-purple fill, not just against the darker photo. */
-.triptych__item--sweep::after {
+.triptych::after {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(100deg, transparent 34%, rgba(122, 129, 255, 0.55) 50%, transparent 66%),
-    linear-gradient(100deg, transparent 47%, rgba(255, 255, 255, 0.95) 50%, transparent 53%);
-  background-size: 260% 100%, 260% 100%;
-  background-position: -40% 0, -40% 0;
+    linear-gradient(100deg, transparent 40%, rgba(122, 129, 255, 0.55) 50%, transparent 60%),
+    linear-gradient(100deg, transparent 48.3%, rgba(255, 255, 255, 0.95) 50%, transparent 51.7%);
+  background-size: 300% 100%, 300% 100%;
+  background-position: 155% 0, 155% 0;
   pointer-events: none;
   animation: triptych-sweep 7s ease-in-out infinite;
 }
 
+/* background-position % is resolved against (container - bg-size), which is
+   negative here (bg-size > container) — so a HIGHER percentage places the
+   gradient further left, not right. Start high (155%, off-frame past the
+   left edge) and animate down to -55% (off-frame past the right edge) so
+   the streak visibly travels left to right, matching the arrow's own
+   direction, not backwards against it. */
 @keyframes triptych-sweep {
-  0% { background-position: -40% 0, -40% 0; }
-  32% { background-position: 140% 0, 140% 0; }
-  100% { background-position: 140% 0, 140% 0; }
+  0% { background-position: 155% 0, 155% 0; }
+  32% { background-position: -55% 0, -55% 0; }
+  100% { background-position: -55% 0, -55% 0; }
 }
 
 .brand-ecosystem__intro {
