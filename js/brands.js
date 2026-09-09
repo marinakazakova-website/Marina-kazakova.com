@@ -40,6 +40,48 @@
     return row;
   }
 
+  // Vertical looping word list (Brand Audit / Research): two identical
+  // word tracks scroll in lockstep — a dim full-height one and a purple
+  // one clipped to a single center line — so whichever word is passing
+  // through that line reads as the active one, no JS-timed color logic
+  // needed. Words repeated once for a seamless -50% loop.
+  function buildAuditCycle(words) {
+    var wrap = document.createElement("div");
+    wrap.className = "audit-cycle";
+    wrap.setAttribute("aria-hidden", "true");
+
+    var doubled = words.concat(words);
+
+    function buildTrack(modifier) {
+      var track = document.createElement("div");
+      track.className = "audit-cycle__track audit-cycle__track--" + modifier;
+      doubled.forEach(function (word) {
+        var line = document.createElement("span");
+        line.className = "audit-cycle__word";
+        line.textContent = word;
+        track.appendChild(line);
+      });
+      return track;
+    }
+
+    var dim = document.createElement("div");
+    dim.className = "audit-cycle__mask";
+    dim.appendChild(buildTrack("dim"));
+    wrap.appendChild(dim);
+
+    var highlight = document.createElement("div");
+    highlight.className = "audit-cycle__highlight";
+    highlight.appendChild(buildTrack("active"));
+    wrap.appendChild(highlight);
+
+    var dots = document.createElement("span");
+    dots.className = "audit-cycle__dots";
+    for (var i = 0; i < 3; i++) dots.appendChild(document.createElement("i"));
+    wrap.appendChild(dots);
+
+    return wrap;
+  }
+
   function buildMediaCell(step) {
     var cell = document.createElement("div");
     cell.className = "brands-media" + (step.open ? " brands-media--open" : "");
@@ -60,10 +102,16 @@
 
     var win = document.createElement("div");
     win.className = "brands-media__window reveal-fade-in";
-    var placeholder = document.createElement("span");
-    placeholder.className = "brands-media__plus";
-    placeholder.textContent = "+";
-    win.appendChild(placeholder);
+
+    if (step.visual === "audit-cycle" && step.words) {
+      win.classList.add("brands-media__window--audit-cycle");
+      win.appendChild(buildAuditCycle(step.words));
+    } else {
+      var placeholder = document.createElement("span");
+      placeholder.className = "brands-media__plus";
+      placeholder.textContent = "+";
+      win.appendChild(placeholder);
+    }
     cell.appendChild(win);
 
     return cell;

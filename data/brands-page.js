@@ -39,7 +39,18 @@ window.BRANDS_PAGE_DATA = {
       },
       layout: "row3",
       workflow: [
-        { id: "01", label: "Research" },
+        {
+          id: "01",
+          label: "Research",
+          // Vertical looping word cycle — visualizes gathering/analyzing
+          // all incoming brand information. Exact words/order per brief,
+          // nothing added.
+          visual: "audit-cycle",
+          words: [
+            "Brand", "Founder", "Product", "Website", "Socials", "Audience",
+            "Market", "Competitors", "Experience", "Content", "Visuals", "Insights"
+          ]
+        },
         { id: "02", label: "Unpacking" },
         { id: "03", label: "Strategy & Road Map" }
       ]

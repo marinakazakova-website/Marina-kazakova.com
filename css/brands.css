@@ -363,6 +363,106 @@
   color: var(--color-pale-grey);
 }
 
+/* ---- Brand Audit / Research — vertical looping word cycle ----
+   Two identical tracks scroll in lockstep: a dim full-height copy (all
+   words, muted) and a purple copy visible only through a one-line slit
+   pinned to the window's vertical center. Whichever word is crossing
+   that slit at any instant reads as "active" — no per-word timing to
+   keep in sync, both tracks just share one animation. */
+.brands-media__window--audit-cycle {
+  background: var(--color-black);
+  border-color: var(--color-black);
+  justify-content: flex-start;
+}
+
+.audit-cycle {
+  --audit-line-h: clamp(1.9rem, 1.5rem + 1vw, 2.6rem);
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.audit-cycle__mask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
+}
+
+.audit-cycle__highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: var(--audit-line-h);
+  overflow: hidden;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Both tracks hold the exact same doubled word list (12 words x2), so
+   both are positioned by the same rule: centered so the boundary
+   between the two copies sits at the container's own 50% mark, then
+   animated up by exactly one copy's height. Since the mask spans the
+   full window and the highlight box is itself pinned to that window's
+   vertical center, their "50%" marks coincide — so whichever word sits
+   in the highlight slit is always the very word the dim layer shows at
+   that same point, not a neighboring one. */
+.audit-cycle__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: calc(var(--audit-line-h) * -6);
+  display: flex;
+  flex-direction: column;
+  animation: audit-cycle-scroll 24s linear infinite;
+}
+
+@keyframes audit-cycle-scroll {
+  to { transform: translateY(-50%); }
+}
+
+.audit-cycle__word {
+  height: var(--audit-line-h);
+  line-height: var(--audit-line-h);
+  padding-left: 2.4em;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.86rem + 0.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: var(--ls-tight);
+  white-space: nowrap;
+}
+
+.audit-cycle__mask .audit-cycle__word {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.audit-cycle__highlight .audit-cycle__word {
+  color: var(--color-accent);
+  font-weight: 800;
+  background: var(--color-black);
+}
+
+.audit-cycle__dots {
+  position: absolute;
+  top: 50%;
+  left: 0.9em;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.28em;
+  pointer-events: none;
+}
+.audit-cycle__dots i {
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: var(--color-accent);
+  font-size: clamp(1rem, 0.86rem + 0.5vw, 1.3rem);
+}
+
 /* Row of 3 equal cells — Brand Audit (01/02/03). */
 .brands-grid--row3 {
   grid-template-columns: repeat(3, 1fr);
