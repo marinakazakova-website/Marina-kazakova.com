@@ -601,9 +601,8 @@
   font-family: var(--font-body);
   font-size: var(--fs-small);
   line-height: var(--lh-snug);
-  color: var(--color-white);
-  background: var(--color-black);
-  border: 1px solid var(--color-accent);
+  color: var(--color-black);
+  background: var(--color-pale-grey);
   border-radius: var(--radius-btn);
   padding: 0.8em 1em;
   margin: 0;
