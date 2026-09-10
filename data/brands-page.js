@@ -254,8 +254,8 @@ window.BRANDS_PAGE_DATA = {
       title: "Product Experience",
       meta: {
         goal: {
-          en: "Translate the strategy into a real product and customer experience that can be seen and bought.",
-          ru: "Перевести стратегию в реальный продукт и клиентский опыт, который можно увидеть и купить."
+          en: "Shape the brand’s product logic: what we sell, to whom, in what format and at what price — and turn it into a clear, packaged, ready offer.",
+          ru: "Сформировать продуктовую логику бренда: что мы продаём, кому, в каком формате и по какой цене — и превратить это в понятное, упакованное и готовое предложение."
         },
         scope: "Product Strategy · Product Portfolio · Offer · Packaging · Pricing logic · Customer Journey · Service · Digital Experience · Retail / Offline Experience",
         result: {
@@ -277,8 +277,8 @@ window.BRANDS_PAGE_DATA = {
           label: "Product Building",
           visual: "product-building",
           caption: {
-            en: "Shaping the product offer: what the brand sells, to whom, in what format, and the result it delivers for the client.",
-            ru: "Формирование продуктового предложения: что бренд продаёт, кому, в каком формате и с каким результатом для клиента."
+            en: "Shaping the product offer: what the brand sells, to whom, in what format, what the product or service consists of, what result the client gets, and how much it costs.",
+            ru: "Формирование продуктового предложения: что бренд продаёт, кому, в каком формате, из чего состоит продукт или услуга, какой результат получает клиент и сколько это стоит."
           },
           result: {
             en: "A finished product with a clear structure, composition, price and value for the customer.",
@@ -290,8 +290,8 @@ window.BRANDS_PAGE_DATA = {
           label: "Product Architecture",
           visual: "product-architecture",
           caption: {
-            en: "Building the brand’s product system: entry, core and premium products and how they connect.",
-            ru: "Выстраивание системы продуктов бренда: входные, основные и премиальные продукты и связи между ними."
+            en: "Building the brand’s system of products and services: how they connect, which offers are entry-level, core and premium, and what new formats can be created from existing resources and expertise.",
+            ru: "Выстраивание системы продуктов и услуг бренда: как они связаны между собой, какие предложения являются входными, основными и premium, какие новые форматы можно создать на базе существующих ресурсов и экспертизы."
           },
           result: {
             en: "A product line-up and the customer’s path through it.",
@@ -303,8 +303,8 @@ window.BRANDS_PAGE_DATA = {
           label: "Product Experience",
           visual: "product-journey",
           caption: {
-            en: "Designing the customer journey: packaging, touchpoints, sales materials and product communication.",
-            ru: "Проектирование пути клиента: упаковка, точки контакта, sales-материалы и коммуникация продукта."
+            en: "Designing how the product is promoted and experienced by the client: packaging, description, customer journey, key touchpoints, sales materials, web presentation and product communication.",
+            ru: "Проектирование продвижения и взаимодействия клиента с продуктом: упаковка, описание, customer journey, ключевые точки контакта, sales materials, web presentation и коммуникация продукта."
           },
           result: {
             en: "A market-ready product experience, prepared for promotion.",
