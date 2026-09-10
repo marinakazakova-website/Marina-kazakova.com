@@ -162,6 +162,35 @@
   font-size: var(--fs-body);
 }
 
+/* Small label-button under the tagline — white by default (reads as
+   a separate, secondary note next to the black method-nav pills),
+   purple on hover. Lives inside the same sticky .brands-method bar
+   as the nav + tagline, so it stays in place with them on scroll. */
+.brands-method__duration {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.7em;
+  padding: 0.6em 1em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-normal);
+  color: var(--color-black);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial);
+}
+.brands-method__duration:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-black);
+}
+.is-stuck .brands-method__duration {
+  margin-top: 0.5em;
+  padding: 0.45em 0.8em;
+  font-size: var(--fs-micro);
+}
+
 /* ---- Stage sections ---- */
 .brands-stage {
   padding-block: 4.4rem;

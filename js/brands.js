@@ -33,6 +33,7 @@
     });
 
     document.getElementById("brandsTagline").textContent = DATA.tagline;
+    document.getElementById("brandsDuration").textContent = metaText(DATA.duration, window.MK.i18n.getLang());
   }
 
   // The five meta labels are the interface around the content, not the
@@ -97,6 +98,8 @@
   // completely undisturbed (only their surrounding copy changes).
   function applyBrandsLang() {
     var lang = window.MK.i18n.getLang();
+    var durationEl = document.getElementById("brandsDuration");
+    if (durationEl) durationEl.textContent = metaText(DATA.duration, lang);
     DATA.stages.forEach(function (stage) {
       var section = document.getElementById(stage.id);
       if (!section) return;
