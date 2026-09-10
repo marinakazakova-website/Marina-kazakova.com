@@ -350,11 +350,13 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  padding: 0.35em 0.7em;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: var(--ls-label);
   white-space: nowrap;
   color: var(--color-black);
+  border-radius: var(--radius-btn);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
@@ -362,14 +364,12 @@
 .brands-meta__row:hover .brands-meta__hint {
   opacity: 1;
 }
-.brands-meta__hint-accent {
-  color: var(--color-accent);
-  font-weight: 700;
-}
 
-.brands-meta__hint--outsource {
-  padding: 0.35em 0.7em;
-  border-radius: var(--radius-btn);
+/* Same solid-chip construction for both — purple for TEAM, lime for
+   OUTSOURCE — so the two payment hints read as one consistent system
+   instead of one being a plain, easy-to-miss line of text. */
+.brands-meta__row:hover .brands-meta__hint--team {
+  background: var(--color-accent);
 }
 .brands-meta__row--outsource:hover .brands-meta__hint--outsource {
   background: var(--color-lime);

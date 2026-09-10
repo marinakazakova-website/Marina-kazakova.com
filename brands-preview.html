@@ -1186,11 +1186,13 @@ body.is-opening { overflow: hidden; }
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  padding: 0.35em 0.7em;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: var(--ls-label);
   white-space: nowrap;
   color: var(--color-black);
+  border-radius: var(--radius-btn);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
@@ -1198,14 +1200,12 @@ body.is-opening { overflow: hidden; }
 .brands-meta__row:hover .brands-meta__hint {
   opacity: 1;
 }
-.brands-meta__hint-accent {
-  color: var(--color-accent);
-  font-weight: 700;
-}
 
-.brands-meta__hint--outsource {
-  padding: 0.35em 0.7em;
-  border-radius: var(--radius-btn);
+/* Same solid-chip construction for both — purple for TEAM, lime for
+   OUTSOURCE — so the two payment hints read as one consistent system
+   instead of one being a plain, easy-to-miss line of text. */
+.brands-meta__row:hover .brands-meta__hint--team {
+  background: var(--color-accent);
 }
 .brands-meta__row--outsource:hover .brands-meta__hint--outsource {
   background: var(--color-lime);
@@ -3628,11 +3628,7 @@ window.BRANDS_PAGE_DATA = {
   function buildTeamHint(lang) {
     var hint = document.createElement("span");
     hint.className = "brands-meta__hint brands-meta__hint--team";
-    hint.appendChild(document.createTextNode("✱ "));
-    var accent = document.createElement("span");
-    accent.className = "brands-meta__hint-accent";
-    accent.textContent = HINT_TEXT.team[lang];
-    hint.appendChild(accent);
+    hint.textContent = "✱ " + HINT_TEXT.team[lang];
     return hint;
   }
 
@@ -3706,7 +3702,7 @@ window.BRANDS_PAGE_DATA = {
         var key = row.dataset.metaKey;
         row.querySelector(".brands-meta__label").textContent = META_LABELS[lang][key];
         if (key === "team") {
-          row.querySelector(".brands-meta__hint-accent").textContent = HINT_TEXT.team[lang];
+          row.querySelector(".brands-meta__hint--team").textContent = "✱ " + HINT_TEXT.team[lang];
         }
         var outsourceHint = row.querySelector(".brands-meta__hint--outsource");
         if (outsourceHint) outsourceHint.textContent = HINT_TEXT.outsource[lang];

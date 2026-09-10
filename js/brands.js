@@ -65,11 +65,7 @@
   function buildTeamHint(lang) {
     var hint = document.createElement("span");
     hint.className = "brands-meta__hint brands-meta__hint--team";
-    hint.appendChild(document.createTextNode("✱ "));
-    var accent = document.createElement("span");
-    accent.className = "brands-meta__hint-accent";
-    accent.textContent = HINT_TEXT.team[lang];
-    hint.appendChild(accent);
+    hint.textContent = "✱ " + HINT_TEXT.team[lang];
     return hint;
   }
 
@@ -143,7 +139,7 @@
         var key = row.dataset.metaKey;
         row.querySelector(".brands-meta__label").textContent = META_LABELS[lang][key];
         if (key === "team") {
-          row.querySelector(".brands-meta__hint-accent").textContent = HINT_TEXT.team[lang];
+          row.querySelector(".brands-meta__hint--team").textContent = "✱ " + HINT_TEXT.team[lang];
         }
         var outsourceHint = row.querySelector(".brands-meta__hint--outsource");
         if (outsourceHint) outsourceHint.textContent = HINT_TEXT.outsource[lang];
