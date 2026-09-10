@@ -60,7 +60,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Brand Audit & Strategic Roadmap” — the brand's current position, growth points, strategic hypotheses, priority audiences, product development directions, and a roadmap for the work ahead.",
           ru: "“Brand Audit & Strategic Roadmap” — текущая позиция бренда, точки роста, стратегические гипотезы, приоритетные аудитории, направления развития продукта, roadmap дальнейшей работы."
         },
-        team: "Marina Kazakova — Brand Strategist · Founder / Key Team",
+        team: "Marina Kazakova — Brand Strategist",
         // No outside specialists at this stage — shown as a plain dash.
         outsource: null,
         timing: { en: "3 weeks", ru: "3 недели" }
@@ -137,7 +137,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Brand Foundation & Brand Strategy” — a single strategic system that the product, visual language, communication and customer experience are then built on.",
           ru: "“Brand Foundation & Brand Strategy” — единая стратегическая система, на которой дальше строится продукт, визуальный язык, коммуникация и customer experience."
         },
-        team: "Marina Kazakova — Brand Strategist · Founder / Key Team",
+        team: "Marina Kazakova — Brand Strategist",
         outsource: null,
         timing: { en: "3-6 weeks", ru: "3-6 недель" }
       },
@@ -204,7 +204,7 @@ window.BRANDS_PAGE_DATA = {
         scope: "Visual Direction · Brand Identity · Art Direction · Graphic System · Photography · Video · Content System · Digital / Web Direction",
         // Already English in the client's own mockup — same in both languages.
         result: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
-        team: "Marina Kazakova — Strategic & Creative Lead · Founder / Key Team",
+        team: "Marina Kazakova — Strategic & Creative Lead",
         outsource: {
           tags: ["Graphic Designer", "Photographer", "Set Designer", "Muah Artist", "Web Designer"],
           note: "depending on project"
@@ -277,7 +277,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Product & Customer Experience” System — the product system, offer, packaging, touchpoints, customer journey, retail / digital experience.",
           ru: "“Product & Customer Experience” System — продуктовая система, предложение, упаковка, точки контакта, customer journey, retail / digital experience."
         },
-        team: "Marina Kazakova — Strategic & Product Lead · Founder / Key Team",
+        team: "Marina Kazakova — Strategic & Product Lead",
         outsource: {
           tags: ["Product Specialist", "Graphic Designer", "Web Designer", "Production Partners"],
           note: "depending on product"
@@ -346,7 +346,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Market Activation & Development” — the launch, market-communication system, partnerships, activations, channel development, and a long-term approach to growth.",
           ru: "“Market Activation & Development” — запуск, маркет-коммуникационная система, партнёрства, активации, развитие каналов, долгосрочный подход к росту."
         },
-        team: "Marina Kazakova — Strategic & Creative Lead · Founder / Key Team",
+        team: "Marina Kazakova — Strategic & Creative Lead",
         outsource: {
           tags: [
             "SMM Manager", "Digital Marketer", "Target Specialist", "SEO Specialist",

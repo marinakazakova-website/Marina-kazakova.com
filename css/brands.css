@@ -244,6 +244,7 @@
 }
 
 .brands-meta__row {
+  position: relative;
   display: grid;
   grid-template-columns: 7.5rem 1fr;
   gap: var(--space-3);
@@ -337,6 +338,41 @@
   background: var(--color-lime);
   border-color: var(--color-lime);
   color: var(--color-black);
+}
+
+/* ---- Hover-only payment hints, pinned to the row's own right edge so
+   they never shift the label/value layout. TEAM's "MONTHLY FEE" note
+   applies to every stage; OUTSOURCE's "SEPARATE DEVELOPMENT BUDGET"
+   only exists on rows that actually build the tag list (Brand Audit /
+   Brand Foundation have neither tags nor this hint). ---- */
+.brands-meta__hint {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  white-space: nowrap;
+  color: var(--color-black);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
+}
+.brands-meta__row:hover .brands-meta__hint {
+  opacity: 1;
+}
+.brands-meta__hint-accent {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.brands-meta__hint--outsource {
+  padding: 0.35em 0.7em;
+  border-radius: var(--radius-btn);
+}
+.brands-meta__row--outsource:hover .brands-meta__hint--outsource {
+  background: var(--color-lime);
 }
 
 /* ---- CHECK WORKFLOW PLAN / DISCUSS YOUR PROJECT — stacked CTA pair,

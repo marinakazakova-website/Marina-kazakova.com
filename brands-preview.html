@@ -1080,6 +1080,7 @@ body.is-opening { overflow: hidden; }
 }
 
 .brands-meta__row {
+  position: relative;
   display: grid;
   grid-template-columns: 7.5rem 1fr;
   gap: var(--space-3);
@@ -1173,6 +1174,41 @@ body.is-opening { overflow: hidden; }
   background: var(--color-lime);
   border-color: var(--color-lime);
   color: var(--color-black);
+}
+
+/* ---- Hover-only payment hints, pinned to the row's own right edge so
+   they never shift the label/value layout. TEAM's "MONTHLY FEE" note
+   applies to every stage; OUTSOURCE's "SEPARATE DEVELOPMENT BUDGET"
+   only exists on rows that actually build the tag list (Brand Audit /
+   Brand Foundation have neither tags nor this hint). ---- */
+.brands-meta__hint {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  white-space: nowrap;
+  color: var(--color-black);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial);
+}
+.brands-meta__row:hover .brands-meta__hint {
+  opacity: 1;
+}
+.brands-meta__hint-accent {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.brands-meta__hint--outsource {
+  padding: 0.35em 0.7em;
+  border-radius: var(--radius-btn);
+}
+.brands-meta__row--outsource:hover .brands-meta__hint--outsource {
+  background: var(--color-lime);
 }
 
 /* ---- CHECK WORKFLOW PLAN / DISCUSS YOUR PROJECT — stacked CTA pair,
@@ -2606,7 +2642,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Brand Audit & Strategic Roadmap” — the brand's current position, growth points, strategic hypotheses, priority audiences, product development directions, and a roadmap for the work ahead.",
           ru: "“Brand Audit & Strategic Roadmap” — текущая позиция бренда, точки роста, стратегические гипотезы, приоритетные аудитории, направления развития продукта, roadmap дальнейшей работы."
         },
-        team: "Marina Kazakova — Brand Strategist · Founder / Key Team",
+        team: "Marina Kazakova — Brand Strategist",
         // No outside specialists at this stage — shown as a plain dash.
         outsource: null,
         timing: { en: "3 weeks", ru: "3 недели" }
@@ -2683,7 +2719,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Brand Foundation & Brand Strategy” — a single strategic system that the product, visual language, communication and customer experience are then built on.",
           ru: "“Brand Foundation & Brand Strategy” — единая стратегическая система, на которой дальше строится продукт, визуальный язык, коммуникация и customer experience."
         },
-        team: "Marina Kazakova — Brand Strategist · Founder / Key Team",
+        team: "Marina Kazakova — Brand Strategist",
         outsource: null,
         timing: { en: "3-6 weeks", ru: "3-6 недель" }
       },
@@ -2750,7 +2786,7 @@ window.BRANDS_PAGE_DATA = {
         scope: "Visual Direction · Brand Identity · Art Direction · Graphic System · Photography · Video · Content System · Digital / Web Direction",
         // Already English in the client's own mockup — same in both languages.
         result: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
-        team: "Marina Kazakova — Strategic & Creative Lead · Founder / Key Team",
+        team: "Marina Kazakova — Strategic & Creative Lead",
         outsource: {
           tags: ["Graphic Designer", "Photographer", "Set Designer", "Muah Artist", "Web Designer"],
           note: "depending on project"
@@ -2823,7 +2859,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Product & Customer Experience” System — the product system, offer, packaging, touchpoints, customer journey, retail / digital experience.",
           ru: "“Product & Customer Experience” System — продуктовая система, предложение, упаковка, точки контакта, customer journey, retail / digital experience."
         },
-        team: "Marina Kazakova — Strategic & Product Lead · Founder / Key Team",
+        team: "Marina Kazakova — Strategic & Product Lead",
         outsource: {
           tags: ["Product Specialist", "Graphic Designer", "Web Designer", "Production Partners"],
           note: "depending on product"
@@ -2892,7 +2928,7 @@ window.BRANDS_PAGE_DATA = {
           en: "“Market Activation & Development” — the launch, market-communication system, partnerships, activations, channel development, and a long-term approach to growth.",
           ru: "“Market Activation & Development” — запуск, маркет-коммуникационная система, партнёрства, активации, развитие каналов, долгосрочный подход к росту."
         },
-        team: "Marina Kazakova — Strategic & Creative Lead · Founder / Key Team",
+        team: "Marina Kazakova — Strategic & Creative Lead",
         outsource: {
           tags: [
             "SMM Manager", "Digital Marketer", "Target Specialist", "SEO Specialist",
@@ -3577,6 +3613,33 @@ window.BRANDS_PAGE_DATA = {
     return field || "";
   }
 
+  // TEAM/OUTSOURCE each get a small hover-only note pinned to the row's
+  // right edge — who pays for what, without adding a permanent line of
+  // copy. "MONTHLY FEE" prints in the brand accent, the rest in the row's
+  // ordinary text color.
+  var HINT_TEXT = {
+    team: { en: "MONTHLY FEE", ru: "ЕЖЕМЕСЯЧНЫЙ ГОНОРАР" },
+    outsource: { en: "✱ SEPARATE DEVELOPMENT BUDGET", ru: "✱ ОТДЕЛЬНЫЙ БЮДЖЕТ НА РАЗВИТИЕ" }
+  };
+
+  function buildTeamHint(lang) {
+    var hint = document.createElement("span");
+    hint.className = "brands-meta__hint brands-meta__hint--team";
+    hint.appendChild(document.createTextNode("✱ "));
+    var accent = document.createElement("span");
+    accent.className = "brands-meta__hint-accent";
+    accent.textContent = HINT_TEXT.team[lang];
+    hint.appendChild(accent);
+    return hint;
+  }
+
+  function buildOutsourceHint(lang) {
+    var hint = document.createElement("span");
+    hint.className = "brands-meta__hint brands-meta__hint--outsource";
+    hint.textContent = HINT_TEXT.outsource[lang];
+    return hint;
+  }
+
   function buildMetaRow(key, stage) {
     var lang = window.MK.i18n.getLang();
     var row = document.createElement("div");
@@ -3588,7 +3651,8 @@ window.BRANDS_PAGE_DATA = {
     row.appendChild(label);
 
     var outsource = key === "outsource" ? stage.meta.outsource : null;
-    if (outsource && outsource.tags && outsource.tags.length) {
+    var hasOutsource = outsource && outsource.tags && outsource.tags.length;
+    if (hasOutsource) {
       // Tags and the "depending on ..." note are direct siblings in one
       // wrapping flex row, so the note flows right after the last tag
       // instead of dropping to its own line.
@@ -3613,6 +3677,14 @@ window.BRANDS_PAGE_DATA = {
       value.textContent = key === "outsource" ? "—" : metaText(stage.meta[key], lang);
       row.appendChild(value);
     }
+
+    if (key === "team") {
+      row.appendChild(buildTeamHint(lang));
+    } else if (key === "outsource" && hasOutsource) {
+      // No outside specialists at this stage (Brand Audit / Brand
+      // Foundation) -> no development-budget hint either.
+      row.appendChild(buildOutsourceHint(lang));
+    }
     return row;
   }
 
@@ -3630,6 +3702,11 @@ window.BRANDS_PAGE_DATA = {
       section.querySelectorAll(".brands-meta__row").forEach(function (row) {
         var key = row.dataset.metaKey;
         row.querySelector(".brands-meta__label").textContent = META_LABELS[lang][key];
+        if (key === "team") {
+          row.querySelector(".brands-meta__hint-accent").textContent = HINT_TEXT.team[lang];
+        }
+        var outsourceHint = row.querySelector(".brands-meta__hint--outsource");
+        if (outsourceHint) outsourceHint.textContent = HINT_TEXT.outsource[lang];
         // OUTSOURCE's tags/dash are English professional terms, same in
         // both languages — nothing to re-render, and doing so via
         // .textContent would wipe out the tag markup.

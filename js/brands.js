@@ -53,6 +53,33 @@
     return field || "";
   }
 
+  // TEAM/OUTSOURCE each get a small hover-only note pinned to the row's
+  // right edge — who pays for what, without adding a permanent line of
+  // copy. "MONTHLY FEE" prints in the brand accent, the rest in the row's
+  // ordinary text color.
+  var HINT_TEXT = {
+    team: { en: "MONTHLY FEE", ru: "ЕЖЕМЕСЯЧНЫЙ ГОНОРАР" },
+    outsource: { en: "✱ SEPARATE DEVELOPMENT BUDGET", ru: "✱ ОТДЕЛЬНЫЙ БЮДЖЕТ НА РАЗВИТИЕ" }
+  };
+
+  function buildTeamHint(lang) {
+    var hint = document.createElement("span");
+    hint.className = "brands-meta__hint brands-meta__hint--team";
+    hint.appendChild(document.createTextNode("✱ "));
+    var accent = document.createElement("span");
+    accent.className = "brands-meta__hint-accent";
+    accent.textContent = HINT_TEXT.team[lang];
+    hint.appendChild(accent);
+    return hint;
+  }
+
+  function buildOutsourceHint(lang) {
+    var hint = document.createElement("span");
+    hint.className = "brands-meta__hint brands-meta__hint--outsource";
+    hint.textContent = HINT_TEXT.outsource[lang];
+    return hint;
+  }
+
   function buildMetaRow(key, stage) {
     var lang = window.MK.i18n.getLang();
     var row = document.createElement("div");
@@ -64,7 +91,8 @@
     row.appendChild(label);
 
     var outsource = key === "outsource" ? stage.meta.outsource : null;
-    if (outsource && outsource.tags && outsource.tags.length) {
+    var hasOutsource = outsource && outsource.tags && outsource.tags.length;
+    if (hasOutsource) {
       // Tags and the "depending on ..." note are direct siblings in one
       // wrapping flex row, so the note flows right after the last tag
       // instead of dropping to its own line.
@@ -89,6 +117,14 @@
       value.textContent = key === "outsource" ? "—" : metaText(stage.meta[key], lang);
       row.appendChild(value);
     }
+
+    if (key === "team") {
+      row.appendChild(buildTeamHint(lang));
+    } else if (key === "outsource" && hasOutsource) {
+      // No outside specialists at this stage (Brand Audit / Brand
+      // Foundation) -> no development-budget hint either.
+      row.appendChild(buildOutsourceHint(lang));
+    }
     return row;
   }
 
@@ -106,6 +142,11 @@
       section.querySelectorAll(".brands-meta__row").forEach(function (row) {
         var key = row.dataset.metaKey;
         row.querySelector(".brands-meta__label").textContent = META_LABELS[lang][key];
+        if (key === "team") {
+          row.querySelector(".brands-meta__hint-accent").textContent = HINT_TEXT.team[lang];
+        }
+        var outsourceHint = row.querySelector(".brands-meta__hint--outsource");
+        if (outsourceHint) outsourceHint.textContent = HINT_TEXT.outsource[lang];
         // OUTSOURCE's tags/dash are English professional terms, same in
         // both languages — nothing to re-render, and doing so via
         // .textContent would wipe out the tag markup.
