@@ -986,7 +986,7 @@ body.is-opening { overflow: hidden; }
 }
 
 .brands-method__tagline {
-  margin-top: var(--space-3);
+  margin-top: 0.7em;
   font-weight: 700;
   font-size: var(--fs-body-lg);
   color: var(--color-black);
@@ -998,23 +998,25 @@ body.is-opening { overflow: hidden; }
   font-size: var(--fs-body);
 }
 
-/* Small label-button under the tagline — white by default (reads as
-   a separate, secondary note next to the black method-nav pills),
-   purple on hover. Lives inside the same sticky .brands-method bar
-   as the nav + tagline, so it stays in place with them on scroll. */
+/* Small label-button between the nav pills and the tagline — same
+   uppercase Consolas treatment as the pills, white by default (reads
+   as a separate, secondary note), purple on hover. Lives inside the
+   same sticky .brands-method bar, so it stays in place with the rest
+   of the bar on scroll. */
 .brands-method__duration {
   display: inline-flex;
   align-items: center;
-  margin-top: 0.7em;
+  margin-top: var(--space-3);
   padding: 0.6em 1em;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   letter-spacing: var(--ls-normal);
+  text-transform: uppercase;
   color: var(--color-black);
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
-  transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial);
+  transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial), margin-top var(--dur-base) var(--ease-editorial);
 }
 .brands-method__duration:hover {
   background: var(--color-accent);
@@ -2224,8 +2226,8 @@ body.is-opening { overflow: hidden; }
     <section class="brands-method" id="brandsMethod">
       <div class="container">
         <nav class="brands-method__nav" id="brandsMethodNav" aria-label="Brand method stages"></nav>
-        <p class="brands-method__tagline" id="brandsTagline"></p>
         <span class="brands-method__duration" id="brandsDuration"></span>
+        <p class="brands-method__tagline" id="brandsTagline"></p>
       </div>
     </section>
 
@@ -2579,8 +2581,8 @@ window.BRANDS_PAGE_DATA = {
   // the one piece of copy here that actually changes with the
   // language switch (tagline/method-nav/CTAs stay English by design).
   duration: {
-    en: "Strategic Brand Partnership is designed as a 6-month journey",
-    ru: "Стратегическое бренд-партнёрство рассчитано на 6 месяцев"
+    en: "Strategic Brand Partnership from 6 months",
+    ru: "Стратегическое бренд-партнёрство от 6 месяцев"
   },
 
   stages: [

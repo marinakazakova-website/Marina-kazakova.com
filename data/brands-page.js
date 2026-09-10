@@ -38,8 +38,8 @@ window.BRANDS_PAGE_DATA = {
   // the one piece of copy here that actually changes with the
   // language switch (tagline/method-nav/CTAs stay English by design).
   duration: {
-    en: "Strategic Brand Partnership is designed as a 6-month journey",
-    ru: "Стратегическое бренд-партнёрство рассчитано на 6 месяцев"
+    en: "Strategic Brand Partnership from 6 months",
+    ru: "Стратегическое бренд-партнёрство от 6 месяцев"
   },
 
   stages: [

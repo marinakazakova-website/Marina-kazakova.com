@@ -150,7 +150,7 @@
 }
 
 .brands-method__tagline {
-  margin-top: var(--space-3);
+  margin-top: 0.7em;
   font-weight: 700;
   font-size: var(--fs-body-lg);
   color: var(--color-black);
@@ -162,23 +162,25 @@
   font-size: var(--fs-body);
 }
 
-/* Small label-button under the tagline — white by default (reads as
-   a separate, secondary note next to the black method-nav pills),
-   purple on hover. Lives inside the same sticky .brands-method bar
-   as the nav + tagline, so it stays in place with them on scroll. */
+/* Small label-button between the nav pills and the tagline — same
+   uppercase Consolas treatment as the pills, white by default (reads
+   as a separate, secondary note), purple on hover. Lives inside the
+   same sticky .brands-method bar, so it stays in place with the rest
+   of the bar on scroll. */
 .brands-method__duration {
   display: inline-flex;
   align-items: center;
-  margin-top: 0.7em;
+  margin-top: var(--space-3);
   padding: 0.6em 1em;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   letter-spacing: var(--ls-normal);
+  text-transform: uppercase;
   color: var(--color-black);
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
-  transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial);
+  transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial), margin-top var(--dur-base) var(--ease-editorial);
 }
 .brands-method__duration:hover {
   background: var(--color-accent);
