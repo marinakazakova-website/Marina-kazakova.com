@@ -32,7 +32,7 @@
       nav.appendChild(a);
     });
 
-    document.getElementById("brandsTagline").textContent = DATA.tagline;
+    document.getElementById("brandsTagline").textContent = metaText(DATA.tagline, window.MK.i18n.getLang());
     document.getElementById("brandsDuration").textContent = metaText(DATA.duration, window.MK.i18n.getLang());
   }
 
@@ -41,7 +41,7 @@
   // than repeated per stage in the data file.
   var META_LABELS = {
     en: { goal: "GOAL", scope: "SCOPE OF WORK", result: "RESULT", team: "TEAM", outsource: "OUTSOURCE", timing: "TIMELINE" },
-    ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "OUTSOURCE", timing: "СРОК" }
+    ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "АУТСОРС", timing: "СРОК" }
   };
 
   // A meta field is either a plain string (same in both languages — the
@@ -132,6 +132,8 @@
     var lang = window.MK.i18n.getLang();
     var durationEl = document.getElementById("brandsDuration");
     if (durationEl) durationEl.textContent = metaText(DATA.duration, lang);
+    var taglineEl = document.getElementById("brandsTagline");
+    if (taglineEl) taglineEl.textContent = metaText(DATA.tagline, lang);
     DATA.stages.forEach(function (stage) {
       var section = document.getElementById(stage.id);
       if (!section) return;

@@ -32,7 +32,10 @@ window.BRANDS_PAGE_DATA = {
     { id: "market-development", label: "Market Development" }
   ],
 
-  tagline: "Different Brands. One Strategic System.",
+  tagline: {
+    en: "Different Brands. One Strategic System.",
+    ru: "Разные бренды. Единая стратегическая система."
+  },
 
   // Sits right under the tagline, inside the same sticky method bar —
   // the one piece of copy here that actually changes with the
@@ -80,7 +83,11 @@ window.BRANDS_PAGE_DATA = {
           words: [
             "Brand", "Founder", "Product", "Website", "Socials", "Audience",
             "Market", "Competitors", "Experience", "Content", "Visuals", "Insights"
-          ]
+          ],
+          caption: {
+            en: "Researching the brand’s current state, audience, market, competitors and customer experience → understanding its current position and growth points.",
+            ru: "Исследование текущего состояния бренда, аудитории, рынка, конкурентов и customer experience → понимание текущей позиции и точек роста."
+          }
         },
         {
           id: "02",
@@ -107,7 +114,11 @@ window.BRANDS_PAGE_DATA = {
             "assets/images/brands/unpacking/unpacking-09.jpg",
             "assets/images/brands/unpacking/unpacking-10.jpg",
             "assets/images/brands/unpacking/unpacking-11.jpg"
-          ]
+          ],
+          caption: {
+            en: "Unpacking the founder — their expertise, role, motivation and the brand’s inner direction → identifying its core strength and meaning.",
+            ru: "Распаковка founder’а, его экспертизы, роли, мотивации и внутреннего вектора бренда → выявление ключевой силы и смыслового ядра."
+          }
         },
         {
           id: "03",
@@ -119,7 +130,11 @@ window.BRANDS_PAGE_DATA = {
           // stage names, a few short detail lines and neutral visual-
           // reference frames, then a final accent pulse sweeps the whole
           // route before it resolves to the title card and loops.
-          visual: "strategy-roadmap"
+          visual: "strategy-roadmap",
+          caption: {
+            en: "Bringing the findings together into a strategic system: priorities, hypotheses, directions for development and a roadmap for the work ahead.",
+            ru: "Сбор выводов в стратегическую систему: приоритеты, гипотезы, направления развития и roadmap дальнейшей работы."
+          }
         }
       ]
     },
@@ -202,8 +217,10 @@ window.BRANDS_PAGE_DATA = {
           ru: "Перевести стратегию бренда в узнаваемый визуальный и коммуникационный язык."
         },
         scope: "Visual Direction · Brand Identity · Art Direction · Graphic System · Photography · Video · Content System · Digital / Web Direction",
-        // Already English in the client's own mockup — same in both languages.
-        result: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
+        result: {
+          en: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
+          ru: "«Единая визуальная система бренда» — айдентика, фотоконтент, SMM guide и web design."
+        },
         team: "Marina Kazakova — Strategic & Creative Lead",
         outsource: {
           tags: ["Graphic Designer", "Photographer", "Set Designer", "Muah Artist", "Web Designer"]
