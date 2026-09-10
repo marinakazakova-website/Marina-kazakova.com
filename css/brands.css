@@ -409,6 +409,215 @@
   color: var(--color-black);
 }
 
+/* ---- Product Experience — three structural system-diagrams, same
+   visual language as Brand Audit's GIFs (black window, thin white/
+   muted lines, purple accent on active nodes, Consolas micro-labels)
+   but static: each draws in once on scroll reveal instead of looping,
+   since these read as a product SYSTEM, not a time-based process. ---- */
+.brands-media__window--product {
+  background: var(--color-black);
+  border-color: var(--color-black);
+}
+.product-diagram { position: relative; width: 100%; height: 100%; }
+.product-diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.product-diagram text { font-family: var(--font-mono); }
+
+.pd-caption {
+  fill: rgba(255, 255, 255, 0.45);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+.pd-caption--top { fill: rgba(255, 255, 255, 0.55); font-size: 9px; font-weight: 700; }
+.pd-caption--right { text-anchor: start; }
+
+/* Building — surrounding cards converge into the central offer card. */
+.pd-line line {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+}
+.pd-line { opacity: 0; }
+.brands-media__window.is-visible .pd-line {
+  animation: pd-line-draw 560ms var(--ease-editorial) forwards;
+}
+@keyframes pd-line-draw { 0% { opacity: 0; stroke-dashoffset: 60; } 20% { opacity: 1; } 100% { opacity: 1; stroke-dashoffset: 0; } }
+
+.pd-card rect, .pd-tier rect {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 1.2;
+}
+.pd-card text {
+  fill: rgba(255, 255, 255, 0.75);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+}
+.pd-card, .pd-core {
+  opacity: 0;
+  transform: scale(0.9);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.brands-media__window.is-visible .pd-card,
+.brands-media__window.is-visible .pd-core {
+  animation: pd-pop 460ms var(--ease-editorial) forwards;
+}
+@keyframes pd-pop { to { opacity: 1; transform: scale(1); } }
+
+.pd-core rect { fill: var(--color-accent); stroke: none; }
+.pd-core text { fill: var(--color-black); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-anchor: middle; }
+.pd-pulse { fill: var(--color-white); opacity: 0.9; transform-box: fill-box; transform-origin: center; animation: pd-pulse-anim 2.2s ease-in-out infinite; }
+@keyframes pd-pulse-anim { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.6); } }
+
+.pd-plus line { stroke: var(--color-accent); stroke-width: 1.4; }
+
+/* Architecture — Entry / Core / Premium tiers + a growth ladder. */
+.pd-tier text {
+  fill: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.pd-tier {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+.brands-media__window.is-visible .pd-tier {
+  animation: pd-slide-in 480ms var(--ease-editorial) forwards;
+}
+@keyframes pd-slide-in { to { opacity: 1; transform: translateX(0); } }
+.pd-tier--core rect { fill: var(--color-accent); stroke: none; }
+.pd-tier--core text { fill: var(--color-black); }
+
+.pd-connector line {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 4;
+}
+.pd-connector, .pd-ladder { opacity: 0; }
+.brands-media__window.is-visible .pd-connector,
+.brands-media__window.is-visible .pd-ladder {
+  animation: pd-fade-in 400ms linear forwards;
+}
+@keyframes pd-fade-in { to { opacity: 1; } }
+.pd-ladder line { stroke: rgba(255, 255, 255, 0.4); stroke-width: 1.2; }
+.pd-ladder__spine { stroke: var(--color-accent) !important; stroke-width: 1.4 !important; }
+.pd-ladder__dot { fill: var(--color-accent); }
+.pd-ladder__label { fill: rgba(255, 255, 255, 0.65); font-size: 9px; letter-spacing: 0.06em; }
+.pd-pulse-dot { transform-box: fill-box; transform-origin: center; animation: pd-pulse-anim 2.2s ease-in-out infinite; }
+
+/* Experience — a stepped journey line to a central "more than a
+   product" motif (two layered reference cards, same construct as the
+   Strategy & Road Map visual-reference frames). */
+.pd-path polyline {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 1.5;
+  stroke-dasharray: 7 6;
+  stroke-dashoffset: 700;
+}
+.brands-media__window.is-visible .pd-path polyline {
+  animation: pd-path-draw 1100ms var(--ease-editorial) forwards;
+}
+@keyframes pd-path-draw { to { stroke-dashoffset: 0; } }
+
+.pd-node {
+  fill: var(--color-black);
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.4;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.brands-media__window.is-visible .pd-node {
+  animation: pd-pop 360ms var(--ease-editorial) forwards;
+}
+.pd-node--result { fill: var(--color-accent); stroke: none; }
+.brands-media__window.is-visible .pd-node--result {
+  animation: pd-pop 360ms var(--ease-editorial) forwards, pd-pulse-anim 2.2s ease-in-out 400ms infinite;
+}
+.pd-journey__label {
+  fill: rgba(255, 255, 255, 0.65);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-anchor: middle;
+}
+.pd-journey__label--result { fill: var(--color-accent); font-weight: 700; }
+
+.pd-glass rect {
+  fill: url(#pdGlassGrad);
+  stroke: var(--color-accent);
+  stroke-width: 1.2;
+  opacity: 0.85;
+}
+.pd-glass {
+  opacity: 0;
+  transform: scale(0.9);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.brands-media__window.is-visible .pd-glass { animation: pd-pop 500ms var(--ease-editorial) forwards; }
+.pd-glass__label {
+  fill: rgba(255, 255, 255, 0.85);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-anchor: middle;
+  font-weight: 700;
+}
+
+/* ---- Result button — purple, bottom-right inside the window (used in
+   place of a case tag on the three diagrams above, since there's no
+   client project behind them). A plain <button> so hover AND keyboard/
+   touch focus both reveal the outcome panel above it. ---- */
+.brands-result {
+  position: absolute;
+  right: 0.6em;
+  bottom: 0.6em;
+  z-index: 2;
+}
+.brands-result__btn {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: var(--ls-normal);
+  padding: 0.5em 0.8em;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: var(--color-accent);
+  color: var(--color-black);
+  transition: background var(--dur-fast) var(--ease-editorial);
+}
+.brands-result__btn:hover,
+.brands-result__btn:focus-visible {
+  background: var(--color-white);
+}
+.brands-result__panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.5em);
+  width: max-content;
+  max-width: 13rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+  color: var(--color-white);
+  background: var(--color-black);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-btn);
+  padding: 0.8em 1em;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-editorial), transform var(--dur-fast) var(--ease-editorial);
+}
+.brands-result__btn:hover + .brands-result__panel,
+.brands-result__btn:focus-visible + .brands-result__panel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Short process description under each frame — secondary to the
    FOUNDER IDENTITY / BRAND PLATFORM / ... label above the image:
    body font, regular weight, muted. */

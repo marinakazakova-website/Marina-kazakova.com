@@ -85,9 +85,14 @@
       var quote = section.querySelector(".brands-workflow__quote");
       if (quote) quote.textContent = metaText(stage.meta.goal, lang);
       stage.workflow.forEach(function (step) {
-        if (!step.caption) return;
-        var caption = section.querySelector('.brands-media__caption[data-step-id="' + step.id + '"]');
-        if (caption) caption.textContent = metaText(step.caption, lang);
+        if (step.caption) {
+          var caption = section.querySelector('.brands-media__caption[data-step-id="' + step.id + '"]');
+          if (caption) caption.textContent = metaText(step.caption, lang);
+        }
+        if (step.result) {
+          var panel = section.querySelector('.brands-result__panel[data-step-id="' + step.id + '"]');
+          if (panel) panel.textContent = metaText(step.result, lang);
+        }
       });
     });
   }
@@ -306,6 +311,130 @@
     return wrap;
   }
 
+  // Product Experience's three structural diagrams — same visual system
+  // as the Brand Audit GIFs (black window, thin white/muted lines,
+  // purple accent for active nodes, Consolas micro-labels), but static
+  // system schematics rather than time-based cycles: each one draws in
+  // once on scroll reveal (via .is-visible, see observeReveals) instead
+  // of looping, since a product system reads as structure, not process.
+  function buildProductBuilding() {
+    var wrap = document.createElement("div");
+    wrap.className = "product-diagram product-diagram--building";
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML =
+      '<svg viewBox="0 0 400 300">' +
+        '<g class="pd-line" style="animation-delay:0ms"><line x1="120" y1="90" x2="150" y2="115" /></g>' +
+        '<g class="pd-line" style="animation-delay:80ms"><line x1="280" y1="90" x2="250" y2="115" /></g>' +
+        '<g class="pd-line" style="animation-delay:160ms"><line x1="120" y1="210" x2="150" y2="175" /></g>' +
+        '<g class="pd-line" style="animation-delay:240ms"><line x1="280" y1="210" x2="250" y2="175" /></g>' +
+        '<g class="pd-line" style="animation-delay:320ms"><line x1="200" y1="213" x2="200" y2="174" /></g>' +
+        '<g class="pd-card" style="animation-delay:0ms"><rect x="30" y="30" width="100" height="60" rx="3" /><text x="80" y="63">AUDIENCE</text></g>' +
+        '<g class="pd-card" style="animation-delay:80ms"><rect x="270" y="30" width="100" height="60" rx="3" /><text x="320" y="63">FORMAT</text></g>' +
+        '<g class="pd-card" style="animation-delay:160ms"><rect x="30" y="205" width="100" height="60" rx="3" /><text x="80" y="238">VALUE</text></g>' +
+        '<g class="pd-card" style="animation-delay:240ms"><rect x="270" y="205" width="100" height="60" rx="3" /><text x="320" y="238">PRICING</text></g>' +
+        '<g class="pd-card" style="animation-delay:320ms"><rect x="150" y="213" width="100" height="46" rx="3" /><text x="200" y="239">RESULT</text></g>' +
+        '<g class="pd-core" style="animation-delay:420ms">' +
+          '<rect x="150" y="108" width="100" height="66" rx="4" />' +
+          '<text x="200" y="134">PRODUCT</text>' +
+          '<text x="200" y="151">OFFER</text>' +
+          '<circle class="pd-pulse" cx="200" cy="108" r="3.5" />' +
+        '</g>' +
+        '<g class="pd-plus"><line x1="190" y1="14" x2="202" y2="14" /><line x1="196" y1="8" x2="196" y2="20" /></g>' +
+        '<g class="pd-plus"><line x1="10" y1="150" x2="22" y2="150" /><line x1="16" y1="144" x2="16" y2="156" /></g>' +
+        '<text class="pd-caption" x="20" y="270">IDEAS</text>' +
+        '<text class="pd-caption" x="20" y="282">INSIGHTS</text>' +
+        '<text class="pd-caption" x="20" y="294">OPPORTUNITIES</text>' +
+      '</svg>';
+    return wrap;
+  }
+
+  function buildProductArchitecture() {
+    var wrap = document.createElement("div");
+    wrap.className = "product-diagram product-diagram--architecture";
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML =
+      '<svg viewBox="0 0 400 300">' +
+        '<text class="pd-caption pd-caption--top" x="60" y="16">ONE BRAND</text>' +
+        '<text class="pd-caption pd-caption--top" x="60" y="28">MANY POSSIBILITIES</text>' +
+        '<g class="pd-tier" style="animation-delay:0ms"><rect x="60" y="40" width="200" height="55" rx="3" /><text x="80" y="71">PREMIUM</text></g>' +
+        '<g class="pd-tier pd-tier--core" style="animation-delay:100ms"><rect x="60" y="122" width="200" height="65" rx="3" /><text x="80" y="158">CORE</text></g>' +
+        '<g class="pd-tier" style="animation-delay:200ms"><rect x="60" y="214" width="200" height="55" rx="3" /><text x="80" y="245">ENTRY</text></g>' +
+        '<g class="pd-connector" style="animation-delay:60ms"><line x1="110" y1="95" x2="110" y2="122" /><line x1="210" y1="95" x2="210" y2="122" /></g>' +
+        '<g class="pd-connector" style="animation-delay:160ms"><line x1="110" y1="187" x2="110" y2="214" /><line x1="210" y1="187" x2="210" y2="214" /></g>' +
+        '<g class="pd-ladder" style="animation-delay:260ms">' +
+          '<line x1="260" y1="67" x2="330" y2="67" />' +
+          '<line x1="260" y1="154" x2="330" y2="154" />' +
+          '<line x1="260" y1="241" x2="330" y2="241" />' +
+          '<line class="pd-ladder__spine" x1="330" y1="67" x2="330" y2="241" />' +
+          '<circle class="pd-ladder__dot" cx="330" cy="67" r="4" />' +
+          '<circle class="pd-ladder__dot pd-pulse-dot" cx="330" cy="154" r="4" />' +
+          '<circle class="pd-ladder__dot" cx="330" cy="241" r="4" />' +
+          '<text class="pd-ladder__label" x="340" y="70">EXPAND</text>' +
+          '<text class="pd-ladder__label" x="340" y="157">GROW</text>' +
+          '<text class="pd-ladder__label" x="340" y="244">ATTRACT</text>' +
+        '</g>' +
+        '<text class="pd-caption" x="20" y="270">STRATEGY</text>' +
+        '<text class="pd-caption" x="20" y="282">STRUCTURE</text>' +
+        '<text class="pd-caption" x="20" y="294">SCALABILITY</text>' +
+      '</svg>';
+    return wrap;
+  }
+
+  function buildProductJourney() {
+    var wrap = document.createElement("div");
+    wrap.className = "product-diagram product-diagram--journey";
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML =
+      '<svg viewBox="0 0 400 300">' +
+        '<defs><linearGradient id="pdGlassGrad" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#3a3d55" /><stop offset="1" stop-color="#15151d" />' +
+        '</linearGradient></defs>' +
+        '<g class="pd-path"><polyline points="15,150 70,95 130,190 190,115 250,190 330,110" /></g>' +
+        '<circle class="pd-node" cx="15" cy="150" r="3.5" style="animation-delay:40ms" />' +
+        '<circle class="pd-node" cx="70" cy="95" r="4" style="animation-delay:100ms" />' +
+        '<circle class="pd-node" cx="130" cy="190" r="4" style="animation-delay:160ms" />' +
+        '<circle class="pd-node" cx="190" cy="115" r="4" style="animation-delay:220ms" />' +
+        '<circle class="pd-node" cx="250" cy="190" r="4" style="animation-delay:280ms" />' +
+        '<circle class="pd-node pd-node--result" cx="330" cy="110" r="6" style="animation-delay:340ms" />' +
+        '<text class="pd-journey__label" x="70" y="82">DISCOVER</text>' +
+        '<text class="pd-journey__label" x="130" y="207">EXPLORE</text>' +
+        '<text class="pd-journey__label" x="190" y="102">PURCHASE</text>' +
+        '<text class="pd-journey__label" x="250" y="207">EXPERIENCE</text>' +
+        '<text class="pd-journey__label pd-journey__label--result" x="330" y="97">RESULT</text>' +
+        '<g class="pd-glass"><rect x="150" y="130" width="60" height="80" rx="2" /><rect x="175" y="122" width="60" height="80" rx="2" /></g>' +
+        '<text class="pd-glass__label" x="205" y="230">MORE THAN</text>' +
+        '<text class="pd-glass__label" x="205" y="242">A PRODUCT</text>' +
+        '<text class="pd-caption pd-caption--right" x="345" y="20">PEOPLE</text>' +
+        '<text class="pd-caption pd-caption--right" x="345" y="32">JOURNEY</text>' +
+        '<text class="pd-caption pd-caption--right" x="345" y="44">EMOTIONS</text>' +
+        '<text class="pd-caption pd-caption--right" x="345" y="56">RESULTS</text>' +
+        '<text class="pd-caption" x="20" y="270">COMMUNICATION</text>' +
+        '<text class="pd-caption" x="20" y="282">TOUCHPOINTS</text>' +
+        '<text class="pd-caption" x="20" y="294">ENGAGEMENT</text>' +
+      '</svg>';
+    return wrap;
+  }
+
+  // Purple "Result" button, bottom-right inside the window (replaces
+  // the case tag on these three diagrams, since there's no client
+  // project behind them) — a plain <button> so hover AND keyboard/touch
+  // focus both reveal the outcome panel, per spec's "hover/active".
+  function buildResultButton(step) {
+    var wrap = document.createElement("div");
+    wrap.className = "brands-result";
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "brands-result__btn";
+    btn.textContent = "RESULT";
+    var panel = document.createElement("p");
+    panel.className = "brands-result__panel";
+    panel.dataset.stepId = step.id;
+    panel.textContent = metaText(step.result, window.MK.i18n.getLang());
+    wrap.appendChild(btn);
+    wrap.appendChild(panel);
+    return wrap;
+  }
+
   function buildMediaCell(step) {
     var cell = document.createElement("div");
     cell.className = "brands-media" + (step.open ? " brands-media--open" : "");
@@ -349,12 +478,22 @@
         tag.textContent = step.caseTag;
         win.appendChild(tag);
       }
+    } else if (step.visual === "product-building") {
+      win.classList.add("brands-media__window--product");
+      win.appendChild(buildProductBuilding());
+    } else if (step.visual === "product-architecture") {
+      win.classList.add("brands-media__window--product");
+      win.appendChild(buildProductArchitecture());
+    } else if (step.visual === "product-journey") {
+      win.classList.add("brands-media__window--product");
+      win.appendChild(buildProductJourney());
     } else {
       var placeholder = document.createElement("span");
       placeholder.className = "brands-media__plus";
       placeholder.textContent = "+";
       win.appendChild(placeholder);
     }
+    if (step.result) win.appendChild(buildResultButton(step));
     cell.appendChild(win);
 
     if (step.caption) {

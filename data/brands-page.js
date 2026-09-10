@@ -265,12 +265,52 @@ window.BRANDS_PAGE_DATA = {
         team: "Marina Kazakova — Strategic & Creative Lead · Product / Graphic Designer · Web Team · Retail Designer · Production partners · other specialists depending on product",
         timing: { en: "6-8 weeks (depends on the product)", ru: "6-8 недель (зависит от продукта)" }
       },
-      layout: "row4",
+      layout: "row3",
+      // Three structural system-diagrams (styled like Brand Audit's own
+      // GIF-style visuals, not photo mockups) — one per sub-step. Each
+      // carries a purple "Result" button (bottom-right, hover/focus
+      // reveals the outcome) instead of a case tag, since these aren't
+      // client project frames.
       workflow: [
-        { id: "3.1", label: "" },
-        { id: "3.2", label: "" },
-        { id: "3.3", label: "" },
-        { id: "3.4", label: "", open: true }
+        {
+          id: "01",
+          label: "Product Building",
+          visual: "product-building",
+          caption: {
+            en: "Shaping the product offer: what the brand sells, to whom, in what format, and the result it delivers for the client.",
+            ru: "Формирование продуктового предложения: что бренд продаёт, кому, в каком формате и с каким результатом для клиента."
+          },
+          result: {
+            en: "A finished product with a clear structure, composition, price and value for the customer.",
+            ru: "Готовый продукт с понятной структурой, составом, ценой и ценностью для клиента."
+          }
+        },
+        {
+          id: "02",
+          label: "Product Architecture",
+          visual: "product-architecture",
+          caption: {
+            en: "Building the brand’s product system: entry, core and premium products and how they connect.",
+            ru: "Выстраивание системы продуктов бренда: входные, основные и премиальные продукты и связи между ними."
+          },
+          result: {
+            en: "A product line-up and the customer’s path through it.",
+            ru: "Продуктовая линейка и путь клиента."
+          }
+        },
+        {
+          id: "03",
+          label: "Product Experience",
+          visual: "product-journey",
+          caption: {
+            en: "Designing the customer journey: packaging, touchpoints, sales materials and product communication.",
+            ru: "Проектирование пути клиента: упаковка, точки контакта, sales-материалы и коммуникация продукта."
+          },
+          result: {
+            en: "A market-ready product experience, prepared for promotion.",
+            ru: "Понятный рынку и готовый к продвижению продуктовый опыт."
+          }
+        }
       ]
     },
     {
