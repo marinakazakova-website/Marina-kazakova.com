@@ -949,7 +949,10 @@ body.is-opening { overflow: hidden; }
 }
 
 .brands-method.is-stuck {
-  background: var(--color-white); /* opaque once pinned, to cleanly occlude the stage content scrolling underneath */
+  /* Opaque once pinned (to cleanly occlude stage content scrolling
+     underneath) — pale grey rather than white, so the pinned bar
+     still reads as its own band against the white page below it. */
+  background: var(--color-pale-grey-soft);
   padding-block: 0.85rem;
   border-bottom-color: var(--color-border);
 }
@@ -1013,14 +1016,14 @@ body.is-opening { overflow: hidden; }
   letter-spacing: var(--ls-normal);
   text-transform: uppercase;
   color: var(--color-black);
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
   border-radius: var(--radius-btn);
   transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial), padding var(--dur-base) var(--ease-editorial), font-size var(--dur-base) var(--ease-editorial), margin-top var(--dur-base) var(--ease-editorial);
 }
 .brands-method__duration:hover {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent-dim);
   color: var(--color-black);
 }
 .is-stuck .brands-method__duration {
