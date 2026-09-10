@@ -39,8 +39,8 @@
   // content itself — same set on every stage, so kept once here rather
   // than repeated per stage in the data file.
   var META_LABELS = {
-    en: { goal: "GOAL", scope: "SCOPE OF WORK", result: "RESULT", team: "TEAM", timing: "TIMELINE" },
-    ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", timing: "СРОК" }
+    en: { goal: "GOAL", scope: "SCOPE OF WORK", result: "RESULT", team: "TEAM", outsource: "OUTSOURCE", timing: "TIMELINE" },
+    ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "OUTSOURCE", timing: "СРОК" }
   };
 
   // A meta field is either a plain string (same in both languages — the
@@ -52,19 +52,48 @@
     return field || "";
   }
 
+  // OUTSOURCE's specialists render as pill tags, not a text paragraph —
+  // built once and reused by buildMetaRow below.
+  function buildOutsourceTags(tags) {
+    var wrap = document.createElement("div");
+    wrap.className = "brands-meta__tags";
+    tags.forEach(function (name) {
+      var tag = document.createElement("span");
+      tag.className = "brands-meta__tag";
+      tag.textContent = name;
+      wrap.appendChild(tag);
+    });
+    return wrap;
+  }
+
   function buildMetaRow(key, stage) {
     var lang = window.MK.i18n.getLang();
     var row = document.createElement("div");
-    row.className = "brands-meta__row";
+    row.className = "brands-meta__row" + (key === "outsource" ? " brands-meta__row--outsource" : "");
     row.dataset.metaKey = key;
     var label = document.createElement("span");
     label.className = "brands-meta__label";
     label.textContent = META_LABELS[lang][key];
-    var value = document.createElement("p");
-    value.className = "brands-meta__value";
-    value.textContent = metaText(stage.meta[key], lang);
     row.appendChild(label);
-    row.appendChild(value);
+
+    var outsource = key === "outsource" ? stage.meta.outsource : null;
+    if (outsource && outsource.tags && outsource.tags.length) {
+      var valueWrap = document.createElement("div");
+      valueWrap.className = "brands-meta__value brands-meta__value--outsource";
+      valueWrap.appendChild(buildOutsourceTags(outsource.tags));
+      if (outsource.note) {
+        var note = document.createElement("span");
+        note.className = "brands-meta__note";
+        note.textContent = outsource.note;
+        valueWrap.appendChild(note);
+      }
+      row.appendChild(valueWrap);
+    } else {
+      var value = document.createElement("p");
+      value.className = "brands-meta__value";
+      value.textContent = key === "outsource" ? "—" : metaText(stage.meta[key], lang);
+      row.appendChild(value);
+    }
     return row;
   }
 
@@ -80,6 +109,10 @@
       section.querySelectorAll(".brands-meta__row").forEach(function (row) {
         var key = row.dataset.metaKey;
         row.querySelector(".brands-meta__label").textContent = META_LABELS[lang][key];
+        // OUTSOURCE's tags/dash are English professional terms, same in
+        // both languages — nothing to re-render, and doing so via
+        // .textContent would wipe out the tag markup.
+        if (key === "outsource") return;
         row.querySelector(".brands-meta__value").textContent = metaText(stage.meta[key], lang);
       });
       var quote = section.querySelector(".brands-workflow__quote");
@@ -539,6 +572,7 @@
     meta.appendChild(buildMetaRow("scope", stage));
     meta.appendChild(buildMetaRow("result", stage));
     meta.appendChild(buildMetaRow("team", stage));
+    meta.appendChild(buildMetaRow("outsource", stage));
     meta.appendChild(buildMetaRow("timing", stage));
     inner.appendChild(meta);
 

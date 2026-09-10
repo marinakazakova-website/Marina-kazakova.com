@@ -53,6 +53,8 @@ window.BRANDS_PAGE_DATA = {
           ru: "“Brand Audit & Strategic Roadmap” — текущая позиция бренда, точки роста, стратегические гипотезы, приоритетные аудитории, направления развития продукта, roadmap дальнейшей работы."
         },
         team: "Marina Kazakova — Brand Strategist / Strategic Lead · Analyst / Industry Expert when required",
+        // No outside specialists at this stage — shown as a plain dash.
+        outsource: null,
         timing: { en: "3 weeks", ru: "3 недели" }
       },
       // All three steps in one row (see .brands-grid--row3wide) —
@@ -128,6 +130,7 @@ window.BRANDS_PAGE_DATA = {
           ru: "“Brand Foundation & Brand Strategy” — единая стратегическая система, на которой дальше строится продукт, визуальный язык, коммуникация и customer experience."
         },
         team: "Marina Kazakova — Brand Strategist · Founder / Key Team · Industry Expert when required",
+        outsource: null,
         timing: { en: "3-6 weeks", ru: "3-6 недель" }
       },
       layout: "cascade4",
@@ -194,6 +197,10 @@ window.BRANDS_PAGE_DATA = {
         // Already English in the client's own mockup — same in both languages.
         result: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
         team: "Marina Kazakova — Brand Identity & Creative Lead · Photographer / Set Designer · Web / UX-UI Designer · Stylist / Makeup Artist when required",
+        outsource: {
+          tags: ["Graphic Designer", "Photographer", "Set Designer", "Muah Artist", "Web Designer"],
+          note: "depending on project"
+        },
         timing: { en: "4-6 weeks", ru: "4-6 недель" }
       },
       layout: "row4",
@@ -263,6 +270,10 @@ window.BRANDS_PAGE_DATA = {
           ru: "“Product & Customer Experience” System — продуктовая система, предложение, упаковка, точки контакта, customer journey, retail / digital experience."
         },
         team: "Marina Kazakova — Strategic & Creative Lead · Product / Graphic Designer · Web Team · Retail Designer · Production partners · other specialists depending on product",
+        outsource: {
+          tags: ["Product Specialist", "Graphic Designer", "Web Designer", "Production Partners"],
+          note: "depending on product"
+        },
         timing: { en: "6-8 weeks (depends on the product)", ru: "6-8 недель (зависит от продукта)" }
       },
       layout: "row3",
@@ -328,6 +339,14 @@ window.BRANDS_PAGE_DATA = {
           ru: "“Market Activation & Development” — запуск, маркет-коммуникационная система, партнёрства, активации, развитие каналов, долгосрочный подход к росту."
         },
         team: "Marina Kazakova — Strategic & Creative Lead · SMM Manager · Digital Marketer · Target Specialist · SEO Specialist + Web Team · PR Manager · Influencer Manager · Event Producer · Photographer / Videographer · Graphic Designer · Retail Designer",
+        outsource: {
+          tags: [
+            "SMM Manager", "Digital Marketer", "Target Specialist", "SEO Specialist",
+            "PR Manager", "Influencer Manager", "Photographer / Videographer",
+            "Graphic Designer", "Retail Designer"
+          ],
+          note: "depending on strategy"
+        },
         timing: { en: "2+ months (depending on strategy)", ru: "2+ месяца (зависит от стратегии)" }
       },
       layout: "row4",
