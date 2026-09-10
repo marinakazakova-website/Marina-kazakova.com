@@ -52,7 +52,7 @@ window.BRANDS_PAGE_DATA = {
       title: "Brand Audit",
       meta: {
         goal: {
-          en: "Understand where the brand stands today, what potential it holds, and where it should move next.",
+          en: "Gather and analyse information about the brand, market, industry and audience to understand its current position and potential, and define a strategic roadmap for its further development and brand packaging.",
           ru: "Собрать и исследовать информацию о бренде, рынке, отрасли и аудитории, чтобы определить его текущую позицию, потенциал и сформировать стратегический roadmap дальнейшего развития и упаковки."
         },
         // Scope/team lists are the client's own terms — already English in
@@ -144,7 +144,7 @@ window.BRANDS_PAGE_DATA = {
       title: "Brand Foundation",
       meta: {
         goal: {
-          en: "Define the Brand — its meaning, positioning, and place in the market.",
+          en: "Define the brand’s strategic and conceptual foundation — its positioning, values, narrative and creative direction — and prepare the basis for its further visual development and growth.",
           ru: "Сформулировать смысловую и стратегическую основу бренда — его позиционирование, ценности, нарратив и креативное направление — и подготовить фундамент для дальнейшей визуальной реализации и развития бренда."
         },
         scope: "Brand vision & Positioning · Brand Idea · Values · Narrative · Audience · Brand Architecture · Tone of Voice · Communication Strategy · Founder Positioning",
@@ -213,7 +213,7 @@ window.BRANDS_PAGE_DATA = {
       title: "Visual Foundation",
       meta: {
         goal: {
-          en: "Translate the brand strategy into a recognizable visual and communication language.",
+          en: "Translate the brand strategy into a distinctive visual brand package — identity, photo content, SMM guide and web design — so the brand looks cohesive, recognizable and professional.",
           ru: "Перевести стратегию бренда в уникальную визуальную упаковку — айдентику, фотоконтент, SMM guide и web design — чтобы бренд выглядел цельно, узнаваемо и профессионально."
         },
         scope: "Visual Direction · Brand Identity · Art Direction · Graphic System · Photography · Video · Content System · Digital / Web Direction",
