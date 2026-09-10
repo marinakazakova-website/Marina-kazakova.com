@@ -63,7 +63,7 @@ window.BRANDS_PAGE_DATA = {
         team: "Marina Kazakova — Brand Strategist",
         // No outside specialists at this stage — shown as a plain dash.
         outsource: null,
-        timing: { en: "3 weeks", ru: "3 недели" }
+        timing: { en: "2 weeks", ru: "2 недели" }
       },
       // All three steps in one row (see .brands-grid--row3wide) —
       // Strategy & Road Map's column is proportionally wider since its
@@ -139,7 +139,7 @@ window.BRANDS_PAGE_DATA = {
         },
         team: "Marina Kazakova — Brand Strategist",
         outsource: null,
-        timing: { en: "3-6 weeks", ru: "3-6 недель" }
+        timing: { en: "2-4 weeks", ru: "2-4 недели" }
       },
       layout: "cascade4",
       // Client-supplied vertical collage frames (one per sub-step),
@@ -282,7 +282,10 @@ window.BRANDS_PAGE_DATA = {
           tags: ["Product Specialist", "Graphic Designer", "Web Designer", "Production Partners"],
           note: "depending on product"
         },
-        timing: { en: "6-8 weeks (depends on the product)", ru: "6-8 недель (зависит от продукта)" }
+        timing: {
+          en: "2-4 weeks for services / 6-8 weeks for physical product",
+          ru: "2-4 недели для services / 6-8 недель для physical product"
+        }
       },
       layout: "row3",
       // Three structural system-diagrams (styled like Brand Audit's own
@@ -355,7 +358,7 @@ window.BRANDS_PAGE_DATA = {
           ],
           note: "depending on strategy"
         },
-        timing: { en: "2+ months (depending on strategy)", ru: "2+ месяца (зависит от стратегии)" }
+        timing: { en: "3+ months", ru: "3+ месяца" }
       },
       layout: "row4",
       workflow: [
