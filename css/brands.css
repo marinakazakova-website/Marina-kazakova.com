@@ -6,7 +6,12 @@
    label for numbered stage (matches the client's own BRANDS mockup).
    ======================================================================== */
 
-.brands { background: var(--color-white); }
+.brands {
+  background: var(--color-white);
+  /* OUTSOURCE's hover accent — a lime distinct from the site's own
+     purple, so contractor tags read as their own interactive unit. */
+  --color-lime: #c9f24b;
+}
 
 /* ---- Hero gradient zone: intro + method nav only, hard-cut before
    0 | Brand Audit's white section. .brands-page gives the absolutely
@@ -251,26 +256,17 @@
   font-weight: 700;
 }
 
-/* ---- OUTSOURCE row — same grid/label shape as the rest, but a light
-   label (not solid black) so it visually reads as a different kind of
-   participant, and its specialists render as pill tags instead of a
-   text paragraph. ---- */
-.brands-meta__row--outsource .brands-meta__label {
-  background: var(--color-white);
-  color: var(--color-black);
-  border: 1px solid var(--color-accent);
-}
-
+/* ---- OUTSOURCE row — same black label as GOAL/SCOPE/RESULT/TEAM/
+   TIMING (it's part of the same system, not a different one); its
+   specialists render as pill tags instead of a text paragraph, with
+   the "depending on ..." note inline right after the last tag. A
+   lime accent (distinct from the site's purple) appears only on
+   hover, on the label AND every tag in the row at once, so it reads
+   as one interactive unit. ---- */
 .brands-meta__value--outsource {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5em;
-}
-
-.brands-meta__tags {
-  display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5em;
 }
 
@@ -287,6 +283,7 @@
   border: 1px solid var(--color-border);
   border-radius: 999px;
   white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
 }
 
 .brands-meta__note {
@@ -296,6 +293,16 @@
   text-transform: uppercase;
   color: var(--color-black);
   opacity: 0.5;
+}
+
+/* Row hover (or focus on any one tag) lights up the label and every
+   tag in lime at once — text stays black throughout. */
+.brands-meta__row--outsource:hover .brands-meta__label,
+.brands-meta__row--outsource:hover .brands-meta__tag,
+.brands-meta__tag:hover {
+  background: var(--color-lime);
+  border-color: var(--color-lime);
+  color: var(--color-black);
 }
 
 /* ---- CHECK WORKFLOW PLAN / DISCUSS YOUR PROJECT — stacked CTA pair,

@@ -52,20 +52,6 @@
     return field || "";
   }
 
-  // OUTSOURCE's specialists render as pill tags, not a text paragraph —
-  // built once and reused by buildMetaRow below.
-  function buildOutsourceTags(tags) {
-    var wrap = document.createElement("div");
-    wrap.className = "brands-meta__tags";
-    tags.forEach(function (name) {
-      var tag = document.createElement("span");
-      tag.className = "brands-meta__tag";
-      tag.textContent = name;
-      wrap.appendChild(tag);
-    });
-    return wrap;
-  }
-
   function buildMetaRow(key, stage) {
     var lang = window.MK.i18n.getLang();
     var row = document.createElement("div");
@@ -78,9 +64,17 @@
 
     var outsource = key === "outsource" ? stage.meta.outsource : null;
     if (outsource && outsource.tags && outsource.tags.length) {
+      // Tags and the "depending on ..." note are direct siblings in one
+      // wrapping flex row, so the note flows right after the last tag
+      // instead of dropping to its own line.
       var valueWrap = document.createElement("div");
       valueWrap.className = "brands-meta__value brands-meta__value--outsource";
-      valueWrap.appendChild(buildOutsourceTags(outsource.tags));
+      outsource.tags.forEach(function (name) {
+        var tag = document.createElement("span");
+        tag.className = "brands-meta__tag";
+        tag.textContent = name;
+        valueWrap.appendChild(tag);
+      });
       if (outsource.note) {
         var note = document.createElement("span");
         note.className = "brands-meta__note";
