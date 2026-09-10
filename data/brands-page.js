@@ -74,7 +74,7 @@ window.BRANDS_PAGE_DATA = {
       layout: "row3wide",
       workflow: [
         {
-          id: "01",
+          id: "0.1",
           label: "Research",
           // Vertical looping word cycle — visualizes gathering/analyzing
           // all incoming brand information. Exact words/order per brief,
@@ -90,7 +90,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "02",
+          id: "0.2",
           label: "Unpacking",
           // Looping cycle through real Zoom-call screenshots (full
           // gallery view, not cropped to one face), framed by two
@@ -121,7 +121,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "03",
+          id: "0.3",
           label: "Strategy & Road Map",
           // INFORMATION -> CONNECTIONS -> DIRECTION -> ROADMAP -> STRATEGY,
           // one continuous 20s loop: chaotic dashed lines carrying the
@@ -234,7 +234,7 @@ window.BRANDS_PAGE_DATA = {
       // aspect ratios).
       workflow: [
         {
-          id: "01",
+          id: "2.1",
           label: "Brand ID",
           visual: "image",
           image: "assets/images/brands/visual-foundation/brand-id.jpg",
@@ -245,7 +245,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "02",
+          id: "2.2",
           label: "Photo Content",
           visual: "image",
           image: "assets/images/brands/visual-foundation/photo-content.jpg",
@@ -256,7 +256,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "03",
+          id: "2.3",
           label: "SMM Guide",
           visual: "image",
           image: "assets/images/brands/visual-foundation/smm-guide.jpg",
@@ -267,7 +267,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "04",
+          id: "2.4",
           label: "Web Design",
           visual: "image",
           image: "assets/images/brands/visual-foundation/web-design.jpg",
@@ -310,7 +310,7 @@ window.BRANDS_PAGE_DATA = {
       // client project frames.
       workflow: [
         {
-          id: "01",
+          id: "3.1",
           label: "Product Building",
           visual: "product-building",
           caption: {
@@ -323,7 +323,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "02",
+          id: "3.2",
           label: "Product Architecture",
           visual: "product-architecture",
           caption: {
@@ -336,7 +336,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "03",
+          id: "3.3",
           label: "Product Experience",
           visual: "product-journey",
           caption: {
@@ -380,7 +380,7 @@ window.BRANDS_PAGE_DATA = {
       layout: "cascade4",
       workflow: [
         {
-          id: "01",
+          id: "4.1",
           label: "Digital",
           visual: "market-cycle",
           words: ["Smm", "Website", "Blog", "Marketing", "Content"],
@@ -390,7 +390,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "02",
+          id: "4.2",
           label: "Flagman / Physical Space",
           visual: "market-cycle",
           words: ["Retail", "VM", "Offline", "Activations", "Display"],
@@ -400,7 +400,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "03",
+          id: "4.3",
           label: "PR & Event",
           visual: "market-cycle",
           words: ["Brand", "Events", "Activations", "Collabs", "Partners"],
@@ -410,7 +410,7 @@ window.BRANDS_PAGE_DATA = {
           }
         },
         {
-          id: "04",
+          id: "4.4",
           label: "Hero Film",
           visual: "market-cycle",
           words: ["Brand", "Documentary", "Festivals", "Streaming", "Platforms"],
