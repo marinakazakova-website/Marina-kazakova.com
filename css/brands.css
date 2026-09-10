@@ -602,7 +602,7 @@
   font-size: var(--fs-small);
   line-height: var(--lh-snug);
   color: var(--color-black);
-  background: var(--color-pale-grey);
+  background: var(--color-pale-grey-soft);
   border-radius: var(--radius-btn);
   padding: 0.8em 1em;
   margin: 0;
