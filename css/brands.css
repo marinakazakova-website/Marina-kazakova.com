@@ -602,8 +602,9 @@
   font-size: var(--fs-small);
   line-height: var(--lh-snug);
   color: var(--color-black);
-  background: var(--color-pale-grey-soft);
+  background: var(--color-white);
   border-radius: var(--radius-btn);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
   padding: 0.8em 1em;
   margin: 0;
   opacity: 0;
@@ -867,9 +868,16 @@
 .interview-collage__word--tl { top: 0.5em; left: 0.5em; align-items: flex-start; }
 .interview-collage__word--br { bottom: 0.5em; right: 0.5em; align-items: flex-end; text-align: right; }
 
-/* Row of 3 equal cells — Brand Audit (01/02/03). */
+/* Row of 3 equal cells — Brand Audit (01/02/03) and Product Experience
+   (01-03). align-items: start keeps every window at its true 4:3 size
+   regardless of how many lines a sibling's caption wraps to — without
+   it, Grid's default stretch hands the extra row height to whichever
+   column has the shortest caption (the window is the only flexible
+   child, via .brands-media__window's flex:1), inflating it past 4:3
+   while the tallest-caption column stays correct. */
 .brands-grid--row3 {
   grid-template-columns: repeat(3, 1fr);
+  align-items: start;
 }
 .brands-grid--row3 .brands-media__window { aspect-ratio: 4 / 3; }
 
@@ -943,6 +951,13 @@
   left: calc(var(--space-3) / -2);
   width: 1px;
   background: var(--color-accent);
+}
+
+/* Product Experience's dividers shouldn't slice through the "01 PRODUCT
+   BUILDING" label above each card — start them just below the header
+   row instead of at the very top of the column. */
+.brands-grid--row3 .brands-media:not(:first-child)::before {
+  top: 1.6em;
 }
 
 /* Cascade4's items are staggered via margin-top, so a plain top:0/bottom:0
