@@ -339,8 +339,8 @@ window.BRANDS_PAGE_DATA = {
       title: "Market Development",
       meta: {
         goal: {
-          en: "Bring the brand system to market and turn the strategy into sustainable growth.",
-          ru: "Вывести систему бренда на рынок и перевести стратегию в устойчивое развитие."
+          en: "Bring the brand's positioning to life through a system of relevant market activities — digital, physical space, PR, events, partnerships and documentary — and build them into a long-term brand development system.",
+          ru: "Реализовать позиционирование бренда через систему релевантных market-активностей — в digital, физическом пространстве, PR, events, партнёрствах и documentary — и выстроить их в долгосрочную систему развития бренда."
         },
         scope: "Digital & SMM Launch · PR · Collaborations · Partnerships · Events · Influencers · Brand Activations · Growth",
         result: {
@@ -357,12 +357,51 @@ window.BRANDS_PAGE_DATA = {
         },
         timing: { en: "3+ months", ru: "3+ месяца" }
       },
-      layout: "row4",
+      // Diagonal staircase, same composition as Brand Foundation
+      // (.brands-grid--cascade4) — four directions read as one system
+      // moving left-to-right/down, not four cards in a rigid row.
+      layout: "cascade4",
       workflow: [
-        { id: "4.1", label: "" },
-        { id: "4.2", label: "" },
-        { id: "4.3", label: "" },
-        { id: "4.4", label: "", open: true }
+        {
+          id: "01",
+          label: "Digital",
+          visual: "market-cycle",
+          words: ["Smm", "Website", "Blog", "Marketing", "Content"],
+          caption: {
+            en: "Launching and growing the brand’s digital presence: social media, website, regular content, audience engagement and paid promotion.",
+            ru: "Запуск и развитие digital-присутствия бренда: social media, website, регулярный контент, работа с аудиторией и подключение рекламного продвижения."
+          }
+        },
+        {
+          id: "02",
+          label: "Flagman / Physical Space",
+          visual: "market-cycle",
+          words: ["Retail", "VM", "Offline", "Activations", "Display"],
+          caption: {
+            en: "Developing and launching the brand’s physical space — retail, showroom or pop-up — with a system of marketing activations, visual merchandising and commercial communication.",
+            ru: "Разработка и запуск физического пространства бренда — retail, showroom или pop-up — с системой маркетинговых активностей, visual merchandising и коммерческой коммуникации."
+          }
+        },
+        {
+          id: "03",
+          label: "PR & Event",
+          visual: "market-cycle",
+          words: ["Brand", "Events", "Activations", "Collabs", "Partners"],
+          caption: {
+            en: "Developing and running PR, event and partnership activations to grow the audience through publications, collaborations, events and community engagement.",
+            ru: "Разработка и реализация PR-, event- и partnership-активаций для расширения аудитории через публикации, коллаборации, события и взаимодействие с комьюнити."
+          }
+        },
+        {
+          id: "04",
+          label: "Hero Film",
+          visual: "market-cycle",
+          words: ["Brand", "Documentary", "Festivals", "Streaming", "Platforms"],
+          caption: {
+            en: "Developing, filming and promoting a brand documentary as a long-term brand asset — through festivals, streaming platforms and cultural media.",
+            ru: "Разработка, съёмка и продвижение документального фильма о бренде как долгосрочного brand asset — через фестивали, streaming platforms и культурные медиа."
+          }
+        }
       ]
     }
   ]

@@ -502,6 +502,168 @@
     return wrap;
   }
 
+  // ---- Market Development — 4 animated typographic cards (Digital /
+  // Flagman-Physical Space / PR & Event / Hero Film). Same underlying
+  // scan mechanic as Brand Audit's audit-cycle (two synced tracks, one
+  // clipped to a center line so whichever word crosses it reads as
+  // active), but words are sized dynamically per card — height first
+  // (line height = window height / word count, so the whole list
+  // stacks with no gap and every word stays on screen at once), then
+  // width (shrunk only if the longest word would otherwise clip) — to
+  // fill the window edge-to-edge the way the client's own reference
+  // ("Audit_Gyph 1.mov") does, rather than the site's small fixed
+  // audit-cycle scale. Dim/active told apart by weight + brightness,
+  // not opacity, so every word stays legible throughout the loop.
+  var marketFitCtx = null;
+  function sizeMarketCycle(cycleEl, words) {
+    if (!cycleEl.isConnected) return;
+    if (!marketFitCtx) marketFitCtx = document.createElement("canvas").getContext("2d");
+    var boxH = cycleEl.clientHeight;
+    var boxW = cycleEl.clientWidth * 0.94; // minus the right-edge tick gutter
+    if (!boxH || !boxW) return;
+    var lineH = boxH / words.length;
+    var fontSize = lineH * 0.62;
+
+    marketFitCtx.font = "800 " + fontSize + "px " + getComputedStyle(cycleEl).fontFamily;
+    var widest = 0;
+    words.forEach(function (w) {
+      var wpx = marketFitCtx.measureText(w).width;
+      if (wpx > widest) widest = wpx;
+    });
+    var availableForText = boxW - fontSize * 0.5;
+    if (widest > availableForText && widest > 0) {
+      var scale = availableForText / widest;
+      fontSize *= scale;
+      lineH *= scale;
+    }
+    cycleEl.style.setProperty("--market-line-h", lineH + "px");
+    cycleEl.style.setProperty("--market-word-size", fontSize + "px");
+  }
+
+  function buildMarketCycle(words) {
+    var wrap = document.createElement("div");
+    wrap.className = "market-cycle";
+    wrap.setAttribute("aria-hidden", "true");
+    var doubled = words.concat(words);
+    var durationS = words.length * 2.2; // same unhurried pace as audit-cycle
+
+    function track(mod) {
+      var t = document.createElement("div");
+      t.className = "market-cycle__track market-cycle__track--" + mod;
+      t.style.animationDuration = durationS + "s";
+      t.style.marginTop = "calc(var(--market-line-h) * -" + (words.length / 2) + ")";
+      doubled.forEach(function (w) {
+        var line = document.createElement("span");
+        line.className = "market-cycle__word";
+        line.textContent = w;
+        t.appendChild(line);
+      });
+      return t;
+    }
+
+    var mask = document.createElement("div");
+    mask.className = "market-cycle__mask";
+    mask.appendChild(track("dim"));
+    wrap.appendChild(mask);
+
+    var hi = document.createElement("div");
+    hi.className = "market-cycle__highlight";
+    hi.appendChild(track("active"));
+    wrap.appendChild(hi);
+
+    var dots = document.createElement("span");
+    dots.className = "market-cycle__dots";
+    for (var i = 0; i < 3; i++) dots.appendChild(document.createElement("i"));
+    wrap.appendChild(dots);
+
+    return wrap;
+  }
+
+  // Black / purple / lime ambient background, one canvas per card —
+  // same wobbling-blob technique as js/gradient-motion.js, but a
+  // distinct, more vivid dark palette for this dark UI context rather
+  // than forking that shared module's own restrained purple/grey read.
+  var MARKET_PURPLE = "#7a81ff";
+  var MARKET_PURPLE_DIM = "#544bb0";
+  var MARKET_LIME = "#c9f24b";
+  var MARKET_BLACK = "#0b0b0c";
+  var MARKET_BLUR = 40;
+
+  function initMarketGlow(canvas, seedOffset) {
+    var ctx = canvas.getContext("2d");
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W, H, PAD;
+
+    function resize() {
+      var rect = canvas.parentElement.getBoundingClientRect();
+      W = rect.width; H = rect.height;
+      if (!W || !H) return;
+      PAD = Math.round(MARKET_BLUR * 1.5);
+      var gw = W + PAD * 2, gh = H + PAD * 2;
+      canvas.style.left = (-PAD) + "px";
+      canvas.style.top = (-PAD) + "px";
+      canvas.style.width = gw + "px";
+      canvas.style.height = gh + "px";
+      canvas.style.filter = "blur(" + MARKET_BLUR + "px)";
+      canvas.width = gw * DPR;
+      canvas.height = gh * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function blobPath(cx, cy, baseR, t, seed) {
+      ctx.beginPath();
+      var steps = 40;
+      for (var i = 0; i <= steps; i++) {
+        var a = (i / steps) * Math.PI * 2;
+        var wob = 1
+          + 0.14 * Math.sin(a * 3 + t * 0.0003 + seed)
+          + 0.08 * Math.sin(a * 5 - t * 0.00045 + seed * 1.6);
+        var r = baseR * wob;
+        var x = cx + Math.cos(a) * r;
+        var y = cy + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+    function drift(t, speed, ax, ay, phase) {
+      return { x: Math.sin(t * speed + phase) * ax, y: Math.cos(t * speed * 0.8 + phase * 1.3) * ay };
+    }
+
+    function frame(t) {
+      if (!W || !H) { requestAnimationFrame(frame); return; }
+      t += seedOffset;
+      var gw = W + PAD * 2, gh = H + PAD * 2;
+      var ox = PAD, oy = PAD;
+
+      ctx.fillStyle = MARKET_BLACK;
+      ctx.fillRect(0, 0, gw, gh);
+
+      var d1 = drift(t, 0.00011, W * 0.08, H * 0.07, 0.0);
+      ctx.globalAlpha = 0.72;
+      ctx.fillStyle = MARKET_PURPLE_DIM;
+      blobPath(ox + W * 0.32 + d1.x, oy + H * 0.56 + d1.y, W * 0.44, t, 1.1);
+      ctx.fill();
+
+      var d2 = drift(t, 0.00009, W * 0.07, H * 0.06, 2.4);
+      ctx.globalAlpha = 0.78;
+      ctx.fillStyle = MARKET_PURPLE;
+      blobPath(ox + W * 0.82 + d2.x, oy + H * 0.86 + d2.y, W * 0.36, t, 3.3);
+      ctx.fill();
+
+      var d3 = drift(t, 0.00014, W * 0.06, H * 0.05, 4.8);
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = MARKET_LIME;
+      blobPath(ox + W * 0.16 + d3.x, oy + H * 0.96 + d3.y, W * 0.26, t, 6.2);
+      ctx.fill();
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
   function buildMediaCell(step) {
     var cell = document.createElement("div");
     cell.className = "brands-media" + (step.open ? " brands-media--open" : "");
@@ -554,6 +716,20 @@
     } else if (step.visual === "product-journey") {
       win.classList.add("brands-media__window--product");
       win.appendChild(buildProductJourney());
+    } else if (step.visual === "market-cycle" && step.words) {
+      win.classList.add("brands-media__window--market");
+      var glowBg = document.createElement("canvas");
+      glowBg.className = "market-cycle__bg";
+      win.appendChild(glowBg);
+      var marketCycle = buildMarketCycle(step.words);
+      win.appendChild(marketCycle);
+      win.appendChild(buildProgressMeter("stepped"));
+      (function (cycleEl, words) {
+        function resize() { sizeMarketCycle(cycleEl, words); }
+        requestAnimationFrame(function () { requestAnimationFrame(resize); });
+        window.addEventListener("resize", resize);
+      })(marketCycle, step.words);
+      initMarketGlow(glowBg, Math.random() * 6000);
     } else {
       var placeholder = document.createElement("span");
       placeholder.className = "brands-media__plus";
