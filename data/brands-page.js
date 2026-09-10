@@ -206,8 +206,7 @@ window.BRANDS_PAGE_DATA = {
         result: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
         team: "Marina Kazakova — Strategic & Creative Lead",
         outsource: {
-          tags: ["Graphic Designer", "Photographer", "Set Designer", "Muah Artist", "Web Designer"],
-          note: "depending on project"
+          tags: ["Graphic Designer", "Photographer", "Set Designer", "Muah Artist", "Web Designer"]
         },
         timing: { en: "4-6 weeks", ru: "4-6 недель" }
       },
@@ -279,8 +278,7 @@ window.BRANDS_PAGE_DATA = {
         },
         team: "Marina Kazakova — Strategic & Product Lead",
         outsource: {
-          tags: ["Product Specialist", "Graphic Designer", "Web Designer", "Production Partners"],
-          note: "depending on product"
+          tags: ["Product Specialist", "Graphic Designer", "Web Designer", "Production Partners"]
         },
         timing: {
           en: "2-4 weeks for services / 6-8 weeks for physical product",
@@ -355,8 +353,7 @@ window.BRANDS_PAGE_DATA = {
             "SMM Manager", "Digital Marketer", "Target Specialist", "SEO Specialist",
             "PR Manager", "Influencer Manager", "Photographer / Videographer",
             "Graphic Designer", "Retail Designer"
-          ],
-          note: "depending on strategy"
+          ]
         },
         timing: { en: "3+ months", ru: "3+ месяца" }
       },

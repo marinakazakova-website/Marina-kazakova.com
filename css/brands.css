@@ -303,6 +303,12 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5em;
+  /* Reserves the same right-edge gutter the hover hint sits in
+     (see .brands-meta__hint), on every wrapped line, all the time —
+     not just on hover — so a tag near the row's right edge (e.g.
+     Market Development's "Influencer Manager") never ends up directly
+     under the hint chip once it appears. */
+  padding-right: 14rem;
 }
 
 .brands-meta__tag {
