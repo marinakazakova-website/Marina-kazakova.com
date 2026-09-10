@@ -1316,7 +1316,16 @@ body.is-opening { overflow: hidden; }
 
 .brands-media__window {
   position: relative;
-  flex: 1;
+  /* Never grow to fill a stretched .brands-media column — every window
+     already has a fixed aspect-ratio (set per grid layout below), so
+     letting it grow was the actual cause of uneven card sizes: Grid's
+     default align-items:stretch hands whatever extra row height a
+     longer-caption sibling creates to this, the only growable child,
+     inflating the window past its ratio. Left at its natural size,
+     any extra stretched height instead lands as blank space below the
+     caption — invisible, and it keeps every .brands-media column (and
+     therefore the divider between them) at the same full row height. */
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1835,15 +1844,15 @@ body.is-opening { overflow: hidden; }
 .interview-collage__word--br { bottom: 0.5em; right: 0.5em; align-items: flex-end; text-align: right; }
 
 /* Row of 3 equal cells — Brand Audit (01/02/03) and Product Experience
-   (01-03). align-items: start keeps every window at its true 4:3 size
-   regardless of how many lines a sibling's caption wraps to — without
-   it, Grid's default stretch hands the extra row height to whichever
-   column has the shortest caption (the window is the only flexible
-   child, via .brands-media__window's flex:1), inflating it past 4:3
-   while the tallest-caption column stays correct. */
+   (01-03). Grid's default align-items:stretch is exactly what we want
+   here: every .brands-media column stretches to the row's full height
+   (so the divider between columns always reaches the bottom, however
+   long a sibling's caption wraps), while .brands-media__window itself
+   no longer grows into that extra height (see its flex:none above),
+   so the image still renders at its true 4:3 size and every caption
+   starts on the same line regardless. */
 .brands-grid--row3 {
   grid-template-columns: repeat(3, 1fr);
-  align-items: start;
 }
 .brands-grid--row3 .brands-media__window { aspect-ratio: 4 / 3; }
 
