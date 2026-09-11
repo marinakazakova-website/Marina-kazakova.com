@@ -6,6 +6,31 @@
    built from the FFF presentation's own character (not its slides).
    ======================================================================== */
 
+/* ---- Intro block override: this page's own title/tagline/body block
+   (shared .direction-intro from direction-page.css) reads black-on-white
+   everywhere else on the site — on Films it's inverted to a black block
+   with white text. Still the site's normal purple accent on hover here
+   (only the .fff cinematic world below goes fully black/white/grey). ---- */
+.direction-intro {
+  background: var(--color-black);
+  color: var(--color-text-inverse);
+}
+
+.direction-intro__back,
+.direction-link {
+  color: var(--color-text-inverse);
+}
+
+.direction-link {
+  border-color: var(--color-border-inverse);
+}
+
+.direction-link:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+
 /* ---- Outline-only letterforms (STUDIO & .FOUNDATION, the 3 discipline
    terms) ----
    -webkit-text-stroke on transparent-fill text was rendering stray
