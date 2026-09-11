@@ -169,6 +169,9 @@
   align-items: start;
 }
 
+.pf-row--emphasis-left { grid-template-columns: 1.5fr 1fr; }
+.pf-row--emphasis-right { grid-template-columns: 1fr 1.5fr; }
+
 .pf-zone--duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -293,8 +296,20 @@
 
 @media (max-width: 900px) {
   .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
-  .direction-intro__links { position: static; }
+  /* Single column now stacks DOM order (links + a long client-logo list)
+     above the title/tagline/body — burying the headline under ~20 logos
+     before a reader ever reaches it. Reorder visually so the title reads
+     first, same content and markup either way. */
+  .direction-intro__links { position: static; order: 2; }
+  .direction-intro__main { order: 1; }
   .pf-row { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+@media (max-width: 600px) {
+  /* A "duo" zone (two side-by-side case photos) still forces 2 columns
+     inside an already-narrow single-column row, shrinking each photo to
+     ~150px with cramped captions. Stack them full-width on phones. */
+  .pf-zone--duo { grid-template-columns: 1fr; }
 }
 
 /* ========================================================================

@@ -146,7 +146,15 @@
 }
 
 @media (max-width: 560px) {
-  .experience-typo-nav__item { letter-spacing: -0.02em; }
+  .experience-typo-nav__item {
+    /* --fs-display-huge's vw-driven formula never actually reaches its
+       own min bound at real phone widths, so the longest word
+       ("Business") overflows its line — a dedicated mobile scale,
+       tuned so every word (incl. "Business") fits with a small margin
+       at 320-480px. */
+    font-size: clamp(3rem, -0.62rem + 22.4vw, 6rem);
+    letter-spacing: -0.02em;
+  }
 }
 
 /* ========================================================================

@@ -275,8 +275,12 @@
   function renderRow(row) {
     var wrap = document.createElement("div");
     wrap.className = "pf-row";
-    if (row.emphasis === "left") wrap.style.gridTemplateColumns = "1.5fr 1fr";
-    else if (row.emphasis === "right") wrap.style.gridTemplateColumns = "1fr 1.5fr";
+    // A class (not an inline style) so the mobile single-column media
+    // query can still override it — an inline gridTemplateColumns always
+    // wins over a stylesheet rule regardless of media query, which was
+    // keeping emphasized rows stuck at 2 columns on phones.
+    if (row.emphasis === "left") wrap.classList.add("pf-row--emphasis-left");
+    else if (row.emphasis === "right") wrap.classList.add("pf-row--emphasis-right");
     wrap.appendChild(renderZone(row.left));
     wrap.appendChild(renderZone(row.right));
     return wrap;

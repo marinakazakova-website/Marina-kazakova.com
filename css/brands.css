@@ -282,6 +282,11 @@
 }
 
 .brands-meta__value {
+  /* Grid items default to a min-width of their content's min/max-content
+     size, which for the OUTSOURCE row's flex-wrap tag list let it blow
+     past its 1fr track instead of wrapping — force it to actually
+     shrink to the column's available width. */
+  min-width: 0;
   font-size: var(--fs-body);
   line-height: var(--lh-normal);
   white-space: pre-line;
