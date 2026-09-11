@@ -27,10 +27,18 @@
     return window.SITE_CONTENT.experienceDirections.filter(function (d) { return d.id === id; })[0];
   }
 
+  // A direction's tagline is usually a single English string (the
+  // client's own international-facing line), but some (Brands) need a
+  // real RU translation — same { en, ru } fallback shape used site-wide.
+  function localized(field, lang) {
+    if (field && typeof field === "object") return field[lang] || field.en || field.ru || "";
+    return field || "";
+  }
+
   function renderIntro(direction) {
     var lang = window.MK.i18n.getLang();
     document.getElementById("directionTitle").textContent = direction.navLabel;
-    document.getElementById("directionTagline").textContent = direction.tagline;
+    document.getElementById("directionTagline").textContent = localized(direction.tagline, lang);
 
     var body = document.getElementById("directionBody");
     body.innerHTML = "";

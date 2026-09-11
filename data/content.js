@@ -125,7 +125,10 @@ window.SITE_CONTENT = {
       id: "brands",
       navLabel: "Brands",
       title: "Brands | From vision to reality",
-      tagline: "Strategic partnership with founders — from an initial vision to a working brand ecosystem.",
+      tagline: {
+        en: "Strategic partnership with founders — from an initial vision to a working brand ecosystem.",
+        ru: "Стратегическое партнёрство с фаундерами — от первоначального видения до работающей экосистемы бренда."
+      },
       media: { type: "slider", cover: "assets/images/experience/brands/cover.jpeg", images: [] },
       links: {
         website: null,

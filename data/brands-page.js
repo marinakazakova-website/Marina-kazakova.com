@@ -117,7 +117,7 @@ window.BRANDS_PAGE_DATA = {
           ],
           caption: {
             en: "Unpacking the founder — their expertise, role, motivation and the brand’s inner direction → identifying its core strength and meaning.",
-            ru: "Распаковка founder’а, его экспертизы, роли, мотивации и внутреннего вектора бренда → выявление ключевой силы и смыслового ядра."
+            ru: "Распаковка фаундера, его экспертизы, роли, мотивации и внутреннего вектора бренда → выявление ключевой силы и смыслового ядра."
           }
         },
         {
@@ -299,7 +299,7 @@ window.BRANDS_PAGE_DATA = {
         },
         timing: {
           en: "2-4 weeks for services / 6-8 weeks for physical product",
-          ru: "2-4 недели для services / 6-8 недель для physical product"
+          ru: "2-4 недель для «услуг» / 6-8 недель для «товаров»"
         }
       },
       layout: "row3",
