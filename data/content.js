@@ -280,14 +280,14 @@ window.SITE_CONTENT = {
         ru: "Визуальная платформа бренда: айдентика, коммуникация, дизайн онлайн и офлайн каналов."
       },
       {
+        title: "Product Experience",
+        en: "Create the brand’s product logic: what we sell, to whom, in what format and at what price.",
+        ru: "Формирование продуктовой логики бренда: что мы продаём, кому, в каком формате и по какой цене."
+      },
+      {
         title: "Market Launch",
         en: "Bringing the brand, product or renewed brand system to market through online and offline channels, communication, content, partnerships and activations.",
         ru: "Вывод бренда, продукта или обновлённой системы на рынок через online и offline-каналы, коммуникации, контент, партнёрства и активации."
-      },
-      {
-        title: "Brand Development",
-        en: "Long-term strategic guidance focused on developing the product, communications, customer experience and new opportunities for growth.",
-        ru: "Стратегическое сопровождение, развитие продукта, коммуникаций, клиентского опыта и новых точек роста."
       }
     ]
   },
