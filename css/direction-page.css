@@ -131,7 +131,7 @@
   margin-top: var(--space-3);
   max-width: 42rem;
   font-weight: 400;
-  font-size: var(--fs-body);
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-relaxed);
 }
 .direction-intro__clients-intro + .direction-intro__clients {
@@ -142,7 +142,7 @@
   margin-top: var(--space-3);
   max-width: 42rem;
   font-weight: 700;
-  font-size: var(--fs-body);
+  font-size: clamp(0.92rem, 0.83rem + 0.42vw, 1.2rem);
   line-height: var(--lh-relaxed);
 }
 
