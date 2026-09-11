@@ -1173,6 +1173,21 @@ body.is-opening { overflow: hidden; }
   border-top: 1px solid var(--color-border-inverse);
 }
 
+.fff-studio__col-num,
+.fff-studio__col-title,
+.fff-studio__col-text {
+  transition: color var(--dur-fast) var(--ease-editorial), opacity var(--dur-fast) var(--ease-editorial);
+}
+
+/* Hovering anywhere in a column turns the whole 01 / title / text group
+   the brand purple — reads as one hoverable block, not three. */
+.fff-studio__col:hover .fff-studio__col-num,
+.fff-studio__col:hover .fff-studio__col-title,
+.fff-studio__col:hover .fff-studio__col-text {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
 .fff-studio__col-num {
   display: block;
   font-family: var(--font-mono);
@@ -1444,7 +1459,7 @@ body.is-opening { overflow: hidden; }
 
     <div>
       <h1 class="direction-intro__title" id="directionTitle"></h1>
-      <p class="direction-intro__tagline" id="directionTagline"></p>
+      <p class="direction-intro__tagline text-hover-accent" id="directionTagline"></p>
       <div class="direction-intro__body" id="directionBody"></div>
       <p class="direction-intro__clients" id="directionClients" hidden></p>
     </div>
