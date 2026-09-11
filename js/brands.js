@@ -44,10 +44,10 @@
     ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "АУТСОРС", timing: "СРОК" }
   };
 
-  // A meta field is either a plain string (same in both languages — the
-  // client's own English scope/team terms) or an { en, ru } pair (the
-  // explanatory prose that actually needs translating). Mirrors the
-  // fallback shape window.MK.i18n.t() already uses site-wide.
+  // A meta field is either a plain string (same in both languages — e.g.
+  // the client's own English team-role title) or an { en, ru } pair (the
+  // explanatory prose/tag lists that actually need translating). Mirrors
+  // the fallback shape window.MK.i18n.t() already uses site-wide.
   function metaText(field, lang) {
     if (field && typeof field === "object") return field[lang] || field.en || field.ru || "";
     return field || "";
@@ -505,7 +505,7 @@
   }
 
   // ---- Market Development — 4 animated typographic cards (Digital /
-  // Flagman-Physical Space / PR & Event / Hero Film). Same underlying
+  // Flagship-Physical Space / PR & Event / Hero Film). Same underlying
   // scan mechanic as Brand Audit's audit-cycle (two synced tracks, one
   // clipped to a center line so whichever word crosses it reads as
   // active), but words are sized dynamically per card — height first

@@ -10,8 +10,8 @@
  */
 window.SITE_CONTENT = {
   nav: {
-    en: { profile: "Profile", experience: "Experience", method: "Method", work: "Work With Me" },
-    ru: { profile: "Профиль", experience: "Опыт", method: "Метод", work: "Работа со мной" }
+    en: { profile: "Profile", experience: "Experience", method: "Method", work: "Work With Me", backToExperience: "← Experience", backToProjects: "BACK TO PROJECTS PAGE" },
+    ru: { profile: "Профиль", experience: "Опыт", method: "Метод", work: "Работа со мной", backToExperience: "← Опыт", backToProjects: "НАЗАД К ПРОЕКТАМ" }
   },
 
   profile: {

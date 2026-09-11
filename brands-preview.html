@@ -2362,7 +2362,7 @@ body.is-opening { overflow: hidden; }
   <!-- ============ 01 — BRANDS intro (shared Marina Kazakova design system) ============ -->
   <div class="container direction-intro">
     <div class="direction-intro__links">
-      <a class="direction-intro__back" href="../index.html#experience">← Experience</a>
+      <a class="direction-intro__back" data-i18n-nav="backToExperience" href="../index.html#experience">← Experience</a>
       <div id="directionLinks"></div>
       <div class="client-strip" id="clientStrip"></div>
     </div>
@@ -2396,7 +2396,7 @@ body.is-opening { overflow: hidden; }
   </div>
 
   <div class="direction-end">
-    <a class="direction-end__back" href="../index.html#experience">BACK TO PROJECTS PAGE</a>
+    <a class="direction-end__back" data-i18n-nav="backToProjects" href="../index.html#experience">BACK TO PROJECTS PAGE</a>
   </div>
 
 </main>
@@ -2414,8 +2414,8 @@ body.is-opening { overflow: hidden; }
  */
 window.SITE_CONTENT = {
   nav: {
-    en: { profile: "Profile", experience: "Experience", method: "Method", work: "Work With Me" },
-    ru: { profile: "Профиль", experience: "Опыт", method: "Метод", work: "Работа со мной" }
+    en: { profile: "Profile", experience: "Experience", method: "Method", work: "Work With Me", backToExperience: "← Experience", backToProjects: "BACK TO PROJECTS PAGE" },
+    ru: { profile: "Профиль", experience: "Опыт", method: "Метод", work: "Работа со мной", backToExperience: "← Опыт", backToProjects: "НАЗАД К ПРОЕКТАМ" }
   },
 
   profile: {
@@ -2709,11 +2709,11 @@ window.SITE_CONTENT = {
    taken verbatim from the client's own BRANDS page mockup — not rewritten
    or shortened.
 
-   i18n: each stage's `meta.goal/result/timing` is the explanatory prose
-   that actually changes with the language switch, so each is
-   `{ en, ru }`; `scope`/`team` are the client's own English terms
-   (industry scope tags, team-role titles) and stay a single string
-   used in both languages, per her mockup. Method nav, workflow step
+   i18n: each stage's `meta.goal/scope/result/timing` is prose or a tag
+   list that actually changes with the language switch, so each is
+   `{ en, ru }`; `team` is the client's own English role title and
+   stays a single string used in both languages, per her mockup.
+   Method nav, workflow step
    labels (RESEARCH/UNPACKING/...) and both CTAs are English-only by
    design (js/brands.js) — they're the method's own international
    interface, not translated content.
@@ -2746,7 +2746,7 @@ window.BRANDS_PAGE_DATA = {
   // the one piece of copy here that actually changes with the
   // language switch (tagline/method-nav/CTAs stay English by design).
   duration: {
-    en: "Strategic Brand Partnership from 6 months",
+    en: "Strategic Brand Partnership — 6+ months",
     ru: "Стратегическое бренд-партнёрство от 6 месяцев"
   },
 
@@ -2757,13 +2757,16 @@ window.BRANDS_PAGE_DATA = {
       title: "Brand Audit",
       meta: {
         goal: {
-          en: "Gather and analyse information about the brand, market, industry and audience to understand its current position and potential, and define a strategic roadmap for its further development and brand packaging.",
+          en: "Gather and analyse information about the brand, market, industry and audience to understand its current position and potential, and define a strategic roadmap for its further development and market expression.",
           ru: "Собрать и исследовать информацию о бренде, рынке, отрасли и аудитории, чтобы определить его текущую позицию, потенциал и сформировать стратегический roadmap дальнейшего развития и упаковки."
         },
-        // Scope/team lists are the client's own terms — already English in
-        // her source mockup, unchanged in either language (see i18n note
-        // in the header comment above).
-        scope: "Research · Founder unpacking · Brand analysis · Audience · Competitors · Market · Customer Experience · Growth opportunities",
+        // Scope is the client's own English term list; RU carries a real
+        // translation (see i18n note in the header comment above), team
+        // stays a single string in both languages.
+        scope: {
+          en: "Research · Founder unpacking · Brand analysis · Audience · Competitors · Market · Customer Experience · Growth opportunities",
+          ru: "Сбор информации · Распаковка фаундера · Анализ бренда · Исследование аудитории, конкурентов · рынка, клиентского опыта · Фиксация точки роста"
+        },
         result: {
           en: "“Brand Audit & Strategic Roadmap” — the brand's current position, growth points, strategic hypotheses, priority audiences, product development directions, and a roadmap for the work ahead.",
           ru: "“Brand Audit & Strategic Roadmap” — текущая позиция бренда, точки роста, стратегические гипотезы, приоритетные аудитории, направления развития продукта, roadmap дальнейшей работы."
@@ -2852,7 +2855,10 @@ window.BRANDS_PAGE_DATA = {
           en: "Define the brand’s strategic and conceptual foundation — its positioning, values, narrative and creative direction — and prepare the basis for its further visual development and growth.",
           ru: "Сформулировать смысловую и стратегическую основу бренда — его позиционирование, ценности, нарратив и креативное направление — и подготовить фундамент для дальнейшей визуальной реализации и развития бренда."
         },
-        scope: "Brand vision & Positioning · Brand Idea · Values · Narrative · Audience · Brand Architecture · Tone of Voice · Communication Strategy · Founder Positioning",
+        scope: {
+          en: "Brand vision & Positioning · Brand Idea · Values · Narrative · Audience · Brand Architecture · Tone of Voice · Communication Strategy · Founder Positioning",
+          ru: "Видение и позиционирование бренда · Идея бренда · Ценности · Нарратив · Аудитория · Архитектура бренда · Tone of Voice · Коммуникационная стратегия · Позиционирование фаундера"
+        },
         result: {
           en: "“Brand Foundation & Brand Strategy” — a single strategic system that the product, visual language, communication and customer experience are then built on.",
           ru: "“Brand Foundation & Brand Strategy” — единая стратегическая система, на которой дальше строится продукт, визуальный язык, коммуникация и customer experience."
@@ -2921,7 +2927,10 @@ window.BRANDS_PAGE_DATA = {
           en: "Translate the brand strategy into a distinctive visual brand package — identity, photo content, SMM guide and web design — so the brand looks cohesive, recognizable and professional.",
           ru: "Перевести стратегию бренда в уникальную визуальную упаковку — айдентику, фотоконтент, SMM guide и web design — чтобы бренд выглядел цельно, узнаваемо и профессионально."
         },
-        scope: "Visual Direction · Brand Identity · Art Direction · Graphic System · Photography · Video · Content System · Digital / Web Direction",
+        scope: {
+          en: "Visual Direction · Brand Identity · Art Direction · Graphic System · Photography · Video · Content System · Digital / Web Direction",
+          ru: "Визуальное направление · Айдентика бренда · Арт-дирекшн · Графическая система · Концепция фото контента · Видео · Контент-система · Digital / Web направление"
+        },
         result: {
           en: "“Visual Brand System” — brand ID, photo content, SMM visual guide, web visual.",
           ru: "«Единая визуальная система бренда» — айдентика, фотоконтент, SMM guide и web design."
@@ -2993,10 +3002,13 @@ window.BRANDS_PAGE_DATA = {
           en: "Shape the brand’s product logic: what we sell, to whom, in what format and at what price — and package it into a ready offer.",
           ru: "Сформировать продуктовую логику бренда: что мы продаём, кому, в каком формате и по какой цене — и упаковать это в готовое предложение."
         },
-        scope: "Product Strategy · Product Portfolio · Offer · Packaging · Pricing logic · Customer Journey · Service · Digital Experience · Retail / Offline Experience",
+        scope: {
+          en: "Product Strategy · Product Portfolio · Offer · Packaging · Pricing logic · Customer Journey · Service · Digital Experience · Retail / Offline Experience",
+          ru: "Продуктовая стратегия · Продуктовая линейка · Упаковка · Логика ценообразования · Customer Journey · Сервис · Digital Experience · Retail Experience"
+        },
         result: {
           en: "“Product & Customer Experience” System — the product system, offer, packaging, touchpoints, customer journey, retail / digital experience.",
-          ru: "“Product & Customer Experience” System — продуктовая система, предложение, упаковка, точки контакта, customer journey, retail / digital experience."
+          ru: "«Система продукта и клиентского опыта» — продуктовая система, предложение, упаковка, путь клиента и опыт взаимодействия с продуктом в digital и physical space."
         },
         team: "Marina Kazakova — Strategic & Product Lead",
         outsource: {
@@ -3004,7 +3016,7 @@ window.BRANDS_PAGE_DATA = {
         },
         timing: {
           en: "2-4 weeks for services / 6-8 weeks for physical product",
-          ru: "2-4 недель для «услуг» / 6-8 недель для «товаров»"
+          ru: "2–4 недели для сервисных продуктов / 6–8 недель для физических продуктов"
         }
       },
       layout: "row3",
@@ -3020,7 +3032,7 @@ window.BRANDS_PAGE_DATA = {
           visual: "product-building",
           caption: {
             en: "Shaping the product: what the brand sells, to whom, in what format, what the product or service consists of, what the result is, and the cost or pricing.",
-            ru: "Формирование продукта: что бренд продает, кому, в каком формате, из чего состоит продукт/услуга, что является результатом и стоимость или тарифы."
+            ru: "Формирование продукта: что бренд продаёт, кому, в каком формате, из чего состоит продукт или услуга, какой результат получает клиент и сколько это стоит."
           },
           result: {
             en: "A finished product with a clear structure, composition, price and value for the customer.",
@@ -3033,7 +3045,7 @@ window.BRANDS_PAGE_DATA = {
           visual: "product-architecture",
           caption: {
             en: "Building the product system: how the brand’s different products connect — entry offers, core, premium — and launching new formats based on existing resources.",
-            ru: "Построение продуктовой системы: как разные продукты бренда связаны между собой: входные предложения, основные, premium, и запуск новых форматов, основанных на базе существующих ресурсов."
+            ru: "Построение продуктовой системы: как связаны разные предложения бренда — входные, основные и premium — и какие новые форматы можно создать на базе существующих ресурсов."
           },
           result: {
             en: "A product line-up and the customer’s path through it.",
@@ -3046,7 +3058,7 @@ window.BRANDS_PAGE_DATA = {
           visual: "product-journey",
           caption: {
             en: "Launching and promoting the product: description, packaging, customer journey, key touchpoints, sales materials, web presentation and product communication.",
-            ru: "Запуск и продвижение продукта: описание, упаковка, customer journey, ключевые точки контакта, sales materials, web presentation и коммуникация продукта."
+            ru: "Упаковка и продвижение продукта: описание, customer journey, sales materials, web-презентация и коммуникация продукта."
           },
           result: {
             en: "A market-ready product experience, prepared for promotion.",
@@ -3062,9 +3074,12 @@ window.BRANDS_PAGE_DATA = {
       meta: {
         goal: {
           en: "Bring the brand's positioning to life through a system of relevant market activities — digital, physical space, PR, events, partnerships and documentary — and build them into a long-term brand development system.",
-          ru: "Реализовать позиционирование бренда через систему релевантных market-активностей — в digital, физическом пространстве, PR, events, партнёрствах и documentary — и выстроить их в долгосрочную систему развития бренда."
+          ru: "Реализовать позиционирование бренда через систему релевантных маркетинговых активностей — в digital, физическом пространстве, PR, событиях, партнёрствах и документальном кино — и выстроить их в долгосрочную систему развития бренда."
         },
-        scope: "Digital & SMM Launch · PR · Collaborations · Partnerships · Events · Influencers · Brand Activations · Growth",
+        scope: {
+          en: "Digital & SMM Launch · PR · Collaborations · Partnerships · Events · Influencers · Brand Activations · Growth",
+          ru: "Запуск в Digital и SMM · Создание PR стратегии · Коллаборации · Партнёрства · События · Инфлюенсеры · Бренд-активации · Развитие и рост"
+        },
         result: {
           en: "“Market Activation & Development” — the launch, market-communication system, partnerships, activations, channel development, and a long-term approach to growth.",
           ru: "“Market Activation & Development” — запуск, маркет-коммуникационная система, партнёрства, активации, развитие каналов, долгосрочный подход к росту."
@@ -3088,7 +3103,7 @@ window.BRANDS_PAGE_DATA = {
           id: "4.1",
           label: "Digital",
           visual: "market-cycle",
-          words: ["Smm", "Website", "Blog", "Marketing", "Content"],
+          words: ["SMM", "Website", "Blog", "Marketing", "Content"],
           caption: {
             en: "Launching and growing the brand’s digital presence: social media, website, regular content, audience engagement and paid promotion.",
             ru: "Запуск и развитие digital-присутствия бренда: social media, website, регулярный контент, работа с аудиторией и подключение рекламного продвижения."
@@ -3096,7 +3111,7 @@ window.BRANDS_PAGE_DATA = {
         },
         {
           id: "4.2",
-          label: "Flagman / Physical Space",
+          label: "Flagship / Physical Space",
           visual: "market-cycle",
           words: ["Retail", "VM", "Offline", "Activations", "Display"],
           caption: {
@@ -3121,7 +3136,7 @@ window.BRANDS_PAGE_DATA = {
           words: ["Brand", "Documentary", "Festivals", "Streaming", "Platforms"],
           caption: {
             en: "Developing, filming and promoting a brand documentary as a long-term brand asset — through festivals, streaming platforms and cultural media.",
-            ru: "Разработка, съёмка и продвижение документального фильма о бренде как долгосрочного brand asset — через фестивали, streaming platforms и культурные медиа."
+            ru: "Разработка, съёмка и продвижение документального фильма о бренде как долгосрочного актива — через фестивали, стриминговые платформы и культурные медиа."
           }
         }
       ]
@@ -3791,10 +3806,10 @@ window.BRANDS_PAGE_DATA = {
     ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "АУТСОРС", timing: "СРОК" }
   };
 
-  // A meta field is either a plain string (same in both languages — the
-  // client's own English scope/team terms) or an { en, ru } pair (the
-  // explanatory prose that actually needs translating). Mirrors the
-  // fallback shape window.MK.i18n.t() already uses site-wide.
+  // A meta field is either a plain string (same in both languages — e.g.
+  // the client's own English team-role title) or an { en, ru } pair (the
+  // explanatory prose/tag lists that actually need translating). Mirrors
+  // the fallback shape window.MK.i18n.t() already uses site-wide.
   function metaText(field, lang) {
     if (field && typeof field === "object") return field[lang] || field.en || field.ru || "";
     return field || "";
@@ -4252,7 +4267,7 @@ window.BRANDS_PAGE_DATA = {
   }
 
   // ---- Market Development — 4 animated typographic cards (Digital /
-  // Flagman-Physical Space / PR & Event / Hero Film). Same underlying
+  // Flagship-Physical Space / PR & Event / Hero Film). Same underlying
   // scan mechanic as Brand Audit's audit-cycle (two synced tracks, one
   // clipped to a center line so whichever word crosses it reads as
   // active), but words are sized dynamically per card — height first
