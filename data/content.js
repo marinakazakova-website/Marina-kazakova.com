@@ -277,7 +277,7 @@ window.SITE_CONTENT = {
       {
         title: "Visual Foundation",
         en: "The brand’s visual platform, communication, and its digital and physical environments.",
-        ru: "Визуальная платформа бренда, коммуникация, digital- и physical-среда бренда."
+        ru: "Визуальная платформа бренда: айдентика, коммуникация, дизайн онлайн и офлайн каналов."
       },
       {
         title: "Market Launch",
