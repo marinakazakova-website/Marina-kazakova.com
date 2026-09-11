@@ -105,8 +105,8 @@ window.SITE_CONTENT = {
       links: {
         website: { label: "retail-design.ru", href: null },
         portfolio: { label: "Portfolio", href: null },
-        collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" },
-        trainings: { label: "Trainings", href: "https://retail-design.ru/corporate_edu" }
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" },
+        trainings: { label: { en: "Trainings", ru: "Обучение" }, href: "https://retail-design.ru/corporate_edu" }
       },
       clientsIntro: "Over 10 years of developing M&W, we trained employees and independent professionals from the following companies:",
       clients: ["INGKA", "IKEA", "OFFPRICE", "H&M", "Inditex", "ZARA", "12 STOREEZ", "TSUM Moscow", "United Colors of Benetton", "21 Shop", "Helly Hansen", "Debenhams", "Спортмастер", "Gloria Jeans", "BAON", "Intimissimi", "Calzedonia", "Clarks", "Ralf Ringer", "Stenders", "ALLSAINTS", "LYYK TEAM", "KIXBOX", "Fred Perry", "Albione", "BASK Kids", "COZY HOME", "TOGAS", "KARE Design"],
@@ -120,8 +120,8 @@ window.SITE_CONTENT = {
       ru: {
         body: [
           "Около 10 лет я управляла собственным **Retail Design Bureau Woodi** и образовательной платформой **M&W** — одной из первых профессиональных школ в России в области Visual Merchandising и Retail Design.",
-          "Я развивала бизнес и услуги, формировала и усиливала команду, выстраивала клиентский сервис и управляла полным циклом проектов. В рамках **Woodi Bureau** мы создали более **300 retail design-проектов**, участвовали в открытиях магазинов в России, Европе и странах СНГ и разрабатывали стандартизированные retail-концепции для крупных сетей. В рамках **M&W** я создавала индивидуальные и корпоративные образовательные программы: **500+ студентов и 100+ корпоративных программ**.",
-          "С 2014 по 2025 год оба проекта были частью развития индустрии **Retail Design, Visual Merchandising и Visual Communications**."
+          "Я развивала бизнес и его услуги, формировала и усиливала команду, выстраивала клиентский сервис и управляла полным циклом проектов. В **Woodi Bureau** мы создали более **300 retail design-проектов**, участвовали в открытиях магазинов в России, Европе и странах СНГ и разрабатывали стандартизированные retail-концепции для крупных сетей. В **M&W** я создавала индивидуальные и корпоративные образовательные программы для **500+ студентов и 100+ корпоративных клиентов**.",
+          "С 2014 по 2025 год оба проекта внесли вклад в развитие индустрии **Retail Design, Visual Merchandising и Visual Communications**."
         ]
       }
     },

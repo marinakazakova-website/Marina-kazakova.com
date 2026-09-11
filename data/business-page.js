@@ -36,8 +36,11 @@ window.DIRECTION_PAGE_DATA = {
   directionId: "business",
 
   ctaText: {
-    lead: "Ready to have a project?",
-    sub: "Leave a request, it’s free. I’d love to chat.",
+    lead: { en: "Have a project in mind?", ru: "Есть проект?" },
+    sub: {
+      en: "Tell me about it — I’d be happy to discuss it.",
+      ru: "Расскажите о нём — буду рада обсудить."
+    },
     cta: "LET'S TALK"
   },
 
