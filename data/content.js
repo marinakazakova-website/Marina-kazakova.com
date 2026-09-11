@@ -99,7 +99,10 @@ window.SITE_CONTENT = {
       id: "business",
       navLabel: "Business",
       title: "Business | Building from inside",
-      tagline: "Building brands, products, teams and businesses from the inside.",
+      tagline: {
+        en: "Building brands, products, teams and businesses from the inside.",
+        ru: "Создаю бренды, продукты, команды и бизнесы изнутри."
+      },
       media: { type: "slider", cover: "assets/images/experience/business/cover.jpeg",
         images: Array.from({length: 17}, (_, i) => `assets/images/experience/business/business-${String(i+1).padStart(2,"0")}.jpeg`) },
       links: {
