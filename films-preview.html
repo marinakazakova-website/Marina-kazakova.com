@@ -1138,6 +1138,14 @@ body.is-opening { overflow: hidden; }
   font-weight: 700;
   font-size: var(--fs-heading);
   line-height: var(--lh-snug);
+  margin-bottom: var(--space-3);
+}
+
+.fff-studio__lead {
+  max-width: 40rem;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  opacity: 0.75;
   margin-bottom: var(--space-6);
 }
 
@@ -1476,24 +1484,25 @@ body.is-opening { overflow: hidden; }
     <!-- 05 — STUDIO -->
     <section class="fff-studio">
       <div class="container">
-        <p class="eyebrow fff-studio__eyebrow">Studio</p>
-        <h2 class="fff-studio__title reveal-up">Мы снимаем фильмы для компаний, которые фиксируют историю и уникальность бренда и подчёркивают личность основателя.</h2>
+        <p class="eyebrow fff-studio__eyebrow" data-i18n="filmsStudio.eyebrow">Studio</p>
+        <h2 class="fff-studio__title reveal-up" data-i18n="filmsStudio.title">We build brand reputation through documentary film.</h2>
+        <p class="fff-studio__lead reveal-up" data-i18n="filmsStudio.lead">We bring together brand strategy, documentary filmmaking and film development strategy, turning the story of the founder and the company into a long-term reputational asset.</p>
 
         <div class="fff-studio__columns">
           <div class="fff-studio__col reveal-up">
             <span class="fff-studio__col-num">01</span>
-            <h3 class="fff-studio__col-title">Brand Story</h3>
-            <p class="fff-studio__col-text">История и уникальность бренда / основателя.</p>
+            <h3 class="fff-studio__col-title" data-i18n="filmsStudio.col1Title">Brand Story</h3>
+            <p class="fff-studio__col-text" data-i18n="filmsStudio.col1Text">For us, this is the instrument: a powerful human story that reveals the brand and the founder’s personality and becomes the foundation of the film narrative.</p>
           </div>
           <div class="fff-studio__col reveal-up">
             <span class="fff-studio__col-num">02</span>
-            <h3 class="fff-studio__col-title">Brand Value</h3>
-            <p class="fff-studio__col-text">Репутация, ценность бренда, сильная человеческая история.</p>
+            <h3 class="fff-studio__col-title" data-i18n="filmsStudio.col2Title">Reputation</h3>
+            <p class="fff-studio__col-text" data-i18n="filmsStudio.col2Text">For us, this is the result: trust, recognition and long-term brand value built through the life and distribution of the film.</p>
           </div>
           <div class="fff-studio__col reveal-up">
             <span class="fff-studio__col-num">03</span>
-            <h3 class="fff-studio__col-title">Long-Term Asset</h3>
-            <p class="fff-studio__col-text">Контент для коммуникации, PR, HR, инвесторов и внутренних команд.</p>
+            <h3 class="fff-studio__col-title" data-i18n="filmsStudio.col3Title">Film Development Strategy</h3>
+            <p class="fff-studio__col-text" data-i18n="filmsStudio.col3Text">For us, this is the mechanism: a service that uses international distribution and targeted film activation to reach different audiences and improve the brand’s commercial performance.</p>
           </div>
         </div>
       </div>
@@ -1763,6 +1772,34 @@ window.SITE_CONTENT = {
       }
     }
   ],
+
+  // Films page's own "Studio" section (js/films.js's fff-studio block) —
+  // was static English-only markup in films/index.html with the client's
+  // Russian text hardcoded straight into it (showing on the EN site too).
+  filmsStudio: {
+    en: {
+      eyebrow: "Studio",
+      title: "We build brand reputation through documentary film.",
+      lead: "We bring together brand strategy, documentary filmmaking and film development strategy, turning the story of the founder and the company into a long-term reputational asset.",
+      col1Title: "Brand Story",
+      col1Text: "For us, this is the instrument: a powerful human story that reveals the brand and the founder’s personality and becomes the foundation of the film narrative.",
+      col2Title: "Reputation",
+      col2Text: "For us, this is the result: trust, recognition and long-term brand value built through the life and distribution of the film.",
+      col3Title: "Film Development Strategy",
+      col3Text: "For us, this is the mechanism: a service that uses international distribution and targeted film activation to reach different audiences and improve the brand’s commercial performance."
+    },
+    ru: {
+      eyebrow: "Studio",
+      title: "Мы создаём репутацию бренда через документальное кино.",
+      lead: "Соединяем бренд-стратегию, документальное кино и стратегию развития фильма, превращая историю основателя и компании в долгосрочный репутационный актив.",
+      col1Title: "Brand Story",
+      col1Text: "Для нас это — инструмент: сильная человеческая история, которая раскрывает бренд и личность основателя, идёт в фабулу фильма.",
+      col2Title: "Репутация",
+      col2Text: "Для нас — это результат: доверие, узнаваемость и долгосрочная ценность бренда, созданная во время проката фильма.",
+      col3Title: "Стратегия развития фильма",
+      col3Text: "Для нас это — механизм: услуга, в рамках которой международная дистрибуция и активация фильма на разные аудитории повышает коммерческие показатели бренда."
+    }
+  },
 
   brandEcosystem: {
     title: "BRAND ECOSYSTEM DESIGN™",

@@ -299,6 +299,14 @@
   font-weight: 700;
   font-size: var(--fs-heading);
   line-height: var(--lh-snug);
+  margin-bottom: var(--space-3);
+}
+
+.fff-studio__lead {
+  max-width: 40rem;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  opacity: 0.75;
   margin-bottom: var(--space-6);
 }
 

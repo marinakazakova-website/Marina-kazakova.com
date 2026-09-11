@@ -192,6 +192,34 @@ window.SITE_CONTENT = {
     }
   ],
 
+  // Films page's own "Studio" section (js/films.js's fff-studio block) —
+  // was static English-only markup in films/index.html with the client's
+  // Russian text hardcoded straight into it (showing on the EN site too).
+  filmsStudio: {
+    en: {
+      eyebrow: "Studio",
+      title: "We build brand reputation through documentary film.",
+      lead: "We bring together brand strategy, documentary filmmaking and film development strategy, turning the story of the founder and the company into a long-term reputational asset.",
+      col1Title: "Brand Story",
+      col1Text: "For us, this is the instrument: a powerful human story that reveals the brand and the founder’s personality and becomes the foundation of the film narrative.",
+      col2Title: "Reputation",
+      col2Text: "For us, this is the result: trust, recognition and long-term brand value built through the life and distribution of the film.",
+      col3Title: "Film Development Strategy",
+      col3Text: "For us, this is the mechanism: a service that uses international distribution and targeted film activation to reach different audiences and improve the brand’s commercial performance."
+    },
+    ru: {
+      eyebrow: "Studio",
+      title: "Мы создаём репутацию бренда через документальное кино.",
+      lead: "Соединяем бренд-стратегию, документальное кино и стратегию развития фильма, превращая историю основателя и компании в долгосрочный репутационный актив.",
+      col1Title: "Brand Story",
+      col1Text: "Для нас это — инструмент: сильная человеческая история, которая раскрывает бренд и личность основателя, идёт в фабулу фильма.",
+      col2Title: "Репутация",
+      col2Text: "Для нас — это результат: доверие, узнаваемость и долгосрочная ценность бренда, созданная во время проката фильма.",
+      col3Title: "Стратегия развития фильма",
+      col3Text: "Для нас это — механизм: услуга, в рамках которой международная дистрибуция и активация фильма на разные аудитории повышает коммерческие показатели бренда."
+    }
+  },
+
   brandEcosystem: {
     title: "BRAND ECOSYSTEM DESIGN™",
     triptych: [
