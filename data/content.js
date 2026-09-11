@@ -165,7 +165,10 @@ window.SITE_CONTENT = {
       id: "films",
       navLabel: "Films",
       title: "Films | Documentary for Brands",
-      tagline: "Turning brand meaning into documentary cinema.",
+      tagline: {
+        en: "We translate brand meaning into documentary cinema and support its further development.",
+        ru: "Переводим смыслы бренда в документальное кино и сопровождаем его дальнейшее развитие."
+      },
       media: { type: "video", video: null },
       links: {
         website: { label: "futurefilm.foundation", href: "https://futurefilm.foundation/" },
@@ -175,18 +178,18 @@ window.SITE_CONTENT = {
       clients: [],
       en: {
         body: [
-          "I began my career within international corporations — **IKEA, Banana Republic / Gap Inc., and Esprit** — which gave me a deep understanding of how large organisations work from the inside: how culture, processes, leadership, brand and relationships with audiences are built.",
-          "Today, this experience comes together with my role as **Brand Strategist** at **Future Film Foundation**. Together with director Igor Shmelev and strategy coach Ivan Ershov, we created a format of branded documentary filmmaking at the intersection of **Documentary Filmmaking × Brand Strategy × Founder Storytelling**.",
-          "My role is to uncover the **Big Idea**, connect the story of the founder and the company with the brand, its audience and the time we live in, and turn that idea into the foundation of the film.",
-          "This is how a corporate narrative becomes a **festival film** — both a **legacy, reputational asset and brand asset**, with the potential for international festival distribution."
+          "I began my career within international corporations — **IKEA, Esprit, Banana Republic / Gap Inc.** — which gave me a deep understanding of how large companies work from the inside: how culture, processes, leadership, brand and relationships with audiences are built.",
+          "Today, this experience comes together with my role as **Brand Strategist** at **Future Film Foundation**. Together with director Igor Shmelev and strategy coach Ivan Ershov, we created a branded documentary film format at the intersection of **Documentary Filmmaking × Brand Strategy × Founder Storytelling = HERO FILM**.",
+          "My role is to connect the story of the founder with the brand, the time we live in and its audience, and turn it into the narrative foundation of the film.",
+          "This is how a corporate narrative becomes a **festival film** — at once a **corporate legacy, reputational asset and brand asset**, with the potential for an international festival life."
         ]
       },
       ru: {
         body: [
-          "Я начинала карьеру внутри международных корпораций — **IKEA, Banana Republic / Gap Inc., Esprit** — и хорошо понимаю, как устроены большие компании изнутри: как формируются культура, процессы, лидерство, бренд и отношения с аудиторией.",
-          "Сегодня этот опыт соединяется с моей ролью **Brand Strategist** в **Future Film Foundation**. Вместе с режиссёром Игорем Шмелёвым и strategy coach Иваном Ершовым мы создали формат брендового документального кино на пересечении **Documentary Filmmaking × Brand Strategy × Founder Storytelling**.",
-          "Моя роль — найти **Big Idea**, связать историю основателя и компании с брендом, временем и аудиторией и превратить её в основу фильма.",
-          "Так корпоративный нарратив становится **festival film** — одновременно **наследием, репутационным и бренд-активом** с потенциалом международной фестивальной жизни."
+          "Я начинала карьеру внутри международных корпораций — **IKEA, Esprit, Banana Republic / Gap Inc.** — и хорошо понимаю, как устроены большие компании изнутри: как формируются культура, процессы, лидерство, бренд и отношения с аудиторией.",
+          "Сегодня этот опыт соединяется с моей ролью **Brand Strategist** в **Future Film Foundation**. Вместе с режиссёром Игорем Шмелёвым и strategy coach Иваном Ершовым мы создали формат брендового документального кино на пересечении **Documentary Filmmaking × Brand Strategy × Founder Storytelling = HERO FILM**.",
+          "Моя роль — соединить историю основателя с брендом, временем и аудиторией и превратить её в фабулу фильма.",
+          "Так корпоративный нарратив становится **festival film** — одновременно **корпоративным наследием, репутационным и бренд-активом** с потенциалом международной фестивальной жизни."
         ]
       }
     }
