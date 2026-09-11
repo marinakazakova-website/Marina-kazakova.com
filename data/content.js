@@ -223,6 +223,17 @@ window.SITE_CONTENT = {
     }
   },
 
+  // Films page's "3 disciplines" intro line (fff-disciplines section) —
+  // same static-Russian-only bug as filmsStudio above.
+  filmsDisciplines: {
+    en: {
+      intro: "FFF operates at the intersection of three disciplines. This is where films are created that capture audience interest, strengthen brand reputation and value, and preserve its story for future generations."
+    },
+    ru: {
+      intro: "FFF работает на пересечении трёх дисциплин. Именно здесь рождаются фильмы, способные вызывать интерес аудитории, усиливать репутацию и ценность бренда и сохранять его историю для будущих поколений."
+    }
+  },
+
   brandEcosystem: {
     title: "BRAND ECOSYSTEM DESIGN™",
     triptych: [
