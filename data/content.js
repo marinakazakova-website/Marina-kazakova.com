@@ -332,7 +332,7 @@ window.SITE_CONTENT = {
       {
         title: { en: "STRATEGIC BRAND PARTNERSHIP", ru: "СТРАТЕГИЧЕСКОЕ БРЕНД-ПАРТНЁРСТВО" },
         titleLink: "brands/index.html",
-        timing: { en: "UP TO 6 MONTHS", ru: "ДО 6 МЕСЯЦЕВ" },
+        timing: { en: "6+ MONTHS", ru: "ОТ 6 МЕСЯЦЕВ" },
         body: {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",
           ru: "Долгосрочная работа с брендом, собственником и командой. Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу."

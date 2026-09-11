@@ -126,3 +126,9 @@ ul {
   padding: calc(0.9em - 1px) calc(2.1em - 1px);
 }
 .btn--outline:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+.btn--accent {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+.btn--accent:hover { background: var(--color-black); color: var(--color-white); }

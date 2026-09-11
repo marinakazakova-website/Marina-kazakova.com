@@ -308,6 +308,15 @@ a.work-service__title:hover {
 
 .work-credentials strong { font-weight: 700; }
 
+.work-credentials p {
+  transform-origin: left center;
+  transition: transform var(--dur-fast) var(--ease-editorial);
+}
+.work-credentials p:hover {
+  font-weight: 700;
+  transform: scale(1.06);
+}
+
 .work-credentials p::before {
   content: "—";
   display: inline-block;

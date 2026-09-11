@@ -75,6 +75,13 @@
   display: block;
 }
 
+/* Compact — hugs its own label text, not a full-width button. */
+.brand-ecosystem__cta {
+  margin-bottom: var(--space-4);
+  padding: 0.6em 1.3em;
+  font-size: var(--fs-small);
+}
+
 .brand-ecosystem__text {
   max-width: 56rem;
   margin-inline: auto;
