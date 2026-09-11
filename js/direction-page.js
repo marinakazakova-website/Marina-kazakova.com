@@ -51,7 +51,7 @@
     var clientsIntroEl = document.getElementById("directionClientsIntro");
     if (clientsIntroEl) {
       if (direction.clientsIntro) {
-        clientsIntroEl.textContent = direction.clientsIntro;
+        clientsIntroEl.textContent = localized(direction.clientsIntro, lang);
         clientsIntroEl.hidden = false;
       } else {
         clientsIntroEl.hidden = true;
@@ -174,7 +174,7 @@
       cap.className = "pf-caption";
       var brand = document.createElement("p");
       brand.className = "pf-caption__brand";
-      brand.textContent = project.caption.brand;
+      brand.textContent = localized(project.caption.brand, window.MK.i18n.getLang());
       var desc = document.createElement("p");
       desc.className = "pf-caption__desc";
       desc.textContent = localized(project.caption.desc, window.MK.i18n.getLang());
@@ -215,7 +215,7 @@
         cap.className = "pf-caption";
         var brand = document.createElement("p");
         brand.className = "pf-caption__brand";
-        brand.textContent = cell.caption.brand;
+        brand.textContent = localized(cell.caption.brand, window.MK.i18n.getLang());
         var desc = document.createElement("p");
         desc.className = "pf-caption__desc";
         desc.textContent = localized(cell.caption.desc, window.MK.i18n.getLang());

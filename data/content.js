@@ -111,7 +111,10 @@ window.SITE_CONTENT = {
         collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" },
         trainings: { label: { en: "Trainings", ru: "Обучение" }, href: "https://retail-design.ru/corporate_edu" }
       },
-      clientsIntro: "Over 10 years of developing M&W, we trained employees and independent professionals from the following companies:",
+      clientsIntro: {
+        en: "Over 10 years of developing M&W, we trained employees and independent professionals from the following companies:",
+        ru: "За 10 лет развития M&W мы обучали сотрудников компаний и независимых специалистов из следующих брендов:"
+      },
       clients: ["INGKA", "IKEA", "OFFPRICE", "H&M", "Inditex", "ZARA", "12 STOREEZ", "TSUM Moscow", "United Colors of Benetton", "21 Shop", "Helly Hansen", "Debenhams", "Спортмастер", "Gloria Jeans", "BAON", "Intimissimi", "Calzedonia", "Clarks", "Ralf Ringer", "Stenders", "ALLSAINTS", "LYYK TEAM", "KIXBOX", "Fred Perry", "Albione", "BASK Kids", "COZY HOME", "TOGAS", "KARE Design"],
       en: {
         body: [

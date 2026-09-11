@@ -93,7 +93,10 @@ window.DIRECTION_PAGE_DATA = {
       left: {
         photo: { src: "assets/images/experience/business/new/business-new-01.jpeg", ar: "3/2" },
         logo: { src: "assets/logos/clients/mw-horizontal.png", alt: "M&W — Merchandising & Windows" },
-        caption: { brand: "Московская школа визуального мерчандайзинга и дизайна витрин M&W", desc: "2014–2025" }
+        caption: {
+          brand: { en: "Visual merchandising & Retail design school", ru: "Московская школа визуального мерчандайзинга и дизайна витрин M&W" },
+          desc: "2014–2025"
+        }
       },
       right: {
         photo: { src: "assets/images/experience/business/new/business-new-02.jpeg" }
@@ -128,7 +131,10 @@ window.DIRECTION_PAGE_DATA = {
       right: {
         photo: { src: "assets/images/experience/business/new/business-new-12.jpeg", ar: "3/2" },
         logo: { src: "assets/logos/clients/woodi-bureau.png", alt: "Woodi Bureau" },
-        caption: { brand: "Ритейл-дизайн бюро Woodi Bureau", desc: "2014–2025" }
+        caption: {
+          brand: { en: "Retail design Bureau Woodi", ru: "Ритейл-дизайн бюро Woodi Bureau" },
+          desc: "2014–2025"
+        }
       }
     },
     {
