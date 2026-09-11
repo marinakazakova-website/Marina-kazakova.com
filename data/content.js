@@ -261,7 +261,7 @@ window.SITE_CONTENT = {
       intro: "I see a brand as an integrated system in which business strategy, product, customer experience, communication, the digital environment, identity, creative direction, physical space, team and processes work together as one — driving the brand’s growth and development. My method:"
     },
     ru: {
-      intro: "Я рассматриваю бренд как целостную систему, в которой бизнес-стратегия, продукт, клиентский опыт, коммуникация, digital-среда, айдентика, creative direction, физическое пространство, команда и процессы работают как единое целое, создавая рост и развитие бренда. Мой метод ниже:"
+      intro: "Я рассматриваю бренд как целостную систему, в которой бизнес-стратегия, продукт, клиентский опыт, коммуникация, digital-среда, айдентика, creative direction и физическое пространство - работают как единое целое, создавая рост и развитие бренда. Мой метод ниже:"
     },
     method: [
       {
