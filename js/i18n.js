@@ -10,7 +10,11 @@
 
   function renderInline(str) {
     if (!str) return "";
-    return String(str).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    // **bold** -> <strong>; ~~accent~~ -> a bold span that turns the
+    // brand purple on hover (site-wide markup, not just this one phrase).
+    return String(str)
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/~~(.+?)~~/g, "<span class=\"text-hover-accent\">$1</span>");
   }
 
   /** Resolve a "a.b.c" path against SITE_CONTENT, trying the lang-keyed

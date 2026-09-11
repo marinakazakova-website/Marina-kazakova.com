@@ -205,6 +205,17 @@ ul {
 
 .btn:active { transform: scale(0.97); }
 
+/* Inline "~~accent~~" markup (js/i18n.js renderInline): a bold phrase
+   that turns the brand purple on hover — a small interactive emphasis
+   for a single called-out phrase inside a paragraph, not a link. */
+.text-hover-accent {
+  font-weight: 700;
+  transition: color var(--dur-fast) var(--ease-editorial);
+}
+.text-hover-accent:hover {
+  color: var(--color-accent);
+}
+
 .btn--dark {
   background: var(--color-black);
   color: var(--color-white);
@@ -1760,7 +1771,7 @@ window.SITE_CONTENT = {
       en: {
         body: [
           "I began my career within international corporations — **IKEA, Esprit, Banana Republic / Gap Inc.** — which gave me a deep understanding of how large companies work from the inside: how culture, processes, leadership, brand and relationships with audiences are built.",
-          "Today, this experience comes together with my role as **Brand Strategist** at **Future Film Foundation**. Together with director Igor Shmelev and strategy coach Ivan Ershov, we created a branded documentary film format at the intersection of **Documentary Filmmaking × Brand Strategy × Founder Storytelling = HERO FILM**.",
+          "Today, this experience comes together with my role as **Brand Strategist** at **Future Film Foundation**. Together with director Igor Shmelev and strategy coach Ivan Ershov, ~~we created a branded documentary film format at the intersection of Documentary Filmmaking × Brand Strategy × Founder Storytelling = HERO FILM.~~",
           "My role is to connect the story of the founder with the brand, the time we live in and its audience, and turn it into the narrative foundation of the film.",
           "This is how a corporate narrative becomes a **festival film** — at once a **corporate legacy, reputational asset and brand asset**, with the potential for an international festival life."
         ]
@@ -1768,7 +1779,7 @@ window.SITE_CONTENT = {
       ru: {
         body: [
           "Я начинала карьеру внутри международных корпораций — **IKEA, Esprit, Banana Republic / Gap Inc.** — и хорошо понимаю, как устроены большие компании изнутри: как формируются культура, процессы, лидерство, бренд и отношения с аудиторией.",
-          "Сегодня этот опыт соединяется с моей ролью **Brand Strategist** в **Future Film Foundation**. Вместе с режиссёром Игорем Шмелёвым и strategy coach Иваном Ершовым мы создали формат брендового документального кино на пересечении **Documentary Filmmaking × Brand Strategy × Founder Storytelling = HERO FILM**.",
+          "Сегодня этот опыт соединяется с моей ролью **Brand Strategist** в **Future Film Foundation**. Вместе с режиссёром Игорем Шмелёвым и strategy coach Иваном Ершовым ~~мы создали формат брендового документального кино на пересечении Documentary Filmmaking × Brand Strategy × Founder Storytelling = HERO FILM.~~",
           "Моя роль — соединить историю основателя с брендом, временем и аудиторией и превратить её в фабулу фильма.",
           "Так корпоративный нарратив становится **festival film** — одновременно **корпоративным наследием, репутационным и бренд-активом** с потенциалом международной фестивальной жизни."
         ]
@@ -1954,7 +1965,11 @@ window.DIRECTION_PAGE_DATA = {
 
   function renderInline(str) {
     if (!str) return "";
-    return String(str).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    // **bold** -> <strong>; ~~accent~~ -> a bold span that turns the
+    // brand purple on hover (site-wide markup, not just this one phrase).
+    return String(str)
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/~~(.+?)~~/g, "<span class=\"text-hover-accent\">$1</span>");
   }
 
   /** Resolve a "a.b.c" path against SITE_CONTENT, trying the lang-keyed

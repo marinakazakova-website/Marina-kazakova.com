@@ -102,6 +102,17 @@ ul {
 
 .btn:active { transform: scale(0.97); }
 
+/* Inline "~~accent~~" markup (js/i18n.js renderInline): a bold phrase
+   that turns the brand purple on hover — a small interactive emphasis
+   for a single called-out phrase inside a paragraph, not a link. */
+.text-hover-accent {
+  font-weight: 700;
+  transition: color var(--dur-fast) var(--ease-editorial);
+}
+.text-hover-accent:hover {
+  color: var(--color-accent);
+}
+
 .btn--dark {
   background: var(--color-black);
   color: var(--color-white);
