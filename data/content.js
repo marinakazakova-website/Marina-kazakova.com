@@ -234,6 +234,22 @@ window.SITE_CONTENT = {
     }
   },
 
+  // Films hero tagline, "Studio & Foundation" transition line, and the
+  // "Watch Our Films" section title — same static-Russian-only bug as
+  // filmsStudio/filmsDisciplines above. SCROLL stays English by design.
+  filmsHero: {
+    en: { tagline: "Cinema about the future unfolding now." },
+    ru: { tagline: "Кино о настоящем будущем." }
+  },
+  filmsTransition: {
+    en: { body: "We are a documentary film Studio and Foundation exploring people, culture and phenomena shaping the future." },
+    ru: { body: "Мы — Студия и Фонд документального кино о людях, культуре и явлениях, влияющих на будущее." }
+  },
+  filmsFilms: {
+    en: { title: "Watch Our Films" },
+    ru: { title: "Смотреть наши фильмы" }
+  },
+
   brandEcosystem: {
     title: "BRAND ECOSYSTEM DESIGN™",
     triptych: [
