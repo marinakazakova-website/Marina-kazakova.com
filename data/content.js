@@ -275,7 +275,7 @@ window.SITE_CONTENT = {
         ru: "Позиционирование, архитектура бренда, аудитория, продуктовая логика, ключевые сообщения и стратегическое направление."
       },
       {
-        title: "Identity & Visual",
+        title: "Visual Foundation",
         en: "The brand’s visual platform, communication, and its digital and physical environments.",
         ru: "Визуальная платформа бренда, коммуникация, digital- и physical-среда бренда."
       },
