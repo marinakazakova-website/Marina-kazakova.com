@@ -359,8 +359,13 @@ window.SITE_CONTENT = {
   footer: {
     en: { copy: "© Marina Kazakova · Bangkok · Working internationally" },
     ru: { copy: "© Марина Казакова · Бангкок · Работает на международном рынке" },
-    links: [
-      { label: "Telegram", href: "https://t.me/marinakazakova_ru" }
+    // Icon-only social row (js/footer.js), same on all 5 pages. Instagram
+    // and LinkedIn have no confirmed URL yet — rendered as inert
+    // placeholders (href: null) until the client supplies one.
+    social: [
+      { id: "telegram", href: "https://t.me/marinakazakova_ru" },
+      { id: "instagram", href: null },
+      { id: "linkedin", href: null }
     ]
   }
 };

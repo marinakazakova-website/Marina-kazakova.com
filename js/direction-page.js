@@ -306,6 +306,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     window.MK.i18n.init();
     window.MK.nav.init();
+    window.MK.footer.init();
     document.getElementById("siteNav").classList.add("is-visible");
     render();
   });

@@ -361,42 +361,6 @@ a.work-service__title:hover {
   .work-card__portrait { width: clamp(90px, 11.5vw, 148px); }
 }
 
-/* ---- Footer ---- */
-.site-footer {
-  background: var(--color-black);
-  color: var(--color-white);
-  padding-block: var(--space-4);
-}
-
-.site-footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.site-footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-.site-footer__links a {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: var(--ls-wide);
-  text-transform: uppercase;
-  color: var(--color-white);
-  opacity: 0.75;
-  transition: color var(--dur-fast) var(--ease-editorial), opacity var(--dur-fast) var(--ease-editorial);
-}
-.site-footer__links a:hover {
-  color: var(--color-accent);
-  opacity: 1;
-}
-
-.site-footer__copy {
-  font-size: var(--fs-small);
-  opacity: 0.5;
-}
+/* Footer moved to css/base.css (base.css is the one stylesheet every
+   page shares — work-together.css only loads on the home page, but the
+   footer is now on all 5). */

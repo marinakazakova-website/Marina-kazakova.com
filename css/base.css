@@ -132,3 +132,45 @@ ul {
   color: var(--color-black);
 }
 .btn--accent:hover { background: var(--color-black); color: var(--color-white); }
+
+/* ---- Shared footer (same on all 5 pages: Home/Retail/Business/Brands/
+   Films) — lives here rather than a page-specific stylesheet since
+   base.css is the one file every page loads. ---- */
+.site-footer {
+  background: var(--color-black);
+  color: var(--color-white);
+  padding-block: var(--space-4);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.site-footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.site-footer__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--color-white);
+  opacity: 0.75;
+  transition: color var(--dur-fast) var(--ease-editorial), opacity var(--dur-fast) var(--ease-editorial);
+}
+.site-footer__icon svg { width: 100%; height: 100%; }
+.site-footer__icon:hover { color: var(--color-accent); opacity: 1; }
+.site-footer__icon.is-disabled { opacity: 0.3; pointer-events: none; }
+
+.site-footer__copy {
+  font-size: var(--fs-small);
+  opacity: 0.5;
+}

@@ -27,25 +27,12 @@
     el.innerHTML = window.MK.i18n.renderInline(window.MK.i18n.t("brandEcosystem.intro"));
   }
 
-  function renderFooterLinks() {
-    var wrap = document.getElementById("footerLinks");
-    wrap.innerHTML = "";
-    window.SITE_CONTENT.footer.links.forEach(function (link) {
-      var a = document.createElement("a");
-      a.href = link.href;
-      a.textContent = link.label;
-      a.target = "_blank";
-      a.rel = "noopener";
-      wrap.appendChild(a);
-    });
-  }
-
   document.addEventListener("DOMContentLoaded", function () {
     window.MK.i18n.init();
     window.MK.nav.init();
     renderTriptych();
     renderBrandEcosystemText();
-    renderFooterLinks();
+    window.MK.footer.init();
     window.MK.method.init();
     window.MK.workTogether.init();
     window.MK.experience.init();
