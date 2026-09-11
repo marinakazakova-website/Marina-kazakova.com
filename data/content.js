@@ -67,13 +67,17 @@ window.SITE_CONTENT = {
       id: "retail",
       navLabel: "Retail",
       title: "Retail | Brand into Experience",
-      tagline: "Turning brand strategy into customer and commercial experience.",
+      tagline: {
+        en: "Turning brand strategy into customer and commercial experience.",
+        ru: "Переводим стратегию бренда в клиентский и коммерческий опыт."
+      },
       media: { type: "slider", cover: "assets/images/experience/retail/cover.jpeg",
         images: Array.from({length: 15}, (_, i) => `assets/images/experience/retail/retail-${String(i+1).padStart(2,"0")}.jpeg`) },
       links: {
+        // Website stays retail-design.ru in both languages — untouched by design.
         website: { label: "retail-design.ru", href: "https://retail-design.ru/" },
-        portfolio: { label: "Portfolio", href: "assets/downloads/retail-design-presentation.pdf" },
-        collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" }
+        portfolio: { label: { en: "Portfolio", ru: "Портфолио" }, href: "assets/downloads/retail-design-presentation.pdf" },
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" }
       },
       clients: ["IKEA", "MEGA", "Underline", "Fujifilm", "Tele2", "Askona", "L’Etoile", "Adidas Originals", "Reebok Classic", "ECCO", "G-STAR RAW", "No One", "Simple Wine", "U-BOAT", "EURODECOR", "Moppi", "Lamoda", "Gloria Jeans", "Yandex Market", "Alisa AI", "Sleep.8"],
       en: {
@@ -85,9 +89,9 @@ window.SITE_CONTENT = {
       },
       ru: {
         body: [
-          "Я обладаю глубокой экспертизой в **Retail Design и Visual Merchandising** и умею соединять стратегию бренда, бизнес-задачи, покупательское поведение и тренды ритейл дизайна. Для меня магазин — это **дом бренда**: пространство, где стратегия превращается в клиентский опыт и коммерческие показатели.",
-          "За годы работы с международными компаниями и сетевыми брендами я сформировала собственный метод разработки **Retail Design Concept** — от стратегической идеи и customer journey до дизайн-системы, документации и имплементации в действующую сеть.",
-          "В моём опыте — более **300 реализованных магазинов** и более **100 retail-стандартов и guidelines**: концепции магазинов, VM standards, window design, merchandising books, POSM и форматы для различных типов торговых пространств."
+          "Я обладаю глубокой экспертизой в **Retail Design и Visual Merchandising**, соединяя стратегию бренда, бизнес-задачи, покупательское поведение и современные тенденции ритейла. Для меня магазин — это **дом бренда**: пространство, где стратегия превращается в клиентский опыт и коммерческий результат.",
+          "За годы работы с международными компаниями и сетевыми брендами я сформировала собственный подход к разработке **Retail Design Concept** — от стратегической идеи и пути клиента до дизайн-системы, документации и реализации в действующей сети.",
+          "В моём опыте — более **300 реализованных магазинов** и более **100 retail-стандартов и guidelines**: концепции магазинов, стандарты Visual Merchandising, дизайн витрин, merchandising books, POSM и форматы для разных типов торговых пространств."
         ]
       }
     },

@@ -16,15 +16,19 @@
  *   ar / op are optional — only set when a photo needs a deliberate crop
  *   to hold its place in the rhythm (object-fit: cover); otherwise the
  *   image keeps its natural proportions. Source files untouched.
- *   caption is { brand, desc } (client-supplied text) or null.
+ *   caption is { brand, desc } or null — brand is the project name (kept
+ *   as-is in both languages), desc is a real { en, ru } translation.
  */
 window.DIRECTION_PAGE_DATA = {
   directionId: "retail",
 
   ctaText: {
-    lead: "Ready to have a project?",
-    sub: "Leave a request, it’s free. I’d love to chat.",
-    cta: "LET'S TALK"
+    lead: { en: "Have a project in mind?", ru: "Есть проект?" },
+    sub: {
+      en: "Tell me about it. I’d love to discuss it with you.",
+      ru: "Расскажите о нём — буду рада обсудить задачу"
+    },
+    cta: { en: "LET'S TALK", ru: "СВЯЗАТЬСЯ" }
   },
 
   // Client logos — compact vertical strip under the functional links.
@@ -65,31 +69,31 @@ window.DIRECTION_PAGE_DATA = {
     {
       emphasis: "right",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: { brand: "ECCO", desc: "Window Display Design" }, ar: "3/4", op: "center" },
-        { src: "assets/images/experience/retail/new/retail-new-02-gstar-raw.jpeg", caption: { brand: "G-STAR RAW", desc: "Pop-up Space for a New Collection" }, ar: "3/4", op: "right" }
+        { src: "assets/images/experience/retail/new/retail-new-01-ecco.jpeg", caption: { brand: "ECCO", desc: { en: "Window Display Design", ru: "Дизайн витрины" } }, ar: "3/4", op: "center" },
+        { src: "assets/images/experience/retail/new/retail-new-02-gstar-raw.jpeg", caption: { brand: "G-STAR RAW", desc: { en: "Pop-up Space for a New Collection", ru: "Pop-up пространство для новой коллекции" } }, ar: "3/4", op: "right" }
       ],
       right: [
-        { src: "assets/images/experience/retail/new/retail-new-03-sleep8.jpeg", caption: { brand: "SLEEP.8", desc: "Turnkey Store Design · Portugal" }, ar: "3/4", op: "center" }
+        { src: "assets/images/experience/retail/new/retail-new-03-sleep8.jpeg", caption: { brand: "SLEEP.8", desc: { en: "Turnkey Store Design · Portugal", ru: "Дизайн магазина под ключ · Португалия" } }, ar: "3/4", op: "center" }
       ]
     },
     // 1 large (left) + 1 small (right)
     {
       emphasis: "left",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-04-rive-gauche.jpeg", caption: { brand: "RIVE GAUCHE", desc: "Niche Perfumery Corner Design" }, ar: "3/4", op: "35% center" }
+        { src: "assets/images/experience/retail/new/retail-new-04-rive-gauche.jpeg", caption: { brand: "RIVE GAUCHE", desc: { en: "Niche Perfumery Corner Design", ru: "Дизайн корнера нишевой парфюмерии" } }, ar: "3/4", op: "35% center" }
       ],
       right: [
-        { src: "assets/images/experience/retail/new/retail-new-05-underline.jpeg", caption: { brand: "UNDERLINE", desc: "Seasonal Window Display & Store Styling" }, ar: "3/4", op: "45% center" }
+        { src: "assets/images/experience/retail/new/retail-new-05-underline.jpeg", caption: { brand: "UNDERLINE", desc: { en: "Seasonal Window Display & Store Styling", ru: "Сезонное оформление витрин и пространства" } }, ar: "3/4", op: "45% center" }
       ]
     },
     // 1 small (left) + 1 large (right)
     {
       emphasis: "right",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-06-ecco.jpeg", caption: { brand: "ECCO", desc: "Entrance Display Design" }, ar: "1/1", op: "center" }
+        { src: "assets/images/experience/retail/new/retail-new-06-ecco.jpeg", caption: { brand: "ECCO", desc: { en: "Entrance Display Design", ru: "Дизайн входной зоны" } }, ar: "1/1", op: "center" }
       ],
       right: [
-        { src: "assets/images/experience/retail/new/retail-new-07-catcher.jpeg", caption: { brand: "CATCHER", desc: "Turnkey Store Design" }, ar: "3/4", op: "center" }
+        { src: "assets/images/experience/retail/new/retail-new-07-catcher.jpeg", caption: { brand: "CATCHER", desc: { en: "Turnkey Store Design", ru: "Дизайн магазина под ключ" } }, ar: "3/4", op: "center" }
       ]
     },
 
@@ -99,22 +103,22 @@ window.DIRECTION_PAGE_DATA = {
     {
       emphasis: "left",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-08-ascona.jpeg", caption: { brand: "ASKONA", desc: "Window Display Design" } }
+        { src: "assets/images/experience/retail/new/retail-new-08-ascona.jpeg", caption: { brand: "ASKONA", desc: { en: "Window Display Design", ru: "Дизайн витрины" } } }
       ],
       right: [
-        { src: "assets/images/experience/retail/new/retail-new-09-moppi.jpeg", caption: { brand: "MOPPI", desc: "Island Retail Corner Design" }, ar: "3/4", op: "35% center" },
-        { src: "assets/images/experience/retail/new/retail-new-10-albione.jpeg", caption: { brand: "ALBIONE", desc: "Window Display Design" } }
+        { src: "assets/images/experience/retail/new/retail-new-09-moppi.jpeg", caption: { brand: "MOPPI", desc: { en: "Island Retail Corner Design", ru: "Дизайн островного retail-корнера" } }, ar: "3/4", op: "35% center" },
+        { src: "assets/images/experience/retail/new/retail-new-10-albione.jpeg", caption: { brand: "ALBIONE", desc: { en: "Window Display Design", ru: "Дизайн витрины" } } }
       ]
     },
     // 2 small (left) + 1 large (right)
     {
       emphasis: "right",
       left: [
-        { src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: { brand: "IKEA · FLEX POP UP", desc: "Modular Pop-up Retail Concept" }, ar: "3/4", op: "center" },
-        { src: "assets/images/experience/retail/new/retail-new-12-underline.jpeg", caption: { brand: "UNDERLINE", desc: "6,000 m² Fashion Retail Space" }, ar: "3/4", op: "center" }
+        { src: "assets/images/experience/retail/new/retail-new-11-ikea-popup.jpeg", caption: { brand: "IKEA · FLEX POP UP", desc: { en: "Modular Pop-up Retail Concept", ru: "Модульная pop-up retail-концепция" } }, ar: "3/4", op: "center" },
+        { src: "assets/images/experience/retail/new/retail-new-12-underline.jpeg", caption: { brand: "UNDERLINE", desc: { en: "6,000 m² Fashion Retail Space", ru: "Fashion retail space · 6 000 м²" } }, ar: "3/4", op: "center" }
       ],
       right: [
-        { src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: { brand: "CATCHER", desc: "Turnkey Store Design" }, ar: "3/4", op: "35% center" }
+        { src: "assets/images/experience/retail/new/retail-new-13-catcher.jpeg", caption: { brand: "CATCHER", desc: { en: "Turnkey Store Design", ru: "Дизайн магазина под ключ" } }, ar: "3/4", op: "35% center" }
       ]
     }
   ]

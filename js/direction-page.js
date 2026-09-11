@@ -70,6 +70,7 @@
   }
 
   function renderLinks(direction) {
+    var lang = window.MK.i18n.getLang();
     var wrap = document.getElementById("directionLinks");
     wrap.innerHTML = "";
 
@@ -90,15 +91,18 @@
           el.rel = "noopener";
         }
       }
-      el.textContent = forceLabel || (data && data.label) || "";
+      el.textContent = localized(forceLabel, lang) || localized(data && data.label, lang);
       wrap.appendChild(el);
     }
 
-    var portfolioLabel = window.DIRECTION_PAGE_DATA.portfolioLabel || "Check our projects";
+    // A page can force its own portfolio-link wording (e.g. Films' "Download
+    // Presentation") — falls back to the direction's own approved label
+    // (data/content.js) otherwise, which is now the normal case.
+    var portfolioLabel = window.DIRECTION_PAGE_DATA.portfolioLabel;
     if (direction.links.website) linkRow("website", direction.links.website);
     if (direction.links.portfolio && direction.links.portfolio.href) linkRow("portfolio", direction.links.portfolio, portfolioLabel);
     if (direction.links.trainings) linkRow("trainings", direction.links.trainings);
-    linkRow("collaboration", direction.links.collaboration, "Let's talk");
+    linkRow("collaboration", direction.links.collaboration);
 
     renderClientLogos();
   }
@@ -126,18 +130,19 @@
 
   function renderCta() {
     var data = window.DIRECTION_PAGE_DATA.ctaText;
+    var lang = window.MK.i18n.getLang();
     var wrap = document.createElement("div");
     wrap.className = "pf-cta";
 
     var lead = document.createElement("p");
     lead.className = "pf-cta__lead";
-    lead.textContent = data.lead;
+    lead.textContent = localized(data.lead, lang);
     var sub = document.createElement("p");
     sub.className = "pf-cta__sub";
-    sub.textContent = data.sub;
+    sub.textContent = localized(data.sub, lang);
     var btn = document.createElement("a");
     btn.className = "btn btn--dark";
-    btn.textContent = data.cta;
+    btn.textContent = localized(data.cta, lang);
     btn.href = "https://t.me/marinakazakova_ru";
     btn.target = "_blank";
     btn.rel = "noopener";
@@ -172,7 +177,7 @@
       brand.textContent = project.caption.brand;
       var desc = document.createElement("p");
       desc.className = "pf-caption__desc";
-      desc.textContent = project.caption.desc;
+      desc.textContent = localized(project.caption.desc, window.MK.i18n.getLang());
       cap.appendChild(brand);
       cap.appendChild(desc);
       wrap.appendChild(cap);
@@ -213,7 +218,7 @@
         brand.textContent = cell.caption.brand;
         var desc = document.createElement("p");
         desc.className = "pf-caption__desc";
-        desc.textContent = cell.caption.desc;
+        desc.textContent = localized(cell.caption.desc, window.MK.i18n.getLang());
         cap.appendChild(brand);
         cap.appendChild(desc);
         meta.appendChild(cap);
@@ -293,6 +298,7 @@
 
   function render() {
     renderIntro(getDirection());
+    renderFlow();
   }
 
   document.addEventListener("mk:langchange", render);
@@ -302,6 +308,5 @@
     window.MK.nav.init();
     document.getElementById("siteNav").classList.add("is-visible");
     render();
-    renderFlow();
   });
 })();
