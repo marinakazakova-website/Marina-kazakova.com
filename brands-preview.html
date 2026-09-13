@@ -1075,6 +1075,14 @@ body.is-opening { overflow: hidden; }
   font-size: var(--fs-body);
 }
 
+/* Heavier than the tagline's own bold (700) so the "scroll down" cue
+   reads clearly, not as just another word in the sentence. */
+.brands-method__tagline-arrow {
+  font-weight: 900;
+  -webkit-text-stroke: 0.5px currentColor;
+  margin-left: 0.2em;
+}
+
 /* Small label-button between the nav pills and the tagline — same
    uppercase Consolas treatment as the pills, white by default (reads
    as a separate, secondary note), purple on hover. Lives inside the
@@ -2784,7 +2792,7 @@ window.SITE_CONTENT = {
   },
 
   workTogether: {
-    eyebrow: "WAYS TO WORK TOGETHER",
+    eyebrow: { en: "WAYS TO WORK TOGETHER", ru: "ФОРМАТЫ СОТРУДНИЧЕСТВА" },
     cta: "LET'S TALK",
     services: [
       {
@@ -2828,7 +2836,7 @@ window.SITE_CONTENT = {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",
           ru: "Долгосрочная работа с брендом, собственником и командой. Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу."
         },
-        sectionLabel: { en: "COOPERATION STRATEGY", ru: "СТРАТЕГИЯ СОТРУДНИЧЕСТВА" },
+        sectionLabel: { en: "COOPERATION STRATEGY", ru: "МЕТОД СОТРУДНИЧЕСТВА" },
         steps: ["BRAND AUDIT", "BRAND FOUNDATION", "VISUAL FOUNDATION", "PRODUCT EXPERIENCE", "MARKET DEVELOPMENT", "SMM", "RETAIL DESIGN"]
       }
     ],
@@ -2899,7 +2907,7 @@ window.BRANDS_PAGE_DATA = {
 
   tagline: {
     en: "Different Brands. One Strategic System.",
-    ru: "Разные бренды. Единый метод сотрудничества. ↓"
+    ru: "Разные бренды. Единый метод сотрудничества ↓"
   },
 
   // Sits right under the tagline, inside the same sticky method bar —
@@ -4001,6 +4009,24 @@ window.BRANDS_PAGE_DATA = {
     return /^(data|https?|blob):/.test(src) ? src : "../" + src;
   }
 
+  // The RU tagline ends with a "↓" pointing at the stages below; render it
+  // in its own bolder span rather than as plain text so it reads as a
+  // deliberate visual cue, not just another character in the sentence.
+  function renderTagline(el, text) {
+    var arrowIndex = text.indexOf("↓");
+    if (arrowIndex === -1) {
+      el.textContent = text;
+      return;
+    }
+    el.textContent = "";
+    el.appendChild(document.createTextNode(text.slice(0, arrowIndex)));
+    var arrow = document.createElement("span");
+    arrow.className = "brands-method__tagline-arrow";
+    arrow.textContent = "↓";
+    el.appendChild(arrow);
+    el.appendChild(document.createTextNode(text.slice(arrowIndex + 1)));
+  }
+
   function renderMethodNav() {
     var nav = document.getElementById("brandsMethodNav");
     nav.innerHTML = "";
@@ -4014,7 +4040,7 @@ window.BRANDS_PAGE_DATA = {
       nav.appendChild(a);
     });
 
-    document.getElementById("brandsTagline").textContent = metaText(DATA.tagline, window.MK.i18n.getLang());
+    renderTagline(document.getElementById("brandsTagline"), metaText(DATA.tagline, window.MK.i18n.getLang()));
     document.getElementById("brandsDuration").textContent = metaText(DATA.duration, window.MK.i18n.getLang());
   }
 
@@ -4115,7 +4141,7 @@ window.BRANDS_PAGE_DATA = {
     var durationEl = document.getElementById("brandsDuration");
     if (durationEl) durationEl.textContent = metaText(DATA.duration, lang);
     var taglineEl = document.getElementById("brandsTagline");
-    if (taglineEl) taglineEl.textContent = metaText(DATA.tagline, lang);
+    if (taglineEl) renderTagline(taglineEl, metaText(DATA.tagline, lang));
     DATA.stages.forEach(function (stage) {
       var section = document.getElementById(stage.id);
       if (!section) return;

@@ -34,7 +34,7 @@ window.BRANDS_PAGE_DATA = {
 
   tagline: {
     en: "Different Brands. One Strategic System.",
-    ru: "Разные бренды. Единый метод сотрудничества. ↓"
+    ru: "Разные бренды. Единый метод сотрудничества ↓"
   },
 
   // Sits right under the tagline, inside the same sticky method bar —

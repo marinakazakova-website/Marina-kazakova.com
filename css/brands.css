@@ -165,6 +165,14 @@
   font-size: var(--fs-body);
 }
 
+/* Heavier than the tagline's own bold (700) so the "scroll down" cue
+   reads clearly, not as just another word in the sentence. */
+.brands-method__tagline-arrow {
+  font-weight: 900;
+  -webkit-text-stroke: 0.5px currentColor;
+  margin-left: 0.2em;
+}
+
 /* Small label-button between the nav pills and the tagline — same
    uppercase Consolas treatment as the pills, white by default (reads
    as a separate, secondary note), purple on hover. Lives inside the

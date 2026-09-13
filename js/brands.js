@@ -19,6 +19,24 @@
     return /^(data|https?|blob):/.test(src) ? src : "../" + src;
   }
 
+  // The RU tagline ends with a "↓" pointing at the stages below; render it
+  // in its own bolder span rather than as plain text so it reads as a
+  // deliberate visual cue, not just another character in the sentence.
+  function renderTagline(el, text) {
+    var arrowIndex = text.indexOf("↓");
+    if (arrowIndex === -1) {
+      el.textContent = text;
+      return;
+    }
+    el.textContent = "";
+    el.appendChild(document.createTextNode(text.slice(0, arrowIndex)));
+    var arrow = document.createElement("span");
+    arrow.className = "brands-method__tagline-arrow";
+    arrow.textContent = "↓";
+    el.appendChild(arrow);
+    el.appendChild(document.createTextNode(text.slice(arrowIndex + 1)));
+  }
+
   function renderMethodNav() {
     var nav = document.getElementById("brandsMethodNav");
     nav.innerHTML = "";
@@ -32,7 +50,7 @@
       nav.appendChild(a);
     });
 
-    document.getElementById("brandsTagline").textContent = metaText(DATA.tagline, window.MK.i18n.getLang());
+    renderTagline(document.getElementById("brandsTagline"), metaText(DATA.tagline, window.MK.i18n.getLang()));
     document.getElementById("brandsDuration").textContent = metaText(DATA.duration, window.MK.i18n.getLang());
   }
 
@@ -133,7 +151,7 @@
     var durationEl = document.getElementById("brandsDuration");
     if (durationEl) durationEl.textContent = metaText(DATA.duration, lang);
     var taglineEl = document.getElementById("brandsTagline");
-    if (taglineEl) taglineEl.textContent = metaText(DATA.tagline, lang);
+    if (taglineEl) renderTagline(taglineEl, metaText(DATA.tagline, lang));
     DATA.stages.forEach(function (stage) {
       var section = document.getElementById(stage.id);
       if (!section) return;
