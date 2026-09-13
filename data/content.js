@@ -143,7 +143,7 @@ window.SITE_CONTENT = {
       links: {
         website: null,
         portfolio: { label: "Portfolio", href: null },
-        collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" }
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" }
       },
       clients: [],
       en: {

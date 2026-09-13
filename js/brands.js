@@ -41,7 +41,7 @@
   // than repeated per stage in the data file.
   var META_LABELS = {
     en: { goal: "GOAL", scope: "SCOPE OF WORK", result: "RESULT", team: "TEAM", outsource: "OUTSOURCE", timing: "TIMELINE" },
-    ru: { goal: "ЦЕЛЬ", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "АУТСОРС", timing: "СРОК" }
+    ru: { goal: "ЦЕЛЬ ЭТАПА", scope: "СОСТАВ РАБОТ", result: "РЕЗУЛЬТАТ", team: "КОМАНДА", outsource: "АУТСОРС", timing: "СРОК" }
   };
 
   // A meta field is either a plain string (same in both languages — e.g.
