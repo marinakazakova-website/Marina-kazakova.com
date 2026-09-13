@@ -77,7 +77,7 @@ window.SITE_CONTENT = {
         // Website stays retail-design.ru in both languages — untouched by design.
         website: { label: "retail-design.ru", href: "https://retail-design.ru/" },
         portfolio: { label: { en: "Portfolio", ru: "Портфолио" }, href: "assets/downloads/retail-design-presentation.pdf" },
-        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" }
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: { en: "https://wa.me/79166156441", ru: "https://t.me/marinakazakova_ru" } }
       },
       clients: ["IKEA", "MEGA", "Underline", "Fujifilm", "Tele2", "Askona", "L’Etoile", "Adidas Originals", "Reebok Classic", "ECCO", "G-STAR RAW", "No One", "Simple Wine", "U-BOAT", "EURODECOR", "Moppi", "Lamoda", "Gloria Jeans", "Yandex Market", "Alisa AI", "Sleep.8"],
       en: {
@@ -108,7 +108,7 @@ window.SITE_CONTENT = {
       links: {
         website: { label: "retail-design.ru", href: null },
         portfolio: { label: "Portfolio", href: null },
-        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" },
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: { en: "https://wa.me/79166156441", ru: "https://t.me/marinakazakova_ru" } },
         trainings: { label: { en: "Trainings", ru: "Обучение" }, href: "https://retail-design.ru/corporate_edu" }
       },
       clientsIntro: {
@@ -143,7 +143,7 @@ window.SITE_CONTENT = {
       links: {
         website: null,
         portfolio: { label: "Portfolio", href: null },
-        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: "https://t.me/marinakazakova_ru" }
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: { en: "https://wa.me/79166156441", ru: "https://t.me/marinakazakova_ru" } }
       },
       clients: [],
       en: {
@@ -173,7 +173,7 @@ window.SITE_CONTENT = {
       links: {
         website: { label: "futurefilm.foundation", href: "https://futurefilm.foundation/" },
         portfolio: { label: "Portfolio", href: "assets/downloads/film-presentation.pdf" },
-        collaboration: { label: "Collaboration", href: "https://t.me/marinakazakova_ru" }
+        collaboration: { label: "Collaboration", href: { en: "https://wa.me/79166156441", ru: "https://t.me/marinakazakova_ru" } }
       },
       clients: [],
       en: {
@@ -362,6 +362,7 @@ window.SITE_CONTENT = {
     // Icon-only social row (js/footer.js), same on all 5 pages.
     social: [
       { id: "telegram", href: "https://t.me/marinakazakova_ru" },
+      { id: "whatsapp", href: "https://wa.me/79166156441" },
       { id: "instagram", href: "https://www.instagram.com/marina_kazakova/" },
       { id: "linkedin", href: "https://www.linkedin.com/in/marina-kazakova-b45a9a302" }
     ]

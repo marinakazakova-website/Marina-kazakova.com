@@ -8,6 +8,17 @@
 
   var state = { lang: "en" };
 
+  // Primary contact channel differs by language: EN visitors go to
+  // WhatsApp, RU visitors stay on Telegram. Shared by every "LET'S
+  // TALK / CONTACT / COLLABORATION"-type CTA across all 5 pages.
+  var CONTACT_URLS = {
+    en: "https://wa.me/79166156441",
+    ru: "https://t.me/marinakazakova_ru"
+  };
+  function contactUrl(lang) {
+    return CONTACT_URLS[lang] || CONTACT_URLS.en;
+  }
+
   function renderInline(str) {
     if (!str) return "";
     // **bold** -> <strong>; ~~accent~~ -> a bold span that turns the
@@ -77,6 +88,7 @@
     setLang: setLang,
     t: t,
     renderInline: renderInline,
-    getLang: function () { return state.lang; }
+    getLang: function () { return state.lang; },
+    contactUrl: contactUrl
   };
 })();

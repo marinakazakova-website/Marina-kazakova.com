@@ -83,7 +83,7 @@
         el.href = "javascript:void(0)";
         el.setAttribute("aria-disabled", "true");
       } else {
-        el.href = assetUrl(data.href);
+        el.href = assetUrl(localized(data.href, lang));
         if (kind === "portfolio") {
           el.setAttribute("download", "");
         } else {
@@ -143,7 +143,7 @@
     var btn = document.createElement("a");
     btn.className = "btn btn--dark";
     btn.textContent = localized(data.cta, lang);
-    btn.href = "https://t.me/marinakazakova_ru";
+    btn.href = window.MK.i18n.contactUrl(lang);
     btn.target = "_blank";
     btn.rel = "noopener";
 

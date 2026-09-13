@@ -27,16 +27,28 @@
     el.innerHTML = window.MK.i18n.renderInline(window.MK.i18n.t("brandEcosystem.intro"));
   }
 
+  // Static-HTML contact CTAs (data-i18n only swaps their text) — href
+  // must be re-applied on every language switch too: EN -> WhatsApp,
+  // RU -> Telegram.
+  function applyContactLinks() {
+    var lang = window.MK.i18n.getLang();
+    document.querySelectorAll("[data-contact-link]").forEach(function (el) {
+      el.href = window.MK.i18n.contactUrl(lang);
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     window.MK.i18n.init();
     window.MK.nav.init();
     renderTriptych();
     renderBrandEcosystemText();
+    applyContactLinks();
     window.MK.footer.init();
     window.MK.method.init();
     window.MK.workTogether.init();
     window.MK.experience.init();
     window.MK.openingAnimation.play();
     document.addEventListener("mk:langchange", renderBrandEcosystemText);
+    document.addEventListener("mk:langchange", applyContactLinks);
   });
 })();

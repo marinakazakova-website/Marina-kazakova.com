@@ -169,6 +169,8 @@
         if (key === "outsource") return;
         row.querySelector(".brands-meta__value").textContent = metaText(stage.meta[key], lang);
       });
+      var discussBtn = section.querySelector(".brands-toggle--cta");
+      if (discussBtn) discussBtn.href = window.MK.i18n.contactUrl(lang);
       var quote = section.querySelector(".brands-workflow__quote");
       if (quote) quote.textContent = metaText(stage.meta.goal, lang);
       stage.workflow.forEach(function (step) {
@@ -827,7 +829,7 @@
     // height) — just a plain contact link, not an expand control.
     var discuss = document.createElement("a");
     discuss.className = "brands-toggle brands-toggle--cta";
-    discuss.href = "https://t.me/marinakazakova_ru";
+    discuss.href = window.MK.i18n.contactUrl(window.MK.i18n.getLang());
     discuss.target = "_blank";
     discuss.rel = "noopener";
     discuss.textContent = "DISCUSS YOUR PROJECT";
