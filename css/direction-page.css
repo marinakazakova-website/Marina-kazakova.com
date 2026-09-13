@@ -294,6 +294,32 @@
 }
 .direction-end__back:hover { opacity: 0.6; }
 
+/* Compact cross-links between the 4 direction pages — same row on
+   desktop and mobile, no separate layout for either. */
+.direction-explore {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+}
+.direction-explore__label {
+  opacity: 0.55;
+  margin-right: 0.5em;
+}
+.direction-explore__current {
+  color: var(--color-accent);
+}
+.direction-explore__link {
+  transition: opacity var(--dur-fast) var(--ease-editorial);
+}
+.direction-explore__link:hover { opacity: 0.6; }
+.direction-explore__sep {
+  display: inline-block;
+  opacity: 0.4;
+  margin-inline: 0.4em;
+}
+
 @media (max-width: 900px) {
   .direction-intro { grid-template-columns: 1fr; gap: var(--space-4); }
   /* Single column now stacks DOM order (links + a long client-logo list)
