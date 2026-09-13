@@ -64,6 +64,37 @@
   100% { background-position: -55% 0, -55% 0; }
 }
 
+/* Mobile-only replacement for the 3-tile triptych: one wide pre-designed
+   image (the arrow/growth motif is already baked into it), hidden on
+   desktop and swapped in at the same breakpoint the triptych collapses
+   at. Gets the same light-sweep animation as the desktop triptych so the
+   "forward motion" idea carries over rather than being lost. */
+.triptych-mobile {
+  display: none;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: var(--color-black);
+}
+
+.triptych-mobile img {
+  width: 100%;
+  display: block;
+}
+
+.triptych-mobile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(100deg, transparent 40%, rgba(122, 129, 255, 0.55) 50%, transparent 60%),
+    linear-gradient(100deg, transparent 48.3%, rgba(255, 255, 255, 0.95) 50%, transparent 51.7%);
+  background-size: 300% 100%, 300% 100%;
+  background-position: 155% 0, 155% 0;
+  pointer-events: none;
+  animation: triptych-sweep 7s ease-in-out infinite;
+}
+
 .brand-ecosystem__intro {
   padding-block: var(--space-6) var(--space-5);
 }
@@ -171,8 +202,8 @@
 }
 
 @media (max-width: 700px) {
-  .triptych { grid-template-columns: 1fr; }
-  .triptych img { height: 46vw; }
+  .triptych { display: none; }
+  .triptych-mobile { display: block; }
   .method__row { grid-template-columns: 1fr; gap: 0.5rem; }
 }
 

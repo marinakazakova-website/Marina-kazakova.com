@@ -293,7 +293,7 @@ window.SITE_CONTENT = {
   },
 
   workTogether: {
-    eyebrow: "WAYS TO WORK TOGETHER",
+    eyebrow: { en: "WAYS TO WORK TOGETHER", ru: "ФОРМАТЫ СОТРУДНИЧЕСТВА" },
     cta: "LET'S TALK",
     services: [
       {
@@ -337,7 +337,7 @@ window.SITE_CONTENT = {
           en: "Long-term work with the brand, the owner and the team. I join the project as a strategic brand partner and guide the brand from strategy through to execution, building the contractor team we need and moving into delivery together.",
           ru: "Долгосрочная работа с брендом, собственником и командой. Я вхожу в проект как strategic brand partner и сопровождаю бренд от стратегии до реализации, формирую необходимую команду подрядчиков и вместе идём в работу."
         },
-        sectionLabel: { en: "COOPERATION STRATEGY", ru: "СТРАТЕГИЯ СОТРУДНИЧЕСТВА" },
+        sectionLabel: { en: "COOPERATION STRATEGY", ru: "МЕТОД СОТРУДНИЧЕСТВА" },
         steps: ["BRAND AUDIT", "BRAND FOUNDATION", "VISUAL FOUNDATION", "PRODUCT EXPERIENCE", "MARKET DEVELOPMENT", "SMM", "RETAIL DESIGN"]
       }
     ],

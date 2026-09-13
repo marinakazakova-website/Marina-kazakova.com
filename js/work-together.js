@@ -37,6 +37,10 @@
   function render() {
     var lang = window.MK.i18n.getLang();
     var data = window.SITE_CONTENT.workTogether;
+
+    var eyebrow = document.querySelector(".work-card__eyebrow");
+    if (eyebrow) eyebrow.textContent = data.eyebrow[lang];
+
     var wrap = document.getElementById("workCardBottom");
     wrap.innerHTML = "";
 
