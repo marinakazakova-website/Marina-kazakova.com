@@ -1,16 +1,13 @@
 /* ========================================================================
    STRATEGIC SESSION — /strategic-session/
-   UX-skeleton pass: hero + how-it-works + results + approach + an
-   interactive Strategic Brief. Built entirely from the shared type
-   scale, spacing and button system in tokens.css/base.css — nothing new
-   invented here except this page's own --ss-* scope.
+   Storyboard pass v2. Built entirely from the shared type scale, spacing
+   and button system in tokens.css/base.css — nothing new invented here
+   except this page's own --ss-* scope.
 
    --ss-* custom properties exist purely so a future accent colour /
-   background treatment for this page can be dropped in later (e.g.
-   overriding them on .strategic-session, or via a modifier class) without
+   background treatment for this page can be dropped in later without
    touching this file's structure. --ss-accent currently equals the
-   site's own accent purple — a placeholder treatment for the "My
-   Approach" block and the Brief's active states, explicitly not final.
+   site's own accent purple — a placeholder treatment, not final.
    ======================================================================== */
 
 .strategic-session {
@@ -20,8 +17,7 @@
   --ss-accent: var(--color-accent);
 }
 
-/* ---- Shared scroll-reveal (same recipe as films.css/brands.css: each
-   page keeps its own copy rather than sharing one via base.css). ---- */
+/* ---- Shared scroll-reveal (same recipe as films.css/brands.css) ---- */
 .reveal-up {
   opacity: 0;
   transform: translateY(16px);
@@ -55,33 +51,30 @@
 
 .ss-hero__inner {
   width: 100%;
-  max-width: 760px;
+  max-width: 720px;
   margin-inline: auto;
   text-align: center;
 }
 
+/* Smaller / calmer than the site's usual display type on purpose — this
+   headline needs to sit on one line even in RU ("ЗАПРОС НА СЕССИЮ"). */
 .ss-hero__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-xl);
+  font-size: clamp(1.6rem, 1rem + 4vw, 3.4rem);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
+  white-space: nowrap;
   margin-bottom: var(--space-4);
 }
 
 .ss-hero__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  max-width: 600px;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  max-width: 46em;
   margin-inline: auto;
   margin-bottom: var(--space-5);
-}
-
-.ss-hero__body p {
-  font-size: var(--fs-body-lg);
-  line-height: var(--lh-relaxed);
 }
 
 .ss-hero__cta-arrow {
@@ -98,44 +91,39 @@
 
 .ss-how__stages {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  align-items: start;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
 }
 
 .ss-stage {
   position: relative;
-  background: var(--color-offwhite);
+  background: var(--color-black);
+  color: var(--color-white);
   border-radius: var(--radius-card);
   padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  transition: background var(--dur-base) var(--ease-editorial), color var(--dur-base) var(--ease-editorial);
 }
-
-/* A simple "->" between stages on desktop — same sequence motif as the
-   step arrows already used in Ways to Work Together / Brands, not a new
-   idea. Deliberately not the wavy connecting-line concept from the
-   storyboard yet (kept static/simple per spec, revisited later). */
-.ss-stage:not(:last-child)::after {
-  content: "\2192";
-  position: absolute;
-  top: 50%;
-  right: calc(var(--space-4) * -1 - 0.1em);
-  transform: translate(50%, -50%);
-  font-size: 1.4rem;
-  opacity: 0.3;
+.ss-stage:hover {
+  background: var(--ss-accent);
+  color: var(--color-black);
 }
 
 .ss-stage__head {
   display: flex;
   align-items: baseline;
   gap: 0.6em;
-  margin-bottom: 0.75em;
-  flex-wrap: wrap;
+  margin-bottom: 0.6em;
 }
 
+/* Same visual size as the title — mono/regular vs. display/bold is what
+   tells them apart, not a size difference. */
 .ss-stage__index {
   font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  opacity: 0.45;
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  opacity: 0.5;
 }
 
 .ss-stage__title {
@@ -149,24 +137,68 @@
 .ss-stage__duration {
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
   padding: 0.35em 0.7em;
   border-radius: var(--radius-btn);
-  background: var(--ss-accent);
+  background: var(--color-white);
   color: var(--color-black);
+  margin-bottom: 0.9em;
 }
 
 .ss-stage__text {
   font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
+  flex: 1;
 }
 
-/* ---- 03 — RESULTS (typing reveal) ---- */
+.ss-stage__icons {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-top: var(--space-3);
+  align-self: flex-start;
+}
+
+.ss-stage__icon {
+  display: flex;
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--color-white);
+  opacity: 0.9;
+}
+.ss-stage__icon svg { width: 100%; height: 100%; }
+
+/* A calm connecting line with a dot at each end, between adjacent stage
+   cards — the sequence motif from the storyboard. Horizontal connector
+   shows on desktop (in the grid gap columns), vertical on mobile (stacked
+   cards); only one of the pair renders per breakpoint. */
+.ss-how__connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.6rem;
+}
+.ss-how__connector-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-border);
+  flex: none;
+}
+.ss-how__connector-line {
+  width: 1.4rem;
+  height: 1px;
+  background: var(--color-border);
+}
+.ss-how__connector--vertical { display: none; }
+
+/* ---- 03 — RESULTS (big accent titles, click-to-expand text) ---- */
 .ss-results {
-  padding-block: var(--space-6);
+  padding-block: var(--space-6) var(--space-7);
 }
 
 .ss-results__title {
@@ -176,37 +208,51 @@
   line-height: var(--lh-tight);
   text-transform: uppercase;
   letter-spacing: var(--ls-tight);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .ss-results__columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-5);
+  align-items: start;
 }
 
 .ss-result__title {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
   text-transform: uppercase;
-  letter-spacing: var(--ls-wide);
-  padding-bottom: 0.7em;
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: 1em;
+  letter-spacing: var(--ls-tight);
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--color-border);
+  transition: color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+.ss-result:hover .ss-result__title,
+.ss-result.is-open .ss-result__title {
+  color: var(--ss-accent);
+  border-color: var(--ss-accent);
 }
 
-.ss-result__text {
+.ss-result__panel-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms var(--ease-editorial);
+}
+.ss-result:hover .ss-result__panel-wrap,
+.ss-result.is-open .ss-result__panel-wrap {
+  grid-template-rows: 1fr;
+}
+.ss-result__panel {
+  overflow: hidden;
+  min-height: 0;
   font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
-  min-height: 9em; /* reserves space so the type-in doesn't jump the layout */
+  padding-top: 0.9em;
 }
-
-.ss-typing-cursor {
-  display: inline-block;
-  width: 0.5em;
-  animation: ss-caret-blink 0.9s steps(1) infinite;
-}
-@keyframes ss-caret-blink { 50% { opacity: 0; } }
 
 /* ---- 04 — MY APPROACH (temporary accent block) ---- */
 .ss-approach {
@@ -222,21 +268,91 @@
   align-items: center;
 }
 
+.ss-approach__media {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
 .ss-approach__video-placeholder {
+  position: relative;
   aspect-ratio: 3 / 4;
   max-width: 320px;
   width: 100%;
-  margin-inline: auto;
   background: var(--color-black);
   color: var(--color-white);
   border-radius: var(--radius-card);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.ss-approach__video-label {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
   font-size: var(--fs-small);
+  opacity: 0.85;
+}
+
+/* Mock player chrome — a progress bar + time/speed/CC row, purely
+   decorative (no real video yet), but part of the block's visual logic
+   per the storyboard and kept deliberately, not stripped out. */
+.ss-approach__video-ui {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.9rem 0.8rem 0.7rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 60%);
+}
+
+.ss-approach__video-progress {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.ss-approach__video-progress span {
+  display: block;
+  width: 22%;
+  height: 100%;
+  background: var(--color-white);
+}
+
+.ss-approach__video-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-normal);
+  color: var(--color-white);
+}
+.ss-approach__video-speed,
+.ss-approach__video-cc {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-btn);
+  padding: 0.15em 0.5em;
+}
+
+/* Second plaque next to the video, per the storyboard — a placeholder for
+   an example result, kept intentionally plain/generic at this stage. */
+.ss-approach__result-plaque {
+  width: 100%;
+  max-width: 320px;
+  background: var(--color-white);
+  color: var(--color-black);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-normal);
   opacity: 0.85;
 }
 
@@ -255,18 +371,25 @@
   min-height: 10em;
 }
 
+/* White button — a plain-text link was getting lost on the purple
+   background. */
 .ss-approach__transition {
-  display: block;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   margin-top: var(--space-5);
+  background: var(--color-white);
+  color: var(--color-black);
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
   font-size: var(--fs-small);
-  opacity: 0.7;
-  transition: opacity var(--dur-fast) var(--ease-editorial);
+  font-weight: 700;
+  padding: 0.9em 1.6em;
+  border-radius: var(--radius-btn);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
 }
-.ss-approach__transition:hover { opacity: 1; }
+.ss-approach__transition:hover { background: var(--color-black); color: var(--color-white); }
 
 /* ---- 05 — STRATEGIC BRIEF (interactive module) ---- */
 .ss-brief {
@@ -276,7 +399,7 @@
 }
 
 .ss-brief__inner {
-  max-width: 720px;
+  max-width: 760px;
   margin-inline: auto;
   text-align: center;
 }
@@ -284,13 +407,14 @@
 .ss-brief__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-md);
+  font-size: var(--fs-heading);
   text-transform: uppercase;
   margin-bottom: var(--space-2);
 }
 
 .ss-brief__intro {
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-body);
+  white-space: nowrap;
   margin-bottom: var(--space-5);
 }
 .ss-brief__intro strong { font-weight: 700; }
@@ -317,15 +441,15 @@
 .ss-brief__step.is-done { opacity: 1; }
 
 .ss-brief__step-num {
-  width: 1.8em;
-  height: 1.8em;
+  width: 1.7em;
+  height: 1.7em;
   flex: none;
   border-radius: 50%;
   border: 1px solid currentColor;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85em;
+  font-size: 0.8em;
 }
 .ss-brief__step.is-current .ss-brief__step-num {
   background: var(--color-black);
@@ -339,7 +463,7 @@
 }
 
 .ss-brief__step-line {
-  width: 2.5rem;
+  width: 2.2rem;
   height: 1px;
   background: var(--color-border);
 }
@@ -347,7 +471,7 @@
 .ss-brief__panel {
   background: var(--color-white);
   border-radius: var(--radius-card);
-  padding: var(--space-5) var(--space-4);
+  padding: var(--space-4);
   text-align: left;
   animation: ss-panel-in var(--dur-base) var(--ease-editorial);
 }
@@ -359,13 +483,13 @@
 .ss-brief__step-heading {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-heading);
+  font-size: var(--fs-body-lg);
   text-transform: uppercase;
   margin-bottom: var(--space-3);
 }
 
 .ss-brief__step-hint {
-  font-size: var(--fs-body);
+  font-size: var(--fs-small);
   opacity: 0.7;
   margin-bottom: var(--space-3);
   max-width: 46em;
@@ -388,7 +512,7 @@
   width: 100%;
   font: inherit;
   font-size: var(--fs-body);
-  padding: 0.8em 1em;
+  padding: 0.75em 1em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   background: var(--color-white);
@@ -401,7 +525,7 @@
   outline: none;
   border-color: var(--ss-accent);
 }
-.ss-field textarea { resize: vertical; min-height: 6em; }
+.ss-field textarea { resize: vertical; min-height: 5.5em; }
 
 .ss-field-row {
   display: grid;
@@ -428,7 +552,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   text-transform: uppercase;
-  padding: 0.6em 1.1em;
+  padding: 0.55em 1em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   opacity: 0.55;
@@ -446,19 +570,19 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-5) 0;
+  padding: var(--space-4) 0;
 }
 
 .ss-voice__mic {
-  width: 84px;
-  height: 84px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: var(--color-black);
   color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   flex: none;
   transition: transform var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
 }
@@ -473,7 +597,7 @@
   50% { box-shadow: 0 0 0 14px rgba(122, 129, 255, 0); }
 }
 
-.ss-voice__timer { font-family: var(--font-mono); font-size: var(--fs-body-lg); }
+.ss-voice__timer { font-family: var(--font-mono); font-size: var(--fs-body); }
 .ss-voice__hint { font-size: var(--fs-small); opacity: 0.6; text-align: center; }
 
 .ss-review dl {
@@ -490,38 +614,48 @@
 }
 .ss-review dd { margin: 0; font-size: var(--fs-body); white-space: pre-line; }
 
-.ss-thanks { text-align: center; padding-block: var(--space-4); }
+.ss-thanks { text-align: center; padding-block: var(--space-3); }
 .ss-thanks__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-md);
+  font-size: var(--fs-heading);
   text-transform: uppercase;
   margin-bottom: var(--space-3);
 }
 .ss-thanks__text {
-  font-size: var(--fs-body-lg);
-  max-width: 520px;
+  font-size: var(--fs-body);
+  max-width: 460px;
   margin-inline: auto;
   line-height: var(--lh-relaxed);
 }
 
 @media (max-width: 900px) {
   .ss-approach__grid { grid-template-columns: 1fr; text-align: center; }
+  .ss-approach__media { margin-inline: auto; }
 }
 
 @media (max-width: 700px) {
   .ss-hero { padding-block: var(--space-5); }
+  .ss-hero__title { white-space: normal; }
+
   .ss-how { padding-block: var(--space-6) var(--space-5); }
-  .ss-how__stages { grid-template-columns: 1fr; gap: var(--space-5); }
-  .ss-stage:not(:last-child)::after {
-    content: "\2193";
-    top: auto;
-    bottom: calc(var(--space-5) * -1 + 2px);
-    right: 50%;
-    transform: translate(50%, 0);
+  .ss-how__stages { grid-template-columns: 1fr; gap: 0; }
+  .ss-how__connector { display: none; }
+  .ss-how__connector--vertical {
+    display: flex;
+    flex-direction: column;
+    padding-block: 0.6rem;
   }
-  .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-5); }
+  .ss-how__connector--vertical .ss-how__connector-line {
+    width: 1px;
+    height: 1.4rem;
+  }
+
+  .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-4); }
+  .ss-result__title { font-size: var(--fs-display-md); }
+
+  .ss-brief__intro { white-space: normal; }
   .ss-field-row { grid-template-columns: 1fr; }
-  .ss-brief__panel { padding: var(--space-4) var(--space-3); }
-  .ss-brief__step-line { width: 1.4rem; }
+  .ss-brief__panel { padding: var(--space-3); }
+  .ss-brief__step-line { width: 1.2rem; }
 }

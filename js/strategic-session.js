@@ -1,25 +1,23 @@
 /**
  * STRATEGIC SESSION — /strategic-session/
- * UX-skeleton pass: hero + how-it-works + results + approach + an
- * interactive Strategic Brief (you -> context -> request -> review ->
- * thanks). No backend yet — Send just moves to the thank-you screen
- * locally; nothing is transmitted or stored (see spec).
+ * Storyboard pass v2: hero + how-it-works (icons, equal-height cards,
+ * connectors) + results (accordion reveal) + approach (video UI mock,
+ * result plaque) + Strategic Brief (You -> Context links -> Context
+ * question -> Request -> Review -> Thanks, each key question its own
+ * screen with a Type/Speak toggle). No backend yet — Send just moves to
+ * the thank-you screen locally; nothing is transmitted or stored.
  */
 (function () {
   "use strict";
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ---- Renders **bold** the same way js/i18n.js's renderInline does, for
-  // the one line (Brief intro) that needs it here. ----
   function renderInline(str) {
     return String(str || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   }
 
   // ======================================================================
-  // Scroll reveal (same recipe as js/films.js) — re-run after any dynamic
-  // section rebuilds itself (language switch), so freshly created nodes
-  // get observed too.
+  // Scroll reveal (same recipe as js/films.js)
   // ======================================================================
   function observeReveals(root) {
     var targets = (root || document).querySelectorAll(".reveal-up");
@@ -40,11 +38,15 @@
   }
 
   // ======================================================================
-  // Typewriter — reused by the Results columns and the Approach text.
-  // Runs once when the element scrolls into view; respects
-  // prefers-reduced-motion by just setting the full text instantly.
+  // Typewriter — reused by the Approach text. Each element tracks its own
+  // "run token" so a stale in-flight animation (e.g. still typing the EN
+  // text when the user switches to RU) can never keep overwriting it —
+  // this was the cause of the approach block showing English under RU.
   // ======================================================================
+  var typingRunId = 0;
   function typeInOnView(el, text) {
+    var myRun = ++typingRunId;
+    el.dataset.typeRun = String(myRun);
     el.textContent = "";
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
       el.textContent = text;
@@ -56,20 +58,21 @@
         if (entry.isIntersecting && !started) {
           started = true;
           observer.unobserve(entry.target);
-          runTypewriter(el, text);
+          runTypewriter(el, text, myRun);
         }
       });
     }, { threshold: 0.4 });
     observer.observe(el);
   }
 
-  function runTypewriter(el, text) {
+  function runTypewriter(el, text, myRun) {
     var cursor = document.createElement("span");
     cursor.className = "ss-typing-cursor";
     cursor.textContent = "|";
     var i = 0;
     var speed = Math.max(8, Math.min(22, Math.round(900 / text.length)));
     (function step() {
+      if (el.dataset.typeRun !== String(myRun)) return; // superseded — stop
       el.textContent = text.slice(0, i);
       el.appendChild(cursor);
       i++;
@@ -86,24 +89,58 @@
   // ======================================================================
   function renderHero(data) {
     document.getElementById("ssTitle").textContent = data.title;
-    var body = document.getElementById("ssBody");
-    body.innerHTML = "";
-    data.body.forEach(function (para) {
-      var p = document.createElement("p");
-      p.textContent = para;
-      body.appendChild(p);
-    });
+    document.getElementById("ssBody").textContent = data.body;
     document.getElementById("ssCtaLabel").textContent = data.cta;
   }
 
   // ======================================================================
   // 02 — HOW IT WORKS
   // ======================================================================
+  var STAGE_ICONS = {
+    web: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>',
+    docs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2.5h8l4 4V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z"/><path d="M14 2.5V7h4M8 12h8M8 16h8M8 8h3"/></svg>',
+    ai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>',
+    materials: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+    zoom: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2.2"/><path d="M15.5 10.2l6-3.2v10l-6-3.2z"/></svg>',
+    timer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9.5 2.5h5"/></svg>',
+    pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2.5h8l4 4V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z"/><path d="M14 2.5V7h4"/><path d="M7.5 13.5h1.2a1.3 1.3 0 1 1 0 2.6H7.5zM11.5 13.5h1a1.5 1.5 0 0 1 0 3h-1zM16.5 13.5v3M16.5 15h1.3"/></svg>',
+    result: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12.5l4.5 4.5L20 6"/></svg>'
+  };
+
+  function buildStageIcon(id) {
+    var span = document.createElement("span");
+    span.className = "ss-stage__icon";
+    span.innerHTML = STAGE_ICONS[id] || "";
+    return span;
+  }
+
+  function buildConnector(vertical) {
+    var wrap = document.createElement("div");
+    wrap.className = "ss-how__connector" + (vertical ? " ss-how__connector--vertical" : "");
+    wrap.setAttribute("aria-hidden", "true");
+    var dot1 = document.createElement("span");
+    dot1.className = "ss-how__connector-dot";
+    var line = document.createElement("span");
+    line.className = "ss-how__connector-line";
+    var dot2 = document.createElement("span");
+    dot2.className = "ss-how__connector-dot";
+    wrap.appendChild(dot1);
+    wrap.appendChild(line);
+    wrap.appendChild(dot2);
+    return wrap;
+  }
+
   function renderHowItWorks(data) {
     document.getElementById("ssHowLabel").textContent = data.howItWorks.label;
     var wrap = document.getElementById("ssHowStages");
     wrap.innerHTML = "";
-    data.howItWorks.stages.forEach(function (stage) {
+    data.howItWorks.stages.forEach(function (stage, i) {
+      if (i > 0) {
+        wrap.appendChild(buildConnector(false));
+        wrap.appendChild(buildConnector(true));
+      }
+
       var card = document.createElement("div");
       card.className = "ss-stage reveal-up";
 
@@ -117,25 +154,34 @@
       title.textContent = stage.title;
       head.appendChild(index);
       head.appendChild(title);
+      card.appendChild(head);
+
       if (stage.duration) {
         var duration = document.createElement("span");
         duration.className = "ss-stage__duration";
         duration.textContent = stage.duration;
-        head.appendChild(duration);
+        card.appendChild(duration);
       }
-      card.appendChild(head);
 
       var text = document.createElement("p");
       text.className = "ss-stage__text";
       text.textContent = stage.text;
       card.appendChild(text);
 
+      if (stage.icons && stage.icons.length) {
+        var iconRow = document.createElement("div");
+        iconRow.className = "ss-stage__icons";
+        stage.icons.forEach(function (id) { iconRow.appendChild(buildStageIcon(id)); });
+        card.appendChild(iconRow);
+      }
+
       wrap.appendChild(card);
     });
   }
 
   // ======================================================================
-  // 03 — RESULTS (typing reveal per column)
+  // 03 — RESULTS (big accent titles, click-to-expand text — same
+  // hover-or-open pattern as the Ways to Work Together request pills)
   // ======================================================================
   function renderResults(data) {
     document.getElementById("ssResultsLabel").textContent = data.results.label;
@@ -145,55 +191,68 @@
     data.results.columns.forEach(function (col) {
       var item = document.createElement("div");
       item.className = "ss-result reveal-up";
-      var title = document.createElement("p");
-      title.className = "ss-result__title";
-      title.textContent = col.title;
-      var text = document.createElement("p");
-      text.className = "ss-result__text";
-      item.appendChild(title);
-      item.appendChild(text);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ss-result__title";
+      btn.textContent = col.title;
+      btn.setAttribute("aria-expanded", "false");
+
+      var panelWrap = document.createElement("div");
+      panelWrap.className = "ss-result__panel-wrap";
+      var panel = document.createElement("p");
+      panel.className = "ss-result__panel";
+      panel.textContent = col.text;
+      panelWrap.appendChild(panel);
+
+      btn.addEventListener("click", function () {
+        var isOpen = item.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      item.appendChild(btn);
+      item.appendChild(panelWrap);
       wrap.appendChild(item);
-      typeInOnView(text, col.text);
     });
   }
 
   // ======================================================================
-  // 04 — APPROACH (temporary accent block, typing text alongside the
-  // future video)
+  // 04 — APPROACH (temporary accent block: video mock with player-UI
+  // chrome, a result plaque next to it, typed text alongside)
   // ======================================================================
   function renderApproach(data) {
     document.getElementById("ssApproachTitle").textContent = data.approach.title;
-    document.getElementById("ssApproachTransition").textContent = data.approach.transition + " ↓";
+    document.getElementById("ssApproachResultLabel").textContent = data.approach.resultPlaceholder;
+    document.getElementById("ssApproachTransitionLabel").textContent = data.approach.transition;
     var textEl = document.getElementById("ssApproachText");
     typeInOnView(textEl, data.approach.text);
   }
 
   // ======================================================================
   // 05 — STRATEGIC BRIEF (interactive, stateful — no backend yet)
+  // Internal flow: you -> context-links -> context-question -> request ->
+  // review -> thanks. The 3-node progress bar (YOU/CONTEXT/REQUEST) maps
+  // both context sub-steps onto its single "CONTEXT" node.
   // ======================================================================
   var briefState = {
-    step: "you", // you | context | request | review | thanks
-    mode: "type", // type | speak (step "request" only)
+    step: "you",
+    mode: "type", // type | speak — applies to whichever question step is active
     recording: false,
     recordSeconds: 0,
     recordTimer: null,
     data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "" }
   };
 
-  var STEP_ORDER = ["you", "context", "request"];
+  var PROGRESS_MAP = { you: 0, "context-links": 1, "context-question": 1, request: 2 };
 
   function briefLang() {
     return window.SITE_CONTENT.strategicSession[window.MK.i18n.getLang()].brief;
   }
 
-  // Copies whatever the visible step's fields currently hold into
-  // briefState.data before that step's DOM gets torn down — otherwise an
-  // EN/RU switch mid-step (before Next/Back is clicked) would discard
-  // anything already typed.
   var FIELD_MAP = {
     ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role",
     ssWebsite: "website", ssInstagram: "instagram", ssLinkedin: "linkedin", ssOtherLinks: "otherLinks",
-    ssContext: "context", ssRequest: "request"
+    ssContextAnswer: "context", ssRequest: "request"
   };
   function collectVisibleFields() {
     Object.keys(FIELD_MAP).forEach(function (id) {
@@ -210,11 +269,10 @@
   function renderBriefProgress(brief) {
     var wrap = document.getElementById("ssBriefProgress");
     wrap.innerHTML = "";
-    var currentIndex = STEP_ORDER.indexOf(briefState.step);
-    // Review/thanks keep the last (request) step marked done, not current.
-    if (currentIndex === -1) currentIndex = STEP_ORDER.length;
+    var currentIndex = PROGRESS_MAP[briefState.step];
+    if (currentIndex === undefined) currentIndex = 3; // review/thanks: all done
 
-    STEP_ORDER.forEach(function (key, i) {
+    brief.steps.forEach(function (label, i) {
       if (i > 0) {
         var line = document.createElement("div");
         line.className = "ss-brief__step-line";
@@ -228,11 +286,11 @@
       var num = document.createElement("span");
       num.className = "ss-brief__step-num";
       num.textContent = i < currentIndex ? "✓" : String(i + 1);
-      var label = document.createElement("span");
-      label.textContent = brief.steps[i];
+      var labelEl = document.createElement("span");
+      labelEl.textContent = label;
 
       step.appendChild(num);
-      step.appendChild(label);
+      step.appendChild(labelEl);
       wrap.appendChild(step);
     });
   }
@@ -246,6 +304,9 @@
 
   function goToStep(step) {
     briefState.step = step;
+    briefState.mode = "type";
+    briefState.recording = false;
+    clearRecordTimer();
     renderBrief();
     var panel = document.getElementById("ssBriefPanel");
     if (panel) panel.scrollIntoView({ block: "start", behavior: "smooth" });
@@ -282,6 +343,27 @@
     return field;
   }
 
+  function buildActions(config) {
+    var actions = document.createElement("div");
+    actions.className = "ss-brief__actions" + (config.back ? "" : " ss-brief__actions--end");
+    if (config.back) {
+      var back = document.createElement("a");
+      back.className = "btn btn--outline";
+      back.href = "javascript:void(0)";
+      back.textContent = config.back;
+      back.addEventListener("click", config.onBack);
+      actions.appendChild(back);
+    }
+    var next = document.createElement("a");
+    next.className = "btn btn--dark";
+    next.href = "javascript:void(0)";
+    next.textContent = config.next;
+    next.addEventListener("click", config.onNext);
+    actions.appendChild(next);
+    return actions;
+  }
+
+  // ---- Step: YOU ----
   function renderStepYou(panel, s) {
     var heading = document.createElement("h3");
     heading.className = "ss-brief__step-heading";
@@ -297,24 +379,20 @@
     panel.appendChild(buildField({ id: "ssCompany", type: "text", label: s.company, value: briefState.data.company }));
     panel.appendChild(buildField({ id: "ssRole", type: "select", label: s.role, options: s.roleOptions, value: briefState.data.role || s.roleOptions[0] }));
 
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions ss-brief__actions--end";
-    var next = document.createElement("a");
-    next.className = "btn btn--dark";
-    next.href = "javascript:void(0)";
-    next.textContent = s.next;
-    next.addEventListener("click", function () {
-      briefState.data.name = document.getElementById("ssName").value;
-      briefState.data.email = document.getElementById("ssEmail").value;
-      briefState.data.company = document.getElementById("ssCompany").value;
-      briefState.data.role = document.getElementById("ssRole").value;
-      goToStep("context");
-    });
-    actions.appendChild(next);
-    panel.appendChild(actions);
+    panel.appendChild(buildActions({
+      next: s.next,
+      onNext: function () {
+        briefState.data.name = document.getElementById("ssName").value;
+        briefState.data.email = document.getElementById("ssEmail").value;
+        briefState.data.company = document.getElementById("ssCompany").value;
+        briefState.data.role = document.getElementById("ssRole").value;
+        goToStep("context-links");
+      }
+    }));
   }
 
-  function renderStepContext(panel, s) {
+  // ---- Step: CONTEXT — LINKS ----
+  function renderStepContextLinks(panel, s) {
     var heading = document.createElement("h3");
     heading.className = "ss-brief__step-heading";
     heading.textContent = s.heading;
@@ -332,43 +410,35 @@
     row2.appendChild(buildField({ id: "ssOtherLinks", type: "text", label: s.otherLinks, value: briefState.data.otherLinks }));
     panel.appendChild(row2);
 
-    panel.appendChild(buildField({ id: "ssContext", type: "textarea", rows: 4, label: s.contextQuestion, placeholder: s.contextPlaceholder, value: briefState.data.context }));
-
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions";
-    var back = document.createElement("a");
-    back.className = "btn btn--outline";
-    back.href = "javascript:void(0)";
-    back.textContent = s.back;
-    back.addEventListener("click", function () { collectContext(); goToStep("you"); });
-    var next = document.createElement("a");
-    next.className = "btn btn--dark";
-    next.href = "javascript:void(0)";
-    next.textContent = s.next;
-    next.addEventListener("click", function () { collectContext(); goToStep("request"); });
-    actions.appendChild(back);
-    actions.appendChild(next);
-    panel.appendChild(actions);
-
-    function collectContext() {
+    function collect() {
       briefState.data.website = document.getElementById("ssWebsite").value;
       briefState.data.instagram = document.getElementById("ssInstagram").value;
       briefState.data.linkedin = document.getElementById("ssLinkedin").value;
       briefState.data.otherLinks = document.getElementById("ssOtherLinks").value;
-      briefState.data.context = document.getElementById("ssContext").value;
     }
+
+    panel.appendChild(buildActions({
+      back: s.back,
+      next: s.next,
+      onBack: function () { collect(); goToStep("you"); },
+      onNext: function () { collect(); goToStep("context-question"); }
+    }));
   }
 
-  function renderStepRequest(panel, s) {
+  // ---- Shared: a question step with a Type/Speak toggle (used by both
+  // the context question and the main request — same interaction). ----
+  function renderQuestionStep(panel, s, opts) {
     var heading = document.createElement("h3");
     heading.className = "ss-brief__step-heading";
     heading.textContent = s.heading;
     panel.appendChild(heading);
 
-    var hint = document.createElement("p");
-    hint.className = "ss-brief__step-hint";
-    hint.textContent = s.hint;
-    panel.appendChild(hint);
+    if (s.hint) {
+      var hint = document.createElement("p");
+      hint.className = "ss-brief__step-hint";
+      hint.textContent = s.hint;
+      panel.appendChild(hint);
+    }
 
     var tabs = document.createElement("div");
     tabs.className = "ss-mode-tabs";
@@ -381,14 +451,14 @@
     speakTab.className = "ss-mode-tab" + (briefState.mode === "speak" ? " is-active" : "");
     speakTab.textContent = s.speakTab;
     typeTab.addEventListener("click", function () {
-      collectRequest();
+      opts.collect();
       briefState.mode = "type";
       clearRecordTimer();
       briefState.recording = false;
       renderBrief();
     });
     speakTab.addEventListener("click", function () {
-      collectRequest();
+      opts.collect();
       briefState.mode = "speak";
       renderBrief();
     });
@@ -397,37 +467,23 @@
     panel.appendChild(tabs);
 
     if (briefState.mode === "speak") {
-      panel.appendChild(buildVoiceMock(s));
+      panel.appendChild(buildVoiceMock(s, opts));
     } else {
-      panel.appendChild(buildField({ id: "ssRequest", type: "textarea", rows: 5, label: s.label, placeholder: s.placeholder, value: briefState.data.request }));
+      panel.appendChild(buildField({ id: opts.fieldId, type: "textarea", rows: 5, label: s.label, placeholder: s.placeholder, value: briefState.data[opts.dataKey] }));
     }
 
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions";
-    var back = document.createElement("a");
-    back.className = "btn btn--outline";
-    back.href = "javascript:void(0)";
-    back.textContent = s.back;
-    back.addEventListener("click", function () { collectRequest(); goToStep("context"); });
-    var next = document.createElement("a");
-    next.className = "btn btn--dark";
-    next.href = "javascript:void(0)";
-    next.textContent = s.next;
-    next.addEventListener("click", function () { collectRequest(); goToStep("review"); });
-    actions.appendChild(back);
-    actions.appendChild(next);
-    panel.appendChild(actions);
-
-    function collectRequest() {
-      var field = document.getElementById("ssRequest");
-      if (field) briefState.data.request = field.value;
-    }
+    panel.appendChild(buildActions({
+      back: s.back,
+      next: s.next,
+      onBack: function () { opts.collect(); opts.onBack(); },
+      onNext: function () { opts.collect(); opts.onNext(); }
+    }));
   }
 
   // Visual-only mic mock: no microphone access, no real transcription —
   // just the recording state + a placeholder "transcript" the user can
   // edit, per spec (backend/transcription connect later).
-  function buildVoiceMock(s) {
+  function buildVoiceMock(s, opts) {
     var wrap = document.createElement("div");
     wrap.className = "ss-voice";
 
@@ -458,7 +514,7 @@
       } else {
         clearRecordTimer();
         briefState.recording = false;
-        briefState.data.request = s.transcribedPlaceholder;
+        briefState.data[opts.dataKey] = s.transcribedPlaceholder;
         briefState.mode = "type";
         renderBrief();
       }
@@ -472,8 +528,8 @@
 
   function formatTimer(totalSeconds) {
     var m = Math.floor(totalSeconds / 60);
-    var s = totalSeconds % 60;
-    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    var sec = totalSeconds % 60;
+    return (m < 10 ? "0" + m : m) + ":" + (sec < 10 ? "0" + sec : sec);
   }
 
   function renderStepReview(panel, brief) {
@@ -505,21 +561,12 @@
     box.appendChild(dl);
     panel.appendChild(box);
 
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions";
-    var edit = document.createElement("a");
-    edit.className = "btn btn--outline";
-    edit.href = "javascript:void(0)";
-    edit.textContent = r.edit;
-    edit.addEventListener("click", function () { goToStep("you"); });
-    var send = document.createElement("a");
-    send.className = "btn btn--dark";
-    send.href = "javascript:void(0)";
-    send.textContent = r.send;
-    send.addEventListener("click", function () { goToStep("thanks"); });
-    actions.appendChild(edit);
-    actions.appendChild(send);
-    panel.appendChild(actions);
+    panel.appendChild(buildActions({
+      back: r.edit,
+      next: r.send,
+      onBack: function () { goToStep("you"); },
+      onNext: function () { goToStep("thanks"); }
+    }));
   }
 
   function renderStepThanks(panel, brief) {
@@ -546,11 +593,37 @@
     panel.innerHTML = "";
     panel.className = "ss-brief__panel";
 
-    if (briefState.step === "you") renderStepYou(panel, brief.step1);
-    else if (briefState.step === "context") renderStepContext(panel, brief.step2);
-    else if (briefState.step === "request") renderStepRequest(panel, brief.step3);
-    else if (briefState.step === "review") renderStepReview(panel, brief);
-    else if (briefState.step === "thanks") renderStepThanks(panel, brief);
+    if (briefState.step === "you") {
+      renderStepYou(panel, brief.step1);
+    } else if (briefState.step === "context-links") {
+      renderStepContextLinks(panel, brief.step2Links);
+    } else if (briefState.step === "context-question") {
+      renderQuestionStep(panel, brief.step2Question, {
+        fieldId: "ssContextAnswer",
+        dataKey: "context",
+        collect: function () {
+          var f = document.getElementById("ssContextAnswer");
+          if (f) briefState.data.context = f.value;
+        },
+        onBack: function () { goToStep("context-links"); },
+        onNext: function () { goToStep("request"); }
+      });
+    } else if (briefState.step === "request") {
+      renderQuestionStep(panel, brief.step3, {
+        fieldId: "ssRequest",
+        dataKey: "request",
+        collect: function () {
+          var f = document.getElementById("ssRequest");
+          if (f) briefState.data.request = f.value;
+        },
+        onBack: function () { goToStep("context-question"); },
+        onNext: function () { goToStep("review"); }
+      });
+    } else if (briefState.step === "review") {
+      renderStepReview(panel, brief);
+    } else if (briefState.step === "thanks") {
+      renderStepThanks(panel, brief);
+    }
   }
 
   // ======================================================================

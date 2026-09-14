@@ -363,10 +363,7 @@ window.SITE_CONTENT = {
   strategicSession: {
     en: {
       title: "STRATEGIC SESSION",
-      body: [
-        "You come to me with a specific business, brand, retail or product request.",
-        "Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step."
-      ],
+      body: "You come to me with a specific business, brand, retail or product request. Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step.",
       cta: "START YOUR BRIEF",
 
       howItWorks: {
@@ -375,17 +372,22 @@ window.SITE_CONTENT = {
           {
             index: "01",
             title: "PREPARATION",
+            duration: "2 DAYS",
+            icons: ["web", "instagram", "docs", "ai", "materials"],
             text: "You send me your request, context and materials. Before we meet, I study your brand, business, market and the current state of the project."
           },
           {
             index: "02",
             title: "STRATEGIC SESSION",
             duration: "3 HOURS",
+            icons: ["zoom", "timer"],
             text: "We unpack the request, ask questions, test assumptions, reflect, discuss and define the strategic direction together."
           },
           {
             index: "03",
             title: "PACKAGING THE RESULT",
+            duration: "3 DAYS",
+            icons: ["pdf", "result", "zoom"],
             text: "After the session, I analyse the material and the solutions we shaped, and put together the strategic vision, concept and next step."
           }
         ]
@@ -397,7 +399,7 @@ window.SITE_CONTENT = {
         columns: [
           {
             title: "PRODUCT",
-            text: "If you came with a product request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
+            text: "If you came with a product or service request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
           },
           {
             title: "BRAND",
@@ -413,6 +415,7 @@ window.SITE_CONTENT = {
       approach: {
         title: "MY APPROACH TO THE SESSION",
         text: "A strategic session is not a project with several rounds of revisions. You are not buying a document. You are buying my time, experience, thinking and full attention to your request. The result is my professional vision of what your brand, product, business or retail could become. Further development and implementation can become the next stage of our work.",
+        resultPlaceholder: "WHAT A RESULT CAN LOOK LIKE",
         transition: "YOUR TURN"
       },
 
@@ -430,14 +433,23 @@ window.SITE_CONTENT = {
           roleOptions: ["Founder", "Marketing / brand lead", "Consultant / agency", "Other"],
           next: "CONTINUE"
         },
-        step2: {
+        step2Links: {
           heading: "CONTEXT",
           website: "Website",
           instagram: "Instagram",
           linkedin: "LinkedIn",
           otherLinks: "Other relevant links",
-          contextQuestion: "What's currently happening in your business, brand, product or project?",
-          contextPlaceholder: "Tell me a bit about the context...",
+          next: "CONTINUE",
+          back: "BACK"
+        },
+        step2Question: {
+          heading: "What's currently happening in your business, brand, product or project?",
+          label: "CONTEXT",
+          placeholder: "Tell me a bit about the context...",
+          typeTab: "⌨ TYPE",
+          speakTab: "🎤 SPEAK",
+          recordHint: "Tap again to stop and get your text",
+          transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
           next: "CONTINUE",
           back: "BACK"
         },
@@ -448,7 +460,6 @@ window.SITE_CONTENT = {
           placeholder: "I want to understand...",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
-          recording: "Recording",
           recordHint: "Tap again to stop and get your text",
           transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
           next: "REVIEW",
@@ -472,10 +483,7 @@ window.SITE_CONTENT = {
     },
     ru: {
       title: "ЗАПРОС НА СЕССИЮ",
-      body: [
-        "Вы приходите ко мне с конкретным бизнес, бренд, ритейл или продуктовым запросом.",
-        "До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг."
-      ],
+      body: "Вы приходите ко мне с конкретным бизнес-, бренд-, ритейл- или продуктовым запросом. До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг.",
       cta: "СФОРМУЛИРОВАТЬ ЗАПРОС",
 
       howItWorks: {
@@ -484,17 +492,22 @@ window.SITE_CONTENT = {
           {
             index: "01",
             title: "ПОДГОТОВКА",
+            duration: "2 ДНЯ",
+            icons: ["web", "instagram", "docs", "ai", "materials"],
             text: "Вы отправляете мне запрос, контекст и материалы. До нашей встречи я изучаю ваш бренд, бизнес, рынок и текущее состояние проекта."
           },
           {
             index: "02",
             title: "СТРАТЕГИЧЕСКАЯ СЕССИЯ",
             duration: "3 ЧАСА",
+            icons: ["zoom", "timer"],
             text: "Мы разбираем запрос, задаём вопросы, проверяем предположения, рефлексируем, обсуждаем и вместе определяем стратегическое направление."
           },
           {
             index: "03",
             title: "УПАКОВКА РЕЗУЛЬТАТА",
+            duration: "3 ДНЯ",
+            icons: ["pdf", "result", "zoom"],
             text: "После встречи я анализирую материал и разработанные решения, собираю стратегическое видение, концепцию и следующий шаг."
           }
         ]
@@ -506,7 +519,7 @@ window.SITE_CONTENT = {
         columns: [
           {
             title: "ПРОДУКТ",
-            text: "Если вы пришли с запросом на продукт, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
+            text: "Если вы пришли с запросом на продукт или услугу, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
           },
           {
             title: "БРЕНД",
@@ -522,6 +535,7 @@ window.SITE_CONTENT = {
       approach: {
         title: "МОЙ ПОДХОД К ПРОВЕДЕНИЮ СЕССИИ",
         text: "Стратегическая сессия — это не проект с несколькими раундами правок. Вы покупаете не документ. Вы покупаете моё время, опыт, мышление и полное включение в ваш запрос. Результат — моё профессиональное видение того, чем может стать ваш бренд, продукт, бизнес или ритейл. Дальнейшая разработка и имплементация могут стать следующим этапом нашей работы.",
+        resultPlaceholder: "КАК МОЖЕТ ВЫГЛЯДЕТЬ РЕЗУЛЬТАТ",
         transition: "ВАША ОЧЕРЕДЬ"
       },
 
@@ -539,14 +553,23 @@ window.SITE_CONTENT = {
           roleOptions: ["Основатель", "Маркетинг / бренд-лид", "Консультант / агентство", "Другое"],
           next: "ПРОДОЛЖИТЬ"
         },
-        step2: {
+        step2Links: {
           heading: "КОНТЕКСТ",
           website: "Website",
           instagram: "Instagram",
           linkedin: "LinkedIn",
           otherLinks: "Другие релевантные ссылки",
-          contextQuestion: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
-          contextPlaceholder: "Расскажите немного о контексте...",
+          next: "ПРОДОЛЖИТЬ",
+          back: "НАЗАД"
+        },
+        step2Question: {
+          heading: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
+          label: "КОНТЕКСТ",
+          placeholder: "Расскажите немного о контексте...",
+          typeTab: "⌨ НАПИСАТЬ",
+          speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
+          recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
+          transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
           next: "ПРОДОЛЖИТЬ",
           back: "НАЗАД"
         },
@@ -557,7 +580,6 @@ window.SITE_CONTENT = {
           placeholder: "Я хочу понять...",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
-          recording: "Идёт запись",
           recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
           transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
           next: "К ПРОВЕРКЕ",

@@ -71,7 +71,7 @@
   <section class="ss-hero">
     <div class="container ss-hero__inner">
       <h1 class="ss-hero__title" id="ssTitle">STRATEGIC SESSION</h1>
-      <div class="ss-hero__body" id="ssBody"></div>
+      <p class="ss-hero__body" id="ssBody"></p>
       <a class="btn btn--dark ss-hero__cta" href="#strategic-brief">
         <span id="ssCtaLabel">START YOUR BRIEF</span><span class="ss-hero__cta-arrow" aria-hidden="true">↓</span>
       </a>
@@ -97,14 +97,27 @@
   <section class="ss-approach">
     <div class="container ss-approach__grid">
       <div class="ss-approach__media">
-        <div class="ss-approach__video-placeholder" aria-hidden="true">VIDEO</div>
+        <div class="ss-approach__video-placeholder" aria-hidden="true">
+          <span class="ss-approach__video-label">VIDEO</span>
+          <div class="ss-approach__video-ui">
+            <div class="ss-approach__video-progress"><span></span></div>
+            <div class="ss-approach__video-controls">
+              <span class="ss-approach__video-time">0:12 / 1:34</span>
+              <span class="ss-approach__video-speed">1x</span>
+              <span class="ss-approach__video-cc">CC</span>
+            </div>
+          </div>
+        </div>
+        <div class="ss-approach__result-plaque">
+          <span id="ssApproachResultLabel">WHAT A RESULT CAN LOOK LIKE</span>
+        </div>
       </div>
       <div class="ss-approach__content reveal-up">
         <h2 class="ss-approach__title" id="ssApproachTitle">MY APPROACH TO THE SESSION</h2>
         <p class="ss-approach__text" id="ssApproachText"></p>
       </div>
     </div>
-    <a class="ss-approach__transition" href="#strategic-brief" id="ssApproachTransition">YOUR TURN ↓</a>
+    <a class="ss-approach__transition" href="#strategic-brief"><span id="ssApproachTransitionLabel">YOUR TURN</span> ↓</a>
   </section>
 
   <!-- ============ 05 — STRATEGIC BRIEF (interactive module) ============ -->

@@ -590,17 +590,14 @@ body.is-opening { overflow: hidden; }
 <style>
 /* ========================================================================
    STRATEGIC SESSION — /strategic-session/
-   UX-skeleton pass: hero + how-it-works + results + approach + an
-   interactive Strategic Brief. Built entirely from the shared type
-   scale, spacing and button system in tokens.css/base.css — nothing new
-   invented here except this page's own --ss-* scope.
+   Storyboard pass v2. Built entirely from the shared type scale, spacing
+   and button system in tokens.css/base.css — nothing new invented here
+   except this page's own --ss-* scope.
 
    --ss-* custom properties exist purely so a future accent colour /
-   background treatment for this page can be dropped in later (e.g.
-   overriding them on .strategic-session, or via a modifier class) without
+   background treatment for this page can be dropped in later without
    touching this file's structure. --ss-accent currently equals the
-   site's own accent purple — a placeholder treatment for the "My
-   Approach" block and the Brief's active states, explicitly not final.
+   site's own accent purple — a placeholder treatment, not final.
    ======================================================================== */
 
 .strategic-session {
@@ -610,8 +607,7 @@ body.is-opening { overflow: hidden; }
   --ss-accent: var(--color-accent);
 }
 
-/* ---- Shared scroll-reveal (same recipe as films.css/brands.css: each
-   page keeps its own copy rather than sharing one via base.css). ---- */
+/* ---- Shared scroll-reveal (same recipe as films.css/brands.css) ---- */
 .reveal-up {
   opacity: 0;
   transform: translateY(16px);
@@ -645,33 +641,30 @@ body.is-opening { overflow: hidden; }
 
 .ss-hero__inner {
   width: 100%;
-  max-width: 760px;
+  max-width: 720px;
   margin-inline: auto;
   text-align: center;
 }
 
+/* Smaller / calmer than the site's usual display type on purpose — this
+   headline needs to sit on one line even in RU ("ЗАПРОС НА СЕССИЮ"). */
 .ss-hero__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-xl);
+  font-size: clamp(1.6rem, 1rem + 4vw, 3.4rem);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
   text-transform: uppercase;
+  white-space: nowrap;
   margin-bottom: var(--space-4);
 }
 
 .ss-hero__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  max-width: 600px;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  max-width: 46em;
   margin-inline: auto;
   margin-bottom: var(--space-5);
-}
-
-.ss-hero__body p {
-  font-size: var(--fs-body-lg);
-  line-height: var(--lh-relaxed);
 }
 
 .ss-hero__cta-arrow {
@@ -688,44 +681,39 @@ body.is-opening { overflow: hidden; }
 
 .ss-how__stages {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  align-items: start;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
 }
 
 .ss-stage {
   position: relative;
-  background: var(--color-offwhite);
+  background: var(--color-black);
+  color: var(--color-white);
   border-radius: var(--radius-card);
   padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  transition: background var(--dur-base) var(--ease-editorial), color var(--dur-base) var(--ease-editorial);
 }
-
-/* A simple "->" between stages on desktop — same sequence motif as the
-   step arrows already used in Ways to Work Together / Brands, not a new
-   idea. Deliberately not the wavy connecting-line concept from the
-   storyboard yet (kept static/simple per spec, revisited later). */
-.ss-stage:not(:last-child)::after {
-  content: "\2192";
-  position: absolute;
-  top: 50%;
-  right: calc(var(--space-4) * -1 - 0.1em);
-  transform: translate(50%, -50%);
-  font-size: 1.4rem;
-  opacity: 0.3;
+.ss-stage:hover {
+  background: var(--ss-accent);
+  color: var(--color-black);
 }
 
 .ss-stage__head {
   display: flex;
   align-items: baseline;
   gap: 0.6em;
-  margin-bottom: 0.75em;
-  flex-wrap: wrap;
+  margin-bottom: 0.6em;
 }
 
+/* Same visual size as the title — mono/regular vs. display/bold is what
+   tells them apart, not a size difference. */
 .ss-stage__index {
   font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  opacity: 0.45;
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  opacity: 0.5;
 }
 
 .ss-stage__title {
@@ -739,24 +727,68 @@ body.is-opening { overflow: hidden; }
 .ss-stage__duration {
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
   padding: 0.35em 0.7em;
   border-radius: var(--radius-btn);
-  background: var(--ss-accent);
+  background: var(--color-white);
   color: var(--color-black);
+  margin-bottom: 0.9em;
 }
 
 .ss-stage__text {
   font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
+  flex: 1;
 }
 
-/* ---- 03 — RESULTS (typing reveal) ---- */
+.ss-stage__icons {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-top: var(--space-3);
+  align-self: flex-start;
+}
+
+.ss-stage__icon {
+  display: flex;
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--color-white);
+  opacity: 0.9;
+}
+.ss-stage__icon svg { width: 100%; height: 100%; }
+
+/* A calm connecting line with a dot at each end, between adjacent stage
+   cards — the sequence motif from the storyboard. Horizontal connector
+   shows on desktop (in the grid gap columns), vertical on mobile (stacked
+   cards); only one of the pair renders per breakpoint. */
+.ss-how__connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.6rem;
+}
+.ss-how__connector-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-border);
+  flex: none;
+}
+.ss-how__connector-line {
+  width: 1.4rem;
+  height: 1px;
+  background: var(--color-border);
+}
+.ss-how__connector--vertical { display: none; }
+
+/* ---- 03 — RESULTS (big accent titles, click-to-expand text) ---- */
 .ss-results {
-  padding-block: var(--space-6);
+  padding-block: var(--space-6) var(--space-7);
 }
 
 .ss-results__title {
@@ -766,37 +798,51 @@ body.is-opening { overflow: hidden; }
   line-height: var(--lh-tight);
   text-transform: uppercase;
   letter-spacing: var(--ls-tight);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .ss-results__columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-5);
+  align-items: start;
 }
 
 .ss-result__title {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
   text-transform: uppercase;
-  letter-spacing: var(--ls-wide);
-  padding-bottom: 0.7em;
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: 1em;
+  letter-spacing: var(--ls-tight);
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--color-border);
+  transition: color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+.ss-result:hover .ss-result__title,
+.ss-result.is-open .ss-result__title {
+  color: var(--ss-accent);
+  border-color: var(--ss-accent);
 }
 
-.ss-result__text {
+.ss-result__panel-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms var(--ease-editorial);
+}
+.ss-result:hover .ss-result__panel-wrap,
+.ss-result.is-open .ss-result__panel-wrap {
+  grid-template-rows: 1fr;
+}
+.ss-result__panel {
+  overflow: hidden;
+  min-height: 0;
   font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
-  min-height: 9em; /* reserves space so the type-in doesn't jump the layout */
+  padding-top: 0.9em;
 }
-
-.ss-typing-cursor {
-  display: inline-block;
-  width: 0.5em;
-  animation: ss-caret-blink 0.9s steps(1) infinite;
-}
-@keyframes ss-caret-blink { 50% { opacity: 0; } }
 
 /* ---- 04 — MY APPROACH (temporary accent block) ---- */
 .ss-approach {
@@ -812,21 +858,91 @@ body.is-opening { overflow: hidden; }
   align-items: center;
 }
 
+.ss-approach__media {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
 .ss-approach__video-placeholder {
+  position: relative;
   aspect-ratio: 3 / 4;
   max-width: 320px;
   width: 100%;
-  margin-inline: auto;
   background: var(--color-black);
   color: var(--color-white);
   border-radius: var(--radius-card);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.ss-approach__video-label {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
   font-size: var(--fs-small);
+  opacity: 0.85;
+}
+
+/* Mock player chrome — a progress bar + time/speed/CC row, purely
+   decorative (no real video yet), but part of the block's visual logic
+   per the storyboard and kept deliberately, not stripped out. */
+.ss-approach__video-ui {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.9rem 0.8rem 0.7rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 60%);
+}
+
+.ss-approach__video-progress {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.ss-approach__video-progress span {
+  display: block;
+  width: 22%;
+  height: 100%;
+  background: var(--color-white);
+}
+
+.ss-approach__video-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-normal);
+  color: var(--color-white);
+}
+.ss-approach__video-speed,
+.ss-approach__video-cc {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-btn);
+  padding: 0.15em 0.5em;
+}
+
+/* Second plaque next to the video, per the storyboard — a placeholder for
+   an example result, kept intentionally plain/generic at this stage. */
+.ss-approach__result-plaque {
+  width: 100%;
+  max-width: 320px;
+  background: var(--color-white);
+  color: var(--color-black);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-normal);
   opacity: 0.85;
 }
 
@@ -845,18 +961,25 @@ body.is-opening { overflow: hidden; }
   min-height: 10em;
 }
 
+/* White button — a plain-text link was getting lost on the purple
+   background. */
 .ss-approach__transition {
-  display: block;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   margin-top: var(--space-5);
+  background: var(--color-white);
+  color: var(--color-black);
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
   font-size: var(--fs-small);
-  opacity: 0.7;
-  transition: opacity var(--dur-fast) var(--ease-editorial);
+  font-weight: 700;
+  padding: 0.9em 1.6em;
+  border-radius: var(--radius-btn);
+  transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
 }
-.ss-approach__transition:hover { opacity: 1; }
+.ss-approach__transition:hover { background: var(--color-black); color: var(--color-white); }
 
 /* ---- 05 — STRATEGIC BRIEF (interactive module) ---- */
 .ss-brief {
@@ -866,7 +989,7 @@ body.is-opening { overflow: hidden; }
 }
 
 .ss-brief__inner {
-  max-width: 720px;
+  max-width: 760px;
   margin-inline: auto;
   text-align: center;
 }
@@ -874,13 +997,14 @@ body.is-opening { overflow: hidden; }
 .ss-brief__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-md);
+  font-size: var(--fs-heading);
   text-transform: uppercase;
   margin-bottom: var(--space-2);
 }
 
 .ss-brief__intro {
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-body);
+  white-space: nowrap;
   margin-bottom: var(--space-5);
 }
 .ss-brief__intro strong { font-weight: 700; }
@@ -907,15 +1031,15 @@ body.is-opening { overflow: hidden; }
 .ss-brief__step.is-done { opacity: 1; }
 
 .ss-brief__step-num {
-  width: 1.8em;
-  height: 1.8em;
+  width: 1.7em;
+  height: 1.7em;
   flex: none;
   border-radius: 50%;
   border: 1px solid currentColor;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85em;
+  font-size: 0.8em;
 }
 .ss-brief__step.is-current .ss-brief__step-num {
   background: var(--color-black);
@@ -929,7 +1053,7 @@ body.is-opening { overflow: hidden; }
 }
 
 .ss-brief__step-line {
-  width: 2.5rem;
+  width: 2.2rem;
   height: 1px;
   background: var(--color-border);
 }
@@ -937,7 +1061,7 @@ body.is-opening { overflow: hidden; }
 .ss-brief__panel {
   background: var(--color-white);
   border-radius: var(--radius-card);
-  padding: var(--space-5) var(--space-4);
+  padding: var(--space-4);
   text-align: left;
   animation: ss-panel-in var(--dur-base) var(--ease-editorial);
 }
@@ -949,13 +1073,13 @@ body.is-opening { overflow: hidden; }
 .ss-brief__step-heading {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-heading);
+  font-size: var(--fs-body-lg);
   text-transform: uppercase;
   margin-bottom: var(--space-3);
 }
 
 .ss-brief__step-hint {
-  font-size: var(--fs-body);
+  font-size: var(--fs-small);
   opacity: 0.7;
   margin-bottom: var(--space-3);
   max-width: 46em;
@@ -978,7 +1102,7 @@ body.is-opening { overflow: hidden; }
   width: 100%;
   font: inherit;
   font-size: var(--fs-body);
-  padding: 0.8em 1em;
+  padding: 0.75em 1em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   background: var(--color-white);
@@ -991,7 +1115,7 @@ body.is-opening { overflow: hidden; }
   outline: none;
   border-color: var(--ss-accent);
 }
-.ss-field textarea { resize: vertical; min-height: 6em; }
+.ss-field textarea { resize: vertical; min-height: 5.5em; }
 
 .ss-field-row {
   display: grid;
@@ -1018,7 +1142,7 @@ body.is-opening { overflow: hidden; }
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   text-transform: uppercase;
-  padding: 0.6em 1.1em;
+  padding: 0.55em 1em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-btn);
   opacity: 0.55;
@@ -1036,19 +1160,19 @@ body.is-opening { overflow: hidden; }
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-5) 0;
+  padding: var(--space-4) 0;
 }
 
 .ss-voice__mic {
-  width: 84px;
-  height: 84px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: var(--color-black);
   color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   flex: none;
   transition: transform var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
 }
@@ -1063,7 +1187,7 @@ body.is-opening { overflow: hidden; }
   50% { box-shadow: 0 0 0 14px rgba(122, 129, 255, 0); }
 }
 
-.ss-voice__timer { font-family: var(--font-mono); font-size: var(--fs-body-lg); }
+.ss-voice__timer { font-family: var(--font-mono); font-size: var(--fs-body); }
 .ss-voice__hint { font-size: var(--fs-small); opacity: 0.6; text-align: center; }
 
 .ss-review dl {
@@ -1080,40 +1204,50 @@ body.is-opening { overflow: hidden; }
 }
 .ss-review dd { margin: 0; font-size: var(--fs-body); white-space: pre-line; }
 
-.ss-thanks { text-align: center; padding-block: var(--space-4); }
+.ss-thanks { text-align: center; padding-block: var(--space-3); }
 .ss-thanks__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-md);
+  font-size: var(--fs-heading);
   text-transform: uppercase;
   margin-bottom: var(--space-3);
 }
 .ss-thanks__text {
-  font-size: var(--fs-body-lg);
-  max-width: 520px;
+  font-size: var(--fs-body);
+  max-width: 460px;
   margin-inline: auto;
   line-height: var(--lh-relaxed);
 }
 
 @media (max-width: 900px) {
   .ss-approach__grid { grid-template-columns: 1fr; text-align: center; }
+  .ss-approach__media { margin-inline: auto; }
 }
 
 @media (max-width: 700px) {
   .ss-hero { padding-block: var(--space-5); }
+  .ss-hero__title { white-space: normal; }
+
   .ss-how { padding-block: var(--space-6) var(--space-5); }
-  .ss-how__stages { grid-template-columns: 1fr; gap: var(--space-5); }
-  .ss-stage:not(:last-child)::after {
-    content: "\2193";
-    top: auto;
-    bottom: calc(var(--space-5) * -1 + 2px);
-    right: 50%;
-    transform: translate(50%, 0);
+  .ss-how__stages { grid-template-columns: 1fr; gap: 0; }
+  .ss-how__connector { display: none; }
+  .ss-how__connector--vertical {
+    display: flex;
+    flex-direction: column;
+    padding-block: 0.6rem;
   }
-  .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-5); }
+  .ss-how__connector--vertical .ss-how__connector-line {
+    width: 1px;
+    height: 1.4rem;
+  }
+
+  .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-4); }
+  .ss-result__title { font-size: var(--fs-display-md); }
+
+  .ss-brief__intro { white-space: normal; }
   .ss-field-row { grid-template-columns: 1fr; }
-  .ss-brief__panel { padding: var(--space-4) var(--space-3); }
-  .ss-brief__step-line { width: 1.4rem; }
+  .ss-brief__panel { padding: var(--space-3); }
+  .ss-brief__step-line { width: 1.2rem; }
 }
 
 </style>
@@ -1154,7 +1288,7 @@ body.is-opening { overflow: hidden; }
   <section class="ss-hero">
     <div class="container ss-hero__inner">
       <h1 class="ss-hero__title" id="ssTitle">STRATEGIC SESSION</h1>
-      <div class="ss-hero__body" id="ssBody"></div>
+      <p class="ss-hero__body" id="ssBody"></p>
       <a class="btn btn--dark ss-hero__cta" href="#strategic-brief">
         <span id="ssCtaLabel">START YOUR BRIEF</span><span class="ss-hero__cta-arrow" aria-hidden="true">↓</span>
       </a>
@@ -1180,14 +1314,27 @@ body.is-opening { overflow: hidden; }
   <section class="ss-approach">
     <div class="container ss-approach__grid">
       <div class="ss-approach__media">
-        <div class="ss-approach__video-placeholder" aria-hidden="true">VIDEO</div>
+        <div class="ss-approach__video-placeholder" aria-hidden="true">
+          <span class="ss-approach__video-label">VIDEO</span>
+          <div class="ss-approach__video-ui">
+            <div class="ss-approach__video-progress"><span></span></div>
+            <div class="ss-approach__video-controls">
+              <span class="ss-approach__video-time">0:12 / 1:34</span>
+              <span class="ss-approach__video-speed">1x</span>
+              <span class="ss-approach__video-cc">CC</span>
+            </div>
+          </div>
+        </div>
+        <div class="ss-approach__result-plaque">
+          <span id="ssApproachResultLabel">WHAT A RESULT CAN LOOK LIKE</span>
+        </div>
       </div>
       <div class="ss-approach__content reveal-up">
         <h2 class="ss-approach__title" id="ssApproachTitle">MY APPROACH TO THE SESSION</h2>
         <p class="ss-approach__text" id="ssApproachText"></p>
       </div>
     </div>
-    <a class="ss-approach__transition" href="#strategic-brief" id="ssApproachTransition">YOUR TURN ↓</a>
+    <a class="ss-approach__transition" href="#strategic-brief"><span id="ssApproachTransitionLabel">YOUR TURN</span> ↓</a>
   </section>
 
   <!-- ============ 05 — STRATEGIC BRIEF (interactive module) ============ -->
@@ -1576,10 +1723,7 @@ window.SITE_CONTENT = {
   strategicSession: {
     en: {
       title: "STRATEGIC SESSION",
-      body: [
-        "You come to me with a specific business, brand, retail or product request.",
-        "Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step."
-      ],
+      body: "You come to me with a specific business, brand, retail or product request. Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step.",
       cta: "START YOUR BRIEF",
 
       howItWorks: {
@@ -1588,17 +1732,22 @@ window.SITE_CONTENT = {
           {
             index: "01",
             title: "PREPARATION",
+            duration: "2 DAYS",
+            icons: ["web", "instagram", "docs", "ai", "materials"],
             text: "You send me your request, context and materials. Before we meet, I study your brand, business, market and the current state of the project."
           },
           {
             index: "02",
             title: "STRATEGIC SESSION",
             duration: "3 HOURS",
+            icons: ["zoom", "timer"],
             text: "We unpack the request, ask questions, test assumptions, reflect, discuss and define the strategic direction together."
           },
           {
             index: "03",
             title: "PACKAGING THE RESULT",
+            duration: "3 DAYS",
+            icons: ["pdf", "result", "zoom"],
             text: "After the session, I analyse the material and the solutions we shaped, and put together the strategic vision, concept and next step."
           }
         ]
@@ -1610,7 +1759,7 @@ window.SITE_CONTENT = {
         columns: [
           {
             title: "PRODUCT",
-            text: "If you came with a product request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
+            text: "If you came with a product or service request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
           },
           {
             title: "BRAND",
@@ -1626,6 +1775,7 @@ window.SITE_CONTENT = {
       approach: {
         title: "MY APPROACH TO THE SESSION",
         text: "A strategic session is not a project with several rounds of revisions. You are not buying a document. You are buying my time, experience, thinking and full attention to your request. The result is my professional vision of what your brand, product, business or retail could become. Further development and implementation can become the next stage of our work.",
+        resultPlaceholder: "WHAT A RESULT CAN LOOK LIKE",
         transition: "YOUR TURN"
       },
 
@@ -1643,14 +1793,23 @@ window.SITE_CONTENT = {
           roleOptions: ["Founder", "Marketing / brand lead", "Consultant / agency", "Other"],
           next: "CONTINUE"
         },
-        step2: {
+        step2Links: {
           heading: "CONTEXT",
           website: "Website",
           instagram: "Instagram",
           linkedin: "LinkedIn",
           otherLinks: "Other relevant links",
-          contextQuestion: "What's currently happening in your business, brand, product or project?",
-          contextPlaceholder: "Tell me a bit about the context...",
+          next: "CONTINUE",
+          back: "BACK"
+        },
+        step2Question: {
+          heading: "What's currently happening in your business, brand, product or project?",
+          label: "CONTEXT",
+          placeholder: "Tell me a bit about the context...",
+          typeTab: "⌨ TYPE",
+          speakTab: "🎤 SPEAK",
+          recordHint: "Tap again to stop and get your text",
+          transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
           next: "CONTINUE",
           back: "BACK"
         },
@@ -1661,7 +1820,6 @@ window.SITE_CONTENT = {
           placeholder: "I want to understand...",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
-          recording: "Recording",
           recordHint: "Tap again to stop and get your text",
           transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
           next: "REVIEW",
@@ -1685,10 +1843,7 @@ window.SITE_CONTENT = {
     },
     ru: {
       title: "ЗАПРОС НА СЕССИЮ",
-      body: [
-        "Вы приходите ко мне с конкретным бизнес, бренд, ритейл или продуктовым запросом.",
-        "До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг."
-      ],
+      body: "Вы приходите ко мне с конкретным бизнес-, бренд-, ритейл- или продуктовым запросом. До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг.",
       cta: "СФОРМУЛИРОВАТЬ ЗАПРОС",
 
       howItWorks: {
@@ -1697,17 +1852,22 @@ window.SITE_CONTENT = {
           {
             index: "01",
             title: "ПОДГОТОВКА",
+            duration: "2 ДНЯ",
+            icons: ["web", "instagram", "docs", "ai", "materials"],
             text: "Вы отправляете мне запрос, контекст и материалы. До нашей встречи я изучаю ваш бренд, бизнес, рынок и текущее состояние проекта."
           },
           {
             index: "02",
             title: "СТРАТЕГИЧЕСКАЯ СЕССИЯ",
             duration: "3 ЧАСА",
+            icons: ["zoom", "timer"],
             text: "Мы разбираем запрос, задаём вопросы, проверяем предположения, рефлексируем, обсуждаем и вместе определяем стратегическое направление."
           },
           {
             index: "03",
             title: "УПАКОВКА РЕЗУЛЬТАТА",
+            duration: "3 ДНЯ",
+            icons: ["pdf", "result", "zoom"],
             text: "После встречи я анализирую материал и разработанные решения, собираю стратегическое видение, концепцию и следующий шаг."
           }
         ]
@@ -1719,7 +1879,7 @@ window.SITE_CONTENT = {
         columns: [
           {
             title: "ПРОДУКТ",
-            text: "Если вы пришли с запросом на продукт, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
+            text: "Если вы пришли с запросом на продукт или услугу, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
           },
           {
             title: "БРЕНД",
@@ -1735,6 +1895,7 @@ window.SITE_CONTENT = {
       approach: {
         title: "МОЙ ПОДХОД К ПРОВЕДЕНИЮ СЕССИИ",
         text: "Стратегическая сессия — это не проект с несколькими раундами правок. Вы покупаете не документ. Вы покупаете моё время, опыт, мышление и полное включение в ваш запрос. Результат — моё профессиональное видение того, чем может стать ваш бренд, продукт, бизнес или ритейл. Дальнейшая разработка и имплементация могут стать следующим этапом нашей работы.",
+        resultPlaceholder: "КАК МОЖЕТ ВЫГЛЯДЕТЬ РЕЗУЛЬТАТ",
         transition: "ВАША ОЧЕРЕДЬ"
       },
 
@@ -1752,14 +1913,23 @@ window.SITE_CONTENT = {
           roleOptions: ["Основатель", "Маркетинг / бренд-лид", "Консультант / агентство", "Другое"],
           next: "ПРОДОЛЖИТЬ"
         },
-        step2: {
+        step2Links: {
           heading: "КОНТЕКСТ",
           website: "Website",
           instagram: "Instagram",
           linkedin: "LinkedIn",
           otherLinks: "Другие релевантные ссылки",
-          contextQuestion: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
-          contextPlaceholder: "Расскажите немного о контексте...",
+          next: "ПРОДОЛЖИТЬ",
+          back: "НАЗАД"
+        },
+        step2Question: {
+          heading: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
+          label: "КОНТЕКСТ",
+          placeholder: "Расскажите немного о контексте...",
+          typeTab: "⌨ НАПИСАТЬ",
+          speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
+          recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
+          transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
           next: "ПРОДОЛЖИТЬ",
           back: "НАЗАД"
         },
@@ -1770,7 +1940,6 @@ window.SITE_CONTENT = {
           placeholder: "Я хочу понять...",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
-          recording: "Идёт запись",
           recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
           transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
           next: "К ПРОВЕРКЕ",
@@ -2056,26 +2225,24 @@ window.SITE_CONTENT = {
 <script>
 /**
  * STRATEGIC SESSION — /strategic-session/
- * UX-skeleton pass: hero + how-it-works + results + approach + an
- * interactive Strategic Brief (you -> context -> request -> review ->
- * thanks). No backend yet — Send just moves to the thank-you screen
- * locally; nothing is transmitted or stored (see spec).
+ * Storyboard pass v2: hero + how-it-works (icons, equal-height cards,
+ * connectors) + results (accordion reveal) + approach (video UI mock,
+ * result plaque) + Strategic Brief (You -> Context links -> Context
+ * question -> Request -> Review -> Thanks, each key question its own
+ * screen with a Type/Speak toggle). No backend yet — Send just moves to
+ * the thank-you screen locally; nothing is transmitted or stored.
  */
 (function () {
   "use strict";
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ---- Renders **bold** the same way js/i18n.js's renderInline does, for
-  // the one line (Brief intro) that needs it here. ----
   function renderInline(str) {
     return String(str || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   }
 
   // ======================================================================
-  // Scroll reveal (same recipe as js/films.js) — re-run after any dynamic
-  // section rebuilds itself (language switch), so freshly created nodes
-  // get observed too.
+  // Scroll reveal (same recipe as js/films.js)
   // ======================================================================
   function observeReveals(root) {
     var targets = (root || document).querySelectorAll(".reveal-up");
@@ -2096,11 +2263,15 @@ window.SITE_CONTENT = {
   }
 
   // ======================================================================
-  // Typewriter — reused by the Results columns and the Approach text.
-  // Runs once when the element scrolls into view; respects
-  // prefers-reduced-motion by just setting the full text instantly.
+  // Typewriter — reused by the Approach text. Each element tracks its own
+  // "run token" so a stale in-flight animation (e.g. still typing the EN
+  // text when the user switches to RU) can never keep overwriting it —
+  // this was the cause of the approach block showing English under RU.
   // ======================================================================
+  var typingRunId = 0;
   function typeInOnView(el, text) {
+    var myRun = ++typingRunId;
+    el.dataset.typeRun = String(myRun);
     el.textContent = "";
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
       el.textContent = text;
@@ -2112,20 +2283,21 @@ window.SITE_CONTENT = {
         if (entry.isIntersecting && !started) {
           started = true;
           observer.unobserve(entry.target);
-          runTypewriter(el, text);
+          runTypewriter(el, text, myRun);
         }
       });
     }, { threshold: 0.4 });
     observer.observe(el);
   }
 
-  function runTypewriter(el, text) {
+  function runTypewriter(el, text, myRun) {
     var cursor = document.createElement("span");
     cursor.className = "ss-typing-cursor";
     cursor.textContent = "|";
     var i = 0;
     var speed = Math.max(8, Math.min(22, Math.round(900 / text.length)));
     (function step() {
+      if (el.dataset.typeRun !== String(myRun)) return; // superseded — stop
       el.textContent = text.slice(0, i);
       el.appendChild(cursor);
       i++;
@@ -2142,24 +2314,58 @@ window.SITE_CONTENT = {
   // ======================================================================
   function renderHero(data) {
     document.getElementById("ssTitle").textContent = data.title;
-    var body = document.getElementById("ssBody");
-    body.innerHTML = "";
-    data.body.forEach(function (para) {
-      var p = document.createElement("p");
-      p.textContent = para;
-      body.appendChild(p);
-    });
+    document.getElementById("ssBody").textContent = data.body;
     document.getElementById("ssCtaLabel").textContent = data.cta;
   }
 
   // ======================================================================
   // 02 — HOW IT WORKS
   // ======================================================================
+  var STAGE_ICONS = {
+    web: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>',
+    docs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2.5h8l4 4V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z"/><path d="M14 2.5V7h4M8 12h8M8 16h8M8 8h3"/></svg>',
+    ai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>',
+    materials: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+    zoom: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2.2"/><path d="M15.5 10.2l6-3.2v10l-6-3.2z"/></svg>',
+    timer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9.5 2.5h5"/></svg>',
+    pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2.5h8l4 4V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z"/><path d="M14 2.5V7h4"/><path d="M7.5 13.5h1.2a1.3 1.3 0 1 1 0 2.6H7.5zM11.5 13.5h1a1.5 1.5 0 0 1 0 3h-1zM16.5 13.5v3M16.5 15h1.3"/></svg>',
+    result: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12.5l4.5 4.5L20 6"/></svg>'
+  };
+
+  function buildStageIcon(id) {
+    var span = document.createElement("span");
+    span.className = "ss-stage__icon";
+    span.innerHTML = STAGE_ICONS[id] || "";
+    return span;
+  }
+
+  function buildConnector(vertical) {
+    var wrap = document.createElement("div");
+    wrap.className = "ss-how__connector" + (vertical ? " ss-how__connector--vertical" : "");
+    wrap.setAttribute("aria-hidden", "true");
+    var dot1 = document.createElement("span");
+    dot1.className = "ss-how__connector-dot";
+    var line = document.createElement("span");
+    line.className = "ss-how__connector-line";
+    var dot2 = document.createElement("span");
+    dot2.className = "ss-how__connector-dot";
+    wrap.appendChild(dot1);
+    wrap.appendChild(line);
+    wrap.appendChild(dot2);
+    return wrap;
+  }
+
   function renderHowItWorks(data) {
     document.getElementById("ssHowLabel").textContent = data.howItWorks.label;
     var wrap = document.getElementById("ssHowStages");
     wrap.innerHTML = "";
-    data.howItWorks.stages.forEach(function (stage) {
+    data.howItWorks.stages.forEach(function (stage, i) {
+      if (i > 0) {
+        wrap.appendChild(buildConnector(false));
+        wrap.appendChild(buildConnector(true));
+      }
+
       var card = document.createElement("div");
       card.className = "ss-stage reveal-up";
 
@@ -2173,25 +2379,34 @@ window.SITE_CONTENT = {
       title.textContent = stage.title;
       head.appendChild(index);
       head.appendChild(title);
+      card.appendChild(head);
+
       if (stage.duration) {
         var duration = document.createElement("span");
         duration.className = "ss-stage__duration";
         duration.textContent = stage.duration;
-        head.appendChild(duration);
+        card.appendChild(duration);
       }
-      card.appendChild(head);
 
       var text = document.createElement("p");
       text.className = "ss-stage__text";
       text.textContent = stage.text;
       card.appendChild(text);
 
+      if (stage.icons && stage.icons.length) {
+        var iconRow = document.createElement("div");
+        iconRow.className = "ss-stage__icons";
+        stage.icons.forEach(function (id) { iconRow.appendChild(buildStageIcon(id)); });
+        card.appendChild(iconRow);
+      }
+
       wrap.appendChild(card);
     });
   }
 
   // ======================================================================
-  // 03 — RESULTS (typing reveal per column)
+  // 03 — RESULTS (big accent titles, click-to-expand text — same
+  // hover-or-open pattern as the Ways to Work Together request pills)
   // ======================================================================
   function renderResults(data) {
     document.getElementById("ssResultsLabel").textContent = data.results.label;
@@ -2201,55 +2416,68 @@ window.SITE_CONTENT = {
     data.results.columns.forEach(function (col) {
       var item = document.createElement("div");
       item.className = "ss-result reveal-up";
-      var title = document.createElement("p");
-      title.className = "ss-result__title";
-      title.textContent = col.title;
-      var text = document.createElement("p");
-      text.className = "ss-result__text";
-      item.appendChild(title);
-      item.appendChild(text);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ss-result__title";
+      btn.textContent = col.title;
+      btn.setAttribute("aria-expanded", "false");
+
+      var panelWrap = document.createElement("div");
+      panelWrap.className = "ss-result__panel-wrap";
+      var panel = document.createElement("p");
+      panel.className = "ss-result__panel";
+      panel.textContent = col.text;
+      panelWrap.appendChild(panel);
+
+      btn.addEventListener("click", function () {
+        var isOpen = item.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      item.appendChild(btn);
+      item.appendChild(panelWrap);
       wrap.appendChild(item);
-      typeInOnView(text, col.text);
     });
   }
 
   // ======================================================================
-  // 04 — APPROACH (temporary accent block, typing text alongside the
-  // future video)
+  // 04 — APPROACH (temporary accent block: video mock with player-UI
+  // chrome, a result plaque next to it, typed text alongside)
   // ======================================================================
   function renderApproach(data) {
     document.getElementById("ssApproachTitle").textContent = data.approach.title;
-    document.getElementById("ssApproachTransition").textContent = data.approach.transition + " ↓";
+    document.getElementById("ssApproachResultLabel").textContent = data.approach.resultPlaceholder;
+    document.getElementById("ssApproachTransitionLabel").textContent = data.approach.transition;
     var textEl = document.getElementById("ssApproachText");
     typeInOnView(textEl, data.approach.text);
   }
 
   // ======================================================================
   // 05 — STRATEGIC BRIEF (interactive, stateful — no backend yet)
+  // Internal flow: you -> context-links -> context-question -> request ->
+  // review -> thanks. The 3-node progress bar (YOU/CONTEXT/REQUEST) maps
+  // both context sub-steps onto its single "CONTEXT" node.
   // ======================================================================
   var briefState = {
-    step: "you", // you | context | request | review | thanks
-    mode: "type", // type | speak (step "request" only)
+    step: "you",
+    mode: "type", // type | speak — applies to whichever question step is active
     recording: false,
     recordSeconds: 0,
     recordTimer: null,
     data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "" }
   };
 
-  var STEP_ORDER = ["you", "context", "request"];
+  var PROGRESS_MAP = { you: 0, "context-links": 1, "context-question": 1, request: 2 };
 
   function briefLang() {
     return window.SITE_CONTENT.strategicSession[window.MK.i18n.getLang()].brief;
   }
 
-  // Copies whatever the visible step's fields currently hold into
-  // briefState.data before that step's DOM gets torn down — otherwise an
-  // EN/RU switch mid-step (before Next/Back is clicked) would discard
-  // anything already typed.
   var FIELD_MAP = {
     ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role",
     ssWebsite: "website", ssInstagram: "instagram", ssLinkedin: "linkedin", ssOtherLinks: "otherLinks",
-    ssContext: "context", ssRequest: "request"
+    ssContextAnswer: "context", ssRequest: "request"
   };
   function collectVisibleFields() {
     Object.keys(FIELD_MAP).forEach(function (id) {
@@ -2266,11 +2494,10 @@ window.SITE_CONTENT = {
   function renderBriefProgress(brief) {
     var wrap = document.getElementById("ssBriefProgress");
     wrap.innerHTML = "";
-    var currentIndex = STEP_ORDER.indexOf(briefState.step);
-    // Review/thanks keep the last (request) step marked done, not current.
-    if (currentIndex === -1) currentIndex = STEP_ORDER.length;
+    var currentIndex = PROGRESS_MAP[briefState.step];
+    if (currentIndex === undefined) currentIndex = 3; // review/thanks: all done
 
-    STEP_ORDER.forEach(function (key, i) {
+    brief.steps.forEach(function (label, i) {
       if (i > 0) {
         var line = document.createElement("div");
         line.className = "ss-brief__step-line";
@@ -2284,11 +2511,11 @@ window.SITE_CONTENT = {
       var num = document.createElement("span");
       num.className = "ss-brief__step-num";
       num.textContent = i < currentIndex ? "✓" : String(i + 1);
-      var label = document.createElement("span");
-      label.textContent = brief.steps[i];
+      var labelEl = document.createElement("span");
+      labelEl.textContent = label;
 
       step.appendChild(num);
-      step.appendChild(label);
+      step.appendChild(labelEl);
       wrap.appendChild(step);
     });
   }
@@ -2302,6 +2529,9 @@ window.SITE_CONTENT = {
 
   function goToStep(step) {
     briefState.step = step;
+    briefState.mode = "type";
+    briefState.recording = false;
+    clearRecordTimer();
     renderBrief();
     var panel = document.getElementById("ssBriefPanel");
     if (panel) panel.scrollIntoView({ block: "start", behavior: "smooth" });
@@ -2338,6 +2568,27 @@ window.SITE_CONTENT = {
     return field;
   }
 
+  function buildActions(config) {
+    var actions = document.createElement("div");
+    actions.className = "ss-brief__actions" + (config.back ? "" : " ss-brief__actions--end");
+    if (config.back) {
+      var back = document.createElement("a");
+      back.className = "btn btn--outline";
+      back.href = "javascript:void(0)";
+      back.textContent = config.back;
+      back.addEventListener("click", config.onBack);
+      actions.appendChild(back);
+    }
+    var next = document.createElement("a");
+    next.className = "btn btn--dark";
+    next.href = "javascript:void(0)";
+    next.textContent = config.next;
+    next.addEventListener("click", config.onNext);
+    actions.appendChild(next);
+    return actions;
+  }
+
+  // ---- Step: YOU ----
   function renderStepYou(panel, s) {
     var heading = document.createElement("h3");
     heading.className = "ss-brief__step-heading";
@@ -2353,24 +2604,20 @@ window.SITE_CONTENT = {
     panel.appendChild(buildField({ id: "ssCompany", type: "text", label: s.company, value: briefState.data.company }));
     panel.appendChild(buildField({ id: "ssRole", type: "select", label: s.role, options: s.roleOptions, value: briefState.data.role || s.roleOptions[0] }));
 
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions ss-brief__actions--end";
-    var next = document.createElement("a");
-    next.className = "btn btn--dark";
-    next.href = "javascript:void(0)";
-    next.textContent = s.next;
-    next.addEventListener("click", function () {
-      briefState.data.name = document.getElementById("ssName").value;
-      briefState.data.email = document.getElementById("ssEmail").value;
-      briefState.data.company = document.getElementById("ssCompany").value;
-      briefState.data.role = document.getElementById("ssRole").value;
-      goToStep("context");
-    });
-    actions.appendChild(next);
-    panel.appendChild(actions);
+    panel.appendChild(buildActions({
+      next: s.next,
+      onNext: function () {
+        briefState.data.name = document.getElementById("ssName").value;
+        briefState.data.email = document.getElementById("ssEmail").value;
+        briefState.data.company = document.getElementById("ssCompany").value;
+        briefState.data.role = document.getElementById("ssRole").value;
+        goToStep("context-links");
+      }
+    }));
   }
 
-  function renderStepContext(panel, s) {
+  // ---- Step: CONTEXT — LINKS ----
+  function renderStepContextLinks(panel, s) {
     var heading = document.createElement("h3");
     heading.className = "ss-brief__step-heading";
     heading.textContent = s.heading;
@@ -2388,43 +2635,35 @@ window.SITE_CONTENT = {
     row2.appendChild(buildField({ id: "ssOtherLinks", type: "text", label: s.otherLinks, value: briefState.data.otherLinks }));
     panel.appendChild(row2);
 
-    panel.appendChild(buildField({ id: "ssContext", type: "textarea", rows: 4, label: s.contextQuestion, placeholder: s.contextPlaceholder, value: briefState.data.context }));
-
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions";
-    var back = document.createElement("a");
-    back.className = "btn btn--outline";
-    back.href = "javascript:void(0)";
-    back.textContent = s.back;
-    back.addEventListener("click", function () { collectContext(); goToStep("you"); });
-    var next = document.createElement("a");
-    next.className = "btn btn--dark";
-    next.href = "javascript:void(0)";
-    next.textContent = s.next;
-    next.addEventListener("click", function () { collectContext(); goToStep("request"); });
-    actions.appendChild(back);
-    actions.appendChild(next);
-    panel.appendChild(actions);
-
-    function collectContext() {
+    function collect() {
       briefState.data.website = document.getElementById("ssWebsite").value;
       briefState.data.instagram = document.getElementById("ssInstagram").value;
       briefState.data.linkedin = document.getElementById("ssLinkedin").value;
       briefState.data.otherLinks = document.getElementById("ssOtherLinks").value;
-      briefState.data.context = document.getElementById("ssContext").value;
     }
+
+    panel.appendChild(buildActions({
+      back: s.back,
+      next: s.next,
+      onBack: function () { collect(); goToStep("you"); },
+      onNext: function () { collect(); goToStep("context-question"); }
+    }));
   }
 
-  function renderStepRequest(panel, s) {
+  // ---- Shared: a question step with a Type/Speak toggle (used by both
+  // the context question and the main request — same interaction). ----
+  function renderQuestionStep(panel, s, opts) {
     var heading = document.createElement("h3");
     heading.className = "ss-brief__step-heading";
     heading.textContent = s.heading;
     panel.appendChild(heading);
 
-    var hint = document.createElement("p");
-    hint.className = "ss-brief__step-hint";
-    hint.textContent = s.hint;
-    panel.appendChild(hint);
+    if (s.hint) {
+      var hint = document.createElement("p");
+      hint.className = "ss-brief__step-hint";
+      hint.textContent = s.hint;
+      panel.appendChild(hint);
+    }
 
     var tabs = document.createElement("div");
     tabs.className = "ss-mode-tabs";
@@ -2437,14 +2676,14 @@ window.SITE_CONTENT = {
     speakTab.className = "ss-mode-tab" + (briefState.mode === "speak" ? " is-active" : "");
     speakTab.textContent = s.speakTab;
     typeTab.addEventListener("click", function () {
-      collectRequest();
+      opts.collect();
       briefState.mode = "type";
       clearRecordTimer();
       briefState.recording = false;
       renderBrief();
     });
     speakTab.addEventListener("click", function () {
-      collectRequest();
+      opts.collect();
       briefState.mode = "speak";
       renderBrief();
     });
@@ -2453,37 +2692,23 @@ window.SITE_CONTENT = {
     panel.appendChild(tabs);
 
     if (briefState.mode === "speak") {
-      panel.appendChild(buildVoiceMock(s));
+      panel.appendChild(buildVoiceMock(s, opts));
     } else {
-      panel.appendChild(buildField({ id: "ssRequest", type: "textarea", rows: 5, label: s.label, placeholder: s.placeholder, value: briefState.data.request }));
+      panel.appendChild(buildField({ id: opts.fieldId, type: "textarea", rows: 5, label: s.label, placeholder: s.placeholder, value: briefState.data[opts.dataKey] }));
     }
 
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions";
-    var back = document.createElement("a");
-    back.className = "btn btn--outline";
-    back.href = "javascript:void(0)";
-    back.textContent = s.back;
-    back.addEventListener("click", function () { collectRequest(); goToStep("context"); });
-    var next = document.createElement("a");
-    next.className = "btn btn--dark";
-    next.href = "javascript:void(0)";
-    next.textContent = s.next;
-    next.addEventListener("click", function () { collectRequest(); goToStep("review"); });
-    actions.appendChild(back);
-    actions.appendChild(next);
-    panel.appendChild(actions);
-
-    function collectRequest() {
-      var field = document.getElementById("ssRequest");
-      if (field) briefState.data.request = field.value;
-    }
+    panel.appendChild(buildActions({
+      back: s.back,
+      next: s.next,
+      onBack: function () { opts.collect(); opts.onBack(); },
+      onNext: function () { opts.collect(); opts.onNext(); }
+    }));
   }
 
   // Visual-only mic mock: no microphone access, no real transcription —
   // just the recording state + a placeholder "transcript" the user can
   // edit, per spec (backend/transcription connect later).
-  function buildVoiceMock(s) {
+  function buildVoiceMock(s, opts) {
     var wrap = document.createElement("div");
     wrap.className = "ss-voice";
 
@@ -2514,7 +2739,7 @@ window.SITE_CONTENT = {
       } else {
         clearRecordTimer();
         briefState.recording = false;
-        briefState.data.request = s.transcribedPlaceholder;
+        briefState.data[opts.dataKey] = s.transcribedPlaceholder;
         briefState.mode = "type";
         renderBrief();
       }
@@ -2528,8 +2753,8 @@ window.SITE_CONTENT = {
 
   function formatTimer(totalSeconds) {
     var m = Math.floor(totalSeconds / 60);
-    var s = totalSeconds % 60;
-    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    var sec = totalSeconds % 60;
+    return (m < 10 ? "0" + m : m) + ":" + (sec < 10 ? "0" + sec : sec);
   }
 
   function renderStepReview(panel, brief) {
@@ -2561,21 +2786,12 @@ window.SITE_CONTENT = {
     box.appendChild(dl);
     panel.appendChild(box);
 
-    var actions = document.createElement("div");
-    actions.className = "ss-brief__actions";
-    var edit = document.createElement("a");
-    edit.className = "btn btn--outline";
-    edit.href = "javascript:void(0)";
-    edit.textContent = r.edit;
-    edit.addEventListener("click", function () { goToStep("you"); });
-    var send = document.createElement("a");
-    send.className = "btn btn--dark";
-    send.href = "javascript:void(0)";
-    send.textContent = r.send;
-    send.addEventListener("click", function () { goToStep("thanks"); });
-    actions.appendChild(edit);
-    actions.appendChild(send);
-    panel.appendChild(actions);
+    panel.appendChild(buildActions({
+      back: r.edit,
+      next: r.send,
+      onBack: function () { goToStep("you"); },
+      onNext: function () { goToStep("thanks"); }
+    }));
   }
 
   function renderStepThanks(panel, brief) {
@@ -2602,11 +2818,37 @@ window.SITE_CONTENT = {
     panel.innerHTML = "";
     panel.className = "ss-brief__panel";
 
-    if (briefState.step === "you") renderStepYou(panel, brief.step1);
-    else if (briefState.step === "context") renderStepContext(panel, brief.step2);
-    else if (briefState.step === "request") renderStepRequest(panel, brief.step3);
-    else if (briefState.step === "review") renderStepReview(panel, brief);
-    else if (briefState.step === "thanks") renderStepThanks(panel, brief);
+    if (briefState.step === "you") {
+      renderStepYou(panel, brief.step1);
+    } else if (briefState.step === "context-links") {
+      renderStepContextLinks(panel, brief.step2Links);
+    } else if (briefState.step === "context-question") {
+      renderQuestionStep(panel, brief.step2Question, {
+        fieldId: "ssContextAnswer",
+        dataKey: "context",
+        collect: function () {
+          var f = document.getElementById("ssContextAnswer");
+          if (f) briefState.data.context = f.value;
+        },
+        onBack: function () { goToStep("context-links"); },
+        onNext: function () { goToStep("request"); }
+      });
+    } else if (briefState.step === "request") {
+      renderQuestionStep(panel, brief.step3, {
+        fieldId: "ssRequest",
+        dataKey: "request",
+        collect: function () {
+          var f = document.getElementById("ssRequest");
+          if (f) briefState.data.request = f.value;
+        },
+        onBack: function () { goToStep("context-question"); },
+        onNext: function () { goToStep("review"); }
+      });
+    } else if (briefState.step === "review") {
+      renderStepReview(panel, brief);
+    } else if (briefState.step === "thanks") {
+      renderStepThanks(panel, brief);
+    }
   }
 
   // ======================================================================
