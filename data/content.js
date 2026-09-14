@@ -451,8 +451,10 @@ window.SITE_CONTENT = {
           placeholder: "Tell me a bit about the context...",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
-          recordHint: "Tap again to stop and get your text",
-          transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
+          startHint: "Tap the mic to start speaking",
+          recordHint: "Tap again to stop",
+          micUnsupported: "Voice input isn't supported in this browser — please type your answer instead.",
+          micError: "Couldn't access the microphone. Please check your browser permissions or type your answer.",
           next: "CONTINUE",
           back: "BACK"
         },
@@ -463,8 +465,10 @@ window.SITE_CONTENT = {
           placeholder: "I want to understand...",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
-          recordHint: "Tap again to stop and get your text",
-          transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
+          startHint: "Tap the mic to start speaking",
+          recordHint: "Tap again to stop",
+          micUnsupported: "Voice input isn't supported in this browser — please type your answer instead.",
+          micError: "Couldn't access the microphone. Please check your browser permissions or type your answer.",
           next: "REVIEW",
           back: "BACK"
         },
@@ -476,7 +480,11 @@ window.SITE_CONTENT = {
           context: "Context",
           request: "Your request",
           edit: "EDIT",
-          send: "SEND TO MARINA"
+          send: "SEND TO MARINA",
+          sending: "SENDING…",
+          error: "Something went wrong. Please try again.",
+          retry: "TRY AGAIN",
+          requiredError: "Please fill in your name and email to continue."
         },
         thankYou: {
           heading: "THANK YOU.",
@@ -571,8 +579,10 @@ window.SITE_CONTENT = {
           placeholder: "Расскажите немного о контексте...",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
-          recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
-          transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
+          startHint: "Нажмите на микрофон, чтобы начать говорить",
+          recordHint: "Нажмите ещё раз, чтобы остановить",
+          micUnsupported: "Голосовой ввод не поддерживается в этом браузере — пожалуйста, напишите ответ.",
+          micError: "Не удалось получить доступ к микрофону. Проверьте разрешения браузера или напишите ответ.",
           next: "ПРОДОЛЖИТЬ",
           back: "НАЗАД"
         },
@@ -583,8 +593,10 @@ window.SITE_CONTENT = {
           placeholder: "Я хочу понять...",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
-          recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
-          transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
+          startHint: "Нажмите на микрофон, чтобы начать говорить",
+          recordHint: "Нажмите ещё раз, чтобы остановить",
+          micUnsupported: "Голосовой ввод не поддерживается в этом браузере — пожалуйста, напишите ответ.",
+          micError: "Не удалось получить доступ к микрофону. Проверьте разрешения браузера или напишите ответ.",
           next: "К ПРОВЕРКЕ",
           back: "НАЗАД"
         },
@@ -596,7 +608,11 @@ window.SITE_CONTENT = {
           context: "Контекст",
           request: "Ваш запрос",
           edit: "РЕДАКТИРОВАТЬ",
-          send: "ОТПРАВИТЬ МАРИНЕ"
+          send: "ОТПРАВИТЬ МАРИНЕ",
+          sending: "ОТПРАВКА…",
+          error: "Что-то пошло не так. Попробуйте ещё раз.",
+          retry: "ПОПРОБОВАТЬ СНОВА",
+          requiredError: "Пожалуйста, укажите имя и email, чтобы продолжить."
         },
         thankYou: {
           heading: "СПАСИБО.",

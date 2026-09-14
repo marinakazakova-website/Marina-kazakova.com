@@ -1,14 +1,21 @@
 /**
  * STRATEGIC SESSION — /strategic-session/
- * Storyboard pass v2: hero + how-it-works (icons, equal-height cards,
- * connectors) + results (accordion reveal) + approach (video UI mock,
- * result plaque) + Strategic Brief (You -> Context links -> Context
- * question -> Request -> Review -> Thanks, each key question its own
- * screen with a Type/Speak toggle). No backend yet — Send just moves to
- * the thank-you screen locally; nothing is transmitted or stored.
+ * Hero + how-it-works (icons, equal-height cards, connectors) + results
+ * (accordion reveal) + approach (video UI mock, result plaque) +
+ * Strategic Brief (You -> Context links -> Context question -> Request ->
+ * Review -> Thanks, each key question its own screen with a Type/Speak
+ * toggle backed by the real Web Speech API). Send posts to a Google Apps
+ * Script Web App (SHEETS_ENDPOINT below) that appends one row per
+ * submission to a Google Sheet — see google-apps-script/README.md.
  */
 (function () {
   "use strict";
+
+  // Google Apps Script Web App URL (Extensions > Apps Script > Deploy > Web
+  // app, in the target Google Sheet). Not a secret — it's a write-only
+  // endpoint with no read access to the sheet's contents. See
+  // google-apps-script/README.md for the deployment steps.
+  var SHEETS_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -240,7 +247,10 @@
     recording: false,
     recordSeconds: 0,
     recordTimer: null,
-    data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "" }
+    startedAt: Date.now(), // spam timing-trap: real users take well over a few seconds to fill 3 steps
+    submitting: false,
+    submitError: false,
+    data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "", hp: "" }
   };
 
   var PROGRESS_MAP = { you: 0, "context-links": 1, "context-question": 1, request: 2 };
@@ -252,7 +262,7 @@
   var FIELD_MAP = {
     ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role",
     ssWebsite: "website", ssInstagram: "instagram", ssLinkedin: "linkedin", ssOtherLinks: "otherLinks",
-    ssContextAnswer: "context", ssRequest: "request"
+    ssContextAnswer: "context", ssRequest: "request", ssHoneypot: "hp"
   };
   function collectVisibleFields() {
     Object.keys(FIELD_MAP).forEach(function (id) {
@@ -303,6 +313,7 @@
   }
 
   function goToStep(step) {
+    stopActiveRecognition();
     briefState.step = step;
     briefState.mode = "type";
     briefState.recording = false;
@@ -339,8 +350,37 @@
     input.id = config.id;
     if (config.placeholder) input.placeholder = config.placeholder;
     if (config.value) input.value = config.value;
+    if (config.required) input.required = true;
     field.appendChild(input);
+    if (config.errorId) {
+      var err = document.createElement("p");
+      err.className = "ss-field__error";
+      err.id = config.errorId;
+      err.hidden = true;
+      field.appendChild(err);
+    }
     return field;
+  }
+
+  // A hidden field real users never see or fill — a bot that auto-fills
+  // every input on the page will fill it, and we quietly drop that
+  // submission (client + server side) instead of writing it to the sheet.
+  function buildHoneypot() {
+    var wrap = document.createElement("div");
+    wrap.className = "ss-hp";
+    wrap.setAttribute("aria-hidden", "true");
+    var label = document.createElement("label");
+    label.setAttribute("for", "ssHoneypot");
+    label.textContent = "Leave this field empty";
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "ssHoneypot";
+    input.name = "company_url";
+    input.tabIndex = -1;
+    input.autocomplete = "off";
+    wrap.appendChild(label);
+    wrap.appendChild(input);
+    return wrap;
   }
 
   function buildActions(config) {
@@ -372,20 +412,36 @@
 
     var row = document.createElement("div");
     row.className = "ss-field-row";
-    row.appendChild(buildField({ id: "ssName", type: "text", label: s.name, value: briefState.data.name }));
-    row.appendChild(buildField({ id: "ssEmail", type: "email", label: s.email, value: briefState.data.email }));
+    row.appendChild(buildField({ id: "ssName", type: "text", label: s.name, value: briefState.data.name, required: true, errorId: "ssNameError" }));
+    row.appendChild(buildField({ id: "ssEmail", type: "email", label: s.email, value: briefState.data.email, required: true, errorId: "ssEmailError" }));
     panel.appendChild(row);
 
     panel.appendChild(buildField({ id: "ssCompany", type: "text", label: s.company, value: briefState.data.company }));
     panel.appendChild(buildField({ id: "ssRole", type: "select", label: s.role, options: s.roleOptions, value: briefState.data.role || s.roleOptions[0] }));
+    panel.appendChild(buildHoneypot());
 
     panel.appendChild(buildActions({
       next: s.next,
       onNext: function () {
-        briefState.data.name = document.getElementById("ssName").value;
-        briefState.data.email = document.getElementById("ssEmail").value;
+        var nameInput = document.getElementById("ssName");
+        var emailInput = document.getElementById("ssEmail");
+        briefState.data.name = nameInput.value;
+        briefState.data.email = emailInput.value;
         briefState.data.company = document.getElementById("ssCompany").value;
         briefState.data.role = document.getElementById("ssRole").value;
+        briefState.data.hp = document.getElementById("ssHoneypot").value;
+
+        var nameOk = nameInput.checkValidity();
+        var emailOk = emailInput.checkValidity();
+        document.getElementById("ssNameError").hidden = nameOk;
+        document.getElementById("ssEmailError").hidden = emailOk;
+        var reviewCopy = briefLang().review;
+        document.getElementById("ssNameError").textContent = reviewCopy.requiredError;
+        document.getElementById("ssEmailError").textContent = reviewCopy.requiredError;
+        if (!nameOk || !emailOk) {
+          (nameOk ? emailInput : nameInput).focus();
+          return;
+        }
         goToStep("context-links");
       }
     }));
@@ -453,8 +509,7 @@
     typeTab.addEventListener("click", function () {
       opts.collect();
       briefState.mode = "type";
-      clearRecordTimer();
-      briefState.recording = false;
+      stopActiveRecognition();
       renderBrief();
     });
     speakTab.addEventListener("click", function () {
@@ -467,7 +522,7 @@
     panel.appendChild(tabs);
 
     if (briefState.mode === "speak") {
-      panel.appendChild(buildVoiceMock(s, opts));
+      panel.appendChild(buildVoiceInput(s, opts));
     } else {
       panel.appendChild(buildField({ id: opts.fieldId, type: "textarea", rows: 5, label: s.label, placeholder: s.placeholder, value: briefState.data[opts.dataKey] }));
     }
@@ -480,12 +535,34 @@
     }));
   }
 
-  // Visual-only mic mock: no microphone access, no real transcription —
-  // just the recording state + a placeholder "transcript" the user can
-  // edit, per spec (backend/transcription connect later).
-  function buildVoiceMock(s, opts) {
+  // ---- Real voice input (Web Speech API) ----
+  // No backend, no API key: the browser's own SpeechRecognition engine
+  // (Chrome/Edge/Android; Safari 14.1+ with quirks; unsupported in
+  // Firefox — those users see micUnsupported and type instead).
+  var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var activeRecognition = null;
+
+  function stopActiveRecognition() {
+    if (activeRecognition) {
+      activeRecognition.expectedEnd = true;
+      try { activeRecognition.stop(); } catch (e) { /* already stopped */ }
+      activeRecognition = null;
+    }
+    clearRecordTimer();
+    briefState.recording = false;
+  }
+
+  function buildVoiceInput(s, opts) {
     var wrap = document.createElement("div");
     wrap.className = "ss-voice";
+
+    if (!SpeechRecognitionCtor) {
+      var unsupported = document.createElement("p");
+      unsupported.className = "ss-voice__hint ss-voice__hint--error";
+      unsupported.textContent = s.micUnsupported;
+      wrap.appendChild(unsupported);
+      return wrap;
+    }
 
     var mic = document.createElement("button");
     mic.type = "button";
@@ -497,31 +574,90 @@
     timer.className = "ss-voice__timer";
     timer.textContent = formatTimer(briefState.recordSeconds);
 
+    var interim = document.createElement("p");
+    interim.className = "ss-voice__interim";
+
     var hint = document.createElement("p");
     hint.className = "ss-voice__hint";
-    hint.textContent = briefState.recording ? s.recordHint : s.speakTab;
+    hint.textContent = briefState.recording ? s.recordHint : s.startHint;
+
+    function showError(message) {
+      clearRecordTimer();
+      briefState.recording = false;
+      mic.classList.remove("is-recording");
+      mic.setAttribute("aria-pressed", "false");
+      hint.className = "ss-voice__hint ss-voice__hint--error";
+      hint.textContent = message;
+    }
 
     mic.addEventListener("click", function () {
-      if (!briefState.recording) {
-        briefState.recording = true;
-        briefState.recordSeconds = 0;
-        briefState.recordTimer = setInterval(function () {
-          briefState.recordSeconds++;
-          timer.textContent = formatTimer(briefState.recordSeconds);
-        }, 1000);
-        mic.classList.add("is-recording");
-        hint.textContent = s.recordHint;
-      } else {
-        clearRecordTimer();
-        briefState.recording = false;
-        briefState.data[opts.dataKey] = s.transcribedPlaceholder;
-        briefState.mode = "type";
+      if (briefState.recording) {
+        stopActiveRecognition();
+        briefState.mode = "type"; // hand the finalized transcript to the editable textarea
         renderBrief();
+        return;
       }
+
+      var recognition = new SpeechRecognitionCtor();
+      recognition.lang = window.MK.i18n.getLang() === "ru" ? "ru-RU" : "en-US";
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.expectedEnd = false;
+
+      var baseText = briefState.data[opts.dataKey] ? briefState.data[opts.dataKey] + " " : "";
+      var finalTranscript = baseText;
+
+      recognition.onresult = function (event) {
+        var interimText = "";
+        for (var i = event.resultIndex; i < event.results.length; i++) {
+          var chunk = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += chunk + " ";
+          } else {
+            interimText += chunk;
+          }
+        }
+        briefState.data[opts.dataKey] = finalTranscript.trim();
+        interim.textContent = interimText;
+      };
+
+      recognition.onerror = function (event) {
+        if (event.error === "no-speech" || event.error === "aborted") return;
+        showError(s.micError);
+      };
+
+      recognition.onend = function () {
+        if (!recognition.expectedEnd && briefState.recording) {
+          // Some browsers end the session after a pause even in
+          // continuous mode — keep listening until the user taps stop.
+          try { recognition.start(); return; } catch (e) { /* fall through */ }
+        }
+        activeRecognition = null;
+      };
+
+      try {
+        recognition.start();
+      } catch (e) {
+        showError(s.micError);
+        return;
+      }
+
+      activeRecognition = recognition;
+      briefState.recording = true;
+      briefState.recordSeconds = 0;
+      briefState.recordTimer = setInterval(function () {
+        briefState.recordSeconds++;
+        timer.textContent = formatTimer(briefState.recordSeconds);
+      }, 1000);
+      mic.classList.add("is-recording");
+      mic.setAttribute("aria-pressed", "true");
+      hint.className = "ss-voice__hint";
+      hint.textContent = s.recordHint;
     });
 
     wrap.appendChild(mic);
     wrap.appendChild(timer);
+    wrap.appendChild(interim);
     wrap.appendChild(hint);
     return wrap;
   }
@@ -561,12 +697,84 @@
     box.appendChild(dl);
     panel.appendChild(box);
 
-    panel.appendChild(buildActions({
+    if (briefState.submitError) {
+      var errorBox = document.createElement("p");
+      errorBox.className = "ss-brief__submit-error";
+      errorBox.textContent = r.error;
+      panel.appendChild(errorBox);
+    }
+
+    var actions = buildActions({
       back: r.edit,
-      next: r.send,
+      next: briefState.submitting ? r.sending : (briefState.submitError ? r.retry : r.send),
       onBack: function () { goToStep("you"); },
-      onNext: function () { goToStep("thanks"); }
-    }));
+      onNext: function () { submitBrief(r); }
+    });
+    if (briefState.submitting) actions.classList.add("is-loading");
+    panel.appendChild(actions);
+  }
+
+  function submitBrief(r) {
+    if (briefState.submitting) return;
+
+    if (!briefState.data.name || !briefState.data.email) {
+      goToStep("you");
+      return;
+    }
+
+    // Silent spam handling: a filled honeypot or a submission completed
+    // faster than any real person could fill 3 steps — pretend success
+    // without writing anything or tipping off the bot.
+    var isSpam = briefState.data.hp || (Date.now() - briefState.startedAt < 4000);
+    if (isSpam) {
+      goToStep("thanks");
+      return;
+    }
+
+    briefState.submitting = true;
+    briefState.submitError = false;
+    renderBrief();
+
+    var payload = {
+      name: briefState.data.name,
+      email: briefState.data.email,
+      company: briefState.data.company,
+      role: briefState.data.role,
+      website: briefState.data.website,
+      instagram: briefState.data.instagram,
+      linkedin: briefState.data.linkedin,
+      otherLinks: briefState.data.otherLinks,
+      context: briefState.data.context,
+      request: briefState.data.request,
+      lang: window.MK.i18n.getLang(),
+      hp: briefState.data.hp
+    };
+
+    var configured = SHEETS_ENDPOINT && SHEETS_ENDPOINT.indexOf("PASTE_YOUR_") !== 0;
+    var request = configured
+      ? fetch(SHEETS_ENDPOINT, {
+          method: "POST",
+          // text/plain avoids a CORS preflight the Apps Script endpoint
+          // doesn't handle; the body is still parsed as JSON server-side.
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        }).then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        }).then(function (json) {
+          if (json.status !== "ok") throw new Error(json.message || "unknown error");
+        })
+      : Promise.reject(new Error("Sheets endpoint not configured yet"));
+
+    request.then(function () {
+      briefState.submitting = false;
+      goToStep("thanks");
+    }).catch(function (err) {
+      console.error("Strategic Brief submit failed:", err);
+      briefState.submitting = false;
+      briefState.submitError = true;
+      renderBrief();
+    });
   }
 
   function renderStepThanks(panel, brief) {
@@ -648,5 +856,20 @@
     window.MK.footer.init();
     document.getElementById("siteNav").classList.add("is-visible");
     render();
+
+    // Belt-and-braces for the on-screen keyboard covering a focused field
+    // on mobile: most browsers already scroll a focused input into view,
+    // but this guarantees it regardless of device quirks.
+    var briefPanel = document.getElementById("ssBriefPanel");
+    if (briefPanel) {
+      briefPanel.addEventListener("focusin", function (e) {
+        var tag = e.target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") {
+          setTimeout(function () {
+            e.target.scrollIntoView({ block: "center", behavior: "smooth" });
+          }, 300);
+        }
+      });
+    }
   });
 })();
