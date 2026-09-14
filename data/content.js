@@ -298,6 +298,7 @@ window.SITE_CONTENT = {
     services: [
       {
         title: { en: "STRATEGIC CONSULTING", ru: "СТРАТЕГИЧЕСКИЙ КОНСАЛТИНГ" },
+        titleLink: "strategic-session/index.html",
         timing: { en: "4 HOURS", ru: "4 ЧАСА" },
         body: {
           en: "A strategic session for a specific business request. For situations when a founder needs a strong outside perspective, a decision and direction.",
@@ -348,6 +349,30 @@ window.SITE_CONTENT = {
       { bold: "International", rest: "brand experience" },
       { bold: "Working", rest: "internationally" }
     ]
+  },
+
+  /**
+   * STRATEGIC SESSION — new standalone page (/strategic-session/), screen 1
+   * only for now. body is an array of paragraphs (see js/strategic-
+   * session.js), same shape as an experienceDirections entry's body.
+   */
+  strategicSession: {
+    en: {
+      title: "STRATEGIC SESSION",
+      body: [
+        "You come to me with a specific business, brand, retail or product request.",
+        "Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step."
+      ],
+      cta: "START YOUR BRIEF"
+    },
+    ru: {
+      title: "ЗАПРОС НА СЕССИЮ",
+      body: [
+        "Вы приходите ко мне с конкретным бизнес, бренд, ритейл или продуктовым запросом.",
+        "До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг."
+      ],
+      cta: "СФОРМУЛИРОВАТЬ ЗАПРОС"
+    }
   },
 
   /**

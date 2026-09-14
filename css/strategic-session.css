@@ -1,0 +1,78 @@
+/* ========================================================================
+   STRATEGIC SESSION — /strategic-session/
+   Screen 1 only for now (more sections follow in a later spec). Built
+   entirely from the shared type scale, spacing and button system in
+   tokens.css/base.css — nothing new invented here.
+
+   --ss-* custom properties exist purely so a future accent colour /
+   background treatment for this page can be dropped in later (e.g.
+   overriding them on .strategic-session, or via a modifier class) without
+   touching this file's structure.
+   ======================================================================== */
+
+.strategic-session {
+  padding-top: var(--nav-height);
+  --ss-bg: var(--color-white);
+  --ss-text: var(--color-text);
+  --ss-accent: var(--color-accent);
+}
+
+.ss-hero {
+  background: var(--ss-bg);
+  color: var(--ss-text);
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-6);
+}
+
+.ss-hero__inner {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ss-hero__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.ss-hero__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: var(--space-5);
+}
+
+.ss-hero__body p {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+}
+
+.ss-hero__cta-arrow {
+  display: inline-block;
+  margin-left: 0.15em;
+  transition: transform var(--dur-fast) var(--ease-editorial);
+}
+
+.ss-hero__cta:hover .ss-hero__cta-arrow {
+  transform: translateY(3px);
+}
+
+/* Reserved for the next spec — kept empty on purpose. Only needs to
+   exist so the hero CTA's #strategic-brief anchor has somewhere to land. */
+.ss-brief {
+  scroll-margin-top: var(--nav-height);
+}
+
+@media (max-width: 700px) {
+  .ss-hero { padding-block: var(--space-5); }
+}
