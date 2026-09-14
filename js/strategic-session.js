@@ -229,7 +229,7 @@
   // ======================================================================
   function renderApproach(data) {
     document.getElementById("ssApproachTitle").textContent = data.approach.title;
-    document.getElementById("ssApproachResultLabel").textContent = data.approach.resultPlaceholder;
+    document.getElementById("ssApproachResultImage").alt = data.approach.resultPlaceholder;
     document.getElementById("ssApproachTransitionLabel").textContent = data.approach.transition;
     var textEl = document.getElementById("ssApproachText");
     typeInOnView(textEl, data.approach.text);
