@@ -185,7 +185,7 @@
   // ======================================================================
   function renderResults(data) {
     document.getElementById("ssResultsLabel").textContent = data.results.label;
-    document.getElementById("ssResultsTitle").textContent = data.results.title;
+    document.getElementById("ssResultsTitle").textContent = data.results.title + " ↓";
     var wrap = document.getElementById("ssResultsColumns");
     wrap.innerHTML = "";
     data.results.columns.forEach(function (col) {

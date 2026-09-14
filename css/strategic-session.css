@@ -43,10 +43,7 @@
 .ss-hero {
   background: var(--ss-bg);
   color: var(--ss-text);
-  min-height: calc(100vh - var(--nav-height));
-  display: flex;
-  align-items: center;
-  padding-block: var(--space-6);
+  padding-block: var(--space-6) var(--space-4);
 }
 
 .ss-hero__inner {
@@ -86,7 +83,7 @@
 
 /* ---- 02 — HOW IT WORKS ---- */
 .ss-how {
-  padding-block: var(--space-7) var(--space-6);
+  padding-block: var(--space-5) var(--space-6);
 }
 
 .ss-how__stages {
@@ -95,12 +92,14 @@
   align-items: stretch;
 }
 
+/* Compact process rectangles, not standalone panels — small padding,
+   small type, one line per title. */
 .ss-stage {
   position: relative;
   background: var(--color-black);
   color: var(--color-white);
-  border-radius: var(--radius-card);
-  padding: var(--space-4);
+  border-radius: calc(var(--radius-card) * 0.6);
+  padding: 1.1rem 1.2rem;
   display: flex;
   flex-direction: column;
   transition: background var(--dur-base) var(--ease-editorial), color var(--dur-base) var(--ease-editorial);
@@ -113,25 +112,29 @@
 .ss-stage__head {
   display: flex;
   align-items: baseline;
-  gap: 0.6em;
-  margin-bottom: 0.6em;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+  flex-wrap: nowrap;
 }
 
 /* Same visual size as the title — mono/regular vs. display/bold is what
-   tells them apart, not a size difference. */
+   tells them apart, not a size difference. Small and nowrap so all
+   three titles (incl. "СТРАТЕГИЧЕСКАЯ СЕССИЯ") stay on one line. */
 .ss-stage__index {
   font-family: var(--font-mono);
   font-weight: 400;
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-small);
   opacity: 0.5;
+  flex: none;
 }
 
 .ss-stage__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-small);
   text-transform: uppercase;
-  letter-spacing: var(--ls-tight);
+  letter-spacing: var(--ls-normal);
+  white-space: nowrap;
 }
 
 .ss-stage__duration {
@@ -139,34 +142,34 @@
   align-items: center;
   align-self: flex-start;
   font-family: var(--font-mono);
-  font-size: var(--fs-micro);
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: var(--ls-wide);
-  padding: 0.35em 0.7em;
+  padding: 0.3em 0.6em;
   border-radius: var(--radius-btn);
   background: var(--color-white);
   color: var(--color-black);
-  margin-bottom: 0.9em;
+  margin-bottom: 0.6em;
 }
 
 .ss-stage__text {
-  font-size: var(--fs-body);
-  line-height: var(--lh-relaxed);
+  font-size: var(--fs-small);
+  line-height: var(--lh-normal);
   flex: 1;
 }
 
 .ss-stage__icons {
   display: flex;
   align-items: center;
-  gap: 0.6em;
-  margin-top: var(--space-3);
+  gap: 0.5em;
+  margin-top: 0.8em;
   align-self: flex-start;
 }
 
 .ss-stage__icon {
   display: flex;
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1rem;
+  height: 1rem;
   color: var(--color-white);
   opacity: 0.9;
 }
@@ -196,19 +199,32 @@
 }
 .ss-how__connector--vertical { display: none; }
 
-/* ---- 03 — RESULTS (big accent titles, click-to-expand text) ---- */
+/* ---- 03 — RESULTS (same compact type scale as How It Works, click-to-
+   expand text) ---- */
 .ss-results {
-  padding-block: var(--space-6) var(--space-7);
+  padding-block: var(--space-5) var(--space-6);
 }
 
+/* Same treatment as a How It Works stage: a black plaque, purple on
+   hover — not a big display headline. */
 .ss-results__title {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-md);
-  line-height: var(--lh-tight);
+  font-size: var(--fs-small);
   text-transform: uppercase;
-  letter-spacing: var(--ls-tight);
-  margin-bottom: var(--space-6);
+  letter-spacing: var(--ls-normal);
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: 0.7em 1.1em;
+  border-radius: calc(var(--radius-card) * 0.4);
+  margin-bottom: var(--space-5);
+  transition: background var(--dur-base) var(--ease-editorial), color var(--dur-base) var(--ease-editorial);
+}
+.ss-results__title:hover {
+  background: var(--ss-accent);
+  color: var(--color-black);
 }
 
 .ss-results__columns {
@@ -224,10 +240,10 @@
   text-align: left;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-display-md);
+  font-size: var(--fs-small);
   text-transform: uppercase;
-  letter-spacing: var(--ls-tight);
-  padding-bottom: 0.3em;
+  letter-spacing: var(--ls-normal);
+  padding-bottom: 0.4em;
   border-bottom: 2px solid var(--color-border);
   transition: color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
 }
@@ -264,22 +280,26 @@
 .ss-approach__grid {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
-  gap: var(--space-5);
+  gap: var(--space-6);
   align-items: center;
 }
 
+/* Video + result plaque as one layered composition — the plaque sits
+   behind and peeks out to the right, per the storyboard, rather than
+   stacking as a separate block underneath. */
 .ss-approach__media {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin-inline: auto;
+  aspect-ratio: 3 / 4;
 }
 
 .ss-approach__video-placeholder {
   position: relative;
-  aspect-ratio: 3 / 4;
-  max-width: 320px;
-  width: 100%;
+  z-index: 1;
+  width: 72%;
+  height: 100%;
   background: var(--color-black);
   color: var(--color-white);
   border-radius: var(--radius-card);
@@ -287,6 +307,32 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+/* Mostly beside the video, only its top-left corner tucked behind it —
+   the visible portion needs to stay wide enough to read its label. */
+.ss-approach__result-plaque {
+  position: absolute;
+  z-index: 0;
+  top: 10%;
+  right: -10%;
+  width: 46%;
+  height: 56%;
+  background: var(--color-white);
+  color: var(--color-black);
+  border-radius: var(--radius-card);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-normal);
+  color: rgba(11, 11, 12, 0.85);
 }
 
 .ss-approach__video-label {
@@ -297,23 +343,42 @@
   opacity: 0.85;
 }
 
-/* Mock player chrome — a progress bar + time/speed/CC row, purely
-   decorative (no real video yet), but part of the block's visual logic
-   per the storyboard and kept deliberately, not stripped out. */
-.ss-approach__video-ui {
+/* Mock player chrome — purely decorative (no real video yet), but part
+   of the block's visual logic per the storyboard and kept deliberately,
+   not stripped out. Time/CC/speed sit at the top, a progress bar at the
+   very bottom. */
+.ss-approach__video-ui--top {
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  padding: 0.9rem 0.8rem 0.7rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 60%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4em;
+  padding: 0.6rem 0.6rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: var(--ls-normal);
+  color: var(--color-white);
+  z-index: 1;
+}
+.ss-approach__video-time { opacity: 0.8; margin-right: auto; }
+.ss-approach__video-speed,
+.ss-approach__video-cc {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-btn);
+  padding: 0.15em 0.5em;
 }
 
 .ss-approach__video-progress {
+  position: absolute;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: 0.6rem;
   height: 3px;
   border-radius: 2px;
   background: rgba(255, 255, 255, 0.3);
-  margin-bottom: 0.6rem;
   overflow: hidden;
 }
 .ss-approach__video-progress span {
@@ -323,61 +388,30 @@
   background: var(--color-white);
 }
 
-.ss-approach__video-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: var(--ls-normal);
-  color: var(--color-white);
-}
-.ss-approach__video-speed,
-.ss-approach__video-cc {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-btn);
-  padding: 0.15em 0.5em;
-}
-
-/* Second plaque next to the video, per the storyboard — a placeholder for
-   an example result, kept intentionally plain/generic at this stage. */
-.ss-approach__result-plaque {
-  width: 100%;
-  max-width: 320px;
-  background: var(--color-white);
-  color: var(--color-black);
-  border-radius: var(--radius-card);
-  padding: var(--space-3);
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-normal);
-  opacity: 0.85;
-}
-
 .ss-approach__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-heading);
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.7rem);
   text-transform: uppercase;
   letter-spacing: var(--ls-tight);
   margin-bottom: var(--space-3);
 }
 
+/* Same size as the hero body text — one body-text scale for the page. */
 .ss-approach__text {
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
-  min-height: 10em;
+  min-height: 8em;
 }
 
-/* White button — a plain-text link was getting lost on the purple
+/* White button, directly under the text it belongs to (not a separate
+   floating element). A plain-text link was getting lost on the purple
    background. */
 .ss-approach__transition {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  margin-top: var(--space-5);
+  margin-top: var(--space-3);
   background: var(--color-white);
   color: var(--color-black);
   font-family: var(--font-mono);
@@ -385,7 +419,7 @@
   letter-spacing: var(--ls-wide);
   font-size: var(--fs-small);
   font-weight: 700;
-  padding: 0.9em 1.6em;
+  padding: 0.85em 1.5em;
   border-radius: var(--radius-btn);
   transition: background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
 }
@@ -631,14 +665,14 @@
 
 @media (max-width: 900px) {
   .ss-approach__grid { grid-template-columns: 1fr; text-align: center; }
-  .ss-approach__media { margin-inline: auto; }
+  .ss-approach__transition { margin-inline: auto; }
 }
 
 @media (max-width: 700px) {
-  .ss-hero { padding-block: var(--space-5); }
+  .ss-hero { padding-block: var(--space-5) var(--space-3); }
   .ss-hero__title { white-space: normal; }
 
-  .ss-how { padding-block: var(--space-6) var(--space-5); }
+  .ss-how { padding-block: var(--space-4) var(--space-5); }
   .ss-how__stages { grid-template-columns: 1fr; gap: 0; }
   .ss-how__connector { display: none; }
   .ss-how__connector--vertical {
@@ -652,7 +686,6 @@
   }
 
   .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-4); }
-  .ss-result__title { font-size: var(--fs-display-md); }
 
   .ss-brief__intro { white-space: normal; }
   .ss-field-row { grid-template-columns: 1fr; }
