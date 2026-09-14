@@ -316,16 +316,18 @@
   overflow: hidden;
 }
 
-/* Mostly beside the video, only its top-left corner tucked behind it —
-   vertically centered on the video's own height. */
+/* Wide enough to read as a full slide (both its grey and black halves),
+   mostly beside the video with only a small corner tucked behind it,
+   vertically centered on the video's own height and pushed well out to
+   the right for a clear, legible reveal. */
 .ss-approach__result-plaque {
   position: absolute;
   z-index: 0;
   top: 50%;
   transform: translateY(-50%);
-  right: -10%;
-  width: 46%;
-  height: 56%;
+  right: -30%;
+  width: 70%;
+  height: 46%;
   background: var(--color-white);
   color: var(--color-black);
   border-radius: var(--radius-card);
@@ -333,14 +335,13 @@
   overflow: hidden;
 }
 
-/* The slide image fills the plaque and is cropped toward its own left
-   edge — keeps the readable (grey) side of the slide in frame regardless
-   of exactly how much of the plaque peeks out from behind the video. */
+/* "contain" (not "cover") so the whole slide is always visible — both
+   the grey and the black half — never cropped, regardless of the
+   plaque's own proportions. */
 .ss-approach__result-plaque img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: left center;
+  object-fit: contain;
   display: block;
 }
 
@@ -709,6 +710,12 @@
 @media (max-width: 700px) {
   .ss-hero { padding-block: var(--space-5) var(--space-3); }
   .ss-hero__title { white-space: normal; }
+
+  /* The 320px-wide media box leaves almost no side margin on a phone
+     screen — shrink it so the plaque still has room to peek out to the
+     right without pushing the layout past the viewport edge. */
+  .ss-approach__media { max-width: 230px; }
+  .ss-approach__result-plaque { width: 64%; height: 48%; right: -20%; }
 
   .ss-how { padding-block: var(--space-4) var(--space-5); }
   .ss-how__stages { grid-template-columns: 1fr; gap: 0; }
