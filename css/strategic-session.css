@@ -1,13 +1,16 @@
 /* ========================================================================
    STRATEGIC SESSION — /strategic-session/
-   Screen 1 only for now (more sections follow in a later spec). Built
-   entirely from the shared type scale, spacing and button system in
-   tokens.css/base.css — nothing new invented here.
+   UX-skeleton pass: hero + how-it-works + results + approach + an
+   interactive Strategic Brief. Built entirely from the shared type
+   scale, spacing and button system in tokens.css/base.css — nothing new
+   invented here except this page's own --ss-* scope.
 
    --ss-* custom properties exist purely so a future accent colour /
    background treatment for this page can be dropped in later (e.g.
    overriding them on .strategic-session, or via a modifier class) without
-   touching this file's structure.
+   touching this file's structure. --ss-accent currently equals the
+   site's own accent purple — a placeholder treatment for the "My
+   Approach" block and the Brief's active states, explicitly not final.
    ======================================================================== */
 
 .strategic-session {
@@ -17,6 +20,30 @@
   --ss-accent: var(--color-accent);
 }
 
+/* ---- Shared scroll-reveal (same recipe as films.css/brands.css: each
+   page keeps its own copy rather than sharing one via base.css). ---- */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease-editorial), transform 600ms var(--ease-editorial);
+}
+.reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Small bordered label chip — same visual language as direction-page's
+   .direction-link pill, just non-interactive. */
+.ss-label-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  margin-bottom: var(--space-4);
+}
+
+/* ---- 01 — HERO ---- */
 .ss-hero {
   background: var(--ss-bg);
   color: var(--ss-text);
@@ -62,17 +89,439 @@
   margin-left: 0.15em;
   transition: transform var(--dur-fast) var(--ease-editorial);
 }
+.ss-hero__cta:hover .ss-hero__cta-arrow { transform: translateY(3px); }
 
-.ss-hero__cta:hover .ss-hero__cta-arrow {
-  transform: translateY(3px);
+/* ---- 02 — HOW IT WORKS ---- */
+.ss-how {
+  padding-block: var(--space-7) var(--space-6);
 }
 
-/* Reserved for the next spec — kept empty on purpose. Only needs to
-   exist so the hero CTA's #strategic-brief anchor has somewhere to land. */
+.ss-how__stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.ss-stage {
+  position: relative;
+  background: var(--color-offwhite);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+}
+
+/* A simple "->" between stages on desktop — same sequence motif as the
+   step arrows already used in Ways to Work Together / Brands, not a new
+   idea. Deliberately not the wavy connecting-line concept from the
+   storyboard yet (kept static/simple per spec, revisited later). */
+.ss-stage:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  top: 50%;
+  right: calc(var(--space-4) * -1 - 0.1em);
+  transform: translate(50%, -50%);
+  font-size: 1.4rem;
+  opacity: 0.3;
+}
+
+.ss-stage__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  margin-bottom: 0.75em;
+  flex-wrap: wrap;
+}
+
+.ss-stage__index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  opacity: 0.45;
+}
+
+.ss-stage__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-body-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+}
+
+.ss-stage__duration {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  padding: 0.35em 0.7em;
+  border-radius: var(--radius-btn);
+  background: var(--ss-accent);
+  color: var(--color-black);
+}
+
+.ss-stage__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+}
+
+/* ---- 03 — RESULTS (typing reveal) ---- */
+.ss-results {
+  padding-block: var(--space-6);
+}
+
+.ss-results__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--space-5);
+}
+
+.ss-results__columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.ss-result__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  padding-bottom: 0.7em;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 1em;
+}
+
+.ss-result__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  min-height: 9em; /* reserves space so the type-in doesn't jump the layout */
+}
+
+.ss-typing-cursor {
+  display: inline-block;
+  width: 0.5em;
+  animation: ss-caret-blink 0.9s steps(1) infinite;
+}
+@keyframes ss-caret-blink { 50% { opacity: 0; } }
+
+/* ---- 04 — MY APPROACH (temporary accent block) ---- */
+.ss-approach {
+  background: var(--ss-accent);
+  color: var(--color-black);
+  padding-block: var(--space-6);
+}
+
+.ss-approach__grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.ss-approach__video-placeholder {
+  aspect-ratio: 3 / 4;
+  max-width: 320px;
+  width: 100%;
+  margin-inline: auto;
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  font-size: var(--fs-small);
+  opacity: 0.85;
+}
+
+.ss-approach__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--space-3);
+}
+
+.ss-approach__text {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  min-height: 10em;
+}
+
+.ss-approach__transition {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-5);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  font-size: var(--fs-small);
+  opacity: 0.7;
+  transition: opacity var(--dur-fast) var(--ease-editorial);
+}
+.ss-approach__transition:hover { opacity: 1; }
+
+/* ---- 05 — STRATEGIC BRIEF (interactive module) ---- */
 .ss-brief {
   scroll-margin-top: var(--nav-height);
+  padding-block: var(--space-7) var(--space-6);
+  background: var(--color-offwhite);
+}
+
+.ss-brief__inner {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ss-brief__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.ss-brief__intro {
+  font-size: var(--fs-body-lg);
+  margin-bottom: var(--space-5);
+}
+.ss-brief__intro strong { font-weight: 700; }
+
+.ss-brief__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.ss-brief__step {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  opacity: 0.4;
+  transition: opacity var(--dur-fast) var(--ease-editorial);
+}
+.ss-brief__step.is-current,
+.ss-brief__step.is-done { opacity: 1; }
+
+.ss-brief__step-num {
+  width: 1.8em;
+  height: 1.8em;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+}
+.ss-brief__step.is-current .ss-brief__step-num {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+.ss-brief__step.is-done .ss-brief__step-num {
+  background: var(--ss-accent);
+  border-color: var(--ss-accent);
+  color: var(--color-black);
+}
+
+.ss-brief__step-line {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.ss-brief__panel {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: var(--space-5) var(--space-4);
+  text-align: left;
+  animation: ss-panel-in var(--dur-base) var(--ease-editorial);
+}
+@keyframes ss-panel-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ss-brief__step-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.ss-brief__step-hint {
+  font-size: var(--fs-body);
+  opacity: 0.7;
+  margin-bottom: var(--space-3);
+  max-width: 46em;
+}
+
+.ss-field { margin-bottom: var(--space-3); }
+
+.ss-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 0.5em;
+}
+
+.ss-field input,
+.ss-field select,
+.ss-field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: var(--fs-body);
+  padding: 0.8em 1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  background: var(--color-white);
+  color: var(--color-text);
+  transition: border-color var(--dur-fast) var(--ease-editorial);
+}
+.ss-field input:focus,
+.ss-field select:focus,
+.ss-field textarea:focus {
+  outline: none;
+  border-color: var(--ss-accent);
+}
+.ss-field textarea { resize: vertical; min-height: 6em; }
+
+.ss-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.ss-brief__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-4);
+  gap: var(--space-3);
+}
+.ss-brief__actions--end { justify-content: flex-end; }
+
+.ss-mode-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.ss-mode-tab {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  opacity: 0.55;
+  transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+.ss-mode-tab.is-active {
+  opacity: 1;
+  border-color: var(--color-black);
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.ss-voice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
+}
+
+.ss-voice__mic {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--color-black);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex: none;
+  transition: transform var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+}
+.ss-voice__mic:hover { transform: scale(1.05); }
+.ss-voice__mic.is-recording {
+  background: var(--ss-accent);
+  color: var(--color-black);
+  animation: ss-mic-pulse 1.4s ease-in-out infinite;
+}
+@keyframes ss-mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(122, 129, 255, 0.5); }
+  50% { box-shadow: 0 0 0 14px rgba(122, 129, 255, 0); }
+}
+
+.ss-voice__timer { font-family: var(--font-mono); font-size: var(--fs-body-lg); }
+.ss-voice__hint { font-size: var(--fs-small); opacity: 0.6; text-align: center; }
+
+.ss-review dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6em 1.5em;
+  margin-bottom: var(--space-4);
+}
+.ss-review dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.ss-review dd { margin: 0; font-size: var(--fs-body); white-space: pre-line; }
+
+.ss-thanks { text-align: center; padding-block: var(--space-4); }
+.ss-thanks__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.ss-thanks__text {
+  font-size: var(--fs-body-lg);
+  max-width: 520px;
+  margin-inline: auto;
+  line-height: var(--lh-relaxed);
+}
+
+@media (max-width: 900px) {
+  .ss-approach__grid { grid-template-columns: 1fr; text-align: center; }
 }
 
 @media (max-width: 700px) {
   .ss-hero { padding-block: var(--space-5); }
+  .ss-how { padding-block: var(--space-6) var(--space-5); }
+  .ss-how__stages { grid-template-columns: 1fr; gap: var(--space-5); }
+  .ss-stage:not(:last-child)::after {
+    content: "\2193";
+    top: auto;
+    bottom: calc(var(--space-5) * -1 + 2px);
+    right: 50%;
+    transform: translate(50%, 0);
+  }
+  .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-5); }
+  .ss-field-row { grid-template-columns: 1fr; }
+  .ss-brief__panel { padding: var(--space-4) var(--space-3); }
+  .ss-brief__step-line { width: 1.4rem; }
 }

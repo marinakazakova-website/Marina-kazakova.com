@@ -352,9 +352,13 @@ window.SITE_CONTENT = {
   },
 
   /**
-   * STRATEGIC SESSION — new standalone page (/strategic-session/), screen 1
-   * only for now. body is an array of paragraphs (see js/strategic-
-   * session.js), same shape as an experienceDirections entry's body.
+   * STRATEGIC SESSION — new standalone page (/strategic-session/).
+   * UX-skeleton pass per storyboard: hero + how-it-works + results +
+   * approach + an interactive Strategic Brief (you -> context -> request
+   * -> review -> thanks). All copy here is explicitly draft/working text
+   * (client's own words) — will be edited in a later pass, same as the
+   * visual character of the approach/brief blocks. See js/strategic-
+   * session.js for how each piece is rendered.
    */
   strategicSession: {
     en: {
@@ -363,7 +367,108 @@ window.SITE_CONTENT = {
         "You come to me with a specific business, brand, retail or product request.",
         "Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step."
       ],
-      cta: "START YOUR BRIEF"
+      cta: "START YOUR BRIEF",
+
+      howItWorks: {
+        label: "HOW IT WORKS",
+        stages: [
+          {
+            index: "01",
+            title: "PREPARATION",
+            text: "You send me your request, context and materials. Before we meet, I study your brand, business, market and the current state of the project."
+          },
+          {
+            index: "02",
+            title: "STRATEGIC SESSION",
+            duration: "3 HOURS",
+            text: "We unpack the request, ask questions, test assumptions, reflect, discuss and define the strategic direction together."
+          },
+          {
+            index: "03",
+            title: "PACKAGING THE RESULT",
+            text: "After the session, I analyse the material and the solutions we shaped, and put together the strategic vision, concept and next step."
+          }
+        ]
+      },
+
+      results: {
+        label: "WHAT CAN COME OUT OF IT",
+        title: "ONE SESSION. DIFFERENT RESULTS",
+        columns: [
+          {
+            title: "PRODUCT",
+            text: "If you came with a product request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
+          },
+          {
+            title: "BRAND",
+            text: "If you came with a brand request or a relaunch, the result can be the brand's strategic direction, positioning, product logic, communication and clarity on the next stage of development."
+          },
+          {
+            title: "RETAIL",
+            text: "If you own a store or are developing a retail concept, the result can be a concept for the space, the store's role within the brand, the customer journey, experience principles and a direction for implementation."
+          }
+        ]
+      },
+
+      approach: {
+        title: "MY APPROACH TO THE SESSION",
+        text: "A strategic session is not a project with several rounds of revisions. You are not buying a document. You are buying my time, experience, thinking and full attention to your request. The result is my professional vision of what your brand, product, business or retail could become. Further development and implementation can become the next stage of our work.",
+        transition: "YOUR TURN"
+      },
+
+      brief: {
+        title: "STRATEGIC BRIEF",
+        intro: "Let's formulate what you actually want to solve **in the session**.",
+        steps: ["YOU", "CONTEXT", "REQUEST"],
+        step1: {
+          heading: "YOU",
+          subheading: "BRAND OR CONSULTANT",
+          name: "Name",
+          email: "Email",
+          company: "Company / brand",
+          role: "What best describes you?",
+          roleOptions: ["Founder", "Marketing / brand lead", "Consultant / agency", "Other"],
+          next: "CONTINUE"
+        },
+        step2: {
+          heading: "CONTEXT",
+          website: "Website",
+          instagram: "Instagram",
+          linkedin: "LinkedIn",
+          otherLinks: "Other relevant links",
+          contextQuestion: "What's currently happening in your business, brand, product or project?",
+          contextPlaceholder: "Tell me a bit about the context...",
+          next: "CONTINUE",
+          back: "BACK"
+        },
+        step3: {
+          heading: "WHAT DO YOU ACTUALLY WANT TO SOLVE?",
+          hint: "Don't try to make it sound “strategic.” Just tell me what you want to understand, change or solve.",
+          label: "FORMULATE YOUR REQUEST",
+          placeholder: "I want to understand...",
+          typeTab: "⌨ TYPE",
+          speakTab: "🎤 SPEAK",
+          recording: "Recording",
+          recordHint: "Tap again to stop and get your text",
+          transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
+          next: "REVIEW",
+          back: "BACK"
+        },
+        review: {
+          heading: "YOUR STRATEGIC BRIEF",
+          name: "Name",
+          company: "Company / brand",
+          links: "Links",
+          context: "Context",
+          request: "Your request",
+          edit: "EDIT",
+          send: "SEND TO MARINA"
+        },
+        thankYou: {
+          heading: "THANK YOU.",
+          text: "I'll personally look at your request. If I feel a strategic session is the right format for what you need, I'll get back to you with a next step."
+        }
+      }
     },
     ru: {
       title: "ЗАПРОС НА СЕССИЮ",
@@ -371,7 +476,108 @@ window.SITE_CONTENT = {
         "Вы приходите ко мне с конкретным бизнес, бренд, ритейл или продуктовым запросом.",
         "До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг."
       ],
-      cta: "СФОРМУЛИРОВАТЬ ЗАПРОС"
+      cta: "СФОРМУЛИРОВАТЬ ЗАПРОС",
+
+      howItWorks: {
+        label: "КАК ЭТО РАБОТАЕТ?",
+        stages: [
+          {
+            index: "01",
+            title: "ПОДГОТОВКА",
+            text: "Вы отправляете мне запрос, контекст и материалы. До нашей встречи я изучаю ваш бренд, бизнес, рынок и текущее состояние проекта."
+          },
+          {
+            index: "02",
+            title: "СТРАТЕГИЧЕСКАЯ СЕССИЯ",
+            duration: "3 ЧАСА",
+            text: "Мы разбираем запрос, задаём вопросы, проверяем предположения, рефлексируем, обсуждаем и вместе определяем стратегическое направление."
+          },
+          {
+            index: "03",
+            title: "УПАКОВКА РЕЗУЛЬТАТА",
+            text: "После встречи я анализирую материал и разработанные решения, собираю стратегическое видение, концепцию и следующий шаг."
+          }
+        ]
+      },
+
+      results: {
+        label: "ЧТО МОЖЕТ СТАТЬ РЕЗУЛЬТАТОМ",
+        title: "ОДНА СЕССИЯ. РАЗНЫЕ РЕЗУЛЬТАТЫ",
+        columns: [
+          {
+            title: "ПРОДУКТ",
+            text: "Если вы пришли с запросом на продукт, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
+          },
+          {
+            title: "БРЕНД",
+            text: "Если вы пришли с запросом на бренд или его перезапуск, результатом может стать стратегическое направление бренда, позиционирование, продуктовая логика, коммуникация и понимание следующего этапа развития."
+          },
+          {
+            title: "РИТЕЙЛ",
+            text: "Если вы владелец магазина или развиваете retail-концепцию, результатом может стать концепция пространства, роль магазина внутри бренда, customer journey, принципы опыта и направление дальнейшей реализации."
+          }
+        ]
+      },
+
+      approach: {
+        title: "МОЙ ПОДХОД К ПРОВЕДЕНИЮ СЕССИИ",
+        text: "Стратегическая сессия — это не проект с несколькими раундами правок. Вы покупаете не документ. Вы покупаете моё время, опыт, мышление и полное включение в ваш запрос. Результат — моё профессиональное видение того, чем может стать ваш бренд, продукт, бизнес или ритейл. Дальнейшая разработка и имплементация могут стать следующим этапом нашей работы.",
+        transition: "ВАША ОЧЕРЕДЬ"
+      },
+
+      brief: {
+        title: "STRATEGIC BRIEF",
+        intro: "Давайте сформулируем, что именно вы хотите решить **на сессии**.",
+        steps: ["ВЫ", "КОНТЕКСТ", "ЗАПРОС"],
+        step1: {
+          heading: "ВЫ",
+          subheading: "БРЕНД ИЛИ КОНСУЛЬТАНТ",
+          name: "Имя",
+          email: "Email",
+          company: "Компания / бренд",
+          role: "Кем вы являетесь?",
+          roleOptions: ["Основатель", "Маркетинг / бренд-лид", "Консультант / агентство", "Другое"],
+          next: "ПРОДОЛЖИТЬ"
+        },
+        step2: {
+          heading: "КОНТЕКСТ",
+          website: "Website",
+          instagram: "Instagram",
+          linkedin: "LinkedIn",
+          otherLinks: "Другие релевантные ссылки",
+          contextQuestion: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
+          contextPlaceholder: "Расскажите немного о контексте...",
+          next: "ПРОДОЛЖИТЬ",
+          back: "НАЗАД"
+        },
+        step3: {
+          heading: "ЧТО ВЫ НА САМОМ ДЕЛЕ ХОТИТЕ РЕШИТЬ?",
+          hint: "Не пытайтесь формулировать это «стратегически». Просто расскажите, что вы хотите понять, изменить или решить.",
+          label: "СФОРМУЛИРУЙТЕ СВОЙ ЗАПРОС",
+          placeholder: "Я хочу понять...",
+          typeTab: "⌨ НАПИСАТЬ",
+          speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
+          recording: "Идёт запись",
+          recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
+          transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
+          next: "К ПРОВЕРКЕ",
+          back: "НАЗАД"
+        },
+        review: {
+          heading: "ВАШ STRATEGIC BRIEF",
+          name: "Имя",
+          company: "Компания / бренд",
+          links: "Ссылки",
+          context: "Контекст",
+          request: "Ваш запрос",
+          edit: "РЕДАКТИРОВАТЬ",
+          send: "ОТПРАВИТЬ МАРИНЕ"
+        },
+        thankYou: {
+          heading: "СПАСИБО.",
+          text: "Я лично посмотрю ваш запрос. Если я пойму, что стратегическая сессия — подходящий формат для вашей задачи, я свяжусь с вами и предложу следующий шаг."
+        }
+      }
     }
   },
 
