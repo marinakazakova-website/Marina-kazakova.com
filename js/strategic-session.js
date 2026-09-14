@@ -15,7 +15,7 @@
   // app, in the target Google Sheet). Not a secret — it's a write-only
   // endpoint with no read access to the sheet's contents. See
   // google-apps-script/README.md for the deployment steps.
-  var SHEETS_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  var SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxzhuJf6w218_du9S6hBY3NM20l6vA-eLBzdKx5uEbEBoYCeEEbNR6D_4mHVXtbYew/exec";
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
