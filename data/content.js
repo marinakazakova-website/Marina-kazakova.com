@@ -137,7 +137,7 @@ window.SITE_CONTENT = {
       title: "Brands | From vision to reality",
       tagline: {
         en: "Strategic partnership with founders — from an initial vision to a working brand ecosystem.",
-        ru: "Стратегическое партнёрство с фаундерами — от первоначального видения до работающей экосистемы бренда."
+        ru: "Стратегическое партнёрство с основателями — от первоначального видения до работающей экосистемы бренда."
       },
       media: { type: "slider", cover: "assets/images/experience/brands/cover.jpeg", images: [] },
       links: {
@@ -158,7 +158,7 @@ window.SITE_CONTENT = {
       },
       ru: {
         body: [
-          "Я вхожу в проекты как **Strategic Brand Partner**. Соединяя стратегическое мышление, креативную экспертизу и опыт управления командами, я помогаю фаундеру пройти путь **от первоначального видения бренда до его полноценного проявления на рынке**.",
+          "Я вхожу в проекты как **Strategic Brand Partner**. Соединяя стратегическое мышление, креативную экспертизу и опыт управления командами, я помогаю основателю пройти путь **от первоначального видения бренда до его полноценного проявления на рынке**.",
           "Vision · Strategy · Positioning · Product · Identity · Experience · Communication · Activation",
           "Я формирую экосистему бренда, собираю необходимых специалистов и сопровождаю реализацию — сохраняя единую стратегическую логику на всех этапах."
         ]
@@ -305,7 +305,7 @@ window.SITE_CONTENT = {
         timing: { en: "4 HOURS", ru: "4 ЧАСА" },
         body: {
           en: "A strategic session for a specific business request. For situations when a founder needs a strong outside perspective, a decision and direction.",
-          ru: "Стратегическая сессия для конкретного бизнес-запроса. Для ситуаций, когда фаундеру нужен сильный внешний взгляд, решение и направление."
+          ru: "Стратегическая сессия для конкретного бизнес-запроса. Для ситуаций, когда основателю нужен сильный внешний взгляд, решение и направление."
         },
         sectionLabel: { en: "POSSIBLE REQUESTS", ru: "ВОЗМОЖНЫЕ ЗАПРОСЫ" },
         // Each request pill reveals its real underlying ask on hover/tap.
@@ -500,7 +500,7 @@ window.SITE_CONTENT = {
         },
         thankYou: {
           heading: "THANK YOU.",
-          text: "I'll personally look at your request. If I feel a strategic session is the right format for what you need, I'll get back to you with a next step."
+          text: "I'll personally look at your request. If I feel a strategic session is the right format for what you need, I'll get back to you with a next step and the cost of the strategic session."
         }
       }
     },
@@ -547,7 +547,7 @@ window.SITE_CONTENT = {
           },
           {
             title: "БРЕНД",
-            audience: "для фаундеров и компаний",
+            audience: "для основателей и компаний",
             text: "Если вы пришли с запросом на бренд или его перезапуск, результатом может стать стратегическое направление бренда, позиционирование, продуктовая логика, коммуникация и понимание следующего этапа развития."
           },
           {
@@ -640,7 +640,7 @@ window.SITE_CONTENT = {
         },
         thankYou: {
           heading: "СПАСИБО.",
-          text: "Я лично посмотрю ваш запрос. Если я пойму, что стратегическая сессия — подходящий формат для вашей задачи, я свяжусь с вами и предложу следующий шаг."
+          text: "Я лично посмотрю ваш запрос. Если я пойму, что стратегическая сессия — подходящий формат для вашей задачи, я свяжусь с вами и предложу следующий шаг и стоимость стратегической сессии."
         }
       }
     }

@@ -60,7 +60,7 @@ window.BRANDS_PAGE_DATA = {
         // stays a single string in both languages.
         scope: {
           en: "Research · Founder unpacking · Brand analysis · Audience · Competitors · Market · Customer Experience · Growth opportunities",
-          ru: "Сбор информации · Распаковка фаундера · Анализ бренда · Исследование аудитории, конкурентов · рынка, клиентского опыта · Фиксация точки роста"
+          ru: "Сбор информации · Распаковка основателя · Анализ бренда · Исследование аудитории, конкурентов · рынка, клиентского опыта · Фиксация точки роста"
         },
         result: {
           en: "“Brand Audit & Strategic Roadmap” — the brand's current position, growth points, strategic hypotheses, priority audiences, product development directions, and a roadmap for the work ahead.",
@@ -120,7 +120,7 @@ window.BRANDS_PAGE_DATA = {
           ],
           caption: {
             en: "Unpacking the founder — their expertise, role, motivation and the brand’s inner direction → identifying its core strength and meaning.",
-            ru: "Распаковка фаундера, его экспертизы, роли, мотивации и внутреннего вектора бренда → выявление ключевой силы и смыслового ядра."
+            ru: "Распаковка основателя, его экспертизы, роли, мотивации и внутреннего вектора бренда → выявление ключевой силы и смыслового ядра."
           }
         },
         {
@@ -152,7 +152,7 @@ window.BRANDS_PAGE_DATA = {
         },
         scope: {
           en: "Brand vision & Positioning · Brand Idea · Values · Narrative · Audience · Brand Architecture · Tone of Voice · Communication Strategy · Founder Positioning",
-          ru: "Видение и позиционирование бренда · Идея бренда · Ценности · Нарратив · Аудитория · Архитектура бренда · Tone of Voice · Коммуникационная стратегия · Позиционирование фаундера"
+          ru: "Видение и позиционирование бренда · Идея бренда · Ценности · Нарратив · Аудитория · Архитектура бренда · Tone of Voice · Коммуникационная стратегия · Позиционирование основателя"
         },
         result: {
           en: "“Brand Foundation & Brand Strategy” — a single strategic system that the product, visual language, communication and customer experience are then built on.",
@@ -175,7 +175,7 @@ window.BRANDS_PAGE_DATA = {
           caseTag: "Bogdan Kanuka Artist",
           caption: {
             en: "Researching the founder’s expertise, journey and role → defining their distinctive strength.",
-            ru: "Исследование экспертизы, пути и роли фаундера → формулирование его ключевой силы."
+            ru: "Исследование экспертизы, пути и роли основателя → формулирование его ключевой силы."
           }
         },
         {
@@ -208,7 +208,7 @@ window.BRANDS_PAGE_DATA = {
           caseTag: "Homeless | Creative Women Accessories",
           caption: {
             en: "Translating strategy and narrative into a visual direction for the brand and founder.",
-            ru: "Перевод стратегии и нарратива в визуальное направление бренда и фаундера."
+            ru: "Перевод стратегии и нарратива в визуальное направление бренда и основателя."
           }
         }
       ]
@@ -261,7 +261,7 @@ window.BRANDS_PAGE_DATA = {
           caseTag: "Bogdan Kanuka | Artist",
           caption: {
             en: "Development and production of founder or product photo content — from creative concept and art direction to the final shoot.",
-            ru: "Разработка и создание фотоконтента фаундера или продукта — от креативной концепции и art direction до финальной съёмки."
+            ru: "Разработка и создание фотоконтента основателя или продукта — от креативной концепции и art direction до финальной съёмки."
           }
         },
         {
