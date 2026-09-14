@@ -202,8 +202,16 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "ss-result__title";
-      btn.textContent = col.title;
       btn.setAttribute("aria-expanded", "false");
+      var titleText = document.createElement("span");
+      titleText.textContent = col.title;
+      btn.appendChild(titleText);
+      if (col.audience) {
+        var audience = document.createElement("span");
+        audience.className = "ss-result__audience";
+        audience.textContent = "(" + col.audience + ")";
+        btn.appendChild(audience);
+      }
 
       var panelWrap = document.createElement("div");
       panelWrap.className = "ss-result__panel-wrap";

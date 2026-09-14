@@ -260,6 +260,20 @@
   border-color: var(--ss-accent);
 }
 
+/* Short audience qualifier next to each category — secondary/quiet, same
+   line as the title when it fits, wraps to its own line on narrow
+   screens since it's just inline text with a leading space. */
+.ss-result__audience {
+  display: inline;
+  margin-left: 0.6em;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.7em;
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 0.55;
+}
+
 .ss-result__panel-wrap {
   display: grid;
   grid-template-rows: 0fr;

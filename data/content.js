@@ -402,14 +402,17 @@ window.SITE_CONTENT = {
         columns: [
           {
             title: "PRODUCT",
+            audience: "for consultants and experts",
             text: "If you came with a product or service request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
           },
           {
             title: "BRAND",
+            audience: "for founders and companies",
             text: "If you came with a brand request or a relaunch, the result can be the brand's strategic direction, positioning, product logic, communication and clarity on the next stage of development."
           },
           {
             title: "RETAIL",
+            audience: "for retail brands and companies",
             text: "If you own a store or are developing a retail concept, the result can be a concept for the space, the store's role within the brand, the customer journey, experience principles and a direction for implementation."
           }
         ]
@@ -539,14 +542,17 @@ window.SITE_CONTENT = {
         columns: [
           {
             title: "ПРОДУКТ",
+            audience: "для консультантов и экспертов",
             text: "Если вы пришли с запросом на продукт или услугу, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
           },
           {
             title: "БРЕНД",
+            audience: "для фаундеров и компаний",
             text: "Если вы пришли с запросом на бренд или его перезапуск, результатом может стать стратегическое направление бренда, позиционирование, продуктовая логика, коммуникация и понимание следующего этапа развития."
           },
           {
             title: "РИТЕЙЛ",
+            audience: "для retail-брендов и компаний",
             text: "Если вы владелец магазина или развиваете retail-концепцию, результатом может стать концепция пространства, роль магазина внутри бренда, customer journey, принципы опыта и направление дальнейшей реализации."
           }
         ]
