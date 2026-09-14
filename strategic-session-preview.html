@@ -590,14 +590,17 @@ body.is-opening { overflow: hidden; }
 <style>
 /* ========================================================================
    STRATEGIC SESSION — /strategic-session/
-   Screen 1 only for now (more sections follow in a later spec). Built
-   entirely from the shared type scale, spacing and button system in
-   tokens.css/base.css — nothing new invented here.
+   UX-skeleton pass: hero + how-it-works + results + approach + an
+   interactive Strategic Brief. Built entirely from the shared type
+   scale, spacing and button system in tokens.css/base.css — nothing new
+   invented here except this page's own --ss-* scope.
 
    --ss-* custom properties exist purely so a future accent colour /
    background treatment for this page can be dropped in later (e.g.
    overriding them on .strategic-session, or via a modifier class) without
-   touching this file's structure.
+   touching this file's structure. --ss-accent currently equals the
+   site's own accent purple — a placeholder treatment for the "My
+   Approach" block and the Brief's active states, explicitly not final.
    ======================================================================== */
 
 .strategic-session {
@@ -607,6 +610,30 @@ body.is-opening { overflow: hidden; }
   --ss-accent: var(--color-accent);
 }
 
+/* ---- Shared scroll-reveal (same recipe as films.css/brands.css: each
+   page keeps its own copy rather than sharing one via base.css). ---- */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease-editorial), transform 600ms var(--ease-editorial);
+}
+.reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Small bordered label chip — same visual language as direction-page's
+   .direction-link pill, just non-interactive. */
+.ss-label-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  margin-bottom: var(--space-4);
+}
+
+/* ---- 01 — HERO ---- */
 .ss-hero {
   background: var(--ss-bg);
   color: var(--ss-text);
@@ -652,19 +679,441 @@ body.is-opening { overflow: hidden; }
   margin-left: 0.15em;
   transition: transform var(--dur-fast) var(--ease-editorial);
 }
+.ss-hero__cta:hover .ss-hero__cta-arrow { transform: translateY(3px); }
 
-.ss-hero__cta:hover .ss-hero__cta-arrow {
-  transform: translateY(3px);
+/* ---- 02 — HOW IT WORKS ---- */
+.ss-how {
+  padding-block: var(--space-7) var(--space-6);
 }
 
-/* Reserved for the next spec — kept empty on purpose. Only needs to
-   exist so the hero CTA's #strategic-brief anchor has somewhere to land. */
+.ss-how__stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.ss-stage {
+  position: relative;
+  background: var(--color-offwhite);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+}
+
+/* A simple "->" between stages on desktop — same sequence motif as the
+   step arrows already used in Ways to Work Together / Brands, not a new
+   idea. Deliberately not the wavy connecting-line concept from the
+   storyboard yet (kept static/simple per spec, revisited later). */
+.ss-stage:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  top: 50%;
+  right: calc(var(--space-4) * -1 - 0.1em);
+  transform: translate(50%, -50%);
+  font-size: 1.4rem;
+  opacity: 0.3;
+}
+
+.ss-stage__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  margin-bottom: 0.75em;
+  flex-wrap: wrap;
+}
+
+.ss-stage__index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  opacity: 0.45;
+}
+
+.ss-stage__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-body-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+}
+
+.ss-stage__duration {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  padding: 0.35em 0.7em;
+  border-radius: var(--radius-btn);
+  background: var(--ss-accent);
+  color: var(--color-black);
+}
+
+.ss-stage__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+}
+
+/* ---- 03 — RESULTS (typing reveal) ---- */
+.ss-results {
+  padding-block: var(--space-6);
+}
+
+.ss-results__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--space-5);
+}
+
+.ss-results__columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.ss-result__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  padding-bottom: 0.7em;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 1em;
+}
+
+.ss-result__text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  min-height: 9em; /* reserves space so the type-in doesn't jump the layout */
+}
+
+.ss-typing-cursor {
+  display: inline-block;
+  width: 0.5em;
+  animation: ss-caret-blink 0.9s steps(1) infinite;
+}
+@keyframes ss-caret-blink { 50% { opacity: 0; } }
+
+/* ---- 04 — MY APPROACH (temporary accent block) ---- */
+.ss-approach {
+  background: var(--ss-accent);
+  color: var(--color-black);
+  padding-block: var(--space-6);
+}
+
+.ss-approach__grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.ss-approach__video-placeholder {
+  aspect-ratio: 3 / 4;
+  max-width: 320px;
+  width: 100%;
+  margin-inline: auto;
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  font-size: var(--fs-small);
+  opacity: 0.85;
+}
+
+.ss-approach__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--space-3);
+}
+
+.ss-approach__text {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  min-height: 10em;
+}
+
+.ss-approach__transition {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-5);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  font-size: var(--fs-small);
+  opacity: 0.7;
+  transition: opacity var(--dur-fast) var(--ease-editorial);
+}
+.ss-approach__transition:hover { opacity: 1; }
+
+/* ---- 05 — STRATEGIC BRIEF (interactive module) ---- */
 .ss-brief {
   scroll-margin-top: var(--nav-height);
+  padding-block: var(--space-7) var(--space-6);
+  background: var(--color-offwhite);
+}
+
+.ss-brief__inner {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ss-brief__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.ss-brief__intro {
+  font-size: var(--fs-body-lg);
+  margin-bottom: var(--space-5);
+}
+.ss-brief__intro strong { font-weight: 700; }
+
+.ss-brief__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.ss-brief__step {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  opacity: 0.4;
+  transition: opacity var(--dur-fast) var(--ease-editorial);
+}
+.ss-brief__step.is-current,
+.ss-brief__step.is-done { opacity: 1; }
+
+.ss-brief__step-num {
+  width: 1.8em;
+  height: 1.8em;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+}
+.ss-brief__step.is-current .ss-brief__step-num {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+.ss-brief__step.is-done .ss-brief__step-num {
+  background: var(--ss-accent);
+  border-color: var(--ss-accent);
+  color: var(--color-black);
+}
+
+.ss-brief__step-line {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.ss-brief__panel {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: var(--space-5) var(--space-4);
+  text-align: left;
+  animation: ss-panel-in var(--dur-base) var(--ease-editorial);
+}
+@keyframes ss-panel-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ss-brief__step-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.ss-brief__step-hint {
+  font-size: var(--fs-body);
+  opacity: 0.7;
+  margin-bottom: var(--space-3);
+  max-width: 46em;
+}
+
+.ss-field { margin-bottom: var(--space-3); }
+
+.ss-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 0.5em;
+}
+
+.ss-field input,
+.ss-field select,
+.ss-field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: var(--fs-body);
+  padding: 0.8em 1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  background: var(--color-white);
+  color: var(--color-text);
+  transition: border-color var(--dur-fast) var(--ease-editorial);
+}
+.ss-field input:focus,
+.ss-field select:focus,
+.ss-field textarea:focus {
+  outline: none;
+  border-color: var(--ss-accent);
+}
+.ss-field textarea { resize: vertical; min-height: 6em; }
+
+.ss-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.ss-brief__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-4);
+  gap: var(--space-3);
+}
+.ss-brief__actions--end { justify-content: flex-end; }
+
+.ss-mode-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.ss-mode-tab {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  opacity: 0.55;
+  transition: opacity var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+.ss-mode-tab.is-active {
+  opacity: 1;
+  border-color: var(--color-black);
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.ss-voice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
+}
+
+.ss-voice__mic {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--color-black);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex: none;
+  transition: transform var(--dur-fast) var(--ease-editorial), background var(--dur-fast) var(--ease-editorial), color var(--dur-fast) var(--ease-editorial);
+}
+.ss-voice__mic:hover { transform: scale(1.05); }
+.ss-voice__mic.is-recording {
+  background: var(--ss-accent);
+  color: var(--color-black);
+  animation: ss-mic-pulse 1.4s ease-in-out infinite;
+}
+@keyframes ss-mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(122, 129, 255, 0.5); }
+  50% { box-shadow: 0 0 0 14px rgba(122, 129, 255, 0); }
+}
+
+.ss-voice__timer { font-family: var(--font-mono); font-size: var(--fs-body-lg); }
+.ss-voice__hint { font-size: var(--fs-small); opacity: 0.6; text-align: center; }
+
+.ss-review dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6em 1.5em;
+  margin-bottom: var(--space-4);
+}
+.ss-review dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.ss-review dd { margin: 0; font-size: var(--fs-body); white-space: pre-line; }
+
+.ss-thanks { text-align: center; padding-block: var(--space-4); }
+.ss-thanks__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-md);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.ss-thanks__text {
+  font-size: var(--fs-body-lg);
+  max-width: 520px;
+  margin-inline: auto;
+  line-height: var(--lh-relaxed);
+}
+
+@media (max-width: 900px) {
+  .ss-approach__grid { grid-template-columns: 1fr; text-align: center; }
 }
 
 @media (max-width: 700px) {
   .ss-hero { padding-block: var(--space-5); }
+  .ss-how { padding-block: var(--space-6) var(--space-5); }
+  .ss-how__stages { grid-template-columns: 1fr; gap: var(--space-5); }
+  .ss-stage:not(:last-child)::after {
+    content: "\2193";
+    top: auto;
+    bottom: calc(var(--space-5) * -1 + 2px);
+    right: 50%;
+    transform: translate(50%, 0);
+  }
+  .ss-results__columns { grid-template-columns: 1fr; gap: var(--space-5); }
+  .ss-field-row { grid-template-columns: 1fr; }
+  .ss-brief__panel { padding: var(--space-4) var(--space-3); }
+  .ss-brief__step-line { width: 1.4rem; }
 }
 
 </style>
@@ -712,8 +1161,44 @@ body.is-opening { overflow: hidden; }
     </div>
   </section>
 
-  <!-- ============ 02 — STRATEGIC BRIEF (reserved — spec to follow) ============ -->
-  <section class="ss-brief" id="strategic-brief"></section>
+  <!-- ============ 02 — HOW IT WORKS ============ -->
+  <section class="ss-how container">
+    <p class="ss-label-pill" id="ssHowLabel">HOW IT WORKS</p>
+    <div class="ss-how__stages" id="ssHowStages"></div>
+  </section>
+
+  <!-- ============ 03 — WHAT CAN COME OUT OF IT ============ -->
+  <section class="ss-results">
+    <div class="container">
+      <p class="ss-label-pill" id="ssResultsLabel">WHAT CAN COME OUT OF IT</p>
+      <h2 class="ss-results__title" id="ssResultsTitle">ONE SESSION. DIFFERENT RESULTS</h2>
+      <div class="ss-results__columns" id="ssResultsColumns"></div>
+    </div>
+  </section>
+
+  <!-- ============ 04 — MY APPROACH (temporary accent treatment) ============ -->
+  <section class="ss-approach">
+    <div class="container ss-approach__grid">
+      <div class="ss-approach__media">
+        <div class="ss-approach__video-placeholder" aria-hidden="true">VIDEO</div>
+      </div>
+      <div class="ss-approach__content reveal-up">
+        <h2 class="ss-approach__title" id="ssApproachTitle">MY APPROACH TO THE SESSION</h2>
+        <p class="ss-approach__text" id="ssApproachText"></p>
+      </div>
+    </div>
+    <a class="ss-approach__transition" href="#strategic-brief" id="ssApproachTransition">YOUR TURN ↓</a>
+  </section>
+
+  <!-- ============ 05 — STRATEGIC BRIEF (interactive module) ============ -->
+  <section class="ss-brief" id="strategic-brief">
+    <div class="container ss-brief__inner">
+      <h2 class="ss-brief__title" id="ssBriefTitle">STRATEGIC BRIEF</h2>
+      <p class="ss-brief__intro" id="ssBriefIntro"></p>
+      <div class="ss-brief__progress" id="ssBriefProgress"></div>
+      <div class="ss-brief__panel" id="ssBriefPanel"></div>
+    </div>
+  </section>
 
 </main>
 
@@ -1080,9 +1565,13 @@ window.SITE_CONTENT = {
   },
 
   /**
-   * STRATEGIC SESSION — new standalone page (/strategic-session/), screen 1
-   * only for now. body is an array of paragraphs (see js/strategic-
-   * session.js), same shape as an experienceDirections entry's body.
+   * STRATEGIC SESSION — new standalone page (/strategic-session/).
+   * UX-skeleton pass per storyboard: hero + how-it-works + results +
+   * approach + an interactive Strategic Brief (you -> context -> request
+   * -> review -> thanks). All copy here is explicitly draft/working text
+   * (client's own words) — will be edited in a later pass, same as the
+   * visual character of the approach/brief blocks. See js/strategic-
+   * session.js for how each piece is rendered.
    */
   strategicSession: {
     en: {
@@ -1091,7 +1580,108 @@ window.SITE_CONTENT = {
         "You come to me with a specific business, brand, retail or product request.",
         "Before the session, I immerse myself in the context. During the session, we unpack the challenge and identify the direction. After the session, I consolidate everything into my vision, strategy and a concrete next step."
       ],
-      cta: "START YOUR BRIEF"
+      cta: "START YOUR BRIEF",
+
+      howItWorks: {
+        label: "HOW IT WORKS",
+        stages: [
+          {
+            index: "01",
+            title: "PREPARATION",
+            text: "You send me your request, context and materials. Before we meet, I study your brand, business, market and the current state of the project."
+          },
+          {
+            index: "02",
+            title: "STRATEGIC SESSION",
+            duration: "3 HOURS",
+            text: "We unpack the request, ask questions, test assumptions, reflect, discuss and define the strategic direction together."
+          },
+          {
+            index: "03",
+            title: "PACKAGING THE RESULT",
+            text: "After the session, I analyse the material and the solutions we shaped, and put together the strategic vision, concept and next step."
+          }
+        ]
+      },
+
+      results: {
+        label: "WHAT CAN COME OUT OF IT",
+        title: "ONE SESSION. DIFFERENT RESULTS",
+        columns: [
+          {
+            title: "PRODUCT",
+            text: "If you came with a product request, the result can be a product concept, a clearly articulated value, the customer flow, the offer architecture, packaging and a direction for further development."
+          },
+          {
+            title: "BRAND",
+            text: "If you came with a brand request or a relaunch, the result can be the brand's strategic direction, positioning, product logic, communication and clarity on the next stage of development."
+          },
+          {
+            title: "RETAIL",
+            text: "If you own a store or are developing a retail concept, the result can be a concept for the space, the store's role within the brand, the customer journey, experience principles and a direction for implementation."
+          }
+        ]
+      },
+
+      approach: {
+        title: "MY APPROACH TO THE SESSION",
+        text: "A strategic session is not a project with several rounds of revisions. You are not buying a document. You are buying my time, experience, thinking and full attention to your request. The result is my professional vision of what your brand, product, business or retail could become. Further development and implementation can become the next stage of our work.",
+        transition: "YOUR TURN"
+      },
+
+      brief: {
+        title: "STRATEGIC BRIEF",
+        intro: "Let's formulate what you actually want to solve **in the session**.",
+        steps: ["YOU", "CONTEXT", "REQUEST"],
+        step1: {
+          heading: "YOU",
+          subheading: "BRAND OR CONSULTANT",
+          name: "Name",
+          email: "Email",
+          company: "Company / brand",
+          role: "What best describes you?",
+          roleOptions: ["Founder", "Marketing / brand lead", "Consultant / agency", "Other"],
+          next: "CONTINUE"
+        },
+        step2: {
+          heading: "CONTEXT",
+          website: "Website",
+          instagram: "Instagram",
+          linkedin: "LinkedIn",
+          otherLinks: "Other relevant links",
+          contextQuestion: "What's currently happening in your business, brand, product or project?",
+          contextPlaceholder: "Tell me a bit about the context...",
+          next: "CONTINUE",
+          back: "BACK"
+        },
+        step3: {
+          heading: "WHAT DO YOU ACTUALLY WANT TO SOLVE?",
+          hint: "Don't try to make it sound “strategic.” Just tell me what you want to understand, change or solve.",
+          label: "FORMULATE YOUR REQUEST",
+          placeholder: "I want to understand...",
+          typeTab: "⌨ TYPE",
+          speakTab: "🎤 SPEAK",
+          recording: "Recording",
+          recordHint: "Tap again to stop and get your text",
+          transcribedPlaceholder: "[Voice transcript will appear here once transcription is connected — edit freely]",
+          next: "REVIEW",
+          back: "BACK"
+        },
+        review: {
+          heading: "YOUR STRATEGIC BRIEF",
+          name: "Name",
+          company: "Company / brand",
+          links: "Links",
+          context: "Context",
+          request: "Your request",
+          edit: "EDIT",
+          send: "SEND TO MARINA"
+        },
+        thankYou: {
+          heading: "THANK YOU.",
+          text: "I'll personally look at your request. If I feel a strategic session is the right format for what you need, I'll get back to you with a next step."
+        }
+      }
     },
     ru: {
       title: "ЗАПРОС НА СЕССИЮ",
@@ -1099,7 +1689,108 @@ window.SITE_CONTENT = {
         "Вы приходите ко мне с конкретным бизнес, бренд, ритейл или продуктовым запросом.",
         "До сессии я погружаюсь в контекст, во время сессии мы разбираем задачу и ищем направление, а после сессии я собираю всё в своё видение, стратегию и конкретный шаг."
       ],
-      cta: "СФОРМУЛИРОВАТЬ ЗАПРОС"
+      cta: "СФОРМУЛИРОВАТЬ ЗАПРОС",
+
+      howItWorks: {
+        label: "КАК ЭТО РАБОТАЕТ?",
+        stages: [
+          {
+            index: "01",
+            title: "ПОДГОТОВКА",
+            text: "Вы отправляете мне запрос, контекст и материалы. До нашей встречи я изучаю ваш бренд, бизнес, рынок и текущее состояние проекта."
+          },
+          {
+            index: "02",
+            title: "СТРАТЕГИЧЕСКАЯ СЕССИЯ",
+            duration: "3 ЧАСА",
+            text: "Мы разбираем запрос, задаём вопросы, проверяем предположения, рефлексируем, обсуждаем и вместе определяем стратегическое направление."
+          },
+          {
+            index: "03",
+            title: "УПАКОВКА РЕЗУЛЬТАТА",
+            text: "После встречи я анализирую материал и разработанные решения, собираю стратегическое видение, концепцию и следующий шаг."
+          }
+        ]
+      },
+
+      results: {
+        label: "ЧТО МОЖЕТ СТАТЬ РЕЗУЛЬТАТОМ",
+        title: "ОДНА СЕССИЯ. РАЗНЫЕ РЕЗУЛЬТАТЫ",
+        columns: [
+          {
+            title: "ПРОДУКТ",
+            text: "Если вы пришли с запросом на продукт, результатом может стать концепция продукта, сформулированная ценность, customer flow, архитектура предложения, упаковка и направление дальнейшего развития."
+          },
+          {
+            title: "БРЕНД",
+            text: "Если вы пришли с запросом на бренд или его перезапуск, результатом может стать стратегическое направление бренда, позиционирование, продуктовая логика, коммуникация и понимание следующего этапа развития."
+          },
+          {
+            title: "РИТЕЙЛ",
+            text: "Если вы владелец магазина или развиваете retail-концепцию, результатом может стать концепция пространства, роль магазина внутри бренда, customer journey, принципы опыта и направление дальнейшей реализации."
+          }
+        ]
+      },
+
+      approach: {
+        title: "МОЙ ПОДХОД К ПРОВЕДЕНИЮ СЕССИИ",
+        text: "Стратегическая сессия — это не проект с несколькими раундами правок. Вы покупаете не документ. Вы покупаете моё время, опыт, мышление и полное включение в ваш запрос. Результат — моё профессиональное видение того, чем может стать ваш бренд, продукт, бизнес или ритейл. Дальнейшая разработка и имплементация могут стать следующим этапом нашей работы.",
+        transition: "ВАША ОЧЕРЕДЬ"
+      },
+
+      brief: {
+        title: "STRATEGIC BRIEF",
+        intro: "Давайте сформулируем, что именно вы хотите решить **на сессии**.",
+        steps: ["ВЫ", "КОНТЕКСТ", "ЗАПРОС"],
+        step1: {
+          heading: "ВЫ",
+          subheading: "БРЕНД ИЛИ КОНСУЛЬТАНТ",
+          name: "Имя",
+          email: "Email",
+          company: "Компания / бренд",
+          role: "Кем вы являетесь?",
+          roleOptions: ["Основатель", "Маркетинг / бренд-лид", "Консультант / агентство", "Другое"],
+          next: "ПРОДОЛЖИТЬ"
+        },
+        step2: {
+          heading: "КОНТЕКСТ",
+          website: "Website",
+          instagram: "Instagram",
+          linkedin: "LinkedIn",
+          otherLinks: "Другие релевантные ссылки",
+          contextQuestion: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
+          contextPlaceholder: "Расскажите немного о контексте...",
+          next: "ПРОДОЛЖИТЬ",
+          back: "НАЗАД"
+        },
+        step3: {
+          heading: "ЧТО ВЫ НА САМОМ ДЕЛЕ ХОТИТЕ РЕШИТЬ?",
+          hint: "Не пытайтесь формулировать это «стратегически». Просто расскажите, что вы хотите понять, изменить или решить.",
+          label: "СФОРМУЛИРУЙТЕ СВОЙ ЗАПРОС",
+          placeholder: "Я хочу понять...",
+          typeTab: "⌨ НАПИСАТЬ",
+          speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
+          recording: "Идёт запись",
+          recordHint: "Нажмите ещё раз, чтобы остановить и получить текст",
+          transcribedPlaceholder: "[Расшифровка появится здесь после подключения транскрипции — можно редактировать]",
+          next: "К ПРОВЕРКЕ",
+          back: "НАЗАД"
+        },
+        review: {
+          heading: "ВАШ STRATEGIC BRIEF",
+          name: "Имя",
+          company: "Компания / бренд",
+          links: "Ссылки",
+          context: "Контекст",
+          request: "Ваш запрос",
+          edit: "РЕДАКТИРОВАТЬ",
+          send: "ОТПРАВИТЬ МАРИНЕ"
+        },
+        thankYou: {
+          heading: "СПАСИБО.",
+          text: "Я лично посмотрю ваш запрос. Если я пойму, что стратегическая сессия — подходящий формат для вашей задачи, я свяжусь с вами и предложу следующий шаг."
+        }
+      }
     }
   },
 
@@ -1364,17 +2055,93 @@ window.SITE_CONTENT = {
 </script>
 <script>
 /**
- * STRATEGIC SESSION — /strategic-session/. Screen 1 only for now.
+ * STRATEGIC SESSION — /strategic-session/
+ * UX-skeleton pass: hero + how-it-works + results + approach + an
+ * interactive Strategic Brief (you -> context -> request -> review ->
+ * thanks). No backend yet — Send just moves to the thank-you screen
+ * locally; nothing is transmitted or stored (see spec).
  */
 (function () {
   "use strict";
 
-  function render() {
-    var lang = window.MK.i18n.getLang();
-    var data = window.SITE_CONTENT.strategicSession[lang];
+  var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // ---- Renders **bold** the same way js/i18n.js's renderInline does, for
+  // the one line (Brief intro) that needs it here. ----
+  function renderInline(str) {
+    return String(str || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  }
+
+  // ======================================================================
+  // Scroll reveal (same recipe as js/films.js) — re-run after any dynamic
+  // section rebuilds itself (language switch), so freshly created nodes
+  // get observed too.
+  // ======================================================================
+  function observeReveals(root) {
+    var targets = (root || document).querySelectorAll(".reveal-up");
+    if (!targets.length) return;
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    targets.forEach(function (el) { observer.observe(el); });
+  }
+
+  // ======================================================================
+  // Typewriter — reused by the Results columns and the Approach text.
+  // Runs once when the element scrolls into view; respects
+  // prefers-reduced-motion by just setting the full text instantly.
+  // ======================================================================
+  function typeInOnView(el, text) {
+    el.textContent = "";
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      el.textContent = text;
+      return;
+    }
+    var started = false;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          observer.unobserve(entry.target);
+          runTypewriter(el, text);
+        }
+      });
+    }, { threshold: 0.4 });
+    observer.observe(el);
+  }
+
+  function runTypewriter(el, text) {
+    var cursor = document.createElement("span");
+    cursor.className = "ss-typing-cursor";
+    cursor.textContent = "|";
+    var i = 0;
+    var speed = Math.max(8, Math.min(22, Math.round(900 / text.length)));
+    (function step() {
+      el.textContent = text.slice(0, i);
+      el.appendChild(cursor);
+      i++;
+      if (i <= text.length) {
+        setTimeout(step, speed);
+      } else {
+        cursor.remove();
+      }
+    })();
+  }
+
+  // ======================================================================
+  // 01 — HERO
+  // ======================================================================
+  function renderHero(data) {
     document.getElementById("ssTitle").textContent = data.title;
-
     var body = document.getElementById("ssBody");
     body.innerHTML = "";
     data.body.forEach(function (para) {
@@ -1382,8 +2149,478 @@ window.SITE_CONTENT = {
       p.textContent = para;
       body.appendChild(p);
     });
-
     document.getElementById("ssCtaLabel").textContent = data.cta;
+  }
+
+  // ======================================================================
+  // 02 — HOW IT WORKS
+  // ======================================================================
+  function renderHowItWorks(data) {
+    document.getElementById("ssHowLabel").textContent = data.howItWorks.label;
+    var wrap = document.getElementById("ssHowStages");
+    wrap.innerHTML = "";
+    data.howItWorks.stages.forEach(function (stage) {
+      var card = document.createElement("div");
+      card.className = "ss-stage reveal-up";
+
+      var head = document.createElement("div");
+      head.className = "ss-stage__head";
+      var index = document.createElement("span");
+      index.className = "ss-stage__index";
+      index.textContent = stage.index;
+      var title = document.createElement("span");
+      title.className = "ss-stage__title";
+      title.textContent = stage.title;
+      head.appendChild(index);
+      head.appendChild(title);
+      if (stage.duration) {
+        var duration = document.createElement("span");
+        duration.className = "ss-stage__duration";
+        duration.textContent = stage.duration;
+        head.appendChild(duration);
+      }
+      card.appendChild(head);
+
+      var text = document.createElement("p");
+      text.className = "ss-stage__text";
+      text.textContent = stage.text;
+      card.appendChild(text);
+
+      wrap.appendChild(card);
+    });
+  }
+
+  // ======================================================================
+  // 03 — RESULTS (typing reveal per column)
+  // ======================================================================
+  function renderResults(data) {
+    document.getElementById("ssResultsLabel").textContent = data.results.label;
+    document.getElementById("ssResultsTitle").textContent = data.results.title;
+    var wrap = document.getElementById("ssResultsColumns");
+    wrap.innerHTML = "";
+    data.results.columns.forEach(function (col) {
+      var item = document.createElement("div");
+      item.className = "ss-result reveal-up";
+      var title = document.createElement("p");
+      title.className = "ss-result__title";
+      title.textContent = col.title;
+      var text = document.createElement("p");
+      text.className = "ss-result__text";
+      item.appendChild(title);
+      item.appendChild(text);
+      wrap.appendChild(item);
+      typeInOnView(text, col.text);
+    });
+  }
+
+  // ======================================================================
+  // 04 — APPROACH (temporary accent block, typing text alongside the
+  // future video)
+  // ======================================================================
+  function renderApproach(data) {
+    document.getElementById("ssApproachTitle").textContent = data.approach.title;
+    document.getElementById("ssApproachTransition").textContent = data.approach.transition + " ↓";
+    var textEl = document.getElementById("ssApproachText");
+    typeInOnView(textEl, data.approach.text);
+  }
+
+  // ======================================================================
+  // 05 — STRATEGIC BRIEF (interactive, stateful — no backend yet)
+  // ======================================================================
+  var briefState = {
+    step: "you", // you | context | request | review | thanks
+    mode: "type", // type | speak (step "request" only)
+    recording: false,
+    recordSeconds: 0,
+    recordTimer: null,
+    data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "" }
+  };
+
+  var STEP_ORDER = ["you", "context", "request"];
+
+  function briefLang() {
+    return window.SITE_CONTENT.strategicSession[window.MK.i18n.getLang()].brief;
+  }
+
+  // Copies whatever the visible step's fields currently hold into
+  // briefState.data before that step's DOM gets torn down — otherwise an
+  // EN/RU switch mid-step (before Next/Back is clicked) would discard
+  // anything already typed.
+  var FIELD_MAP = {
+    ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role",
+    ssWebsite: "website", ssInstagram: "instagram", ssLinkedin: "linkedin", ssOtherLinks: "otherLinks",
+    ssContext: "context", ssRequest: "request"
+  };
+  function collectVisibleFields() {
+    Object.keys(FIELD_MAP).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) briefState.data[FIELD_MAP[id]] = el.value;
+    });
+  }
+
+  function renderBriefIntro(brief) {
+    document.getElementById("ssBriefTitle").textContent = brief.title;
+    document.getElementById("ssBriefIntro").innerHTML = renderInline(brief.intro);
+  }
+
+  function renderBriefProgress(brief) {
+    var wrap = document.getElementById("ssBriefProgress");
+    wrap.innerHTML = "";
+    var currentIndex = STEP_ORDER.indexOf(briefState.step);
+    // Review/thanks keep the last (request) step marked done, not current.
+    if (currentIndex === -1) currentIndex = STEP_ORDER.length;
+
+    STEP_ORDER.forEach(function (key, i) {
+      if (i > 0) {
+        var line = document.createElement("div");
+        line.className = "ss-brief__step-line";
+        wrap.appendChild(line);
+      }
+      var step = document.createElement("div");
+      step.className = "ss-brief__step";
+      if (i < currentIndex) step.classList.add("is-done");
+      else if (i === currentIndex) step.classList.add("is-current");
+
+      var num = document.createElement("span");
+      num.className = "ss-brief__step-num";
+      num.textContent = i < currentIndex ? "✓" : String(i + 1);
+      var label = document.createElement("span");
+      label.textContent = brief.steps[i];
+
+      step.appendChild(num);
+      step.appendChild(label);
+      wrap.appendChild(step);
+    });
+  }
+
+  function clearRecordTimer() {
+    if (briefState.recordTimer) {
+      clearInterval(briefState.recordTimer);
+      briefState.recordTimer = null;
+    }
+  }
+
+  function goToStep(step) {
+    briefState.step = step;
+    renderBrief();
+    var panel = document.getElementById("ssBriefPanel");
+    if (panel) panel.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+
+  function buildField(config) {
+    var field = document.createElement("div");
+    field.className = "ss-field";
+    var label = document.createElement("label");
+    label.textContent = config.label;
+    label.setAttribute("for", config.id);
+    field.appendChild(label);
+
+    var input;
+    if (config.type === "textarea") {
+      input = document.createElement("textarea");
+      input.rows = config.rows || 3;
+    } else if (config.type === "select") {
+      input = document.createElement("select");
+      config.options.forEach(function (opt) {
+        var o = document.createElement("option");
+        o.value = opt;
+        o.textContent = opt;
+        input.appendChild(o);
+      });
+    } else {
+      input = document.createElement("input");
+      input.type = config.type || "text";
+    }
+    input.id = config.id;
+    if (config.placeholder) input.placeholder = config.placeholder;
+    if (config.value) input.value = config.value;
+    field.appendChild(input);
+    return field;
+  }
+
+  function renderStepYou(panel, s) {
+    var heading = document.createElement("h3");
+    heading.className = "ss-brief__step-heading";
+    heading.textContent = s.heading;
+    panel.appendChild(heading);
+
+    var row = document.createElement("div");
+    row.className = "ss-field-row";
+    row.appendChild(buildField({ id: "ssName", type: "text", label: s.name, value: briefState.data.name }));
+    row.appendChild(buildField({ id: "ssEmail", type: "email", label: s.email, value: briefState.data.email }));
+    panel.appendChild(row);
+
+    panel.appendChild(buildField({ id: "ssCompany", type: "text", label: s.company, value: briefState.data.company }));
+    panel.appendChild(buildField({ id: "ssRole", type: "select", label: s.role, options: s.roleOptions, value: briefState.data.role || s.roleOptions[0] }));
+
+    var actions = document.createElement("div");
+    actions.className = "ss-brief__actions ss-brief__actions--end";
+    var next = document.createElement("a");
+    next.className = "btn btn--dark";
+    next.href = "javascript:void(0)";
+    next.textContent = s.next;
+    next.addEventListener("click", function () {
+      briefState.data.name = document.getElementById("ssName").value;
+      briefState.data.email = document.getElementById("ssEmail").value;
+      briefState.data.company = document.getElementById("ssCompany").value;
+      briefState.data.role = document.getElementById("ssRole").value;
+      goToStep("context");
+    });
+    actions.appendChild(next);
+    panel.appendChild(actions);
+  }
+
+  function renderStepContext(panel, s) {
+    var heading = document.createElement("h3");
+    heading.className = "ss-brief__step-heading";
+    heading.textContent = s.heading;
+    panel.appendChild(heading);
+
+    var row = document.createElement("div");
+    row.className = "ss-field-row";
+    row.appendChild(buildField({ id: "ssWebsite", type: "text", label: s.website, value: briefState.data.website }));
+    row.appendChild(buildField({ id: "ssInstagram", type: "text", label: s.instagram, value: briefState.data.instagram }));
+    panel.appendChild(row);
+
+    var row2 = document.createElement("div");
+    row2.className = "ss-field-row";
+    row2.appendChild(buildField({ id: "ssLinkedin", type: "text", label: s.linkedin, value: briefState.data.linkedin }));
+    row2.appendChild(buildField({ id: "ssOtherLinks", type: "text", label: s.otherLinks, value: briefState.data.otherLinks }));
+    panel.appendChild(row2);
+
+    panel.appendChild(buildField({ id: "ssContext", type: "textarea", rows: 4, label: s.contextQuestion, placeholder: s.contextPlaceholder, value: briefState.data.context }));
+
+    var actions = document.createElement("div");
+    actions.className = "ss-brief__actions";
+    var back = document.createElement("a");
+    back.className = "btn btn--outline";
+    back.href = "javascript:void(0)";
+    back.textContent = s.back;
+    back.addEventListener("click", function () { collectContext(); goToStep("you"); });
+    var next = document.createElement("a");
+    next.className = "btn btn--dark";
+    next.href = "javascript:void(0)";
+    next.textContent = s.next;
+    next.addEventListener("click", function () { collectContext(); goToStep("request"); });
+    actions.appendChild(back);
+    actions.appendChild(next);
+    panel.appendChild(actions);
+
+    function collectContext() {
+      briefState.data.website = document.getElementById("ssWebsite").value;
+      briefState.data.instagram = document.getElementById("ssInstagram").value;
+      briefState.data.linkedin = document.getElementById("ssLinkedin").value;
+      briefState.data.otherLinks = document.getElementById("ssOtherLinks").value;
+      briefState.data.context = document.getElementById("ssContext").value;
+    }
+  }
+
+  function renderStepRequest(panel, s) {
+    var heading = document.createElement("h3");
+    heading.className = "ss-brief__step-heading";
+    heading.textContent = s.heading;
+    panel.appendChild(heading);
+
+    var hint = document.createElement("p");
+    hint.className = "ss-brief__step-hint";
+    hint.textContent = s.hint;
+    panel.appendChild(hint);
+
+    var tabs = document.createElement("div");
+    tabs.className = "ss-mode-tabs";
+    var typeTab = document.createElement("button");
+    typeTab.type = "button";
+    typeTab.className = "ss-mode-tab" + (briefState.mode === "type" ? " is-active" : "");
+    typeTab.textContent = s.typeTab;
+    var speakTab = document.createElement("button");
+    speakTab.type = "button";
+    speakTab.className = "ss-mode-tab" + (briefState.mode === "speak" ? " is-active" : "");
+    speakTab.textContent = s.speakTab;
+    typeTab.addEventListener("click", function () {
+      collectRequest();
+      briefState.mode = "type";
+      clearRecordTimer();
+      briefState.recording = false;
+      renderBrief();
+    });
+    speakTab.addEventListener("click", function () {
+      collectRequest();
+      briefState.mode = "speak";
+      renderBrief();
+    });
+    tabs.appendChild(typeTab);
+    tabs.appendChild(speakTab);
+    panel.appendChild(tabs);
+
+    if (briefState.mode === "speak") {
+      panel.appendChild(buildVoiceMock(s));
+    } else {
+      panel.appendChild(buildField({ id: "ssRequest", type: "textarea", rows: 5, label: s.label, placeholder: s.placeholder, value: briefState.data.request }));
+    }
+
+    var actions = document.createElement("div");
+    actions.className = "ss-brief__actions";
+    var back = document.createElement("a");
+    back.className = "btn btn--outline";
+    back.href = "javascript:void(0)";
+    back.textContent = s.back;
+    back.addEventListener("click", function () { collectRequest(); goToStep("context"); });
+    var next = document.createElement("a");
+    next.className = "btn btn--dark";
+    next.href = "javascript:void(0)";
+    next.textContent = s.next;
+    next.addEventListener("click", function () { collectRequest(); goToStep("review"); });
+    actions.appendChild(back);
+    actions.appendChild(next);
+    panel.appendChild(actions);
+
+    function collectRequest() {
+      var field = document.getElementById("ssRequest");
+      if (field) briefState.data.request = field.value;
+    }
+  }
+
+  // Visual-only mic mock: no microphone access, no real transcription —
+  // just the recording state + a placeholder "transcript" the user can
+  // edit, per spec (backend/transcription connect later).
+  function buildVoiceMock(s) {
+    var wrap = document.createElement("div");
+    wrap.className = "ss-voice";
+
+    var mic = document.createElement("button");
+    mic.type = "button";
+    mic.className = "ss-voice__mic" + (briefState.recording ? " is-recording" : "");
+    mic.setAttribute("aria-pressed", String(briefState.recording));
+    mic.textContent = "🎤";
+
+    var timer = document.createElement("span");
+    timer.className = "ss-voice__timer";
+    timer.textContent = formatTimer(briefState.recordSeconds);
+
+    var hint = document.createElement("p");
+    hint.className = "ss-voice__hint";
+    hint.textContent = briefState.recording ? s.recordHint : s.speakTab;
+
+    mic.addEventListener("click", function () {
+      if (!briefState.recording) {
+        briefState.recording = true;
+        briefState.recordSeconds = 0;
+        briefState.recordTimer = setInterval(function () {
+          briefState.recordSeconds++;
+          timer.textContent = formatTimer(briefState.recordSeconds);
+        }, 1000);
+        mic.classList.add("is-recording");
+        hint.textContent = s.recordHint;
+      } else {
+        clearRecordTimer();
+        briefState.recording = false;
+        briefState.data.request = s.transcribedPlaceholder;
+        briefState.mode = "type";
+        renderBrief();
+      }
+    });
+
+    wrap.appendChild(mic);
+    wrap.appendChild(timer);
+    wrap.appendChild(hint);
+    return wrap;
+  }
+
+  function formatTimer(totalSeconds) {
+    var m = Math.floor(totalSeconds / 60);
+    var s = totalSeconds % 60;
+    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+  }
+
+  function renderStepReview(panel, brief) {
+    var r = brief.review;
+    var heading = document.createElement("h3");
+    heading.className = "ss-brief__step-heading";
+    heading.textContent = r.heading;
+    panel.appendChild(heading);
+
+    var box = document.createElement("div");
+    box.className = "ss-review";
+    var dl = document.createElement("dl");
+    var links = [briefState.data.website, briefState.data.instagram, briefState.data.linkedin, briefState.data.otherLinks].filter(Boolean).join("\n");
+
+    [
+      [r.name, briefState.data.name || "—"],
+      [r.company, briefState.data.company || "—"],
+      [r.links, links || "—"],
+      [r.context, briefState.data.context || "—"],
+      [r.request, briefState.data.request || "—"]
+    ].forEach(function (pair) {
+      var dt = document.createElement("dt");
+      dt.textContent = pair[0];
+      var dd = document.createElement("dd");
+      dd.textContent = pair[1];
+      dl.appendChild(dt);
+      dl.appendChild(dd);
+    });
+    box.appendChild(dl);
+    panel.appendChild(box);
+
+    var actions = document.createElement("div");
+    actions.className = "ss-brief__actions";
+    var edit = document.createElement("a");
+    edit.className = "btn btn--outline";
+    edit.href = "javascript:void(0)";
+    edit.textContent = r.edit;
+    edit.addEventListener("click", function () { goToStep("you"); });
+    var send = document.createElement("a");
+    send.className = "btn btn--dark";
+    send.href = "javascript:void(0)";
+    send.textContent = r.send;
+    send.addEventListener("click", function () { goToStep("thanks"); });
+    actions.appendChild(edit);
+    actions.appendChild(send);
+    panel.appendChild(actions);
+  }
+
+  function renderStepThanks(panel, brief) {
+    var t = brief.thankYou;
+    var wrap = document.createElement("div");
+    wrap.className = "ss-thanks";
+    var heading = document.createElement("h3");
+    heading.className = "ss-thanks__title";
+    heading.textContent = t.heading;
+    var text = document.createElement("p");
+    text.className = "ss-thanks__text";
+    text.textContent = t.text;
+    wrap.appendChild(heading);
+    wrap.appendChild(text);
+    panel.appendChild(wrap);
+  }
+
+  function renderBrief() {
+    var brief = briefLang();
+    renderBriefIntro(brief);
+    renderBriefProgress(brief);
+
+    var panel = document.getElementById("ssBriefPanel");
+    panel.innerHTML = "";
+    panel.className = "ss-brief__panel";
+
+    if (briefState.step === "you") renderStepYou(panel, brief.step1);
+    else if (briefState.step === "context") renderStepContext(panel, brief.step2);
+    else if (briefState.step === "request") renderStepRequest(panel, brief.step3);
+    else if (briefState.step === "review") renderStepReview(panel, brief);
+    else if (briefState.step === "thanks") renderStepThanks(panel, brief);
+  }
+
+  // ======================================================================
+  // Bootstrap
+  // ======================================================================
+  function render() {
+    collectVisibleFields();
+    var data = window.SITE_CONTENT.strategicSession[window.MK.i18n.getLang()];
+    renderHero(data);
+    renderHowItWorks(data);
+    renderResults(data);
+    renderApproach(data);
+    renderBrief();
+    observeReveals(document);
   }
 
   document.addEventListener("mk:langchange", render);
