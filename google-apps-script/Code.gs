@@ -7,7 +7,7 @@
 
 var SHEET_NAME = "Strategic Brief"; // rename here if your tab uses a different name
 var HEADERS = [
-  "Date / Time", "Name", "Email", "Company / Brand", "Role",
+  "Date / Time", "Name", "Email", "Company / Brand", "Role", "What They Do",
   "Website", "Instagram", "LinkedIn", "Other Links",
   "Context", "Strategic Request", "Language"
 ];
@@ -45,6 +45,7 @@ function doPost(e) {
       data.email || "",
       data.company || "",
       data.role || "",
+      data.about || "",
       data.website || "",
       data.instagram || "",
       data.linkedin || "",

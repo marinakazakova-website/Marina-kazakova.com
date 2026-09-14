@@ -1129,6 +1129,28 @@ body.is-opening { overflow: hidden; }
   max-width: 46em;
 }
 
+/* Compact coaching prompts under the Context question — things to think
+   about, not separate required fields, so they stay small and quiet. */
+.ss-brief__prompts {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+.ss-brief__prompts li {
+  font-size: var(--fs-small);
+  opacity: 0.6;
+  padding-left: 1.1em;
+  position: relative;
+}
+.ss-brief__prompts li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+}
+
 .ss-field { margin-bottom: var(--space-3); }
 
 .ss-field label {
@@ -1870,6 +1892,7 @@ window.SITE_CONTENT = {
           company: "Company / brand",
           role: "What best describes you?",
           roleOptions: ["Founder", "Marketing / brand lead", "Consultant / agency", "Other"],
+          about: "What does your brand / company / you as an expert do?",
           next: "CONTINUE"
         },
         step2Links: {
@@ -1883,12 +1906,18 @@ window.SITE_CONTENT = {
         },
         step2Question: {
           heading: "What's currently happening in your business, brand, product or project?",
+          prompts: [
+            "How strong is your connection with your audience?",
+            "How effective is your product / service setup?",
+            "How satisfied are you with your current sales?"
+          ],
           label: "CONTEXT",
           placeholder: "Tell me a bit about the context...",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
           startHint: "Tap the mic to start speaking",
           recordHint: "Tap again to stop",
+          noSpeechHint: "Didn't catch anything — tap the mic to try again.",
           micUnsupported: "Voice input isn't supported in this browser — please type your answer instead.",
           micError: "Couldn't access the microphone. Please check your browser permissions or type your answer.",
           next: "CONTINUE",
@@ -1896,13 +1925,14 @@ window.SITE_CONTENT = {
         },
         step3: {
           heading: "WHAT DO YOU ACTUALLY WANT TO SOLVE?",
-          hint: "Don't try to make it sound “strategic.” Just tell me what you want to understand, change or solve.",
+          hint: "Don't try to formulate this strategically. Just tell me what goals you want to achieve and what business challenge you came to me with.",
           label: "FORMULATE YOUR REQUEST",
-          placeholder: "I want to understand...",
+          placeholder: "For example: I want to understand how to grow the brand further / strengthen the product / increase sales / relaunch the project.",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
           startHint: "Tap the mic to start speaking",
           recordHint: "Tap again to stop",
+          noSpeechHint: "Didn't catch anything — tap the mic to try again.",
           micUnsupported: "Voice input isn't supported in this browser — please type your answer instead.",
           micError: "Couldn't access the microphone. Please check your browser permissions or type your answer.",
           next: "REVIEW",
@@ -1912,6 +1942,7 @@ window.SITE_CONTENT = {
           heading: "YOUR STRATEGIC BRIEF",
           name: "Name",
           company: "Company / brand",
+          about: "What you do",
           links: "Links",
           context: "Context",
           request: "Your request",
@@ -1998,6 +2029,7 @@ window.SITE_CONTENT = {
           company: "Компания / бренд",
           role: "Кем вы являетесь?",
           roleOptions: ["Основатель", "Маркетинг / бренд-лид", "Консультант / агентство", "Другое"],
+          about: "Чем занимается ваш бренд / компания / вы как эксперт?",
           next: "ПРОДОЛЖИТЬ"
         },
         step2Links: {
@@ -2011,12 +2043,18 @@ window.SITE_CONTENT = {
         },
         step2Question: {
           heading: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
+          prompts: [
+            "Насколько сильна связь с вашей аудиторией?",
+            "Насколько эффективно устроен ваш продукт / услуги?",
+            "Насколько вас устраивают текущие продажи?"
+          ],
           label: "КОНТЕКСТ",
           placeholder: "Расскажите немного о контексте...",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
           startHint: "Нажмите на микрофон, чтобы начать говорить",
           recordHint: "Нажмите ещё раз, чтобы остановить",
+          noSpeechHint: "Не удалось расслышать — нажмите на микрофон ещё раз.",
           micUnsupported: "Голосовой ввод не поддерживается в этом браузере — пожалуйста, напишите ответ.",
           micError: "Не удалось получить доступ к микрофону. Проверьте разрешения браузера или напишите ответ.",
           next: "ПРОДОЛЖИТЬ",
@@ -2024,13 +2062,14 @@ window.SITE_CONTENT = {
         },
         step3: {
           heading: "ЧТО ВЫ НА САМОМ ДЕЛЕ ХОТИТЕ РЕШИТЬ?",
-          hint: "Не пытайтесь формулировать это «стратегически». Просто расскажите, что вы хотите понять, изменить или решить.",
+          hint: "Не пытайтесь формулировать это стратегически. Просто расскажите, каких целей вы хотите достичь и с какой бизнес-задачей пришли ко мне.",
           label: "СФОРМУЛИРУЙТЕ СВОЙ ЗАПРОС",
-          placeholder: "Я хочу понять...",
+          placeholder: "Например: хочу понять, как развивать бренд дальше / как усилить продукт / как увеличить продажи / как перезапустить проект.",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
           startHint: "Нажмите на микрофон, чтобы начать говорить",
           recordHint: "Нажмите ещё раз, чтобы остановить",
+          noSpeechHint: "Не удалось расслышать — нажмите на микрофон ещё раз.",
           micUnsupported: "Голосовой ввод не поддерживается в этом браузере — пожалуйста, напишите ответ.",
           micError: "Не удалось получить доступ к микрофону. Проверьте разрешения браузера или напишите ответ.",
           next: "К ПРОВЕРКЕ",
@@ -2040,6 +2079,7 @@ window.SITE_CONTENT = {
           heading: "ВАШ STRATEGIC BRIEF",
           name: "Имя",
           company: "Компания / бренд",
+          about: "Чем занимаетесь",
           links: "Ссылки",
           context: "Контекст",
           request: "Ваш запрос",
@@ -2570,7 +2610,7 @@ window.SITE_CONTENT = {
     startedAt: Date.now(), // spam timing-trap: real users take well over a few seconds to fill 3 steps
     submitting: false,
     submitError: false,
-    data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "", hp: "" }
+    data: { name: "", email: "", company: "", role: "", about: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "", hp: "" }
   };
 
   var PROGRESS_MAP = { you: 0, "context-links": 1, "context-question": 1, request: 2 };
@@ -2580,7 +2620,7 @@ window.SITE_CONTENT = {
   }
 
   var FIELD_MAP = {
-    ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role",
+    ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role", ssAbout: "about",
     ssWebsite: "website", ssInstagram: "instagram", ssLinkedin: "linkedin", ssOtherLinks: "otherLinks",
     ssContextAnswer: "context", ssRequest: "request", ssHoneypot: "hp"
   };
@@ -2738,6 +2778,7 @@ window.SITE_CONTENT = {
 
     panel.appendChild(buildField({ id: "ssCompany", type: "text", label: s.company, value: briefState.data.company }));
     panel.appendChild(buildField({ id: "ssRole", type: "select", label: s.role, options: s.roleOptions, value: briefState.data.role || s.roleOptions[0] }));
+    panel.appendChild(buildField({ id: "ssAbout", type: "text", label: s.about, value: briefState.data.about }));
     panel.appendChild(buildHoneypot());
 
     panel.appendChild(buildActions({
@@ -2749,6 +2790,7 @@ window.SITE_CONTENT = {
         briefState.data.email = emailInput.value;
         briefState.data.company = document.getElementById("ssCompany").value;
         briefState.data.role = document.getElementById("ssRole").value;
+        briefState.data.about = document.getElementById("ssAbout").value;
         briefState.data.hp = document.getElementById("ssHoneypot").value;
 
         var nameOk = nameInput.checkValidity();
@@ -2816,6 +2858,20 @@ window.SITE_CONTENT = {
       panel.appendChild(hint);
     }
 
+    // Coaching prompts (Context step only) — things to think about while
+    // answering, not separate fields: one shared textarea still collects
+    // the actual answer.
+    if (s.prompts && s.prompts.length) {
+      var prompts = document.createElement("ul");
+      prompts.className = "ss-brief__prompts";
+      s.prompts.forEach(function (text) {
+        var li = document.createElement("li");
+        li.textContent = text;
+        prompts.appendChild(li);
+      });
+      panel.appendChild(prompts);
+    }
+
     var tabs = document.createElement("div");
     tabs.className = "ss-mode-tabs";
     var typeTab = document.createElement("button");
@@ -2862,9 +2918,13 @@ window.SITE_CONTENT = {
   var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
   var activeRecognition = null;
 
+  // Aborts immediately with no regard for a trailing result — used when
+  // navigating away (goToStep, switching to the Type tab), where losing
+  // whatever wasn't finalized yet is an acceptable, expected trade-off.
   function stopActiveRecognition() {
     if (activeRecognition) {
       activeRecognition.expectedEnd = true;
+      activeRecognition.onFinished = null;
       try { activeRecognition.stop(); } catch (e) { /* already stopped */ }
       activeRecognition = null;
     }
@@ -2904,6 +2964,7 @@ window.SITE_CONTENT = {
     function showError(message) {
       clearRecordTimer();
       briefState.recording = false;
+      mic.disabled = false;
       mic.classList.remove("is-recording");
       mic.setAttribute("aria-pressed", "false");
       hint.className = "ss-voice__hint ss-voice__hint--error";
@@ -2912,9 +2973,26 @@ window.SITE_CONTENT = {
 
     mic.addEventListener("click", function () {
       if (briefState.recording) {
-        stopActiveRecognition();
-        briefState.mode = "type"; // hand the finalized transcript to the editable textarea
-        renderBrief();
+        // Wait for the recognizer to actually finish before switching to
+        // the editable textarea — the last words spoken can arrive as a
+        // final result slightly AFTER stop() is called, and re-rendering
+        // too early was silently dropping that trailing chunk.
+        mic.disabled = true;
+        clearRecordTimer();
+        hint.textContent = s.recordHint;
+        if (activeRecognition) {
+          activeRecognition.expectedEnd = true;
+          activeRecognition.onFinished = function () {
+            briefState.recording = false;
+            if (briefState.data[opts.dataKey]) {
+              briefState.mode = "type"; // hand the finalized transcript to the editable textarea
+              renderBrief();
+            } else {
+              showError(s.noSpeechHint || s.micError);
+            }
+          };
+          try { activeRecognition.stop(); } catch (e) { activeRecognition.onFinished(); }
+        }
         return;
       }
 
@@ -2923,6 +3001,7 @@ window.SITE_CONTENT = {
       recognition.continuous = true;
       recognition.interimResults = true;
       recognition.expectedEnd = false;
+      recognition.onFinished = null;
 
       var baseText = briefState.data[opts.dataKey] ? briefState.data[opts.dataKey] + " " : "";
       var finalTranscript = baseText;
@@ -2943,16 +3022,29 @@ window.SITE_CONTENT = {
 
       recognition.onerror = function (event) {
         if (event.error === "no-speech" || event.error === "aborted") return;
-        showError(s.micError);
+        // A real failure (permission revoked, network down, …) — end the
+        // session; onend below runs whatever cleanup is appropriate.
+        recognition.hardError = true;
       };
 
       recognition.onend = function () {
-        if (!recognition.expectedEnd && briefState.recording) {
-          // Some browsers end the session after a pause even in
-          // continuous mode — keep listening until the user taps stop.
-          try { recognition.start(); return; } catch (e) { /* fall through */ }
-        }
         activeRecognition = null;
+        if (recognition.onFinished) {
+          recognition.onFinished();
+          return;
+        }
+        // Ended on its own (silence timeout, dropped connection, …)
+        // without the user tapping stop — finish gracefully instead of
+        // leaving a "still recording" UI that's secretly dead.
+        briefState.recording = false;
+        if (briefState.data[opts.dataKey]) {
+          briefState.mode = "type";
+          renderBrief();
+        } else if (recognition.hardError) {
+          showError(s.micError);
+        } else {
+          showError(s.noSpeechHint || s.micError);
+        }
       };
 
       try {
@@ -3003,6 +3095,7 @@ window.SITE_CONTENT = {
     [
       [r.name, briefState.data.name || "—"],
       [r.company, briefState.data.company || "—"],
+      [r.about, briefState.data.about || "—"],
       [r.links, links || "—"],
       [r.context, briefState.data.context || "—"],
       [r.request, briefState.data.request || "—"]
@@ -3060,6 +3153,7 @@ window.SITE_CONTENT = {
       email: briefState.data.email,
       company: briefState.data.company,
       role: briefState.data.role,
+      about: briefState.data.about,
       website: briefState.data.website,
       instagram: briefState.data.instagram,
       linkedin: briefState.data.linkedin,

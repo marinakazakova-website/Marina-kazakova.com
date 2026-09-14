@@ -250,7 +250,7 @@
     startedAt: Date.now(), // spam timing-trap: real users take well over a few seconds to fill 3 steps
     submitting: false,
     submitError: false,
-    data: { name: "", email: "", company: "", role: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "", hp: "" }
+    data: { name: "", email: "", company: "", role: "", about: "", website: "", instagram: "", linkedin: "", otherLinks: "", context: "", request: "", hp: "" }
   };
 
   var PROGRESS_MAP = { you: 0, "context-links": 1, "context-question": 1, request: 2 };
@@ -260,7 +260,7 @@
   }
 
   var FIELD_MAP = {
-    ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role",
+    ssName: "name", ssEmail: "email", ssCompany: "company", ssRole: "role", ssAbout: "about",
     ssWebsite: "website", ssInstagram: "instagram", ssLinkedin: "linkedin", ssOtherLinks: "otherLinks",
     ssContextAnswer: "context", ssRequest: "request", ssHoneypot: "hp"
   };
@@ -418,6 +418,7 @@
 
     panel.appendChild(buildField({ id: "ssCompany", type: "text", label: s.company, value: briefState.data.company }));
     panel.appendChild(buildField({ id: "ssRole", type: "select", label: s.role, options: s.roleOptions, value: briefState.data.role || s.roleOptions[0] }));
+    panel.appendChild(buildField({ id: "ssAbout", type: "text", label: s.about, value: briefState.data.about }));
     panel.appendChild(buildHoneypot());
 
     panel.appendChild(buildActions({
@@ -429,6 +430,7 @@
         briefState.data.email = emailInput.value;
         briefState.data.company = document.getElementById("ssCompany").value;
         briefState.data.role = document.getElementById("ssRole").value;
+        briefState.data.about = document.getElementById("ssAbout").value;
         briefState.data.hp = document.getElementById("ssHoneypot").value;
 
         var nameOk = nameInput.checkValidity();
@@ -496,6 +498,20 @@
       panel.appendChild(hint);
     }
 
+    // Coaching prompts (Context step only) — things to think about while
+    // answering, not separate fields: one shared textarea still collects
+    // the actual answer.
+    if (s.prompts && s.prompts.length) {
+      var prompts = document.createElement("ul");
+      prompts.className = "ss-brief__prompts";
+      s.prompts.forEach(function (text) {
+        var li = document.createElement("li");
+        li.textContent = text;
+        prompts.appendChild(li);
+      });
+      panel.appendChild(prompts);
+    }
+
     var tabs = document.createElement("div");
     tabs.className = "ss-mode-tabs";
     var typeTab = document.createElement("button");
@@ -542,9 +558,13 @@
   var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
   var activeRecognition = null;
 
+  // Aborts immediately with no regard for a trailing result — used when
+  // navigating away (goToStep, switching to the Type tab), where losing
+  // whatever wasn't finalized yet is an acceptable, expected trade-off.
   function stopActiveRecognition() {
     if (activeRecognition) {
       activeRecognition.expectedEnd = true;
+      activeRecognition.onFinished = null;
       try { activeRecognition.stop(); } catch (e) { /* already stopped */ }
       activeRecognition = null;
     }
@@ -584,6 +604,7 @@
     function showError(message) {
       clearRecordTimer();
       briefState.recording = false;
+      mic.disabled = false;
       mic.classList.remove("is-recording");
       mic.setAttribute("aria-pressed", "false");
       hint.className = "ss-voice__hint ss-voice__hint--error";
@@ -592,9 +613,26 @@
 
     mic.addEventListener("click", function () {
       if (briefState.recording) {
-        stopActiveRecognition();
-        briefState.mode = "type"; // hand the finalized transcript to the editable textarea
-        renderBrief();
+        // Wait for the recognizer to actually finish before switching to
+        // the editable textarea — the last words spoken can arrive as a
+        // final result slightly AFTER stop() is called, and re-rendering
+        // too early was silently dropping that trailing chunk.
+        mic.disabled = true;
+        clearRecordTimer();
+        hint.textContent = s.recordHint;
+        if (activeRecognition) {
+          activeRecognition.expectedEnd = true;
+          activeRecognition.onFinished = function () {
+            briefState.recording = false;
+            if (briefState.data[opts.dataKey]) {
+              briefState.mode = "type"; // hand the finalized transcript to the editable textarea
+              renderBrief();
+            } else {
+              showError(s.noSpeechHint || s.micError);
+            }
+          };
+          try { activeRecognition.stop(); } catch (e) { activeRecognition.onFinished(); }
+        }
         return;
       }
 
@@ -603,6 +641,7 @@
       recognition.continuous = true;
       recognition.interimResults = true;
       recognition.expectedEnd = false;
+      recognition.onFinished = null;
 
       var baseText = briefState.data[opts.dataKey] ? briefState.data[opts.dataKey] + " " : "";
       var finalTranscript = baseText;
@@ -623,16 +662,29 @@
 
       recognition.onerror = function (event) {
         if (event.error === "no-speech" || event.error === "aborted") return;
-        showError(s.micError);
+        // A real failure (permission revoked, network down, …) — end the
+        // session; onend below runs whatever cleanup is appropriate.
+        recognition.hardError = true;
       };
 
       recognition.onend = function () {
-        if (!recognition.expectedEnd && briefState.recording) {
-          // Some browsers end the session after a pause even in
-          // continuous mode — keep listening until the user taps stop.
-          try { recognition.start(); return; } catch (e) { /* fall through */ }
-        }
         activeRecognition = null;
+        if (recognition.onFinished) {
+          recognition.onFinished();
+          return;
+        }
+        // Ended on its own (silence timeout, dropped connection, …)
+        // without the user tapping stop — finish gracefully instead of
+        // leaving a "still recording" UI that's secretly dead.
+        briefState.recording = false;
+        if (briefState.data[opts.dataKey]) {
+          briefState.mode = "type";
+          renderBrief();
+        } else if (recognition.hardError) {
+          showError(s.micError);
+        } else {
+          showError(s.noSpeechHint || s.micError);
+        }
       };
 
       try {
@@ -683,6 +735,7 @@
     [
       [r.name, briefState.data.name || "—"],
       [r.company, briefState.data.company || "—"],
+      [r.about, briefState.data.about || "—"],
       [r.links, links || "—"],
       [r.context, briefState.data.context || "—"],
       [r.request, briefState.data.request || "—"]
@@ -740,6 +793,7 @@
       email: briefState.data.email,
       company: briefState.data.company,
       role: briefState.data.role,
+      about: briefState.data.about,
       website: briefState.data.website,
       instagram: briefState.data.instagram,
       linkedin: briefState.data.linkedin,

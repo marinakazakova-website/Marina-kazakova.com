@@ -539,6 +539,28 @@
   max-width: 46em;
 }
 
+/* Compact coaching prompts under the Context question — things to think
+   about, not separate required fields, so they stay small and quiet. */
+.ss-brief__prompts {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+.ss-brief__prompts li {
+  font-size: var(--fs-small);
+  opacity: 0.6;
+  padding-left: 1.1em;
+  position: relative;
+}
+.ss-brief__prompts li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+}
+
 .ss-field { margin-bottom: var(--space-3); }
 
 .ss-field label {

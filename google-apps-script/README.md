@@ -37,8 +37,8 @@ Deploy.**
 
 ## Columns written
 
-Date / Time, Name, Email, Company / Brand, Role, Website, Instagram,
-LinkedIn, Other Links, Context, Strategic Request, Language.
+Date / Time, Name, Email, Company / Brand, Role, What They Do, Website,
+Instagram, LinkedIn, Other Links, Context, Strategic Request, Language.
 
 The header row is created automatically on the first submission if the
 sheet is empty.

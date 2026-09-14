@@ -434,6 +434,7 @@ window.SITE_CONTENT = {
           company: "Company / brand",
           role: "What best describes you?",
           roleOptions: ["Founder", "Marketing / brand lead", "Consultant / agency", "Other"],
+          about: "What does your brand / company / you as an expert do?",
           next: "CONTINUE"
         },
         step2Links: {
@@ -447,12 +448,18 @@ window.SITE_CONTENT = {
         },
         step2Question: {
           heading: "What's currently happening in your business, brand, product or project?",
+          prompts: [
+            "How strong is your connection with your audience?",
+            "How effective is your product / service setup?",
+            "How satisfied are you with your current sales?"
+          ],
           label: "CONTEXT",
           placeholder: "Tell me a bit about the context...",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
           startHint: "Tap the mic to start speaking",
           recordHint: "Tap again to stop",
+          noSpeechHint: "Didn't catch anything — tap the mic to try again.",
           micUnsupported: "Voice input isn't supported in this browser — please type your answer instead.",
           micError: "Couldn't access the microphone. Please check your browser permissions or type your answer.",
           next: "CONTINUE",
@@ -460,13 +467,14 @@ window.SITE_CONTENT = {
         },
         step3: {
           heading: "WHAT DO YOU ACTUALLY WANT TO SOLVE?",
-          hint: "Don't try to make it sound “strategic.” Just tell me what you want to understand, change or solve.",
+          hint: "Don't try to formulate this strategically. Just tell me what goals you want to achieve and what business challenge you came to me with.",
           label: "FORMULATE YOUR REQUEST",
-          placeholder: "I want to understand...",
+          placeholder: "For example: I want to understand how to grow the brand further / strengthen the product / increase sales / relaunch the project.",
           typeTab: "⌨ TYPE",
           speakTab: "🎤 SPEAK",
           startHint: "Tap the mic to start speaking",
           recordHint: "Tap again to stop",
+          noSpeechHint: "Didn't catch anything — tap the mic to try again.",
           micUnsupported: "Voice input isn't supported in this browser — please type your answer instead.",
           micError: "Couldn't access the microphone. Please check your browser permissions or type your answer.",
           next: "REVIEW",
@@ -476,6 +484,7 @@ window.SITE_CONTENT = {
           heading: "YOUR STRATEGIC BRIEF",
           name: "Name",
           company: "Company / brand",
+          about: "What you do",
           links: "Links",
           context: "Context",
           request: "Your request",
@@ -562,6 +571,7 @@ window.SITE_CONTENT = {
           company: "Компания / бренд",
           role: "Кем вы являетесь?",
           roleOptions: ["Основатель", "Маркетинг / бренд-лид", "Консультант / агентство", "Другое"],
+          about: "Чем занимается ваш бренд / компания / вы как эксперт?",
           next: "ПРОДОЛЖИТЬ"
         },
         step2Links: {
@@ -575,12 +585,18 @@ window.SITE_CONTENT = {
         },
         step2Question: {
           heading: "Что сейчас происходит в вашем бизнесе, бренде, продукте или проекте?",
+          prompts: [
+            "Насколько сильна связь с вашей аудиторией?",
+            "Насколько эффективно устроен ваш продукт / услуги?",
+            "Насколько вас устраивают текущие продажи?"
+          ],
           label: "КОНТЕКСТ",
           placeholder: "Расскажите немного о контексте...",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
           startHint: "Нажмите на микрофон, чтобы начать говорить",
           recordHint: "Нажмите ещё раз, чтобы остановить",
+          noSpeechHint: "Не удалось расслышать — нажмите на микрофон ещё раз.",
           micUnsupported: "Голосовой ввод не поддерживается в этом браузере — пожалуйста, напишите ответ.",
           micError: "Не удалось получить доступ к микрофону. Проверьте разрешения браузера или напишите ответ.",
           next: "ПРОДОЛЖИТЬ",
@@ -588,13 +604,14 @@ window.SITE_CONTENT = {
         },
         step3: {
           heading: "ЧТО ВЫ НА САМОМ ДЕЛЕ ХОТИТЕ РЕШИТЬ?",
-          hint: "Не пытайтесь формулировать это «стратегически». Просто расскажите, что вы хотите понять, изменить или решить.",
+          hint: "Не пытайтесь формулировать это стратегически. Просто расскажите, каких целей вы хотите достичь и с какой бизнес-задачей пришли ко мне.",
           label: "СФОРМУЛИРУЙТЕ СВОЙ ЗАПРОС",
-          placeholder: "Я хочу понять...",
+          placeholder: "Например: хочу понять, как развивать бренд дальше / как усилить продукт / как увеличить продажи / как перезапустить проект.",
           typeTab: "⌨ НАПИСАТЬ",
           speakTab: "🎤 СКАЗАТЬ ГОЛОСОМ",
           startHint: "Нажмите на микрофон, чтобы начать говорить",
           recordHint: "Нажмите ещё раз, чтобы остановить",
+          noSpeechHint: "Не удалось расслышать — нажмите на микрофон ещё раз.",
           micUnsupported: "Голосовой ввод не поддерживается в этом браузере — пожалуйста, напишите ответ.",
           micError: "Не удалось получить доступ к микрофону. Проверьте разрешения браузера или напишите ответ.",
           next: "К ПРОВЕРКЕ",
@@ -604,6 +621,7 @@ window.SITE_CONTENT = {
           heading: "ВАШ STRATEGIC BRIEF",
           name: "Имя",
           company: "Компания / бренд",
+          about: "Чем занимаетесь",
           links: "Ссылки",
           context: "Контекст",
           request: "Ваш запрос",
