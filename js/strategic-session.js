@@ -813,18 +813,19 @@
     };
 
     var configured = SHEETS_ENDPOINT && SHEETS_ENDPOINT.indexOf("PASTE_YOUR_") !== 0;
+    // Apps Script Web Apps respond via a redirect to script.googleusercontent.com,
+    // and that redirected response frequently doesn't carry the CORS headers
+    // fetch needs to let JS read it back — even though the script already ran
+    // and wrote the row. Reading the response is unreliable enough that we
+    // don't rely on it: "no-cors" can't be inspected, but the request itself
+    // still reaches Apps Script and writes the row. A genuinely failed
+    // request (offline, DNS, blocked) still rejects and hits the catch below.
     var request = configured
       ? fetch(SHEETS_ENDPOINT, {
           method: "POST",
-          // text/plain avoids a CORS preflight the Apps Script endpoint
-          // doesn't handle; the body is still parsed as JSON server-side.
+          mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
-        }).then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.json();
-        }).then(function (json) {
-          if (json.status !== "ok") throw new Error(json.message || "unknown error");
         })
       : Promise.reject(new Error("Sheets endpoint not configured yet"));
 
