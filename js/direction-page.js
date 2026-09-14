@@ -86,7 +86,9 @@
         el.href = assetUrl(localized(data.href, lang));
         if (kind === "portfolio") {
           el.setAttribute("download", "");
-        } else {
+        } else if (kind !== "strategicSession") {
+          // Internal link (same site) — normal in-tab navigation, not a
+          // new tab like the external website/collaboration/trainings links.
           el.target = "_blank";
           el.rel = "noopener";
         }
@@ -103,6 +105,7 @@
     if (direction.links.portfolio && direction.links.portfolio.href) linkRow("portfolio", direction.links.portfolio, portfolioLabel);
     if (direction.links.trainings) linkRow("trainings", direction.links.trainings);
     linkRow("collaboration", direction.links.collaboration);
+    if (direction.links.strategicSession) linkRow("strategicSession", direction.links.strategicSession);
 
     renderClientLogos();
   }

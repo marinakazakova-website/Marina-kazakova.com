@@ -143,7 +143,10 @@ window.SITE_CONTENT = {
       links: {
         website: null,
         portfolio: { label: "Portfolio", href: null },
-        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: { en: "https://wa.me/79166156441", ru: "https://t.me/marinakazakova_ru" } }
+        collaboration: { label: { en: "Collaboration", ru: "Сотрудничество" }, href: { en: "https://wa.me/79166156441", ru: "https://t.me/marinakazakova_ru" } },
+        // Second, equal-weight entry point — same pill styling as the
+        // other functional links, not emphasized over Collaboration.
+        strategicSession: { label: "STRATEGIC SESSION", href: "strategic-session/index.html" }
       },
       clients: [],
       en: {
