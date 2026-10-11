@@ -8,6 +8,8 @@ Output: 1080 × 1920, 9:16, 30 fps, H.264 MP4, AAC 48 kHz.
 - [x] Scenes 02–05 — gradient editorial pages
 - [x] Full reel, 26.0 s — `output/GA_reel_issue01.mp4` (sound) and
       `output/GA_reel_issue01_silent.mp4`; storyboard `output/GA_reel_issue01_storyboard.jpg`
+- [x] Static Stories, 5 × 1080×1920 — `output/stories/GA_story_01–05` (PNG master + JPG for upload);
+      re-build with `python3 tools/stories.py`
 
 ## Principle
 No text or logo is re-typeset or AI-generated. Every gold pixel comes from
