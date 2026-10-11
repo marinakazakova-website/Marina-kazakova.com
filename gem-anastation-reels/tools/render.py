@@ -6,10 +6,12 @@ piped straight into ffmpeg. All timings and positions live in TIMELINE /
 LAYOUT below, so the animation can be re-tuned and re-rendered in one step.
 
 Usage:
-  python3 tools/render.py scene01            # test fragment (Scene 01)
-  python3 tools/render.py scene01 --still 5.5 # single PNG frame at t=5.5 s
+  python3 tools/render.py reel                   # full reel, with and without sound
+  python3 tools/render.py scene01                # Scene 01 test fragment
+  python3 tools/render.py reel --still 6.2 9.0   # PNG frames at given times
 """
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -144,15 +146,22 @@ class Scene01:
         lin = lin * (1 + 0.10 * (haze - 0.5)) + np.array([0.002, 0.005, 0.006]) * haze
         return lin
 
-    def frame(self, t):
+    def compose(self, t, mult=None, defocus=0.0):
+        """Scene 01 as float sRGB, before grain. `mult` scales the opacity of
+        named layers (used by the reel to hand over to the next scene);
+        `defocus` blurs the forest (Gaussian sigma, output px)."""
         T = TIMELINE_S1
+        mult = mult or {}
         lin = self.forest(t, T["duration"]) * self.vignette
         lin *= progress(t, T["forest_fade"])  # forest opens from black
+        if defocus > 0.2:
+            lin = cv2.GaussianBlur(lin.astype(np.float32), (0, 0), defocus)
         out = linear_to_srgb(lin)
 
         for name, (x, y) in LAYOUT_S1.items():
             p = progress(t, T[name])
-            if p <= 0:
+            k = mult.get(name, 1.0)
+            if p <= 0 or k <= 0:
                 continue
             col, a = self.layers[name]
             h, w = a.shape
@@ -171,14 +180,185 @@ class Scene01:
                 blur = 2.4 * (1 - p)
                 if blur > 0.15:
                     a = cv2.GaussianBlur(a, (0, 0), blur)
-            a = (a * p)[..., None]
-            region = out[y:y + h, x:x + w]
-            out[y:y + h, x:x + w] = region * (1 - a) + col * a
+            draw(out, col, a * p * k, x, y)
+        return out
 
-        # Fine film grain keeps the dark greens free of banding on H.264.
-        g = self.grain_rng.standard_normal((H, W, 1)).astype(np.float32)
-        out = out + g * (2.2 / 255.0)
-        return (np.clip(out, 0, 1) * 255 + 0.5).astype(np.uint8)
+    def frame(self, t):
+        return finish(self.compose(t), self.grain_rng)
+
+
+def draw(out, col, a, x, y):
+    """Composite a layer (colour, alpha) onto the frame at (x, y)."""
+    h, w = a.shape
+    a = a[..., None]
+    out[y:y + h, x:x + w] = out[y:y + h, x:x + w] * (1 - a) + col * a
+
+
+def finish(out, rng):
+    """Fine film grain keeps the dark greens free of banding on H.264."""
+    g = rng.standard_normal((H, W, 1)).astype(np.float32)
+    out = out + g * (2.2 / 255.0)
+    return (np.clip(out, 0, 1) * 255 + 0.5).astype(np.uint8)
+
+
+# --- Scenes 02-05: gradient editorial pages --------------------------------
+# Vertical offset of each original layout in the 9:16 frame (x unchanged):
+# s2 keeps its top position, s3 sits at mid-height, s4 sits low, as in the
+# originals; s5 is centred where the GA monogram stood in Scene 01. The
+# website line keeps exactly the position it has in Scene 01.
+LAYOUT_GRAD = {"s2": 125, "s3": 260, "s4": 255, "s5": 308}
+URL_POS = (377, 1480)
+
+# Full reel timeline, seconds. Scene 01 keeps its approved timing.
+TIMELINE_REEL = {
+    "duration": 26.0,
+    "s1_type_out": (5.35, 5.95),       # Scene 01 type dissolves (website stays)
+    "to_gradient": (5.5, 6.9),         # forest defocuses into the gradient
+    "s2": {"in": 6.5, "out": (11.0, 11.6)},
+    "s3": {"in": 11.5, "out": (15.4, 16.0)},
+    "s4": {"in": 16.1, "out": (20.2, 20.8)},
+    "dip": (15.4, 16.6),               # soft darkening between s3 and s4
+    "s5": {"in": [20.8, 21.8, 22.8], "out": None},
+    "end_fade": (24.6, 25.8),
+    "heading": 0.7,                    # heading fade-in
+    "line_delay": 0.35,                # first body line after heading start
+    "line": 0.8,                       # each body line's left-to-right reveal
+    "stagger": 0.3,                    # gap between body line starts
+    "s5_line": 0.9,                    # each philosophy line
+}
+
+
+def bump(t, span):
+    """0 -> 1 -> 0 across a span (sine)."""
+    a, b = span
+    x = np.clip((t - a) / (b - a), 0, 1)
+    return float(np.sin(np.pi * x))
+
+
+class Gradient:
+    """The brand gradient, alive: a slow drift of the plate, a turquoise light
+    travelling through it, and faint refraction veins like the inside of a
+    stone. All motion is in linear light and kept barely perceptible."""
+
+    def __init__(self, seed=21):
+        rng = np.random.default_rng(seed)
+        plate = cv2.cvtColor(cv2.imread(str(LAYERS / "gradient_clean.png")), cv2.COLOR_BGR2RGB)
+        plate = cv2.resize(plate.astype(np.float32) / 255.0, (W, H), interpolation=cv2.INTER_CUBIC)
+        self.plate = srgb_to_linear(plate).astype(np.float32)
+        lum = self.plate @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+        self.bright = (lum / lum.max())[..., None] ** 0.7
+        oy, ox = np.mgrid[0:H, 0:W].astype(np.float32)
+        self.ox, self.oy = ox, oy
+        self.turq = srgb_to_linear(np.array([0x43, 0x90, 0x90]) / 255.0).astype(np.float32)
+        q = (H // 4, W // 4)
+        self.f1 = smooth_field(q, 18, rng) * 2.2
+        self.f2 = smooth_field(q, 22, rng) * 4
+        self.f3 = smooth_field(q, 40, rng)
+
+    def lin(self, t):
+        # Drift: a very slow breathing scale and float, never a visible move.
+        sc = 1.035 + 0.012 * np.sin(2 * np.pi * t / 21)
+        dx, dy = 10 * np.sin(2 * np.pi * t / 17), -14 + 10 * np.cos(2 * np.pi * t / 23)
+        M = np.float32([[sc, 0, (1 - sc) * W / 2 + dx], [0, sc, (1 - sc) * H / 2 + dy]])
+        img = cv2.warpAffine(self.plate, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+
+        # Light travelling through the mineral.
+        cx = W * (0.74 + 0.14 * np.sin(2 * np.pi * t / 19))
+        cy = H * (0.76 + 0.07 * np.cos(2 * np.pi * t / 23))
+        g = np.exp(-(((self.ox - cx) / (W * 0.42)) ** 2 + ((self.oy - cy) / (H * 0.26)) ** 2))
+        cx2 = W * (0.25 + 0.10 * np.cos(2 * np.pi * t / 27))
+        cy2 = H * (0.30 + 0.05 * np.sin(2 * np.pi * t / 31))
+        g2 = np.exp(-(((self.ox - cx2) / (W * 0.5)) ** 2 + ((self.oy - cy2) / (H * 0.3)) ** 2))
+        img = img + (0.045 * g + 0.012 * g2)[..., None] * self.turq
+
+        # Refraction veins: thin bright lines where a slowly evolving field
+        # crosses zero, modulated so they appear and dissolve.
+        v = np.exp(-(np.sin(self.f1 + 0.30 * t) / 0.22) ** 2) * (0.5 + 0.5 * np.sin(self.f2 - 0.22 * t))
+        v *= np.clip(0.5 + 0.8 * self.f3, 0, 1)
+        v = cv2.resize(cv2.GaussianBlur(v.astype(np.float32), (0, 0), 2.0), (W, H), interpolation=cv2.INTER_CUBIC)
+        img = img + (0.022 * v)[..., None] * self.bright * (self.turq + 0.25)
+        return img
+
+
+class Reel:
+    def __init__(self):
+        self.s1 = Scene01()
+        self.grad = Gradient()
+        self.grain_rng = np.random.default_rng(8)
+        meta = json.loads((LAYERS / "lines.json").read_text())
+        self.pages = {}
+        for k in ("s2", "s3", "s4", "s5"):
+            dy = LAYOUT_GRAD[k]
+            self.pages[k] = [(load_rgba(l["name"]), l["x"], l["y"] + dy) for l in meta[k]["lines"]]
+        self.url = load_rgba("s2_url")
+        xs = np.arange(1200, dtype=np.float32)
+        self.xs = xs
+
+    def wipe(self, a, p, feather=170.0):
+        """Left-to-right reveal with a soft leading edge."""
+        w = a.shape[1]
+        edge = -feather + (w + feather) * p
+        m = np.clip((edge + feather - self.xs[:w]) / feather, 0, 1)
+        return a * (m * m * (3 - 2 * m))[None, :]
+
+    def page(self, out, k, t):
+        T = TIMELINE_REEL
+        spec = T[k]
+        o = 1.0 if spec["out"] is None else 1 - progress(t, spec["out"])
+        if o <= 0:
+            return
+        for i, ((col, a), x, y) in enumerate(self.pages[k]):
+            if k == "s5":
+                # Philosophy: each line on its own, resolving from soft focus.
+                t0 = spec["in"][i]
+                p = progress(t, (t0, t0 + T["s5_line"]))
+                if p <= 0:
+                    continue
+                if 2.4 * (1 - p) > 0.15:
+                    a = cv2.GaussianBlur(a, (0, 0), 2.4 * (1 - p))
+                draw(out, col, a * p * o, x, y)
+            elif i == 0:
+                # Heading first: a calm fade out of soft focus.
+                p = progress(t, (spec["in"], spec["in"] + T["heading"]))
+                if p <= 0:
+                    continue
+                if 1.8 * (1 - p) > 0.15:
+                    a = cv2.GaussianBlur(a, (0, 0), 1.8 * (1 - p))
+                draw(out, col, a * p * o, x, y)
+            else:
+                t0 = spec["in"] + T["line_delay"] + (i - 1) * T["stagger"]
+                p = float(np.clip((t - t0) / T["line"], 0, 1))
+                if p <= 0:
+                    continue
+                draw(out, col, self.wipe(a, p) * o, x, y)
+
+    def frame(self, t):
+        T = TIMELINE_REEL
+        tg = progress(t, T["to_gradient"])
+        if tg < 1:
+            type_out = 1 - progress(t, T["s1_type_out"])
+            mult = {n: type_out for n in LAYOUT_S1 if n != "url"}
+            mult["url"] = 1 - tg
+            f = srgb_to_linear(self.s1.compose(t, mult, defocus=16 * tg))
+        lin = self.grad.lin(t) if tg > 0 else None
+        if tg <= 0:
+            out = linear_to_srgb(f)
+        elif tg >= 1:
+            out = linear_to_srgb(lin * (1 - 0.22 * bump(t, T["dip"])))
+        else:
+            out = linear_to_srgb(f * (1 - tg) + lin * tg)
+        out = out.astype(np.float32)
+
+        if tg > 0:
+            col, a = self.url
+            draw(out, col, a * tg, *URL_POS)
+        for k in ("s2", "s3", "s4", "s5"):
+            self.page(out, k, t)
+
+        e = progress(t, T["end_fade"])
+        if e > 0:
+            out = linear_to_srgb(srgb_to_linear(np.clip(out, 0, 1)) * (1 - e)).astype(np.float32)
+        return finish(out, self.grain_rng)
 
 
 # --- output ---------------------------------------------------------------
@@ -200,27 +380,32 @@ def encode(scene, duration, path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("scene", choices=["scene01"])
-    ap.add_argument("--still", type=float, help="render one PNG frame at this time")
+    ap.add_argument("what", choices=["scene01", "reel"])
+    ap.add_argument("--still", type=float, nargs="*", help="render PNG frames at these times")
     args = ap.parse_args()
     OUTDIR.mkdir(exist_ok=True)
 
-    scene, dur = Scene01(), TIMELINE_S1["duration"]
-    if args.still is not None:
-        f = scene.frame(args.still)
-        p = OUTDIR / f"{args.scene}_frame_{args.still:.1f}s.png"
-        cv2.imwrite(str(p), cv2.cvtColor(f, cv2.COLOR_RGB2BGR))
-        print(p)
+    if args.what == "scene01":
+        scene, dur, stem = Scene01(), TIMELINE_S1["duration"], "GA_scene01_test"
+    else:
+        scene, dur, stem = Reel(), TIMELINE_REEL["duration"], "GA_reel_issue01"
+    if args.still:
+        for t in args.still:
+            p = OUTDIR / f"{stem}_frame_{t:05.2f}s.png"
+            cv2.imwrite(str(p), cv2.cvtColor(scene.frame(t), cv2.COLOR_RGB2BGR))
+            print(p)
         return
 
-    wav = ROOT / "build" / f"{args.scene}_sound.wav"
-    soundscape.scene01(wav, dur, TIMELINE_S1)
-    silent = OUTDIR / f"GA_{args.scene}_test_silent.mp4"
+    wav = ROOT / "build" / f"{stem}.wav"
+    if args.what == "scene01":
+        soundscape.scene01(wav, dur, TIMELINE_S1)
+    else:
+        soundscape.reel(wav, dur, TIMELINE_S1, TIMELINE_REEL)
+    silent = OUTDIR / f"{stem}_silent.mp4"
     encode(scene, dur, silent)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(silent), "-i", str(wav),
                     "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k",
-                    "-movflags", "+faststart", "-shortest",
-                    str(OUTDIR / f"GA_{args.scene}_test.mp4")], check=True)
+                    "-movflags", "+faststart", "-shortest", str(OUTDIR / f"{stem}.mp4")], check=True)
 
 
 if __name__ == "__main__":
