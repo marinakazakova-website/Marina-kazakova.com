@@ -1,0 +1,3 @@
+build/check/
+build/*.wav
+__pycache__/
