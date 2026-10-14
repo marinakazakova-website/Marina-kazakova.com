@@ -1,0 +1,169 @@
+<!doctype html>
+<!--
+  G.A. Gemstone Zine — Issue 01 — FOUNDER carousel (4 × 1080×1350).
+  Editable source: change copy, sizes and positions here, then run
+  `node tools/export.mjs` to export the PNGs and the preview.
+  Fonts in ./fonts are free stand-ins for the brand fonts (see README);
+  drop the licensed Didot / AvantGarde / Consolas files into @font-face
+  below to switch to the originals.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Founder Carousel</title>
+<style>
+  @font-face { font-family: "Didot Title"; src: url(fonts/BodoniModa-Regular.ttf); }
+  @font-face { font-family: "Didot Italic"; src: url(fonts/BodoniModa-Italic.ttf); font-style: italic; }
+  @font-face { font-family: "AvantGarde"; src: url(fonts/URWGothic-Book.otf); font-weight: 400; }
+  @font-face { font-family: "AvantGarde"; src: url(fonts/URWGothic-Demi.otf); font-weight: 600; }
+  @font-face { font-family: "Mono"; src: url(fonts/Inconsolata-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: "Mono"; src: url(fonts/Inconsolata-Medium.ttf); font-weight: 500; }
+
+  :root {
+    --ivory: #F3EEE5;          /* warm off-white text field */
+    --green: #2D5240;          /* title green, sampled from the cover */
+    --ink: #1C1C1C;            /* body text: black, softened for ivory */
+    --slate: #4F5E6D;          /* palette: Slate Blue Grey, editorial marks */
+    --gold: #B4996C;           /* Champagne Gold, from the visual guide */
+    --gold-on-light: #8E7550;  /* same gold, deepened to read on ivory */
+    --white: #FFFFFF;
+    --margin: 96px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #d9d6d0; }
+  .slide {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    background: var(--ivory); color: var(--ink);
+    -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+  }
+  .abs { position: absolute; }
+
+  /* Photo band with a strict horizontal edge */
+  .photo { position: absolute; left: 0; top: 0; width: 1080px; overflow: hidden; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rule { position: absolute; left: 0; width: 1080px; height: 1px; background: var(--green); opacity: .55; }
+
+  /* Editorial marks (Consolas role) */
+  .mark {
+    font-family: "Mono"; font-size: 16px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--slate); line-height: 1;
+  }
+  .mark.gold { color: var(--gold-on-light); }
+  .section { font-family: "Mono"; font-weight: 500; font-size: 16px; letter-spacing: .26em; color: var(--green); }
+
+  /* Headline: elegant italic Didone */
+  .headline {
+    font-family: "Didot Italic"; font-style: italic; font-weight: 400;
+    color: var(--green); font-size: 60px; line-height: 1.06; letter-spacing: -.012em;
+  }
+  .body {
+    font-family: "AvantGarde"; font-size: 22px; line-height: 1.55; letter-spacing: .005em; color: var(--ink);
+  }
+  .vline { position: absolute; width: 1px; background: var(--ink); opacity: .7; }
+  .vline::before, .vline::after {   /* tiny serif ticks, as in the reference */
+    content: ""; position: absolute; left: -3px; width: 7px; height: 1px; background: inherit;
+  }
+  .vline::before { top: 0; } .vline::after { bottom: 0; }
+
+  /* Website line: the exact rendered URL from the earlier Gem AnaStation
+     layouts (tinted copies made by tools/url_tints.py). */
+  .url { position: absolute; top: 1223px; left: 50%; transform: translateX(-50%); width: 351px; height: 23px; display: block; }
+
+  /* Slide 04 */
+  .dark { background: #0d1a20 url(build/gradient_dark.png) 0 0 / 1080px 1350px no-repeat; color: var(--white); }
+  .dark .mark { color: var(--gold); opacity: .9; }
+  .caps {
+    font-family: "Didot Title"; color: var(--gold); font-size: 68px; line-height: 1.14;
+    letter-spacing: .05em; text-transform: uppercase;
+  }
+  .dark .body { color: rgba(255,255,255,.88); font-size: 25px; line-height: 1.58; }
+  .sig-name { font-family: "Didot Title"; font-size: 24px; letter-spacing: .32em; color: var(--gold); }
+  .sig { font-family: "Mono"; font-size: 16px; letter-spacing: .2em; line-height: 1.75; color: rgba(255,255,255,.72); text-transform: uppercase; }
+  .hair { position: absolute; height: 1px; background: var(--gold); opacity: .8; }
+
+  /* Preview sheet layout */
+  .sheet { display: flex; gap: 40px; padding: 40px; width: max-content; background: #d9d6d0; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<!-- 01 — COVER: the supplied cover, untouched -->
+<section class="slide" id="s1">
+  <img src="sources/cover.jpg" width="1080" height="1350" alt="" style="display:block">
+</section>
+
+<!-- 02 — CRAFT: headline left, body block on the right column -->
+<section class="slide" id="s2">
+  <div class="photo" style="height:660px"><img src="build/photo1_graded.png" style="object-position:50% 37%" alt=""></div>
+  <div class="rule" style="top:660px"></div>
+
+  <div class="abs mark" style="left:var(--margin); top:706px">G.A. / Founder Story</div>
+  <div class="abs mark" style="right:var(--margin); top:706px">02 / 04</div>
+
+  <div class="abs section" style="left:var(--margin); top:768px">01 — CRAFT</div>
+  <h1 class="abs headline" style="left:var(--margin); top:808px; width:820px">
+    I was the first in my family<br>to choose jewelry making.
+  </h1>
+
+  <div class="vline" style="left:470px; top:960px; height:56px"></div>
+  <p class="abs body" style="left:470px; top:1034px; width:524px">
+    As a student, I sometimes had just enough money for food and jewelry tools.
+    But I was genuinely happy. I knew I had found my path.
+  </p>
+
+  <img class="url" src="build/url_on_light.png" alt="www.gemanastation.com">
+</section>
+
+<!-- 03 — EXPERTISE: mirrored — headline set to the right, body on the left -->
+<section class="slide" id="s3">
+  <div class="photo" style="height:640px"><img src="build/photo2_graded.png" style="object-position:50% 43%" alt=""></div>
+  <div class="rule" style="top:640px"></div>
+
+  <div class="abs mark" style="left:var(--margin); top:686px">G.A. / Founder Story</div>
+  <div class="abs mark" style="right:var(--margin); top:686px">03 / 04</div>
+
+  <div class="abs section" style="left:340px; top:752px">02 — EXPERTISE</div>
+  <h1 class="abs headline" style="left:340px; top:792px; width:660px">
+    I started as a jeweler.<br>Then I became<br>a gemologist.
+  </h1>
+
+  <div class="vline" style="left:var(--margin); top:978px; height:44px"></div>
+  <p class="abs body" style="left:var(--margin); top:1040px; width:600px">
+    Ten years in jewelry production. Then a move to Bangkok and five years
+    working with major companies in Asia. Back then, I never imagined I would
+    one day create my own brand.
+  </p>
+
+  <img class="url" src="build/url_on_light.png" alt="www.gemanastation.com">
+</section>
+
+<!-- 04 — IDENTITY: closing statement on the brand gradient -->
+<section class="slide dark" id="s4">
+  <div class="abs mark" style="left:var(--margin); top:120px">G.A. / Founder Story</div>
+  <div class="abs mark" style="right:var(--margin); top:120px">04 / 04</div>
+  <div class="abs mark" style="left:var(--margin); top:150px; opacity:.6">03 — Identity</div>
+
+  <h1 class="abs caps" style="left:var(--margin); top:420px; width:900px">
+    We are all<br>a work in progress.
+  </h1>
+  <div class="hair" style="left:var(--margin); top:600px; width:64px"></div>
+  <p class="abs body" style="left:var(--margin); top:640px; width:660px">
+    I believe we spend our entire lives learning and refining our talents.
+    Just like every gemstone, every person is&nbsp;unique.
+  </p>
+
+  <div class="abs" style="left:var(--margin); top:1010px">
+    <div class="sig-name">ANASTASIA</div>
+    <div class="sig" style="margin-top:12px">Founder, Gem AnaStation</div>
+  </div>
+  <div class="abs sig" style="right:var(--margin); top:1018px; text-align:right">
+    G.A. Gemstone Zine<br>Issue 01 / October 2026
+  </div>
+
+  <img class="url" src="build/url_on_dark.png" alt="www.gemanastation.com">
+</section>
+
+</div>
+</body>
+</html>
