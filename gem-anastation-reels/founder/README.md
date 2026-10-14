@@ -1,11 +1,12 @@
 # G.A. Gemstone Zine — Issue 01 — FOUNDER carousel
 
 Four Instagram carousel slides, 1080 × 1350 (4:5), sRGB PNG.
-Status: **preview for approval** — final export after sign-off.
+Status: **revision 2** — client comments applied (editorial marks removed,
+slide 04 signature in one left-aligned column, FOUNDER STORY added to the cover).
 
 | File | Slide |
 |---|---|
-| `output/GA_founder_01_cover.png` | 01 Cover — supplied file, untouched |
+| `output/GA_founder_01_cover.png` | 01 Cover — supplied file; only the FOUNDER STORY line added (centred on x = 540) |
 | `output/GA_founder_02_craft.png` | 02 Craft |
 | `output/GA_founder_03_expertise.png` | 03 Expertise |
 | `output/GA_founder_04_identity.png` | 04 Identity / closing statement |
@@ -30,7 +31,7 @@ The licensed brand fonts were not supplied, so free equivalents are used:
 |---|---|---|
 | Didot (italic headlines, caps title) | Bodoni Moda | same Didone class, high contrast |
 | AvantGarde (body) | URW Gothic | metric clone of ITC Avant Garde Gothic |
-| Consolas (editorial marks) | Inconsolata | designed as a Consolas counterpart |
+| Consolas (signature details, slide 04) | Inconsolata | designed as a Consolas counterpart |
 
 To use the originals, put the font files in `fonts/` and point the
 `@font-face` rules at the top of `carousel.html` to them.

@@ -81,6 +81,13 @@
   .sig { font-family: "Mono"; font-size: 16px; letter-spacing: .2em; line-height: 1.75; color: rgba(255,255,255,.72); text-transform: uppercase; }
   .hair { position: absolute; height: 1px; background: var(--gold); opacity: .8; }
 
+  /* Cover rubric: same typography as the cover's subtitle, in the name's green */
+  .cover-rubric {
+    left: 0; width: 1080px; top: 112px; text-align: center;
+    font-family: "AvantGarde"; font-size: 17px; letter-spacing: .42em; text-indent: .42em;
+    text-transform: uppercase; color: var(--green); line-height: 1;
+  }
+
   /* Preview sheet layout */
   .sheet { display: flex; gap: 40px; padding: 40px; width: max-content; background: #d9d6d0; }
 </style>
@@ -91,6 +98,9 @@
 <!-- 01 — COVER: the supplied cover, untouched -->
 <section class="slide" id="s1">
   <img src="sources/cover.jpg" width="1080" height="1350" alt="" style="display:block">
+  <!-- Added: rubric line, on the cover's vertical axis (x = 540). The
+       trailing letter-space is offset so the word block is truly centred. -->
+  <div class="abs cover-rubric">Founder Story</div>
 </section>
 
 <!-- 02 — CRAFT: headline left, body block on the right column -->
@@ -98,10 +108,7 @@
   <div class="photo" style="height:660px"><img src="build/photo1_graded.png" style="object-position:50% 37%" alt=""></div>
   <div class="rule" style="top:660px"></div>
 
-  <div class="abs mark" style="left:var(--margin); top:706px">G.A. / Founder Story</div>
-  <div class="abs mark" style="right:var(--margin); top:706px">02 / 04</div>
 
-  <div class="abs section" style="left:var(--margin); top:768px">01 — CRAFT</div>
   <h1 class="abs headline" style="left:var(--margin); top:808px; width:820px">
     I was the first in my family<br>to choose jewelry making.
   </h1>
@@ -120,10 +127,7 @@
   <div class="photo" style="height:640px"><img src="build/photo2_graded.png" style="object-position:50% 43%" alt=""></div>
   <div class="rule" style="top:640px"></div>
 
-  <div class="abs mark" style="left:var(--margin); top:686px">G.A. / Founder Story</div>
-  <div class="abs mark" style="right:var(--margin); top:686px">03 / 04</div>
 
-  <div class="abs section" style="left:340px; top:752px">02 — EXPERTISE</div>
   <h1 class="abs headline" style="left:340px; top:792px; width:660px">
     I started as a jeweler.<br>Then I became<br>a gemologist.
   </h1>
@@ -140,9 +144,6 @@
 
 <!-- 04 — IDENTITY: closing statement on the brand gradient -->
 <section class="slide dark" id="s4">
-  <div class="abs mark" style="left:var(--margin); top:120px">G.A. / Founder Story</div>
-  <div class="abs mark" style="right:var(--margin); top:120px">04 / 04</div>
-  <div class="abs mark" style="left:var(--margin); top:150px; opacity:.6">03 — Identity</div>
 
   <h1 class="abs caps" style="left:var(--margin); top:420px; width:900px">
     We are all<br>a work in progress.
@@ -153,12 +154,11 @@
     Just like every gemstone, every person is&nbsp;unique.
   </p>
 
-  <div class="abs" style="left:var(--margin); top:1010px">
+  <!-- Signature: one left-aligned column -->
+  <div class="abs" style="left:var(--margin); top:960px">
     <div class="sig-name">ANASTASIA</div>
     <div class="sig" style="margin-top:12px">Founder, Gem AnaStation</div>
-  </div>
-  <div class="abs sig" style="right:var(--margin); top:1018px; text-align:right">
-    G.A. Gemstone Zine<br>Issue 01 / October 2026
+    <div class="sig" style="margin-top:22px">G.A. Gemstone Zine<br>Issue 01 / October 2026</div>
   </div>
 
   <img class="url" src="build/url_on_dark.png" alt="www.gemanastation.com">
