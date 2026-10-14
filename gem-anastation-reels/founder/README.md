@@ -21,7 +21,7 @@ bottom edge).
 Cover: the approved cover is kept whole and bottom-aligned; the plain studio
 wall above it is extended tonally (`tools/extend_cover.py`, no generative
 fill — the seam differs by < 1 level). FOUNDER STORY sits at the top of the
-frame (y = 200), right under the Stories profile bar.
+frame (y = 140), inside the Stories profile-bar zone by client choice.
 
 ## Editable source
 - `founder.css` — shared type, colours (CSS variables) and components.
