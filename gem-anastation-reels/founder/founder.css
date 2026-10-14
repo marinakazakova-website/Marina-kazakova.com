@@ -54,7 +54,10 @@ body { background: #d9d6d0; }
 
 /* Website line: the exact rendered URL from the earlier Gem AnaStation
    layouts (tinted copies made by tools/url_tints.py). */
-.url { position: absolute; top: 1223px; left: 50%; transform: translateX(-50%); width: 351px; height: 23px; display: block; }
+/* x = 375 is the line's original position: its text spans x 382-695, centred
+   on the 540 axis (the image carries extra letter-space after the last letter,
+   so centring the image box would shift the text 12 px left). */
+.url { position: absolute; top: 1223px; left: 375px; width: 351px; height: 23px; display: block; }
 
 /* Slide 04 */
 .dark { background: #0d1a20 url(build/gradient_dark.png) 0 0 / 1080px 1350px no-repeat; color: var(--white); }

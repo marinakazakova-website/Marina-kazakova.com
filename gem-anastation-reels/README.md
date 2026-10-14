@@ -7,7 +7,8 @@ Output: 1080 × 1920, 9:16, 30 fps, H.264 MP4, AAC 48 kHz.
 - [x] Scene 01 — CREATED BY NATURE (test fragment, 6.0 s) — approved
 - [x] Scenes 02–05 — gradient editorial pages
 - [x] Full reel, 26.0 s — `output/GA_reel_issue01.mp4` (sound) and
-      `output/GA_reel_issue01_silent.mp4`; storyboard `output/GA_reel_issue01_storyboard.jpg`
+      `output/GA_reel_issue01_silent.mp4`, laid out to the house rule below;
+      storyboard `output/GA_reel_issue01_storyboard.jpg`
 - [x] Static Stories, 5 × 1080×1920 — `output/stories/GA_story_01–05` (PNG master + JPG for upload);
       re-build with `python3 tools/stories.py`
 
@@ -74,6 +75,17 @@ that thin out when the gradient arrives, a low organic texture that grows
 to the finale, glass-like accents on headings and on each philosophy line,
 a deep resolving tone on "Human connects". About −15 LUFS, peaks < −1.5 dBFS.
 
-## Safe zone
-Type sits between y = 300 and y = 1500 (Reels UI covers the bottom ~420 px
-and the top bar); the monogram block is centred at y ≈ 900.
+## Service lines — house rule (shared with the Founder series)
+| Format | Top rubric (text top) | Website line (text top) | Axis |
+|---|---|---|---|
+| Post 1080×1350 | y ≈ 112 | y = 1228 (127 px from the bottom) | x = 540 |
+| Stories / reel 1080×1920 | y = 139 | y = 1744 (181 px from the bottom = 127 × 1920/1350) | x = 540 |
+
+Main type stays between y = 250 and y = 1500; the monogram block is centred
+at y ≈ 900. The forest layout's website line is shifted 12 px right so it
+stands on the 540 axis like the others.
+
+Reel note: in the Reels feed the caption, username and audio line cover the
+bottom ~420 px, so the website line at y = 1744 sits under them there. The
+previous reel, with the line at y = 1485 inside the Reels-safe area, is kept as
+`output/GA_reel_issue01_v1_reels-zone.mp4` (+ `_silent`).

@@ -27,16 +27,19 @@ import soundscape  # noqa: E402
 
 W, H, FPS = 1080, 1920, 30
 
-# Reels safe zone: keep type between y=250 and y=1500 (caption/UI overlay
-# below, profile bar above), and away from the right-hand action buttons.
+# House rule for 9:16 service lines (shared with the Founder Stories): the top
+# rubric's text starts at y = 139, the website line's text at y = 1744 (the
+# post's 127 px bottom margin scaled to 1920). Main type stays between
+# y = 250 and y = 1500, away from the right-hand action buttons.
 # Positions are the top-left of each original layer, in output pixels.
 # x is unchanged from the 1080-wide source layout; y is re-spaced for 9:16.
 LAYOUT_S1 = {
-    "created_by_nature": (400, 300),
+    "created_by_nature": (400, 130),     # text top y = 139 (house rule, Stories)
     "logo_ga":           (410, 786),     # logo group centred at y ~ 900
     "wordmark":          (370, 969),
     "descriptor":        (396, 999),
-    "url":               (370, 1478),
+    "url":               (382, 1737),    # text top y = 1744 (house rule); +12 px puts this
+                                         # narrower forest-layout line on the 540 axis
 }
 
 # Scene 01 timeline, seconds: (start, end) of each element's reveal.
@@ -207,7 +210,7 @@ def finish(out, rng):
 # originals; s5 is centred where the GA monogram stood in Scene 01. The
 # website line keeps exactly the position it has in Scene 01.
 LAYOUT_GRAD = {"s2": 125, "s3": 260, "s4": 255, "s5": 308}
-URL_POS = (377, 1480)
+URL_POS = (375, 1739)   # original x of the layouts; text top y = 1744 (house rule)
 
 # Full reel timeline, seconds. Scene 01 keeps its approved timing.
 TIMELINE_REEL = {
