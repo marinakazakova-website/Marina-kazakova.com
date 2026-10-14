@@ -15,8 +15,9 @@ slide 04 signature in one left-aligned column, FOUNDER STORY added to the cover)
 ## Stories (1080 × 1920)
 `output/stories/GA_founder_story_01_cover.png` … `_04_identity.png` and
 `GA_founder_story_preview.png`. Same system as the carousel, re-proportioned
-for 9:16: taller photo bands, type inside the Stories safe zone, website
-line at y = 1540 on every story.
+for 9:16: taller photo bands, type inside the Stories safe zone; the website
+line keeps the post's bottom margin scaled to 9:16 (y = 1739, 181 px from the
+bottom edge).
 Cover: the approved cover is kept whole and bottom-aligned; the plain studio
 wall above it is extended tonally (`tools/extend_cover.py`, no generative
 fill — the seam differs by < 1 level). FOUNDER STORY sits at the top of the
