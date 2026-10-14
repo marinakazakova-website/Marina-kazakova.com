@@ -1,0 +1,90 @@
+<!doctype html>
+<!--
+  G.A. Gemstone Zine — Issue 01 — FOUNDER Stories (4 × 1080×1920).
+  Same system as carousel.html (shared founder.css), re-proportioned for 9:16:
+  type kept inside the Stories safe zone (≈ 250 px top and bottom), website
+  line at the same height on every story.
+  Export: NODE_PATH=$(npm root -g) node tools/export.mjs stories
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Founder Stories</title>
+<link rel="stylesheet" href="founder.css">
+<style>
+  .slide { height: 1920px; }
+  .url { top: 1540px; }
+  .dark { background-size: 1080px 1920px; }
+  .cover-rubric { top: 682px; }   /* same distance above the head as on the cover */
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<!-- 01 — COVER: the approved cover kept whole, bottom-aligned; the studio wall
+     above it is extended (tools/extend_cover.py) -->
+<section class="slide" id="s1">
+  <img src="build/cover_story.png" width="1080" height="1920" alt="" style="display:block">
+  <div class="abs cover-rubric">Founder Story</div>
+</section>
+
+<!-- 02 — CRAFT -->
+<section class="slide" id="s2">
+  <div class="photo" style="height:960px"><img src="build/photo1_graded.png" style="object-position:50% 31%" alt=""></div>
+  <div class="rule" style="top:960px"></div>
+
+  <h1 class="abs headline" style="left:var(--margin); top:1080px; width:820px">
+    I was the first in my family<br>to choose jewelry making.
+  </h1>
+
+  <div class="vline" style="left:470px; top:1246px; height:56px"></div>
+  <p class="abs body" style="left:470px; top:1320px; width:524px">
+    As a student, I sometimes had just enough money for food and jewelry tools.
+    But I was genuinely happy. I knew I had found my path.
+  </p>
+
+  <img class="url" src="build/url_on_light.png" alt="www.gemanastation.com">
+</section>
+
+<!-- 03 — EXPERTISE: mirrored -->
+<section class="slide" id="s3">
+  <div class="photo" style="height:930px"><img src="build/photo2_graded.png" style="object-position:50% 58%" alt=""></div>
+  <div class="rule" style="top:930px"></div>
+
+  <h1 class="abs headline" style="left:340px; top:1036px; width:660px">
+    I started as a jeweler.<br>Then I became<br>a gemologist.
+  </h1>
+
+  <div class="vline" style="left:var(--margin); top:1240px; height:44px"></div>
+  <p class="abs body" style="left:var(--margin); top:1302px; width:600px">
+    Ten years in jewelry production. Then a move to Bangkok and five years
+    working with major companies in Asia. Back then, I never imagined I would
+    one day create my own brand.
+  </p>
+
+  <img class="url" src="build/url_on_light.png" alt="www.gemanastation.com">
+</section>
+
+<!-- 04 — IDENTITY -->
+<section class="slide dark" id="s4">
+  <h1 class="abs caps" style="left:var(--margin); top:600px; width:900px">
+    We are all<br>a work in progress.
+  </h1>
+  <div class="hair" style="left:var(--margin); top:792px; width:64px"></div>
+  <p class="abs body" style="left:var(--margin); top:832px; width:660px">
+    I believe we spend our entire lives learning and refining our talents.
+    Just like every gemstone, every person is&nbsp;unique.
+  </p>
+
+  <div class="abs" style="left:var(--margin); top:1250px">
+    <div class="sig-name">ANASTASIA</div>
+    <div class="sig" style="margin-top:12px">Founder, Gem AnaStation</div>
+    <div class="sig" style="margin-top:22px">G.A. Gemstone Zine<br>Issue 01 / October 2026</div>
+  </div>
+
+  <img class="url" src="build/url_on_dark.png" alt="www.gemanastation.com">
+</section>
+
+</div>
+</body>
+</html>

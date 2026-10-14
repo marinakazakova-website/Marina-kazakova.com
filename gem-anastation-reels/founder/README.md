@@ -12,8 +12,20 @@ slide 04 signature in one left-aligned column, FOUNDER STORY added to the cover)
 | `output/GA_founder_04_identity.png` | 04 Identity / closing statement |
 | `output/GA_founder_preview.png` | All four side by side |
 
+## Stories (1080 × 1920)
+`output/stories/GA_founder_story_01_cover.png` … `_04_identity.png` and
+`GA_founder_story_preview.png`. Same system as the carousel, re-proportioned
+for 9:16: taller photo bands, type inside the Stories safe zone, website
+line at y = 1540 on every story.
+Cover: the approved cover is kept whole and bottom-aligned; the plain studio
+wall above it is extended tonally (`tools/extend_cover.py`, no generative
+fill — the seam differs by < 1 level). FOUNDER STORY keeps its distance
+above the head from the carousel cover.
+
 ## Editable source
-- `carousel.html` — all copy, type sizes, colours (CSS variables) and positions.
+- `founder.css` — shared type, colours (CSS variables) and components.
+- `carousel.html` / `stories.html` — copy and positions per format.
+- `tools/extend_cover.py` — 9:16 cover for Stories.
 - `tools/grade.py` — photo colour grade (parameters at the top).
 - `tools/url_tints.py` — website line, reused from the earlier GA layouts.
 - `tools/export.mjs` — exports the PNGs and the preview.
@@ -21,7 +33,9 @@ slide 04 signature in one left-aligned column, FOUNDER STORY added to the cover)
 ```
 python3 tools/grade.py
 python3 tools/url_tints.py
-NODE_PATH=$(npm root -g) node tools/export.mjs
+python3 tools/extend_cover.py
+NODE_PATH=$(npm root -g) node tools/export.mjs carousel
+NODE_PATH=$(npm root -g) node tools/export.mjs stories
 ```
 
 ## Fonts
