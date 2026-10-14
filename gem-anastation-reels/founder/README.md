@@ -19,8 +19,8 @@ for 9:16: taller photo bands, type inside the Stories safe zone, website
 line at y = 1540 on every story.
 Cover: the approved cover is kept whole and bottom-aligned; the plain studio
 wall above it is extended tonally (`tools/extend_cover.py`, no generative
-fill — the seam differs by < 1 level). FOUNDER STORY keeps its distance
-above the head from the carousel cover.
+fill — the seam differs by < 1 level). FOUNDER STORY sits at the top of the
+frame (y = 260), just below the Stories profile bar.
 
 ## Editable source
 - `founder.css` — shared type, colours (CSS variables) and components.
