@@ -1,0 +1,107 @@
+<!doctype html>
+<!--
+  G.A. Gemstone Zine — Stories: The Uniqueness of Every Gemstone / Our Approach
+  3 × 1080×1920. Shared type and colour system: ../founder/founder.css.
+  House rule for Stories: rubric centred at y = 140 (AvantGarde caps 17 px,
+  0.42 em), website line text top y = 1744, side margins 96 px, main type
+  above y = 1670.
+  Export: NODE_PATH=$(npm root -g) node tools/export.mjs
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Uniqueness Stories</title>
+<link rel="stylesheet" href="../founder/founder.css">
+<style>
+  .slide { height: 1920px; }
+  .url { top: 1739px; }
+  .rubric {
+    position: absolute; left: 0; width: 1080px; top: 140px; text-align: center;
+    font-family: "AvantGarde"; font-size: 17px; letter-spacing: .42em; text-indent: .42em;
+    text-transform: uppercase; line-height: 1; color: var(--gold);
+  }
+  .rubric.on-light { color: var(--green); }
+  .center { left: 0; width: 1080px; text-align: center; }
+
+  /* Story 01 */
+  .forest { background: #0b1a14 url(build/story01_base.png) 0 0 / 1080px 1920px no-repeat; }
+  .shade {   /* soft, photographic darkening behind the statement for contrast */
+    position: absolute; left: 0; top: 880px; width: 1080px; height: 560px;
+    background: linear-gradient(to bottom, rgba(4,14,10,0) 0%, rgba(4,14,10,.42) 30%,
+                rgba(4,14,10,.42) 70%, rgba(4,14,10,0) 100%);
+  }
+  .statement {
+    font-family: "Didot Title"; color: var(--gold); font-size: 42px; line-height: 1.26;
+    letter-spacing: .06em; text-transform: uppercase;
+  }
+  .lead { font-family: "AvantGarde"; font-size: 23px; line-height: 1.6; color: rgba(255,255,255,.9); }
+
+  /* Story 03 */
+  .dark { background-size: 1080px 1920px; }
+  .question {
+    font-family: "Didot Italic"; font-style: italic; color: var(--gold);
+    font-size: 44px; line-height: 1.15; letter-spacing: -.005em;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<!-- 01 — CREATED BY NATURE -->
+<section class="slide forest" id="s1">
+  <div class="shade"></div>
+  <div class="rubric">Created by Nature</div>
+
+  <h1 class="abs statement center" style="top:990px">
+    Every gemstone has a story.<br>But no two are ever the same.
+  </h1>
+  <div class="hair" style="left:508px; top:1126px; width:64px"></div>
+  <p class="abs lead center" style="top:1160px">
+    Nature creates each stone over millions of years,<br>
+    giving it a unique color, structure, and character.
+  </p>
+
+  <img class="url" src="build/url_on_dark.png" alt="www.gemanastation.com">
+</section>
+
+<!-- 02 — CURATED BY EXPERT (composition of the Founder Expertise story) -->
+<section class="slide" id="s2">
+  <div class="photo" style="height:930px"><img src="sources/DSCF4197.jpg" style="object-position:50% 58%" alt=""></div>
+  <div class="rule" style="top:930px"></div>
+  <div class="rubric">Curated by Expert</div>
+
+  <h1 class="abs headline" style="left:340px; top:1012px; width:680px; font-size:56px">
+    We don’t simply find<br>beautiful gemstones.<br>We recognize what makes<br>each one extraordinary.
+  </h1>
+
+  <div class="vline" style="left:var(--margin); top:1290px; height:44px"></div>
+  <p class="abs body" style="left:var(--margin); top:1352px; width:600px">
+    With over 20 years of experience in jewelry and gemology,
+    we carefully select each stone for its individuality,
+    natural beauty, and character.
+  </p>
+
+  <img class="url" src="build/url_on_light.png" alt="www.gemanastation.com">
+</section>
+
+<!-- 03 — YOU CONNECT (composition of the Founder Identity story) -->
+<section class="slide dark" id="s3">
+  <h1 class="abs caps" style="left:var(--margin); top:560px; width:900px">
+    Nature creates.<br>Expert curates.<br>You connect.
+  </h1>
+  <div class="hair" style="left:var(--margin); top:830px; width:64px"></div>
+  <p class="abs body" style="left:var(--margin); top:870px; width:660px">
+    A gemstone should be more than a symbol of luxury.
+    It should feel like something truly yours.
+  </p>
+
+  <p class="abs question" style="left:var(--margin); top:1420px; width:860px">
+    What makes a gemstone<br>feel like yours?
+  </p>
+
+  <img class="url" src="build/url_on_dark.png" alt="www.gemanastation.com">
+</section>
+
+</div>
+</body>
+</html>
