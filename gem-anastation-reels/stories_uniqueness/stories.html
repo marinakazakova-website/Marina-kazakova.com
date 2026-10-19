@@ -24,20 +24,15 @@
   .center { left: 0; width: 1080px; text-align: center; }
 
   /* Story 01 */
-  .forest { background: #0b1a14 url(build/story01_base.png) 0 0 / 1080px 1920px no-repeat; }
-  .shade {   /* soft, photographic darkening behind the statement for contrast */
-    position: absolute; left: 0; top: 880px; width: 1080px; height: 560px;
-    background: linear-gradient(to bottom, rgba(4,14,10,0) 0%, rgba(4,14,10,.42) 30%,
-                rgba(4,14,10,.42) 70%, rgba(4,14,10,0) 100%);
-  }
   .statement {
     font-family: "Didot Title"; color: var(--gold); font-size: 42px; line-height: 1.26;
     letter-spacing: .06em; text-transform: uppercase;
   }
   .lead { font-family: "AvantGarde"; font-size: 23px; line-height: 1.6; color: rgba(255,255,255,.9); }
 
-  /* Story 03 */
   .dark { background-size: 1080px 1920px; }
+
+  /* Story 03 */
   .question {
     font-family: "Didot Italic"; font-style: italic; color: var(--gold);
     font-size: 44px; line-height: 1.15; letter-spacing: -.005em;
@@ -47,18 +42,17 @@
 <body>
 <div class="sheet">
 
-<!-- 01 — CREATED BY NATURE -->
-<section class="slide forest" id="s1">
-  <div class="shade"></div>
+<!-- 01 — CREATED BY NATURE: minimal cover on the brand gradient; the
+     structure of the earlier cover (rubric / centred GA logo / website),
+     nothing else from it. Logo layer: tools/logo_layer.py -->
+<section class="slide dark" id="s1">
   <div class="rubric">Created by Nature</div>
+  <img class="abs" src="build/logo_group.png" width="1080" height="1920" style="left:0; top:0" alt="GA — Gem AnaStation">
 
-  <h1 class="abs statement center" style="top:990px">
-    Every gemstone has a story.<br>But no two are ever the same.
-  </h1>
-  <div class="hair" style="left:508px; top:1126px; width:64px"></div>
-  <p class="abs lead center" style="top:1160px">
-    Nature creates each stone over millions of years,<br>
-    giving it a unique color, structure, and character.
+  <h1 class="abs statement center" style="top:1104px">Every gemstone is unique.</h1>
+  <div class="hair" style="left:508px; top:1176px; width:64px"></div>
+  <p class="abs lead center" style="top:1206px">
+    Nature gives each stone its own color, structure, and character.
   </p>
 
   <img class="url" src="build/url_on_dark.png" alt="www.gemanastation.com">

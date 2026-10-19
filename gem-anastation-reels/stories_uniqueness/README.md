@@ -4,7 +4,7 @@ Three Stories, 1080 × 1920, G.A. Gemstone Zine.
 
 | File | Story |
 |---|---|
-| `output/GA_Story_01_Nature.png` | Created by Nature — forest, original GA monogram and wordmark |
+| `output/GA_Story_01_Nature.png` | Created by Nature — minimal cover on the brand gradient, original GA monogram and wordmark |
 | `output/GA_Story_02_Expert.png` | Curated by Expert — photo DSCF4197 + ivory text field |
 | `output/GA_Story_03_Connect.png` | You Connect — brand gradient, typographic |
 | `output/GA_Stories_Uniqueness_preview.png` | All three side by side |
@@ -15,6 +15,6 @@ main type above y = 1670. Story 03 has no rubric.
 
 Edit copy and positions in `stories.html` (shared system: `../founder/founder.css`).
 ```
-python3 tools/base_story01.py          # forest + original logo layers
+python3 tools/logo_layer.py            # original GA logo layers, transparent
 NODE_PATH=$(npm root -g) node tools/export.mjs
 ```
