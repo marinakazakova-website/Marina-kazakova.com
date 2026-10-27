@@ -22,7 +22,7 @@ const topo = JSON.parse(fs.readFileSync(path.join(root, "node_modules/world-atla
 
 // ---- Inputs ---------------------------------------------------------------
 const PHOTO = "sources/sea_landscape.jpg";            // SE Asian nature: mountains, forest, mist
-const PHOTO_POSITION = "50% 50%";                       // CSS object-position for the crop
+const PHOTO_POSITION = "50% 30%";                       // CSS object-position for the crop
 const GEMS = [                                          // real faceted stones, ideally transparent PNG
   { country: "Thailand", stone: "Blue Sapphire", file: "sources/gem_thailand_blue_sapphire.png" },
   { country: "Vietnam",  stone: "Pink Spinel",   file: "sources/gem_vietnam_pink_spinel.png" },

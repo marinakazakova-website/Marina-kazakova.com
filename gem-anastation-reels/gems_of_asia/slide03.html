@@ -6,7 +6,7 @@
   body { background: #d9d6d0; }
   .slide { width: 1080px; height: 1350px; background: #F3EEE5; position: relative; overflow: hidden; }
   .band { position: absolute; left: 0; top: 0; width: 1080px; height: 648px; overflow: hidden; background: #102537; }
-  .band > img.photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
+  .band > img.photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
   /* legibility veil over the photo: darker on the left (title) and at the top */
   .veil { position: absolute; inset: 0;
     background: linear-gradient(90deg, rgba(16,37,55,.62) 0%, rgba(16,37,55,.30) 45%, rgba(16,37,55,.12) 100%); }
@@ -34,7 +34,7 @@
 </style></head>
 <body><section class="slide" id="s3">
   <div class="band">
-    
+    <img class="photo" src="sources/sea_landscape.jpg" alt="">
     <div class="veil"></div>
     <img src="build/map03.svg" width="1080" height="648" style="position:absolute;left:0;top:0" alt="">
     <div class="title">Southeast<br>Asia<span class="part">Part I</span></div>
