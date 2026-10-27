@@ -17,16 +17,17 @@ SRC = Path(__file__).resolve().parents[1] / "sources"
 # Per-photo settings. DARK: value below which a pixel counts as stone even
 # when unsaturated (default: 90 below the background) — lowered where a grey
 # shadow line sits under the stone.
-DARK = {"raw_red_ruby": 100, "raw_red_red_beryl": 100, "raw_blue_sapphire": 100,
+DARK = {"raw_yellow_hessonite": 100, "raw_yellow_yellow_sapphire": 100, "raw_yellow_heliodor": 100, "raw_red_ruby": 100, "raw_red_red_beryl": 100, "raw_blue_sapphire": 100,
         "raw_blue_blue_spinel": 100, "raw_blue_blue_zircon": 100}
 BROWN_SHADOW = {"raw_red_red_beryl"}
 # Pale stones (aquamarine): lower saturation / distance thresholds.
-PALE = {"raw_blue_aquamarine": (22, 45), "raw_pink_pink_tourmaline": (22, 45), "raw_pink_morganite": (22, 45), "raw_pink_rose_quartz": (22, 45)}
+PALE = {"raw_yellow_heliodor": (22, 45), "raw_yellow_yellow_sapphire": (30, 60), "raw_blue_aquamarine": (22, 45), "raw_pink_pink_tourmaline": (22, 45), "raw_pink_morganite": (22, 45), "raw_pink_rose_quartz": (22, 45)}
 # Extra opening (px radius) to cut a thin dark shadow line glued to the girdle.
 OPEN = {"raw_blue_blue_zircon": 12}
 # A faceted stone's outline is convex: fill the mask to its convex hull where
 # the facets are too pale or too dark at the edge to be caught pixel by pixel.
-HULL = {"raw_pink_morganite", "raw_pink_rose_quartz", "raw_pink_pink_sapphire", "raw_pink_pink_spinel",
+HULL = {"raw_yellow_yellow_sapphire", "raw_yellow_citrine", "raw_yellow_heliodor", "raw_yellow_spessartine",
+        "raw_yellow_hessonite", "raw_pink_morganite", "raw_pink_rose_quartz", "raw_pink_pink_sapphire", "raw_pink_pink_spinel",
         "raw_pink_pink_tourmaline", "raw_blue_aquamarine", "raw_blue_blue_zircon", "raw_blue_sapphire", "raw_blue_blue_spinel"}
 for raw in sorted(SRC.glob("raw_*.jpg")):
     img = cv2.imread(str(raw)).astype(np.float32)

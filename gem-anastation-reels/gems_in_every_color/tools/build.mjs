@@ -31,6 +31,11 @@ const PAGES = {
     stones: [["Pink Sapphire", "Corundum"], ["Pink Spinel", "Spinel"], ["Pink Tourmaline", "Tourmaline"],
              ["Morganite", "Beryl"], ["Rose Quartz", "Quartz"]],
   },
+  yellow: {
+    title: "Yellow &amp; Orange", size: 76, color: "#9C5A16", sub: "Beyond golden hues.",
+    stones: [["Yellow Sapphire", "Corundum"], ["Citrine", "Quartz"], ["Heliodor", "Beryl"],
+             ["Spessartine", "Garnet"], ["Hessonite", "Garnet"]],
+  },
 };
 const id = process.argv[2] || "green";
 const P = PAGES[id];
