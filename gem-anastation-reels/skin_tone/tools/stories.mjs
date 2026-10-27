@@ -1,5 +1,5 @@
 // GEMSTONE & SKIN TONE — Stories 01 (intro) and 06 (final / CTA), 1080×1920.
-// One series: deep green field with a soft centre light (no texture), centred
+// One series: the brand gradient (sources/brand_gradient_story.webp, trimmed and cover-fitted), centred
 // Didot caps headline in ivory, AvantGarde line under it, one gold accent
 // (01: a short gold hairline; 06: the CTA line), website line ivory at the
 // Stories rule (text top 1744). Type kept inside y 250–1670.
@@ -30,7 +30,7 @@ for (const [id, S] of Object.entries(STORIES)) {
   @font-face { font-family: "DidotR"; src: url(../brand/fonts_licensed/Didot-Regular.ttf); }
   body { margin: 0; }
   #page { position: relative; width: 1080px; height: 1920px; overflow: hidden;
-    background: radial-gradient(ellipse 75% 55% at 50% 46%, ${S.bg} 0%, ${S.bg} 35%, ${S.edge} 100%); }
+    background: url(build/gradient_story.png); }
   .block { position: absolute; left: 96px; width: 888px; top: 0; height: 1840px; display: flex; flex-direction: column;
     justify-content: center; align-items: center; text-align: center; }
   h1 { margin: 0; font-family: "DidotR"; font-weight: 400; font-size: 96px; line-height: 1.08; letter-spacing: .04em;
