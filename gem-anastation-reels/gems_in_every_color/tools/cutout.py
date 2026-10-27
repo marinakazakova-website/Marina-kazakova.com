@@ -14,6 +14,11 @@ import numpy as np
 from scipy import ndimage
 
 SRC = Path(__file__).resolve().parents[1] / "sources"
+# Per-photo settings. DARK: value below which a pixel counts as stone even
+# when unsaturated (default: 90 below the background) — lowered where a grey
+# shadow line sits under the stone.
+DARK = {"raw_red_ruby": 100, "raw_red_red_beryl": 100}
+BROWN_SHADOW = {"raw_red_red_beryl"}
 for raw in sorted(SRC.glob("raw_*.jpg")):
     img = cv2.imread(str(raw)).astype(np.float32)
     hsv = cv2.cvtColor(img.astype(np.uint8), cv2.COLOR_BGR2HSV).astype(np.float32)
@@ -21,7 +26,10 @@ for raw in sorted(SRC.glob("raw_*.jpg")):
     # far enough from the background colour: drops the pale light that a
     # transparent stone (peridot) throws onto the white below it
     dist = np.linalg.norm(img - bg, axis=2)
-    m = ((hsv[..., 1] > 50) & (dist > 125)) | (hsv[..., 2] < bg.mean() - 90)
+    dark = hsv[..., 2] < DARK.get(raw.stem, bg.mean() - 90)
+    m = ((hsv[..., 1] > 50) & (dist > 125)) | dark
+    if raw.stem in BROWN_SHADOW:      # stone on fabric: its warm contact shadow (hue 6-30) is not stone
+        m &= ~((hsv[..., 0] >= 6) & (hsv[..., 0] <= 30))
     m = ndimage.binary_closing(m, iterations=4)
     lab, n = ndimage.label(m)
     keep = 1 + int(np.argmax(ndimage.sum(m, lab, range(1, n + 1))))
