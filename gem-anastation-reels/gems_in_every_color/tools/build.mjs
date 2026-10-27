@@ -21,6 +21,11 @@ const PAGES = {
     stones: [["Ruby", "Corundum"], ["Red Spinel", "Spinel"], ["Red Garnet", "Almandine garnet"],
              ["Rubellite", "Tourmaline"], ["Red Beryl", "Beryl"]],
   },
+  blue: {
+    title: "Blue", color: "#1F3C78", sub: "Blue is not just sapphire.",
+    stones: [["Sapphire", "Corundum"], ["Aquamarine", "Beryl"], ["Blue Zircon", "Zircon"],
+             ["Blue Topaz", "Topaz"], ["Blue Spinel", "Spinel"]],
+  },
 };
 const id = process.argv[2] || "green";
 const P = PAGES[id];

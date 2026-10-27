@@ -17,8 +17,16 @@ SRC = Path(__file__).resolve().parents[1] / "sources"
 # Per-photo settings. DARK: value below which a pixel counts as stone even
 # when unsaturated (default: 90 below the background) — lowered where a grey
 # shadow line sits under the stone.
-DARK = {"raw_red_ruby": 100, "raw_red_red_beryl": 100}
+DARK = {"raw_red_ruby": 100, "raw_red_red_beryl": 100, "raw_blue_sapphire": 100,
+        "raw_blue_blue_spinel": 100, "raw_blue_blue_zircon": 100}
 BROWN_SHADOW = {"raw_red_red_beryl"}
+# Pale stones (aquamarine): lower saturation / distance thresholds.
+PALE = {"raw_blue_aquamarine": (22, 45)}
+# Extra opening (px radius) to cut a thin dark shadow line glued to the girdle.
+OPEN = {"raw_blue_blue_zircon": 12}
+# A faceted stone's outline is convex: fill the mask to its convex hull where
+# the facets are too pale or too dark at the edge to be caught pixel by pixel.
+HULL = {"raw_blue_aquamarine", "raw_blue_blue_zircon", "raw_blue_sapphire", "raw_blue_blue_spinel"}
 for raw in sorted(SRC.glob("raw_*.jpg")):
     img = cv2.imread(str(raw)).astype(np.float32)
     hsv = cv2.cvtColor(img.astype(np.uint8), cv2.COLOR_BGR2HSV).astype(np.float32)
@@ -27,7 +35,8 @@ for raw in sorted(SRC.glob("raw_*.jpg")):
     # transparent stone (peridot) throws onto the white below it
     dist = np.linalg.norm(img - bg, axis=2)
     dark = hsv[..., 2] < DARK.get(raw.stem, bg.mean() - 90)
-    m = ((hsv[..., 1] > 50) & (dist > 125)) | dark
+    smin, dmin = PALE.get(raw.stem, (50, 125))
+    m = ((hsv[..., 1] > smin) & (dist > dmin)) | dark
     if raw.stem in BROWN_SHADOW:      # stone on fabric: its warm contact shadow (hue 6-30) is not stone
         m &= ~((hsv[..., 0] >= 6) & (hsv[..., 0] <= 30))
     m = ndimage.binary_closing(m, iterations=4)
@@ -35,6 +44,17 @@ for raw in sorted(SRC.glob("raw_*.jpg")):
     keep = 1 + int(np.argmax(ndimage.sum(m, lab, range(1, n + 1))))
     m = ndimage.binary_fill_holes(lab == keep)
     m = ndimage.binary_opening(m, iterations=2)
+    if raw.stem in OPEN:
+        r = OPEN[raw.stem]
+        m = cv2.morphologyEx(m.astype(np.uint8), cv2.MORPH_OPEN,
+                             cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1))).astype(bool)
+        lab, n = ndimage.label(m)
+        m = lab == 1 + int(np.argmax(ndimage.sum(m, lab, range(1, n + 1))))
+    if raw.stem in HULL:
+        pts = cv2.convexHull(np.argwhere(m)[:, ::-1].astype(np.int32))
+        hm = np.zeros(m.shape, np.uint8)
+        cv2.fillConvexPoly(hm, pts, 1)
+        m = ndimage.binary_erosion(hm.astype(bool), iterations=max(2, int(0.006 * max(m.shape))))   # off the shadow fringe
     m = ndimage.binary_erosion(m, iterations=1)          # drop the light fringe
     a = cv2.GaussianBlur(m.astype(np.float32), (0, 0), 1.0)
     ys, xs = np.nonzero(m)
