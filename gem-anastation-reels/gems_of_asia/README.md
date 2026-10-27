@@ -1,0 +1,33 @@
+# GEMS OF ASIA — carousel, slide 02: THE GEMSTONE MAP
+
+1080 × 1350 (4:5). Output: `output/GA_GemsOfAsia_02_map.png`.
+
+## Geography
+- Natural Earth admin-0 countries, 1:50m (npm `world-atlas` 2.0.2, public
+  domain data), projected with `d3-geo`: Lambert azimuthal equal-area
+  centred on 103°E 22°N (true shapes and areas for the whole region).
+- Boundaries follow Natural Earth's de facto lines (incl. Kashmir).
+- Markers mark countries, not deposits. The build fails if any marker is
+  not inside its own country polygon.
+
+## Design
+| Element | Spec |
+|---|---|
+| Background | #102537, flat |
+| Coastlines | white, 1.1 px, 90 % |
+| Borders | white, 0.8 px, 42 % |
+| Graticule | white, 6 % (barely visible atlas grid) |
+| Markers + labels | #439090; labels AvantGarde caps 18 px, 0.13 em, with a background-coloured halo |
+| Rubric | CREATED BY NATURE — post rule: centred, y = 112, AvantGarde 17 px, 0.42 em, gold #BBA375 |
+| Title | THE GEMSTONE MAP — Didot caps 58 px, off-white |
+| Copy | AvantGarde 23 px / 1.6, x = 96 |
+| Logo | original GA monogram + GEM ANASTATION wordmark layers; wordmark text top y = 1228 (bottom service-line rule), centred |
+
+Labels in crowded South-East Asia sit in a column at sea (Bay of Bengal /
+Andaman Sea) with thin leaders; positions are in `COUNTRIES` in the script.
+
+## Build
+```
+npm install
+NODE_PATH=$(npm root -g) node tools/build.mjs   # needs playwright
+```
