@@ -111,3 +111,12 @@ Didot Italic 43 px gold, gold hairline at y 1070, signature Didot 28 px gold
 "Anastasia / Founder, Gem Expert"; right: portrait cropped from the top),
 website line ivory, centred at the bottom over both blocks (text top 1228).
 Per card only: gradient photo, stone name, author's text, key phrase, photo.
+
+## Template — GA / NATURE · GEMSTONE · IDENTITY / EDITORIAL GRID
+Builder: `editorial_grid/tools/crop.py` + `tools/grid.mjs` (one entry per set).
+1080×1350: four 540×540 squares, 2×2, no gaps (human top-left, nature
+top-right, colour plaque bottom-left, gemstone bottom-right); the 270 px
+below continue the plaque colour full width. Plaque words Didot caps 40 px,
+tracking 0.10 em, line pitch 51 px, gold, centred in the plaque square.
+Website line ivory, centred, text top 1228. Per set: three photos (square
+crops chosen to keep the client's framing), plaque colour, text colour, words.
