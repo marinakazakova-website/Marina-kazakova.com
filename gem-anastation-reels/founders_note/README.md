@@ -7,6 +7,7 @@ y = 1228 in #BBA375). Text field: 64 px inner margin, gold rule → Didot caps
 74 px headline → AvantGarde 22 px letter → gold rule → Didot italic 42 px CTA
 lead in deep teal #1A4043 → AvantGarde 21 px CTA line → signature at the
 bottom of the field (ANASTASIA Didot 30 px #BBA375, role caps 13 px).
+Optional top rubric (NOTES.rubric) on the post rule: centred, y = 112, AvantGarde caps 17 px, 0.42 em, #BBA375.
 No logo, no arrow.
 
 A new note = a new entry in `NOTES` in `tools/build.mjs`:

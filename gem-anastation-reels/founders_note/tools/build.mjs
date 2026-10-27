@@ -16,6 +16,7 @@ const NOTES = {
     portrait: "../gems_of_asia/sources/anastasia_portrait.webp", portraitPos: "62% 50%",
     gem: "../gems_of_asia/sources/gem_srilanka_blue_sapphire.png",
     gemCaption: "Blue Sapphire",
+    rubric: "Curated by Nature",
     headline: "From Asia<br>to you.",
     letter: "Based in Bangkok, at the heart of Asia’s gemstone trade, I personally select exceptional gemstones for their natural beauty and individuality.",
     ctaLead: "Discover our collection.",
@@ -39,6 +40,10 @@ const html = `<!doctype html>
   :root { --navy: #102537; --teal: #1A4043; --gold2: #BBA375; }
   body { background: #d9d6d0; }
   .slide { width: 1080px; height: 1350px; background: var(--navy); position: relative; overflow: hidden; }
+  /* top rubric — post rule: centred, text top y ≈ 112, AvantGarde caps 17 px, 0.42 em */
+  .rubric { position: absolute; left: 0; width: 1080px; top: 112px; text-align: center; font-family: "AvantGarde";
+            font-size: 17px; letter-spacing: .42em; text-indent: .42em; text-transform: uppercase;
+            line-height: 1; color: var(--gold2); }
   .panel { position: absolute; top: ${TOP}px; height: ${PH}px; overflow: hidden; }   /* square corners */
   .p1 { left: ${X0}px; width: ${PW[0]}px; }
   .p1 img { width: 100%; height: 100%; object-fit: cover; object-position: ${N.portraitPos}; display: block; }
@@ -59,6 +64,7 @@ const html = `<!doctype html>
         letter-spacing: .28em; text-transform: uppercase; color: var(--navy); opacity: .8; }
 </style></head>
 <body><section class="slide" id="note">
+  ${N.rubric ? `<div class="rubric">${N.rubric}</div>` : ""}
   <div class="panel p1"><img src="${N.portrait}" alt="Anastasia"></div>
   <div class="panel p2"><div class="in">
     <div class="hr" style="top:52px; width:90px"></div>
