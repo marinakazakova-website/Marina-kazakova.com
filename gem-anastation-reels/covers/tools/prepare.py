@@ -1,0 +1,35 @@
+"""Cover photos: uniform scale to 1080 wide, vertical crop to 1350 (content
+untouched), and a website line tinted to its own photo (delicate: the band's
+own colour, moved 45 % toward ivory on dark photos / toward navy on light).
+Usage: python3 tools/prepare.py
+"""
+from pathlib import Path
+
+import cv2
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[1]
+URL = ROOT.parent / "founder" / "build" / "url_on_light.png"
+COVERS = {            # name: (photo, crop offset in px after scaling to 1080 wide)
+    "river": ("sources/photo_river.jpg", 227),
+    "mountain": ("sources/photo_mountain.jpg", 40),
+}
+IVORY, NAVY = np.array([243, 238, 229.]), np.array([16, 37, 55.])
+(ROOT / "build").mkdir(exist_ok=True)
+alpha = cv2.imread(str(URL), cv2.IMREAD_UNCHANGED)[..., 3]
+for name, (src, off) in COVERS.items():
+    im = cv2.cvtColor(cv2.imread(str(ROOT / src)), cv2.COLOR_BGR2RGB).astype(np.float32)
+    s = 1080 / im.shape[1]
+    im = cv2.resize(im, (1080, round(im.shape[0] * s)), interpolation=cv2.INTER_LANCZOS4)
+    im = im[off:off + 1350]
+    assert im.shape[0] == 1350, name
+    cv2.imwrite(str(ROOT / "build" / f"{name}.jpg"), cv2.cvtColor(im.clip(0, 255).astype(np.uint8), cv2.COLOR_RGB2BGR),
+                [cv2.IMWRITE_JPEG_QUALITY, 96])
+    band = im[1205:1255, 360:720].reshape(-1, 3).mean(0)
+    lum = band @ [0.2126, 0.7152, 0.0722] / 255
+    col = band + ((IVORY if lum < 0.5 else NAVY) - band) * 0.45
+    rgba = np.zeros(alpha.shape + (4,), np.uint8)
+    rgba[..., :3] = col.round()
+    rgba[..., 3] = (alpha * 0.9).astype(np.uint8)
+    cv2.imwrite(str(ROOT / "build" / f"url_{name}.png"), cv2.cvtColor(rgba, cv2.COLOR_RGBA2BGRA))
+    print(f"{name}: band lum {lum:.2f}, url colour #{''.join(f'{int(c):02X}' for c in col.round())}")
