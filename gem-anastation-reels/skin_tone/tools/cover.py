@@ -1,7 +1,7 @@
 """GEMSTONE & SKIN TONE — cover (1080×1350). Full-bleed portrait of Anastasia,
 global grade only (a little muted, glossy editorial contrast — nothing
-retouched or added), three AvantGarde captions on one line in the green above
-her head (same type as the ONE COLOR / MANY GEMS cover: 20.5 px, tracking
+retouched or added), three AvantGarde captions on one line centred on the
+horizontal axis y = 675 (house rule) (same type as the ONE COLOR / MANY GEMS cover: 20.5 px, tracking
 3.8 px, outer captions on x 81 / 972, middle one with equal gaps), website line
 ivory by the house rule (text top 1228).
 Usage: python3 tools/cover.py"""
@@ -13,7 +13,8 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 FONT = ImageFont.truetype(str(ROOT.parent / "founder" / "fonts" / "URWGothic-Book.otf"), 20.5)
-TRACK, CAP_TOP = 3.8, 170
+TRACK = 3.8
+AXIS_Y = 675                       # house rule: three-phrase line centred on y = 675 (50 %)
 IVORY = np.array([243, 238, 229.])
 CAPS = [("SKIN TONE", "left", 81), ("GEMSTONE COLOR", "center", None), ("PERSONAL HARMONY", "right", 972)]
 CROP_TOP = 0                       # px of the source above the 4:5 window (head well below the captions)
@@ -52,7 +53,6 @@ L = np.where(L > 0.8, 0.8 + (L - 0.8) * 0.75, L)                       # soft sh
 lab[..., 0] = np.clip(L, 0, 1) * 100
 im = np.clip(cv2.cvtColor(lab, cv2.COLOR_LAB2RGB), 0, 1)
 yy = np.arange(1350, dtype=np.float32)[:, None, None]
-im *= 1 - 0.30 * np.exp(-((yy - 180) / 170) ** 2)                    # shade behind the caption line
 out = im * 255
 
 inks = [ink(t) for t, _, _ in CAPS]
@@ -60,6 +60,7 @@ ws = [a.shape[1] for a in inks]
 gap = ((CAPS[2][2] - CAPS[0][2] + 1) - sum(ws)) / 2
 for (text, align, edge), a in zip(CAPS, inks):
     h, w = a.shape
+    CAP_TOP = AXIS_Y - h // 2
     x0 = {"left": edge, "right": edge - w + 1 if edge else 0, "center": round(CAPS[0][2] + ws[0] + gap)}[align]
     reg = out[CAP_TOP:CAP_TOP + h, x0:x0 + w]
     out[CAP_TOP:CAP_TOP + h, x0:x0 + w] = reg * (1 - a[..., None]) + IVORY * a[..., None]

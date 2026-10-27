@@ -121,3 +121,16 @@ bottom-right). No extra strips. Plaque words Didot caps 40 px, tracking
 Website line ivory, centred on the canvas over the bottom tiles, text top
 1228. Per set: three photos (4:5
 crops chosen to keep the client's framing), plaque colour, text colour, words.
+
+## Covers — type 2: three phrases on one line (permanent rule)
+Reference: GEMS IN EVERY COLOR cover (ONE COLOR / MANY GEMS / CREATED BY NATURE).
+Applies automatically whenever a cover "with three phrases on one line" is asked for.
+- 1080×1350, full-bleed photo (global grade only).
+- Three phrases, AvantGarde caps 20.5 px, tracking 3.8 px, ivory #F3EEE5,
+  one baseline, the line centred on the horizontal axis y = 675 (50 % height).
+- Outer phrases on x = 81 (left edge) and x = 972 (right edge); the middle
+  phrase placed with equal gaps to both neighbours.
+- The text position never moves to suit the photo: the photo is chosen or
+  framed for the line, not the other way round.
+- Website line by the house rule (text top 1228, centred).
+Builders: `gems_in_every_color/tools/cover.py`, `skin_tone/tools/cover.py`.
