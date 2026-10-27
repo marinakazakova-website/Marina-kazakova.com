@@ -21,6 +21,12 @@ SETS = {
         "nature": (10, 196, 780),    # orchid cluster filling the tile
         "gem":    (0, 330, 1125),    # stone just right of centre, above the middle
     },
+    "dark_rhodolite": {
+        "human":  (15, 40, 520),     # slightly closer on the face, as in the mock-up
+        "nature": (0, 60, 736),      # anthurium with its shadow, full width
+        "gem":    (105, 160, 900),   # stone centred low; ends above the photographer's
+                                     # "ILDAR" mark (rows 1310-1367 of the source)
+    },
 }
 # Global colour match to the approved mock-up where the client graded a photo
 # (per-channel mean/std transfer; a tonal operation only, nothing retouched).

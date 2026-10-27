@@ -13,6 +13,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SETS = {
   green_tourmaline: { plaque: "#7888AA", ink: "#D6BF94", words: ["Nature", "Gemstone", "Identity"] },
   lavender_spinel:  { plaque: "#D6B7BC", ink: "#FFFBFB", words: ["Nature", "Gemstone", "Identity"] },
+  // light plaque: dark ink, and the website line in the same dark ink so it reads
+  dark_rhodolite:   { plaque: "#E7E7E7", ink: "#1E1515", url: "dark", words: ["Nature", "Gemstone", "Identity"] },
 };
 const id = process.argv[2] || "green_tourmaline", S = SETS[id];
 const html = `<!doctype html><html><head><meta charset="utf-8">
@@ -29,7 +31,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   <img class="t" style="left:540px;top:0" src="build/${id}_nature.jpg" alt="">
   <div class="words">${S.words.map((w) => `<div>${w}</div>`).join("")}</div>
   <img class="t" style="left:540px;top:675px" src="build/${id}_gem.jpg" alt="">
-  <img src="build/url_ivory.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="">
+  <img src="build/url_${S.url === "dark" ? "dark_ink" : "ivory"}.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="">
 </section></body></html>`;
 fs.writeFileSync(path.join(root, `grid_${id}.html`), html);
 const { chromium } = createRequire(import.meta.url)("playwright");
