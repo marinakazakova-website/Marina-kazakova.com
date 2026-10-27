@@ -88,6 +88,24 @@ const REGIONS = {
       { country: "Tajikistan",  stone: "Pink Spinel",   file: "sources/gem_tajikistan_pink_spinel.png" },
     ],
   },
+  "06": {
+    out: "GA_GemsOfAsia_06_east_asia.png",
+    photo: "sources/ea_karst_river.jpg", photoPos: "50% 60%",
+    title: "East Asia", part: "",
+    countries: ["China", "Japan"],
+    mapBox: [[330, 180], [1020, 616]],    // below-right of the one-line title
+    markers: [
+      ["China", [103.0, 34.5], 16, 6, "start"],              // on land, no leader (as on slide 02)
+      ["Japan", [138.3, 36.3], [1010, 560], 0, "end"],      // Pacific, below Japan
+    ],
+    h2: "From ancient jade to ocean pearls.",
+    copy: "From China’s treasured jade and freshwater pearls to Japan’s renowned Akoya pearls — East Asia brings together centuries of craftsmanship and the beauty of nature.",
+    gems: [
+      { country: "China", stone: "Nephrite Jade",    file: "sources/gem_china_nephrite_jade.png" },
+      { country: "China", stone: "Freshwater Pearl", file: "sources/gem_china_freshwater_pearl.png" },
+      { country: "Japan", stone: "Akoya Pearl",      file: "sources/gem_japan_akoya_pearl.png" },
+    ],
+  },
 };
 const ID = process.argv[2] || "03";
 const R = REGIONS[ID];
@@ -105,7 +123,7 @@ const all = feature(topo, topo.objects.countries).features;
 const pick = R.countries.map((n) => all.find((f) => f.properties.name === n));
 const projection = geoMercator().fitExtent(R.mapBox, { type: "FeatureCollection", features: pick });
 const pg = geoPath(projection);
-const fmt = (d) => d.replace(/(\d+\.\d)\d+/g, "$1");
+const fmt = (d) => (d || "").replace(/(\d+\.\d)\d+/g, "$1");   // "" when no shared borders
 const SET = new Set(R.countries);
 const inner = mesh(topo, topo.objects.countries,
   (a, b) => a !== b && SET.has(a.properties.name) && SET.has(b.properties.name));

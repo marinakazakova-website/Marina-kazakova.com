@@ -65,3 +65,7 @@ mountain photo; India, Sri Lanka, Pakistan, Afghanistan, Tajikistan; five
 gems in 156 px discs (client asked for smaller stones so all five fit),
 country 14 px / 0.2 em, mineral 22 px. The heading and copy now flow as one
 block, so a two-line heading pushes the copy down (slides 03–04 unchanged).
+
+Slide 06, EAST ASIA — `output/GA_GemsOfAsia_06_east_asia.png`: karst river
+photo; China and Japan (Natural Earth: Taiwan is a separate feature and is
+not outlined); nephrite jade, freshwater pearl, Akoya pearl in 216 px discs.
