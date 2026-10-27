@@ -12,23 +12,27 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PAGES = {
   green: {
     title: "Green", color: "#2F6B4F", sub: "Green is not just emerald.",
-    stones: ["Emerald", "Green Tourmaline", "Peridot", "Tsavorite", "Demantoid"],
+    // [name, mineral species] — the point of the page: five different minerals.
+    stones: [["Emerald", "Beryl"], ["Green Tourmaline", "Tourmaline"], ["Peridot", "Olivine"],
+             ["Tsavorite", "Grossular garnet"], ["Demantoid", "Andradite garnet"]],
   },
 };
 const id = process.argv[2] || "green";
 const P = PAGES[id];
 const file = (n) => `sources/${id}_${n.toLowerCase().replace(/ /g, "_")}.png`;
-const missing = P.stones.map(file).filter((f) => !fs.existsSync(path.join(root, f)));
+const missing = P.stones.map(([n]) => file(n)).filter((f) => !fs.existsSync(path.join(root, f)));
 if (missing.length) console.warn("MISSING stone photos (empty slots):\n  " + missing.join("\n  "));
 
-// Grid 3 + 2: 230 px stone boxes; row 1 at x centres 228 / 540 / 852, row 2 at 384 / 696.
-const D = 230, rows = [[228, 540, 852], [384, 696]], tops = [560, 900];
-let k = 0;
-const cells = rows.map((xs, r) => xs.map((cx) => {
-  const n = P.stones[k++], f = file(n), has = fs.existsSync(path.join(root, f));
-  return `<figure class="stone" style="left:${cx - 140}px; top:${tops[r]}px">
-    <div class="pic">${has ? `<img src="${f}" alt="${n}">` : ""}</div><figcaption>${n}</figcaption></figure>`;
-}).join("\n")).join("\n");
+// Vertical column: stone box 136 px centred at x 380, hairline at x 506,
+// name + mineral to the right of it; five rows, 152 px pitch from y 408.
+const D = 136, X = 380, TOP = 408, PITCH = 152;
+const cells = P.stones.map(([n, m], i) => {
+  const f = file(n), has = fs.existsSync(path.join(root, f)), y = TOP + i * PITCH;
+  return `<div class="pic" style="left:${X - D / 2}px; top:${y}px">${has ? `<img src="${f}" alt="${n}">` : ""}</div>
+  <div class="bar" style="top:${y + 30}px"></div>
+  <div class="name" style="top:${y + 36}px">${n}</div>
+  <div class="min" style="top:${y + 70}px">${m}</div>`;
+}).join("\n");
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Gems in Every Color — ${P.title}</title>
@@ -36,18 +40,22 @@ const html = `<!doctype html>
 <style>
   @font-face { font-family: "Didot"; src: url(../brand/fonts_licensed/Didot-Regular.ttf); }
   body { margin: 0; }
-  .slide { position: relative; width: 1080px; height: 1350px; background: var(--ivory); overflow: hidden; }
+  @font-face { font-family: "Didot Italic"; src: url(../brand/fonts_licensed/Didot-Italic.ttf); }
+  .slide { position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    background: radial-gradient(ellipse 90% 70% at 50% 42%, #EDEFF1 0%, #E3E6E9 60%, #D9DDE1 100%); }
   .rubric { position: absolute; left: 0; width: 1080px; top: 112px; text-align: center; font-family: "AvantGarde";
-    font-size: 17px; letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; line-height: 1; color: #2D5240; }
-  .title { position: absolute; left: 92px; top: 214px; font-family: "Didot"; font-size: 170px; line-height: 1;
-    letter-spacing: .01em; text-transform: uppercase; color: ${P.color}; }
-  .sub { position: absolute; left: 96px; top: 420px; font-family: "AvantGarde"; font-size: 19px;
-    letter-spacing: .3em; text-transform: uppercase; color: #102537; }
-  .stone { position: absolute; margin: 0; width: 280px; text-align: center; }
-  .pic { width: ${D}px; height: ${D}px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
-  .pic img { max-width: 100%; max-height: 100%; filter: drop-shadow(0 14px 14px rgba(16,37,55,.18)); }
-  .pic:empty { border: 1px dashed rgba(16,37,55,.25); border-radius: 50%; }
-  figcaption { margin-top: 22px; font-family: "AvantGarde"; font-size: 22px; color: #102537; }
+    font-size: 17px; letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; line-height: 1; color: #102537; }
+  .title { position: absolute; left: 0; width: 1080px; top: 176px; text-align: center; font-family: "Didot";
+    font-size: 128px; line-height: 1; letter-spacing: .04em; text-indent: .04em; text-transform: uppercase; color: ${P.color}; }
+  .sub { position: absolute; left: 0; width: 1080px; top: 330px; text-align: center; font-family: "AvantGarde";
+    font-size: 17px; letter-spacing: .32em; text-indent: .32em; text-transform: uppercase; color: #102537; }
+  .pic { position: absolute; width: ${D}px; height: ${D}px; display: flex; align-items: center; justify-content: center; }
+  .pic img { max-width: 100%; max-height: 100%; filter: drop-shadow(0 12px 12px rgba(16,37,55,.20)); }
+  .pic:empty { border: 1px dashed rgba(16,37,55,.25); border-radius: 50%; box-sizing: border-box; }
+  .bar { position: absolute; left: 506px; width: 1px; height: 76px; background: rgba(16,37,55,.45); }
+  .name { position: absolute; left: 536px; font-family: "AvantGarde"; font-size: 20px; letter-spacing: .24em;
+    text-transform: uppercase; line-height: 1; color: #102537; }
+  .min { position: absolute; left: 536px; font-family: "Didot Italic"; font-size: 27px; line-height: 1; color: #4F5E6D; }
 </style></head><body><section class="slide" id="page">
   <div class="rubric">Created by Nature</div>
   <div class="title">${P.title}</div>
