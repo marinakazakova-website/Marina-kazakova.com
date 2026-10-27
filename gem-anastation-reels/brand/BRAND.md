@@ -100,3 +100,14 @@ the same size on every cover: Apple Didot Bold 106 px, tracking 0.025 em,
 centred, one line. Position follows the photo (top on a landscape, under the
 stone on a stone shot). If a title would not fit the width at that size,
 shorten the wording rather than shrink the type.
+
+## Template — GA · FOUNDER'S CHOICE (approved, BLUE SAPPHIRE)
+Builder: `founders_choice/tools/prepare_card.py` + `tools/card.mjs` (one entry
+per stone in CARDS). Fixed: top block 1080×675 (stone gradient photo turned
+horizontal, darkened; title Didot Bold 106 px gold #BBA375, cap top 320;
+author's text AvantGarde 20.5 px white, centred, under the title), bottom two
+blocks 540×675 with no gaps (left: navy sampled from the gradient, key phrase
+Didot Italic 43 px gold, gold hairline at y 1070, signature Didot 28 px gold
+"Anastasia / Founder, Gem Expert"; right: portrait cropped from the top),
+website line ivory, centred at the bottom over both blocks (text top 1228).
+Per card only: gradient photo, stone name, author's text, key phrase, photo.
