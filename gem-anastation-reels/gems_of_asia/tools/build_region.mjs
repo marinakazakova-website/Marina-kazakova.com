@@ -35,7 +35,7 @@ const REGIONS = {
       ["Vietnam",  [107.2, 16.6], [900], 6, "start"],
       ["Cambodia", [104.9, 12.7], [900], 6, "start"],
     ],
-    h2: "Three countries. Distinctive gems.",
+    h2: "Three countries. Distinctive gems",
     copy: "From Thailand’s sapphires and Cambodia’s zircons to Vietnam’s remarkable spinels — each country reveals a different side of Asia’s gemstone heritage.",
     gems: [
       { country: "Thailand", stone: "Blue Sapphire", file: "sources/gem_thailand_blue_sapphire.png" },
@@ -77,7 +77,7 @@ const REGIONS = {
       ["India",       [78.5, 22.0], [1000], 6, "end"],
       ["Sri Lanka",   [80.7, 7.8],  [1000], 6, "end"],
     ],
-    h2: "Treasures from the mountains and beyond.",
+    h2: "Treasures from the mountains and beyond",
     copy: "From Sri Lanka’s celebrated sapphires and India’s historic diamonds to Pakistan’s emeralds, Afghanistan’s lapis lazuli and Tajikistan’s spinels — this region holds an extraordinary gemstone heritage.",
     gemTop: 950,
     gems: [
@@ -98,7 +98,7 @@ const REGIONS = {
       ["China", [103.0, 34.5], 16, 6, "start"],              // on land, no leader (as on slide 02)
       ["Japan", [138.3, 36.3], [1010, 560], 0, "end"],      // Pacific, below Japan
     ],
-    h2: "From ancient jade to ocean pearls.",
+    h2: "From ancient jade to ocean pearls",
     copy: "From China’s treasured jade and freshwater pearls to Japan’s renowned Akoya pearls — East Asia brings together centuries of craftsmanship and the beauty of nature.",
     gems: [
       { country: "China", stone: "Nephrite Jade",    file: "sources/gem_china_nephrite_jade.png" },

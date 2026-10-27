@@ -17,9 +17,9 @@ const NOTES = {
     gem: "../gems_of_asia/sources/gem_srilanka_blue_sapphire.png",
     gemCaption: "Blue Sapphire",
     rubric: "Curated by Nature",
-    headline: "From Asia<br>to you.",
+    headline: "From Asia<br>to you",
     letter: "Based in Bangkok, at the heart of Asia’s gemstone trade, I personally select exceptional gemstones for their natural beauty and individuality.",
-    ctaLead: "Discover our collection.",
+    ctaLead: "Discover our collection",
     ctaLine: "Private viewings by appointment<br>in Bangkok.",
   },
 };
