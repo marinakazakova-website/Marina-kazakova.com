@@ -21,12 +21,13 @@ DARK = {"raw_red_ruby": 100, "raw_red_red_beryl": 100, "raw_blue_sapphire": 100,
         "raw_blue_blue_spinel": 100, "raw_blue_blue_zircon": 100}
 BROWN_SHADOW = {"raw_red_red_beryl"}
 # Pale stones (aquamarine): lower saturation / distance thresholds.
-PALE = {"raw_blue_aquamarine": (22, 45)}
+PALE = {"raw_blue_aquamarine": (22, 45), "raw_pink_pink_tourmaline": (22, 45), "raw_pink_morganite": (22, 45), "raw_pink_rose_quartz": (22, 45)}
 # Extra opening (px radius) to cut a thin dark shadow line glued to the girdle.
 OPEN = {"raw_blue_blue_zircon": 12}
 # A faceted stone's outline is convex: fill the mask to its convex hull where
 # the facets are too pale or too dark at the edge to be caught pixel by pixel.
-HULL = {"raw_blue_aquamarine", "raw_blue_blue_zircon", "raw_blue_sapphire", "raw_blue_blue_spinel"}
+HULL = {"raw_pink_morganite", "raw_pink_rose_quartz", "raw_pink_pink_sapphire", "raw_pink_pink_spinel",
+        "raw_pink_pink_tourmaline", "raw_blue_aquamarine", "raw_blue_blue_zircon", "raw_blue_sapphire", "raw_blue_blue_spinel"}
 for raw in sorted(SRC.glob("raw_*.jpg")):
     img = cv2.imread(str(raw)).astype(np.float32)
     hsv = cv2.cvtColor(img.astype(np.uint8), cv2.COLOR_BGR2HSV).astype(np.float32)

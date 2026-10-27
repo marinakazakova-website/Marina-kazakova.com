@@ -26,6 +26,11 @@ const PAGES = {
     stones: [["Sapphire", "Corundum"], ["Aquamarine", "Beryl"], ["Blue Zircon", "Zircon"],
              ["Blue Topaz", "Topaz"], ["Blue Spinel", "Spinel"]],
   },
+  pink: {
+    title: "Pink &amp; Lavender", size: 84, color: "#A2456A", sub: "Pink is not just sapphire.",
+    stones: [["Pink Sapphire", "Corundum"], ["Pink Spinel", "Spinel"], ["Pink Tourmaline", "Tourmaline"],
+             ["Morganite", "Beryl"], ["Rose Quartz", "Quartz"]],
+  },
 };
 const id = process.argv[2] || "green";
 const P = PAGES[id];
@@ -55,8 +60,8 @@ const html = `<!doctype html>
     background: radial-gradient(ellipse 90% 70% at 50% 42%, #EDEFF1 0%, #E3E6E9 60%, #D9DDE1 100%); }
   .rubric { position: absolute; left: 0; width: 1080px; top: 112px; text-align: center; font-family: "AvantGarde";
     font-size: 17px; letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; line-height: 1; color: #102537; }
-  .title { position: absolute; left: 0; width: 1080px; top: 176px; text-align: center; font-family: "Didot";
-    font-size: 128px; line-height: 1; letter-spacing: .04em; text-indent: .04em; text-transform: uppercase; color: ${P.color}; }
+  .title { position: absolute; left: 0; width: 1080px; top: ${176 + Math.round(((P.size || 128) - 128) * -0.78)}px; text-align: center; font-family: "Didot";
+    font-size: ${P.size || 128}px; line-height: 1; letter-spacing: .04em; text-indent: .04em; text-transform: uppercase; color: ${P.color}; }
   .sub { position: absolute; left: 0; width: 1080px; top: 330px; text-align: center; font-family: "AvantGarde";
     font-size: 17px; letter-spacing: .32em; text-indent: .32em; text-transform: uppercase; color: #102537; }
   .pic { position: absolute; width: ${D}px; height: ${D}px; display: flex; align-items: center; justify-content: center; }
