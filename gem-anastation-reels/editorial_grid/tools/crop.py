@@ -3,6 +3,7 @@ Each photo is cut to a 540×675 tile (4:5): (source left, top, width) in source
 pixels, chosen to keep the framing of the approved mock-up (subject at the same
 place in the tile, same scale where the square allows). Only scale + crop.
 Usage: python3 tools/crop.py <set>"""
+import os
 import sys
 from pathlib import Path
 
@@ -28,15 +29,24 @@ SETS = {
                                      # "ILDAR" mark (rows 1310-1367 of the source)
     },
 }
+# Stories (1080×1920, tiles 540×960, 9:16): (left, top, width) in source px;
+# height = width × 16/9. Photos fill their tiles completely.
+SETS_STORY = {
+    "green_tourmaline": {"human": (80, 0, 621), "nature": (175, 0, 675), "gem": (427, 543, 480)},
+    "lavender_spinel":  {"human": (242, 0, 675), "nature": (83, 0, 675), "gem": (33, 70, 1050)},
+    "dark_rhodolite":   {"human": (152, 0, 417), "nature": (115, 0, 621), "gem": (159, 0, 726)},
+}
 # Global colour match to the approved mock-up where the client graded a photo
 # (per-channel mean/std transfer; a tonal operation only, nothing retouched).
 GRADE = {("green_tourmaline", "gem"): ("sources/mockup_green_tourmaline.jpg", (546, 721, 1080, 1350))}
+STORY = os.environ.get("STORY") == "1"
 name = sys.argv[1] if len(sys.argv) > 1 else "green_tourmaline"
-for slot, (x, y, w) in SETS[name].items():
-    h = round(w * 1.25)
+TW, TH = (540, 960) if STORY else (540, 675)
+for slot, (x, y, w) in (SETS_STORY if STORY else SETS)[name].items():
+    h = round(w * TH / TW)
     im = Image.open(ROOT / "sources" / f"{name}_{slot}.jpg").convert("RGB")
     assert x + w <= im.width and y + h <= im.height, (slot, im.size)
-    im = im.crop((x, y, x + w, y + h)).resize((540, 675), Image.LANCZOS)
+    im = im.crop((x, y, x + w, y + h)).resize((TW, TH), Image.LANCZOS)
     if (name, slot) in GRADE:
         ref, box = GRADE[(name, slot)]
         r = np.asarray(Image.open(ROOT / ref).convert("RGB").crop(box)).reshape(-1, 3).astype(np.float32)
@@ -44,5 +54,5 @@ for slot, (x, y, w) in SETS[name].items():
         f = a.reshape(-1, 3)
         a = (a - f.mean(0)) / f.std(0) * r.std(0) + r.mean(0)
         im = Image.fromarray(a.clip(0, 255).round().astype(np.uint8))
-    im.save(ROOT / "build" / f"{name}_{slot}.jpg", quality=96)
+    im.save(ROOT / "build" / f"{name}_{slot}{'_story' if STORY else ''}.jpg", quality=96)
     print(slot, "->", (x, y, w, h))

@@ -5,6 +5,7 @@ horizontal axis y = 675 (house rule) (same type as the ONE COLOR / MANY GEMS cov
 3.8 px, outer captions on x 81 / 972, middle one with equal gaps), website line
 ivory by the house rule (text top 1228).
 Usage: python3 tools/cover.py"""
+import os
 from pathlib import Path
 
 import cv2
@@ -14,10 +15,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 FONT = ImageFont.truetype(str(ROOT.parent / "founder" / "fonts" / "URWGothic-Book.otf"), 20.5)
 TRACK = 3.8
-AXIS_Y = 675                       # house rule: three-phrase line centred on y = 675 (50 %)
+STORY = os.environ.get("STORY") == "1"     # 1080×1920 Stories: axis y = 960, website text top 1744
+H = 1920 if STORY else 1350
+AXIS_Y = H // 2                       # house rule: three-phrase line centred on y = 675 (50 %)
 IVORY = np.array([243, 238, 229.])
 CAPS = [("YOUR NATURAL TONE", "left", 81), ("YOUR GEMSTONE", "right", 972)]
-import os
 CROP_TOP = int(os.environ.get("CROP_TOP", 240))   # line falls under the glasses, above the lips
 
 
@@ -39,10 +41,16 @@ def ink(text, weight=1):
 
 
 im = cv2.cvtColor(cv2.imread(str(ROOT / "sources" / os.environ.get("PHOTO", "portrait_tropical_profile.jpg"))), cv2.COLOR_BGR2RGB)
-s = 1080 / im.shape[1]
-src_h = round(1350 / s)
-im = im[CROP_TOP:CROP_TOP + src_h]
-im = cv2.resize(im, (1080, 1350), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
+if STORY:   # 1:1 pixels, 1080×1920 window: line just under the glasses, face kept
+    SX, SY = 200, 80
+    im = im[SY:SY + 1920, SX:SX + 1080]
+else:
+    s = 1080 / im.shape[1]
+    src_h = round(1350 / s)
+    im = im[CROP_TOP:CROP_TOP + src_h]
+    im = cv2.resize(im, (1080, 1350), interpolation=cv2.INTER_AREA)
+assert im.shape[:2] == (H, 1080), im.shape
+im = im.astype(np.float32) / 255
 
 # Grade: saturation down 12 %, a gentle S-curve for an editorial gloss with the
 # highlights held back, then a soft shade at the top for the captions.
@@ -53,7 +61,6 @@ L = L + 0.10 * np.sin(2 * np.pi * (L - 0.5)) / (2 * np.pi) * 2       # mild S-cu
 L = np.where(L > 0.8, 0.8 + (L - 0.8) * 0.75, L)                       # soft shoulder
 lab[..., 0] = np.clip(L, 0, 1) * 100
 im = np.clip(cv2.cvtColor(lab, cv2.COLOR_LAB2RGB), 0, 1)
-yy = np.arange(1350, dtype=np.float32)[:, None, None]
 out = im * 255
 
 inks = [ink(t) for t, _, _ in CAPS]
@@ -69,7 +76,7 @@ for (text, align, edge), a in zip(CAPS, inks):
 
 alpha = cv2.imread(str(ROOT.parent / "founder" / "build" / "url_on_light.png"), cv2.IMREAD_UNCHANGED)[..., 3].astype(np.float32) / 255
 a = alpha[..., None]
-out[1223:1246, 375:726] = out[1223:1246, 375:726] * (1 - a) + IVORY * a
-print("url band lum", round(float(out[1205:1255, 360:720].mean() / 255), 2))
-Image.fromarray(out.clip(0, 255).round().astype(np.uint8)).save(ROOT / "output" / os.environ.get("OUT", "GA_SkinTone_cover.png"))
+UY = 1739 if STORY else 1223
+out[UY:UY + 23, 375:726] = out[UY:UY + 23, 375:726] * (1 - a) + IVORY * a
+Image.fromarray(out.clip(0, 255).round().astype(np.uint8)).save(ROOT / "output" / os.environ.get("OUT", "stories/GA_SkinTone_cover_story.png" if STORY else "GA_SkinTone_cover.png"))
 print("written output/GA_SkinTone_cover.png")
