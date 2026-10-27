@@ -5,14 +5,14 @@
      Export: NODE_PATH=$(npm root -g) node tools/export.mjs -->
 <html lang="en"><head><meta charset="utf-8"><title>Zine Covers</title>
 <style>
-  @font-face { font-family: "Didot Cover"; src: url(../founder/fonts/BodoniModa-Bold.ttf); font-weight: 700; }
+  @font-face { font-family: "Didot Cover"; src: url(../founder/fonts/GFSDidot-Regular.ttf); }   /* GFS Didot (regular only) */
   body { margin: 0; background: #d9d6d0; display: flex; gap: 40px; padding: 40px; width: max-content; }
   .cover { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
   .cover > img.photo { display: block; width: 1080px; height: 1350px; }
   .title { position: absolute; left: 0; width: 1080px; text-align: center; white-space: nowrap;
-    top: 190px;                       /* → cap top at y = 200 */
-    font-family: "Didot Cover"; font-weight: 700; font-size: 106px; line-height: 1;
-    letter-spacing: .06em; text-indent: .06em;   /* indent balances the trailing space: optical centre */
+    top: 185px;                       /* → cap top at y = 200 */
+    font-family: "Didot Cover"; font-weight: 400; font-size: 114px; line-height: 1;
+    letter-spacing: .035em; text-indent: .035em;   /* indent balances the trailing space: optical centre */
     color: #102537; }
   .url { position: absolute; left: 375px; top: 1223px; width: 351px; height: 23px; }
 </style></head>

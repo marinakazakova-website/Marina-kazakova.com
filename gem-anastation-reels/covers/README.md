@@ -7,8 +7,8 @@ panels, gradient plates, logo or rubric.
 | Element | Spec |
 |---|---|
 | Photo | full bleed, uniform scale to 1080 wide, vertical crop only (`tools/prepare.py`) |
-| Title | Didot Bold caps (stand-in: Bodoni Moda Bold), 106 px, tracking 0.06 em, one line, centred on x = 540 (optically: trailing tracking offset by text-indent) |
-| Title position | cap top y = 200, baseline ≈ y = 281 (CSS top 190 px, line-height 1) |
+| Title | GFS Didot caps, 114 px, tracking 0.035 em, one line, centred on x = 540 (optically: trailing tracking offset by text-indent) |
+| Title position | cap top y = 200, baseline ≈ y = 280 (CSS top 185 px, line-height 1) |
 | Title width | ≈ 850 px for GEMS OF ASIA; longer titles: lower the size until the line fits 888 px (96 px margins), never wrap |
 | Title colour | navy #102537 on light / mid-tone skies; on a dark sky use ivory #F3EEE5 |
 | Website line | WWW.GEMANASTATION.COM, the approved rendered line, text top y = 1228, x 382–695 (centred) |

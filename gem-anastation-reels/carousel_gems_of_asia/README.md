@@ -4,9 +4,10 @@
 Asia II · 05 South & Central Asia · 06 East Asia · 07 Founder's Note.
 Copies of the outputs of `covers/`, `gems_of_asia/` and `founders_note/`.
 
-Typography system (final pass): cover title Didot Bold caps 106 px; large
-titles on dark/photo backgrounds Didot Regular caps (58 px); large headings
+Typography system: upright Didot = GFS Didot (cover title 114 px, tracking
+0.035 em, cap top y 200; titles on dark/photo backgrounds 58 px; signature); large headings
 on ivory Didot Italic, regular weight, navy #102537 (regional 40 px,
 Founder's Note 66 px). Gem discs 22 % smaller than first approval
 (168 / 153 / 122 px for 3 / 4 / 5 gems), centred on the old disc line.
-Didot stand-in: Bodoni Moda (Regular / Italic / Bold) until licensed files arrive.
+GFS Didot has no italic, so the ivory italic headings stay in Bodoni Moda
+Italic (true italic) until licensed Didot Italic arrives.
