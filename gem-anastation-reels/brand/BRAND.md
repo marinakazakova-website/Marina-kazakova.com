@@ -86,3 +86,10 @@ or sketches; never generate objects.
 ## Where the SMM work lives
 `../` — reel and Stories tools (`tools/`), outputs (`output/`);
 `../founder/` — Founder carousel and Stories (HTML/CSS + export script).
+
+## Didot (licensed)
+Headings use Apple Didot (Regular / Italic / Bold), supplied by the client.
+The font files live in `brand/fonts_licensed/` locally and are git-ignored —
+they are licensed with the client's Mac and must not be published. To rebuild
+in a fresh session, extract them again from the client's `Didot.ttc`
+(`fontTools.ttLib.TTCollection`) into that folder.

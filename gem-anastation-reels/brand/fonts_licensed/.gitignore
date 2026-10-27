@@ -1,0 +1,4 @@
+# Licensed fonts supplied by the client (Apple Didot).
+# Used locally for rendering only — never committed or redistributed.
+*
+!.gitignore
