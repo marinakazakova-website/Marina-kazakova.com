@@ -1,19 +1,12 @@
 # Founder's Note — closing slide template (1080 × 1350)
 
-Composition taken from the client reference: navy #102537 page, three
-rounded panels (18 px radius) in one row, 15 px gaps, top y = 221, height 833:
-
-| Panel | x / width | Content |
-|---|---|---|
-| Left | 20 / 326 | original founder portrait, cropped by the frame only (no retouching) |
-| Centre | 361 / 358 | ivory text column, 38 px inner margin |
-| Right | 734 / 326 | real gemstone photo (cut-out), scaled only, on a warm ivory–sand light |
-
-Centre column: gold 90 px rule → Didot caps 47 px headline (#102537) →
-AvantGarde 22 px letter → gold 64 px rule → Didot italic 40 px CTA lead in
-deep teal #1A4043 → AvantGarde 21 px CTA line → ANASTASIA Didot 30 px 0.2 em
-#BBA375 → FOUNDER & GEM EXPERT AvantGarde caps 13 px.
-Website line: post rule (text top y = 1228, centred), #BBA375. No logo, no arrow.
+Rev. 3 (client brief): navy #102537 page, two panels of equal height side by
+side, square corners; portrait 440 px wide, ivory text panel 520 px wide,
+15 px gap, centred; top y = 221, height 833. Text panel: 52 px inner margin,
+gold rule → Didot caps 62 px headline → AvantGarde 22 px letter → gold rule →
+Didot italic 42 px CTA lead in deep teal #1A4043 → AvantGarde 21 px CTA line
+→ ANASTASIA Didot 30 px #BBA375 → role AvantGarde caps 13 px.
+Website line on the post rule (y = 1228), #BBA375. No logo, no arrow.
 
 A new note = a new entry in `NOTES` in `tools/build.mjs`:
 `NODE_PATH=$(npm root -g) node tools/build.mjs <id>`.

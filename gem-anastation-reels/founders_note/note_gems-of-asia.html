@@ -6,42 +6,36 @@
   :root { --navy: #102537; --teal: #1A4043; --gold2: #BBA375; }
   body { background: #d9d6d0; }
   .slide { width: 1080px; height: 1350px; background: var(--navy); position: relative; overflow: hidden; }
-  .panel { position: absolute; top: 221px; height: 833px; border-radius: 18px; overflow: hidden; }
-  .p1 { left: 20px; width: 326px; }
-  .p1 img { width: 100%; height: 100%; object-fit: cover; object-position: 46% 50%; display: block; }
-  .p2 { left: 361px; width: 358px; background: var(--ivory); color: var(--navy); }
-  .p3 { left: 734px; width: 326px;
-        background: radial-gradient(120% 80% at 50% 62%, #F3EEE5 0%, #E4DBCB 70%, #D6CBB8 100%); }
-  .p3 img { position: absolute; left: 50%; top: 61%; width: 76%; transform: translate(-50%, -50%);
-            filter: drop-shadow(0 22px 20px rgba(16,37,55,.28)); }   /* scaled only, never reshaped */
-
-  .p2 .in { position: absolute; left: 38px; right: 30px; top: 0; bottom: 0; }
+  .panel { position: absolute; top: 221px; height: 833px; overflow: hidden; }   /* square corners */
+  .p1 { left: 52.5px; width: 440px; }
+  .p1 img { width: 100%; height: 100%; object-fit: cover; object-position: 48% 50%; display: block; }
+  .p2 { left: 507.5px; width: 520px; background: var(--ivory); color: var(--navy); }
+  .p2 .in { position: absolute; left: 52px; right: 44px; top: 0; bottom: 0; }
   .hr { position: absolute; left: 0; height: 1px; background: var(--gold2); }
-  .h1 { position: absolute; left: 0; top: 84px; margin: 0; font-family: "Didot Title"; font-weight: 400;
-        font-size: 47px; line-height: 1.06; letter-spacing: -.005em; text-transform: uppercase; color: var(--navy); }
-  .letter { position: absolute; left: 0; top: 232px; width: 290px; margin: 0; font-family: "AvantGarde";
-        font-size: 22px; line-height: 1.42; color: var(--navy); }
-  .lead { position: absolute; left: 0; top: 476px; font-family: "Didot Italic"; font-style: italic;
-        font-size: 40px; line-height: 1.08; color: var(--teal); }
-  .line { position: absolute; left: 0; top: 576px; width: 290px; font-family: "AvantGarde";
-        font-size: 21px; line-height: 1.42; color: var(--navy); }
-  .name { position: absolute; left: 0; top: 716px; font-family: "Didot Title"; font-size: 30px;
-        letter-spacing: .2em; color: var(--gold2); }
-  .role { position: absolute; left: 0; top: 762px; font-family: "AvantGarde"; font-size: 13px;
-        letter-spacing: .26em; text-transform: uppercase; color: var(--navy); opacity: .8; }
+  .h1 { position: absolute; left: 0; top: 92px; margin: 0; font-family: "Didot Title"; font-weight: 400;
+        font-size: 62px; line-height: 1.04; text-transform: uppercase; color: var(--navy); }
+  .letter { position: absolute; left: 0; top: 260px; width: 410px; margin: 0; font-family: "AvantGarde";
+        font-size: 22px; line-height: 1.5; color: var(--navy); }
+  .lead { position: absolute; left: 0; top: 480px; font-family: "Didot Italic"; font-style: italic;
+        font-size: 42px; line-height: 1.08; color: var(--teal); }
+  .line { position: absolute; left: 0; top: 540px; width: 410px; font-family: "AvantGarde";
+        font-size: 21px; line-height: 1.45; color: var(--navy); }
+  .name { position: absolute; left: 0; top: 712px; font-family: "Didot Title"; font-size: 30px;
+        letter-spacing: .24em; color: var(--gold2); }
+  .role { position: absolute; left: 0; top: 760px; font-family: "AvantGarde"; font-size: 13px;
+        letter-spacing: .28em; text-transform: uppercase; color: var(--navy); opacity: .8; }
 </style></head>
 <body><section class="slide" id="note">
   <div class="panel p1"><img src="../gems_of_asia/sources/anastasia_portrait.webp" alt="Anastasia"></div>
   <div class="panel p2"><div class="in">
-    <div class="hr" style="top:48px; width:90px"></div>
+    <div class="hr" style="top:52px; width:90px"></div>
     <h1 class="h1">From Asia<br>to you.</h1>
     <p class="letter">Based in Bangkok, at the heart of Asia’s gemstone trade, I personally select exceptional gemstones for their natural beauty and individuality.</p>
     <div class="hr" style="top:446px; width:64px"></div>
-    <div class="lead">Discover<br>our collection.</div>
-    <div class="line">Private viewings by appointment in Bangkok.</div>
+    <div class="lead">Discover our collection.</div>
+    <div class="line">Private viewings by appointment<br>in Bangkok.</div>
     <div class="name">ANASTASIA</div>
     <div class="role">Founder &amp; Gem Expert</div>
   </div></div>
-  <div class="panel p3"><img src="../gems_of_asia/sources/gem_srilanka_blue_sapphire.png" alt="Blue Sapphire"></div>
   <img src="build/url_on_navy.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="www.gemanastation.com">
 </section></body></html>
