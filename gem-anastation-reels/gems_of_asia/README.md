@@ -59,3 +59,9 @@ Gem cut-outs: `tools/cutout_gems.py` (faceted stones on white) and
 Slide 04, SOUTHEAST ASIA / PART II — `output/GA_GemsOfAsia_04_southeast_asia_II.png`:
 archipelago photo; Myanmar, Malaysia, Indonesia, Philippines; four gems
 (196 px discs, same top line and caption styles as slide 03).
+
+Slide 05, SOUTH & CENTRAL ASIA — `output/GA_GemsOfAsia_05_south_central_asia.png`:
+mountain photo; India, Sri Lanka, Pakistan, Afghanistan, Tajikistan; five
+gems in 156 px discs (client asked for smaller stones so all five fit),
+country 14 px / 0.2 em, mineral 22 px. The heading and copy now flow as one
+block, so a two-line heading pushes the copy down (slides 03–04 unchanged).

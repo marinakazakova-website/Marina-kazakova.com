@@ -18,9 +18,10 @@
     text-transform: uppercase; color: #7CCBC6; font-weight: 600; white-space: nowrap;
     text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: 648px; width: 1080px; height: 1px; background: #102537; opacity: .5; }
-  .h2 { position: absolute; left: 96px; top: 700px; width: 900px; font-family: "Didot Title"; color: #102537;
+  .textblock { position: absolute; left: 96px; top: 700px; width: 900px; }
+  .h2 { margin: 0 0 22px; width: 900px; font-family: "Didot Title"; color: #102537;
     font-size: 40px; line-height: 1.15; letter-spacing: .05em; text-transform: uppercase; }
-  .copy { position: absolute; left: 96px; top: 768px; width: 860px; font-family: "AvantGarde";
+  .copy { margin: 0; width: 860px; font-family: "AvantGarde";
     font-size: 22px; line-height: 1.55; color: #1C1C1C; }
   .gem { position: absolute; margin: 0; width: 216px; text-align: center; }
   .disc { width: 216px; height: 216px; border-radius: 50%; overflow: hidden; margin: 0 auto;
@@ -29,7 +30,8 @@
   .disc img { width: 76%; height: 76%; object-fit: contain; display: block;
     filter: drop-shadow(0 6px 10px rgba(16,37,55,.18)); }
   figcaption { margin-top: 18px; }
-  .country { display: block; font-family: "AvantGarde"; font-size: 16px; letter-spacing: .3em; text-indent: .3em;
+  .country { display: block; font-family: "AvantGarde"; font-size: 16px;
+    letter-spacing: .3em; text-indent: .3em;
     text-transform: uppercase; color: #439090; }
   .stone { display: block; margin-top: 8px; font-family: "Didot Italic"; font-style: italic; font-size: 26px; color: #102537; }
   .arrow { position: absolute; left: 932px; top: 1228px; }
@@ -46,8 +48,7 @@
   </div>
   <div class="rule"></div>
 
-  <h2 class="h2">Three countries. Distinctive gems.</h2>
-  <p class="copy">From Thailand’s sapphires and Cambodia’s zircons to Vietnam’s remarkable spinels — each country reveals a different side of Asia’s gemstone heritage.</p>
+  <div class="textblock"><h2 class="h2">Three countries. Distinctive gems.</h2><p class="copy">From Thailand’s sapphires and Cambodia’s zircons to Vietnam’s remarkable spinels — each country reveals a different side of Asia’s gemstone heritage.</p></div>
 
   <figure class="gem" style="left:120px; top:900px">
     <div class="disc"><img src="sources/gem_thailand_blue_sapphire.png" alt="Blue Sapphire"></div>

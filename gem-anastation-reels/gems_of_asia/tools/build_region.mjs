@@ -64,6 +64,30 @@ const REGIONS = {
       { country: "Philippines", stone: "Golden<br>South Sea Pearl", file: "sources/gem_philippines_golden_south_sea_pearl.png" },
     ],
   },
+  "05": {
+    out: "GA_GemsOfAsia_05_south_central_asia.png",
+    photo: "sources/sca_mountains.jpg", photoPos: "50% 40%",
+    title: "South &amp;<br>Central Asia", part: "",
+    countries: ["India", "Sri Lanka", "Pakistan", "Afghanistan", "Tajikistan"],
+    mapBox: [[610, 48], [1010, 612]],     // right of the two-line title
+    markers: [
+      ["Tajikistan",  [71.3, 38.7], [1000], -14, "end"],
+      ["Afghanistan", [66.0, 33.5], [580, 300], 0, "end"],   // column below the title
+      ["Pakistan",    [69.3, 29.0], [580, 350], 0, "end"],
+      ["India",       [78.5, 22.0], [1000], 6, "end"],
+      ["Sri Lanka",   [80.7, 7.8],  [1000], 6, "end"],
+    ],
+    h2: "Treasures from the mountains<br>and beyond.",
+    copy: "From Sri Lanka’s celebrated sapphires and India’s historic diamonds to Pakistan’s emeralds, Afghanistan’s lapis lazuli and Tajikistan’s spinels — this region holds an extraordinary gemstone heritage.",
+    gemTop: 950,
+    gems: [
+      { country: "Sri Lanka",   stone: "Blue Sapphire", file: "sources/gem_srilanka_blue_sapphire.png" },
+      { country: "India",       stone: "Diamond",       file: "sources/gem_india_diamond.png" },
+      { country: "Pakistan",    stone: "Green Emerald", file: "sources/gem_pakistan_green_emerald.png" },
+      { country: "Afghanistan", stone: "Lapis Lazuli",  file: "sources/gem_afghanistan_lapis_lazuli.png" },
+      { country: "Tajikistan",  stone: "Pink Spinel",   file: "sources/gem_tajikistan_pink_spinel.png" },
+    ],
+  },
 };
 const ID = process.argv[2] || "03";
 const R = REGIONS[ID];
@@ -92,7 +116,8 @@ for (const [n, ll] of MARKERS) {
 const marks = MARKERS.map(([n, ll, dx, dy, anchor]) => {
   const [x, y] = projection(ll);
   const lx = Array.isArray(dx) ? dx[0] : x + dx;
-  return { n, x, y, lx, ly: y + dy, anchor, leader: Array.isArray(dx) };
+  const ly = Array.isArray(dx) && dx.length > 1 ? dx[1] : y + dy;   // [x, y] = absolute label position
+  return { n, x, y, lx, ly, anchor, leader: Array.isArray(dx) };
 });
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${PHOTO_H}" viewBox="0 0 ${W} ${PHOTO_H}">
@@ -111,7 +136,7 @@ const labels = marks.map((m) => `<div class="mlabel" style="${m.anchor === "end"
   ? `right:${(W - m.lx).toFixed(1)}px` : `left:${m.lx.toFixed(1)}px`}; top:${(m.ly - 16).toFixed(1)}px">${m.n}</div>`).join("\n  ");
 
 // Gems: circles spread across the 96 px margins (3 → 216 px, 4 → 196 px).
-const n = GEMS.length, GEM_D = n === 3 ? 216 : 196, GEM_TOP = 900;
+const n = GEMS.length, GEM_D = { 3: 216, 4: 196, 5: 156 }[n], GEM_TOP = R.gemTop || 900;
 const pitch = n === 3 ? 312 : (888 - GEM_D) / (n - 1);   // 3: approved slide 03 rhythm
 const centers = GEMS.map((_, i) => 540 + (i - (n - 1) / 2) * pitch);
 const CAP_W = n === 3 ? GEM_D : pitch - 8;
@@ -143,9 +168,10 @@ const html = `<!doctype html>
     text-transform: uppercase; color: #7CCBC6; font-weight: 600; white-space: nowrap;
     text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: ${PHOTO_H}px; width: ${W}px; height: 1px; background: ${C.navy}; opacity: .5; }
-  .h2 { position: absolute; left: 96px; top: 700px; width: 900px; font-family: "Didot Title"; color: ${C.navy};
+  .textblock { position: absolute; left: 96px; top: 700px; width: 900px; }
+  .h2 { margin: 0 0 ${68 - 46}px; width: 900px; font-family: "Didot Title"; color: ${C.navy};
     font-size: 40px; line-height: 1.15; letter-spacing: .05em; text-transform: uppercase; }
-  .copy { position: absolute; left: 96px; top: 768px; width: 860px; font-family: "AvantGarde";
+  .copy { margin: 0; width: 860px; font-family: "AvantGarde";
     font-size: 22px; line-height: 1.55; color: ${C.ink}; }
   .gem { position: absolute; margin: 0; width: ${CAP_W}px; text-align: center; }
   .disc { width: ${GEM_D}px; height: ${GEM_D}px; border-radius: 50%; overflow: hidden; margin: 0 auto;
@@ -154,9 +180,10 @@ const html = `<!doctype html>
   .disc img { width: 76%; height: 76%; object-fit: contain; display: block;
     filter: drop-shadow(0 6px 10px rgba(16,37,55,.18)); }
   figcaption { margin-top: 18px; }
-  .country { display: block; font-family: "AvantGarde"; font-size: 16px; letter-spacing: .3em; text-indent: .3em;
+  .country { display: block; font-family: "AvantGarde"; font-size: ${n === 5 ? 14 : 16}px;
+    letter-spacing: ${n === 5 ? ".2em" : ".3em"}; text-indent: ${n === 5 ? ".2em" : ".3em"};
     text-transform: uppercase; color: ${C.turq}; }
-  .stone { display: block; margin-top: 8px; font-family: "Didot Italic"; font-style: italic; font-size: ${n === 3 ? 26 : 24}px; ${n === 3 ? "" : "line-height: 1.12; "}color: ${C.navy}; }
+  .stone { display: block; margin-top: 8px; font-family: "Didot Italic"; font-style: italic; font-size: ${{ 3: 26, 4: 24, 5: 22 }[n]}px; ${n === 3 ? "" : "line-height: 1.12; "}color: ${C.navy}; }
   .arrow { position: absolute; left: 932px; top: 1228px; }
 </style></head>
 <body><section class="slide" id="s3">
@@ -164,13 +191,12 @@ const html = `<!doctype html>
     ${fs.existsSync(path.join(root, PHOTO)) ? `<img class="photo" src="${PHOTO}" alt="">` : ""}
     <div class="veil"></div>
     <img src="build/map${ID}.svg" width="${W}" height="${PHOTO_H}" style="position:absolute;left:0;top:0" alt="">
-    <div class="title">${R.title}<span class="part">${R.part}</span></div>
+    <div class="title">${R.title}${R.part ? `<span class="part">${R.part}</span>` : ""}</div>
     ${labels}
   </div>
   <div class="rule"></div>
 
-  <h2 class="h2">${R.h2}</h2>
-  <p class="copy">${R.copy}</p>
+  <div class="textblock"><h2 class="h2">${R.h2}</h2><p class="copy">${R.copy}</p></div>
 
   ${gemsHtml}
 
