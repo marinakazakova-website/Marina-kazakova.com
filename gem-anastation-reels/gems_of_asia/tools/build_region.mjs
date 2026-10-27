@@ -77,7 +77,7 @@ const REGIONS = {
       ["India",       [78.5, 22.0], [1000], 6, "end"],
       ["Sri Lanka",   [80.7, 7.8],  [1000], 6, "end"],
     ],
-    h2: "Treasures from the mountains<br>and beyond.",
+    h2: "Treasures from the mountains and beyond.",
     copy: "From Sri Lanka’s celebrated sapphires and India’s historic diamonds to Pakistan’s emeralds, Afghanistan’s lapis lazuli and Tajikistan’s spinels — this region holds an extraordinary gemstone heritage.",
     gemTop: 950,
     gems: [
@@ -154,10 +154,13 @@ const labels = marks.map((m) => `<div class="mlabel" style="${m.anchor === "end"
   ? `right:${(W - m.lx).toFixed(1)}px` : `left:${m.lx.toFixed(1)}px`}; top:${(m.ly - 16).toFixed(1)}px">${m.n}</div>`).join("\n  ");
 
 // Gems: circles spread across the 96 px margins (3 → 216 px, 4 → 196 px).
-const n = GEMS.length, GEM_D = { 3: 216, 4: 196, 5: 156 }[n], GEM_TOP = R.gemTop || 900;
-const pitch = n === 3 ? 312 : (888 - GEM_D) / (n - 1);   // 3: approved slide 03 rhythm
+// Gem discs: 22 % smaller than the first approved size (client, final pass);
+// each disc keeps the old disc's centre line, so the row gains air below.
+const n = GEMS.length, OLD_D = { 3: 216, 4: 196, 5: 156 }[n], GEM_D = Math.round(OLD_D * 0.78);
+const GEM_TOP = (R.gemTop || 900) + (OLD_D - GEM_D) / 2;
+const pitch = n === 3 ? 312 : (888 - OLD_D) / (n - 1);   // 3: approved slide 03 rhythm
 const centers = GEMS.map((_, i) => 540 + (i - (n - 1) / 2) * pitch);
-const CAP_W = n === 3 ? GEM_D : pitch - 8;
+const CAP_W = n === 3 ? OLD_D : pitch - 8;
 const gemsHtml = GEMS.map((g, i) => {
   const has = fs.existsSync(path.join(root, g.file));
   return `<figure class="gem" style="left:${centers[i] - CAP_W / 2}px; top:${GEM_TOP}px">
@@ -187,8 +190,9 @@ const html = `<!doctype html>
     text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: ${PHOTO_H}px; width: ${W}px; height: 1px; background: ${C.navy}; opacity: .5; }
   .textblock { position: absolute; left: 96px; top: 700px; width: 900px; }
-  .h2 { margin: 0 0 ${68 - 46}px; width: 900px; font-family: "Didot Title"; color: ${C.navy};
-    font-size: 40px; line-height: 1.15; letter-spacing: .05em; text-transform: uppercase; }
+  /* Ivory headings: true Didot Italic (stand-in Bodoni Moda Italic), regular weight, no faux bold */
+  .h2 { margin: 0 0 ${68 - 46}px; width: 900px; font-family: "Didot Italic"; font-style: italic; font-weight: 400;
+    color: ${C.navy}; font-size: 40px; line-height: 1.15; letter-spacing: 0; }
   .copy { margin: 0; width: 860px; font-family: "AvantGarde";
     font-size: 22px; line-height: 1.55; color: ${C.ink}; }
   .gem { position: absolute; margin: 0; width: ${CAP_W}px; text-align: center; }

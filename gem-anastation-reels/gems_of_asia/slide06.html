@@ -19,12 +19,13 @@
     text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: 648px; width: 1080px; height: 1px; background: #102537; opacity: .5; }
   .textblock { position: absolute; left: 96px; top: 700px; width: 900px; }
-  .h2 { margin: 0 0 22px; width: 900px; font-family: "Didot Title"; color: #102537;
-    font-size: 40px; line-height: 1.15; letter-spacing: .05em; text-transform: uppercase; }
+  /* Ivory headings: true Didot Italic (stand-in Bodoni Moda Italic), regular weight, no faux bold */
+  .h2 { margin: 0 0 22px; width: 900px; font-family: "Didot Italic"; font-style: italic; font-weight: 400;
+    color: #102537; font-size: 40px; line-height: 1.15; letter-spacing: 0; }
   .copy { margin: 0; width: 860px; font-family: "AvantGarde";
     font-size: 22px; line-height: 1.55; color: #1C1C1C; }
   .gem { position: absolute; margin: 0; width: 216px; text-align: center; }
-  .disc { width: 216px; height: 216px; border-radius: 50%; overflow: hidden; margin: 0 auto;
+  .disc { width: 168px; height: 168px; border-radius: 50%; overflow: hidden; margin: 0 auto;
     background: #EAE4D9; box-shadow: inset 0 0 0 1px rgba(16,37,55,.12); }
   .disc { display: flex; align-items: center; justify-content: center; }
   .disc img { width: 76%; height: 76%; object-fit: contain; display: block;
@@ -49,15 +50,15 @@
 
   <div class="textblock"><h2 class="h2">From ancient jade to ocean pearls.</h2><p class="copy">From China’s treasured jade and freshwater pearls to Japan’s renowned Akoya pearls — East Asia brings together centuries of craftsmanship and the beauty of nature.</p></div>
 
-  <figure class="gem" style="left:120px; top:900px">
+  <figure class="gem" style="left:120px; top:924px">
     <div class="disc"><img src="sources/gem_china_nephrite_jade.png" alt="Nephrite Jade"></div>
     <figcaption><span class="country">China</span><span class="stone">Nephrite Jade</span></figcaption>
   </figure>
-  <figure class="gem" style="left:432px; top:900px">
+  <figure class="gem" style="left:432px; top:924px">
     <div class="disc"><img src="sources/gem_china_freshwater_pearl.png" alt="Freshwater Pearl"></div>
     <figcaption><span class="country">China</span><span class="stone">Freshwater Pearl</span></figcaption>
   </figure>
-  <figure class="gem" style="left:744px; top:900px">
+  <figure class="gem" style="left:744px; top:924px">
     <div class="disc"><img src="sources/gem_japan_akoya_pearl.png" alt="Akoya Pearl"></div>
     <figcaption><span class="country">Japan</span><span class="stone">Akoya Pearl</span></figcaption>
   </figure>
