@@ -138,5 +138,5 @@ Applies automatically whenever a cover "with three phrases on one line" is asked
 Builders: `gems_in_every_color/tools/cover.py`, `skin_tone/tools/cover.py`.
 
 ## Social media design system
-The approved Instagram rules (v1.0, 28.10.2026) live in
+The approved Instagram rules (v1.1, 28.10.2026) live in
 `GA_SOCIAL_MEDIA_DESIGN_SYSTEM.md` — they take precedence for all Instagram work.
