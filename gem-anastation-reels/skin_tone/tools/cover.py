@@ -17,7 +17,8 @@ TRACK = 3.8
 AXIS_Y = 675                       # house rule: three-phrase line centred on y = 675 (50 %)
 IVORY = np.array([243, 238, 229.])
 CAPS = [("SKIN TONE", "left", 81), ("GEMSTONE COLOR", "center", None), ("PERSONAL HARMONY", "right", 972)]
-CROP_TOP = 0                       # px of the source above the 4:5 window (head well below the captions)
+import os
+CROP_TOP = int(os.environ.get("CROP_TOP", 240))   # line falls under the glasses, above the lips
 
 
 def ink(text, weight=1):
@@ -37,7 +38,7 @@ def ink(text, weight=1):
     return a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
-im = cv2.cvtColor(cv2.imread(str(ROOT / "sources" / "portrait_tropical.jpg")), cv2.COLOR_BGR2RGB)
+im = cv2.cvtColor(cv2.imread(str(ROOT / "sources" / os.environ.get("PHOTO", "portrait_tropical_profile.jpg"))), cv2.COLOR_BGR2RGB)
 s = 1080 / im.shape[1]
 src_h = round(1350 / s)
 im = im[CROP_TOP:CROP_TOP + src_h]
@@ -70,5 +71,5 @@ alpha = cv2.imread(str(ROOT.parent / "founder" / "build" / "url_on_light.png"), 
 a = alpha[..., None]
 out[1223:1246, 375:726] = out[1223:1246, 375:726] * (1 - a) + IVORY * a
 print("url band lum", round(float(out[1205:1255, 360:720].mean() / 255), 2))
-Image.fromarray(out.clip(0, 255).round().astype(np.uint8)).save(ROOT / "output" / "GA_SkinTone_cover.png")
+Image.fromarray(out.clip(0, 255).round().astype(np.uint8)).save(ROOT / "output" / os.environ.get("OUT", "GA_SkinTone_cover.png"))
 print("written output/GA_SkinTone_cover.png")
