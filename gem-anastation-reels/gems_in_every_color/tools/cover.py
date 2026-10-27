@@ -1,5 +1,6 @@
 """GEMS IN EVERY COLOR — cover (1080×1350), second cover type: full-bleed
-photo, two small AvantGarde captions on the central horizontal (as the
+photo, three small AvantGarde captions on the central horizontal (left / centre /
+right, read as one line) (as the
 approved emerald-on-fabric layout: cap top y 654, left caption from x 81,
 right caption ending at x 972, 20.5 px, tracking 3.8 px), website line by the
 cover rule (text top 1228, tinted to its own band of the photo).
@@ -18,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FONT = ImageFont.truetype(str(ROOT.parent / "founder" / "fonts" / "URWGothic-Book.otf"), 20.5)
 TRACK, CAP_TOP = 3.8, 654
 IVORY, NAVY = np.array([243, 238, 229.]), np.array([16, 37, 55.])
-CAPS = [("ONE COLOR", "left", 81), ("MANY GEMS", "right", 972)]
+CAPS = [("ONE COLOR", "left", 81), ("MANY GEMS", "center", 540), ("CREATED BY NATURE", "right", 972)]
 CHROMA = 1.2          # chroma gain after darkening
 CROP_Y = 0.42          # where the 4:5 window sits in the taller photo (0 top, 1 bottom)
 
@@ -53,7 +54,7 @@ im = im[y0:y0 + 1350] / 255
 im = np.clip(im, 0, 1)
 lab = cv2.cvtColor(im, cv2.COLOR_RGB2LAB)
 L = lab[..., 0] / 100
-lab[..., 0] = 100 * 0.52 * L ** 1.6
+lab[..., 0] = 100 * 0.62 * L ** 1.45
 lab[..., 1:] *= CHROMA
 im = np.clip(cv2.cvtColor(lab, cv2.COLOR_LAB2RGB), 0, 1)
 yy, xx = np.mgrid[0:1350, 0:1080].astype(np.float32)
@@ -63,10 +64,15 @@ im *= (1 - 0.35 * np.clip(r, 0, 1) ** 2)[..., None]
 im *= (1 - 0.28 * np.exp(-((yy - 665) / 150) ** 2))[..., None]
 out = np.clip(im * 255, 0, 255)
 
-for text, align, edge in CAPS:
-    a = ink(text)
+# Outer captions on the edges; the middle one sits with equal gaps on both
+# sides, so the three read as one line (a geometric centre would crowd the
+# long right caption).
+inks = [ink(t) for t, _, _ in CAPS]
+ws = [a.shape[1] for a in inks]
+gap = ((CAPS[2][2] - CAPS[0][2] + 1) - sum(ws)) / 2
+for (text, align, edge), a in zip(CAPS, inks):
     h, w = a.shape
-    x0 = edge if align == "left" else edge - w + 1
+    x0 = {"left": edge, "right": edge - w + 1, "center": round(CAPS[0][2] + ws[0] + gap)}[align]
     reg = out[CAP_TOP:CAP_TOP + h, x0:x0 + w]
     out[CAP_TOP:CAP_TOP + h, x0:x0 + w] = reg * (1 - a[..., None]) + IVORY * a[..., None]
     print(f"{text}: x {x0}-{x0 + w - 1}, band lum {reg.mean() / 255:.2f}")
