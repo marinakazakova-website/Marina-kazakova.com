@@ -17,14 +17,17 @@
 | Coastlines | white, 1.1 px, 90 % |
 | Borders | white, 0.8 px, 42 % |
 | Graticule | white, 6 % (barely visible atlas grid) |
-| Markers + labels | #439090; labels AvantGarde caps 18 px, 0.13 em, with a background-coloured halo |
-| Rubric | CREATED BY NATURE — post rule: centred, y = 112, AvantGarde 17 px, 0.42 em, gold #BBA375 |
+| Map area | y 296–893, full width (client-marked); nothing of the map leaves it |
+| Markers | #439090 |
+| Country names | #BBA375, AvantGarde caps 20 px, 0.12 em, with a background-coloured halo |
+| Rubric | CREATED BY NATURE — post rule: centred, y = 112, AvantGarde 17 px, 0.42 em, #B4996C |
 | Title | THE GEMSTONE MAP — Didot caps 58 px, off-white |
 | Copy | AvantGarde 23 px / 1.6, x = 96 |
-| Logo | original GA monogram + GEM ANASTATION wordmark layers; wordmark text top y = 1228 (bottom service-line rule), centred |
+| Website line | WWW.GEMANASTATION.COM — post rule: text top y = 1228, x 382–695, #B4996C (no logo on this slide) |
 
-Labels in crowded South-East Asia sit in a column at sea (Bay of Bengal /
-Andaman Sea) with thin leaders; positions are in `COUNTRIES` in the script.
+Mainland South-East Asia (Myanmar, Thailand, Vietnam, Cambodia, Malaysia)
+is labelled in one right-aligned column in the Indian Ocean with thin,
+non-crossing leaders; positions are in `COUNTRIES` in the script.
 
 ## Build
 ```

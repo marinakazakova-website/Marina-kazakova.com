@@ -20,13 +20,20 @@ const topo = JSON.parse(fs.readFileSync(path.join(root, "node_modules/world-atla
 
 // ---- Layout (px, 1080×1350) -------------------------------------------
 const W = 1080, H = 1350;
-const MAP = { top: 250, bottom: 1000 };          // visible map band (soft-faded edges)
-const COLORS = { bg: "#102537", line: "#FFFFFF", turq: "#439090", gold: "#BBA375", text: "#E9E6DF" };
+// The client-marked map area (blue box on the review, 1422 px wide screenshot
+// → 1080 px slide): y 296-893, full width. Nothing of the map leaves it.
+const MAP = { top: 296, bottom: 893 };
+const COLORS = {
+  bg: "#102537", line: "#FFFFFF", text: "#E9E6DF",
+  turq: "#439090",      // markers
+  label: "#BBA375",     // country names (client: gold for labels)
+  service: "#B4996C",   // service lines on dark — house rule
+};
 
 // Projection: centred on Asia, fitted so Afghanistan → Japan and
 // China's north → Indonesia's south sit inside the band with air around.
 const projection = geoAzimuthalEqualArea().rotate([-103, -22]);
-projection.fitExtent([[205, MAP.top + 50], [965, MAP.bottom - 40]], {
+projection.fitExtent([[250, MAP.top + 22], [880, MAP.bottom - 22]], {
   type: "MultiPoint",
   coordinates: [[60.5, 33], [146, 43.5], [123, 53.5], [118, -10.5], [141, -9]],
 });
@@ -42,16 +49,16 @@ const COUNTRIES = [
   ["Tajikistan",  "Tajikistan",   [71.3, 38.7],   -16, -18, "end"],
   ["Afghanistan", "Afghanistan",  [66.0, 33.5],   -16,   6, "end"],
   ["Pakistan",    "Pakistan",     [69.3, 29.0],   -22,  56, "end"],     // Arabian Sea
-  ["India",       "India",        [78.5, 22.0],    14,   6, "start"],
-  ["Sri Lanka",   "Sri Lanka",    [80.7, 7.8],    -36,  48, "end"],
-  // Mainland South-East Asia: a left-aligned column at sea (Bay of Bengal /
-  // Andaman Sea), right edge x = 462; Vietnam alone in the South China Sea.
-  ["Myanmar",     "Myanmar",      [96.0, 21.5],   [462, 700], 0, "end"],
-  ["Thailand",    "Thailand",     [101.0, 15.6],  [462, 746], 0, "end"],
-  ["Cambodia",    "Cambodia",     [104.9, 12.7],  [462, 788], 0, "end"],
-  ["Malaysia",    "Malaysia",     [102.0, 4.2],   [462, 830], 0, "end"],
-  ["Vietnam",     "Vietnam",      [107.2, 16.6],   21,   8, "start"],
-  ["Indonesia",   "Indonesia",    [113.5, -1.5],    0, 112, "middle"],  // Indian Ocean, below Java
+  ["India",       "India",        [78.5, 22.0],    14,   7, "start"],
+  ["Sri Lanka",   "Sri Lanka",    [80.7, 7.8],    -19,   4, "end"],
+  // Mainland South-East Asia: one right-aligned column in the Indian Ocean
+  // (right edge x = 461, 30 px rows); leaders run down-left without crossing.
+  ["Myanmar",     "Myanmar",      [96.0, 21.5],   [461, 768], 0, "end"],
+  ["Thailand",    "Thailand",     [101.0, 15.6],  [461, 798], 0, "end"],
+  ["Vietnam",     "Vietnam",      [107.2, 16.6],  [461, 828], 0, "end"],
+  ["Cambodia",    "Cambodia",     [104.9, 12.7],  [461, 858], 0, "end"],
+  ["Malaysia",    "Malaysia",     [102.0, 4.2],   [461, 888], 0, "end"],
+  ["Indonesia",   "Indonesia",    [113.5, -1.5],    0,  88, "middle"],  // below Java
   ["Philippines", "Philippines",  [121.0, 15.5],   26, -30, "start"],   // Pacific, north of Luzon
 ];
 
@@ -68,7 +75,7 @@ const coast = mesh(topo, topo.objects.countries, (a, b) => a === b);
 const fmt = (d) => d.replace(/(\d+\.\d)\d+/g, "$1");
 
 // ---- Labels & overlap check -------------------------------------------------
-const LABEL = { size: 18, track: 0.13 };   // AvantGarde caps
+const LABEL = { size: 20, track: 0.12 };   // AvantGarde caps
 const charW = LABEL.size * (0.68 + LABEL.track);   // conservative caps width estimate
 const items = COUNTRIES.map(([label, , ll, dx, dy, anchor]) => {
   const [x, y] = projection(ll);
@@ -140,12 +147,12 @@ const html = `<!doctype html>
   .slide { width: ${W}px; height: ${H}px; background: ${COLORS.bg}; position: relative; overflow: hidden; }
   .rubric { position: absolute; left: 0; width: ${W}px; top: 112px; text-align: center;
     font-family: "AvantGarde"; font-size: 17px; letter-spacing: .42em; text-indent: .42em;
-    text-transform: uppercase; line-height: 1; color: ${COLORS.gold}; }
+    text-transform: uppercase; line-height: 1; color: ${COLORS.service}; }
   .title { position: absolute; left: 0; width: ${W}px; top: 156px; text-align: center;
     font-family: "Didot Title"; font-size: 58px; letter-spacing: .08em; text-indent: .08em;
     text-transform: uppercase; color: ${COLORS.text}; line-height: 1; }
   .label { position: absolute; font-family: "AvantGarde"; font-size: ${LABEL.size}px; line-height: 1;
-    letter-spacing: ${LABEL.track}em; text-transform: uppercase; color: ${COLORS.turq}; white-space: nowrap;
+    letter-spacing: ${LABEL.track}em; text-transform: uppercase; color: ${COLORS.label}; white-space: nowrap;
     /* cartographic halo: map lines stop short of the letters */
     text-shadow: 0 0 2px ${COLORS.bg}, 0 0 3px ${COLORS.bg}, 0 0 4px ${COLORS.bg}, 0 0 6px ${COLORS.bg}; }
   .copy { position: absolute; left: 96px; top: 1010px; width: 760px;
@@ -159,11 +166,9 @@ const html = `<!doctype html>
   <p class="copy">Asia is home to an extraordinary world of gemstones — from Myanmar’s rubies
     and Sri Lanka’s sapphires to Vietnam’s spinels and Japan’s pearls. Every region
     has its own natural story.</p>
-  <!-- Logo: original GA monogram + GEM ANASTATION wordmark layers, never redrawn.
-       Wordmark text top at y = 1228 (the post rule for the bottom service line),
-       centred on x = 540; monogram scaled uniformly (0.32) 16 px above it. -->
-  <img src="build/logo_ga.png" style="position:absolute; left:${(540 - 129 * 0.32).toFixed(1)}px; top:${(1212 - 159 * 0.32).toFixed(1)}px; width:${(260 * 0.32).toFixed(1)}px" alt="GA">
-  <img src="build/wordmark.png" style="position:absolute; left:370px; top:1221px" width="342" height="28" alt="Gem AnaStation">
+  <!-- Website line: house rule for posts — text top y = 1228, x 382-695 (540 axis),
+       the exact rendered line of the Gem AnaStation layouts. -->
+  <img src="build/url_on_dark.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="www.gemanastation.com">
 </section></body></html>`;
 fs.writeFileSync(path.join(root, "slide02.html"), html);
 
