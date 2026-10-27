@@ -114,9 +114,10 @@ Per card only: gradient photo, stone name, author's text, key phrase, photo.
 
 ## Template — GA / NATURE · GEMSTONE · IDENTITY / EDITORIAL GRID
 Builder: `editorial_grid/tools/crop.py` + `tools/grid.mjs` (one entry per set).
-1080×1350: four 540×540 squares, 2×2, no gaps (human top-left, nature
-top-right, colour plaque bottom-left, gemstone bottom-right); the 270 px
-below continue the plaque colour full width. Plaque words Didot caps 40 px,
-tracking 0.10 em, line pitch 51 px, gold, centred in the plaque square.
-Website line ivory, centred, text top 1228. Per set: three photos (square
+1080×1350: four equal 540×675 tiles, 2×2, no gaps, filling the whole canvas
+(human top-left, nature top-right, colour plaque bottom-left, gemstone
+bottom-right). No extra strips. Plaque words Didot caps 40 px, tracking
+0.10 em, line pitch 51 px, gold, centred in the plaque tile.
+Website line ivory, centred on the canvas over the bottom tiles, text top
+1228. Per set: three photos (4:5
 crops chosen to keep the client's framing), plaque colour, text colour, words.
