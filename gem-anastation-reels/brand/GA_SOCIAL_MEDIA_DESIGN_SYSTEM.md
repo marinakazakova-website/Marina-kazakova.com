@@ -172,7 +172,7 @@ Brand gradient: the teal-to-midnight gradient (`skin_tone/sources/brand_gradient
 
 ### T5. Approved templates
 
-##### T5.1 Cover type 1 — Didot title
+#### T5.1 Cover type 1 — Didot title
 Full-bleed photo. Main message Apple Didot Bold **106 px**, tracking 0.025 em,
 centred, one line — the same size on every cover. If it does not fit, shorten
 the wording, never shrink the type. Position follows the photo (top on a
