@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- GEMS OF ASIA — slide 07 / final: FROM ASIA TO YOU (1080×1350).
+     Founder Story composition: portrait band on top (untouched photo, no type
+     on it), ivory field below; the regional slides' type sizes and margins.
+     Export: NODE_PATH=$(npm root -g) node tools/export07.mjs -->
+<html lang="en"><head><meta charset="utf-8"><title>From Asia to You</title>
+<link rel="stylesheet" href="../founder/founder.css">
+<style>
+  body { background: #d9d6d0; }
+  .slide { width: 1080px; height: 1350px; background: var(--ivory); position: relative; overflow: hidden; }
+  .photo { height: 700px; }                       /* 52 % of the height */
+  .photo img { object-position: 50% 1%; }       /* full head with air above */
+  .rule { top: 700px; background: #102537; opacity: .5; }
+  .h1 { position: absolute; left: 96px; top: 762px; font-family: "Didot Title"; color: #102537;
+    font-size: 52px; line-height: 1.1; letter-spacing: .05em; text-transform: uppercase; }
+  .copy { position: absolute; left: 96px; top: 846px; width: 860px; font-family: "AvantGarde";
+    font-size: 22px; line-height: 1.55; color: #1C1C1C; }
+  .invite { position: absolute; left: 96px; top: 974px; width: 888px; font-family: "Didot Italic";
+    font-style: italic; font-size: 28px; line-height: 1.3; color: var(--green); }
+  .sig { position: absolute; left: 96px; top: 1072px; }
+  .sig .name { font-family: "Didot Title"; font-size: 24px; letter-spacing: .32em; color: var(--gold-on-light); }
+  .sig .role { margin-top: 10px; font-family: "Mono"; font-size: 15px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--slate); }
+</style></head>
+<body><section class="slide" id="s7">
+  <div class="photo"><img src="sources/anastasia_portrait.webp" alt="Anastasia, founder of Gem AnaStation"></div>
+  <div class="rule"></div>
+
+  <h1 class="h1">From Asia to you.</h1>
+  <p class="copy">Based in Bangkok, at the heart of Asia’s gemstone trade, I personally select
+    exceptional gemstones for their natural beauty and individuality.</p>
+  <p class="invite">Discover our collection. Private viewings by appointment in Bangkok.</p>
+
+  <div class="sig"><div class="name">ANASTASIA</div><div class="role">Founder &amp; Gem Expert</div></div>
+
+  <img src="build/url_on_light.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="www.gemanastation.com">
+</section></body></html>

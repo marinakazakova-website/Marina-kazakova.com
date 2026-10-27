@@ -69,3 +69,9 @@ block, so a two-line heading pushes the copy down (slides 03–04 unchanged).
 Slide 06, EAST ASIA — `output/GA_GemsOfAsia_06_east_asia.png`: karst river
 photo; China and Japan (Natural Earth: Taiwan is a separate feature and is
 not outlined); nephrite jade, freshwater pearl, Akoya pearl in 216 px discs.
+
+Slide 07 / final, FROM ASIA TO YOU — `output/GA_GemsOfAsia_07_from_asia_to_you.png`:
+`slide07.html` + `NODE_PATH=$(npm root -g) node tools/export07.mjs`. Founder
+Story composition: untouched portrait band 700 px (52 %), ivory field,
+Didot caps heading 52 px, copy, italic invitation, signature (Didot caps
+gold + mono role), website line on the post rule; no arrow (last slide).
