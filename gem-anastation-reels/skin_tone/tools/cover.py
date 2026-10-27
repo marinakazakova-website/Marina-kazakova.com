@@ -16,7 +16,7 @@ FONT = ImageFont.truetype(str(ROOT.parent / "founder" / "fonts" / "URWGothic-Boo
 TRACK = 3.8
 AXIS_Y = 675                       # house rule: three-phrase line centred on y = 675 (50 %)
 IVORY = np.array([243, 238, 229.])
-CAPS = [("SKIN TONE", "left", 81), ("GEMSTONE COLOR", "center", None), ("PERSONAL HARMONY", "right", 972)]
+CAPS = [("YOUR NATURAL TONE", "left", 81), ("YOUR GEMSTONE", "right", 972)]
 import os
 CROP_TOP = int(os.environ.get("CROP_TOP", 240))   # line falls under the glasses, above the lips
 
@@ -58,7 +58,7 @@ out = im * 255
 
 inks = [ink(t) for t, _, _ in CAPS]
 ws = [a.shape[1] for a in inks]
-gap = ((CAPS[2][2] - CAPS[0][2] + 1) - sum(ws)) / 2
+gap = ((CAPS[-1][2] - CAPS[0][2] + 1) - sum(ws)) / max(len(CAPS) - 1, 1)
 for (text, align, edge), a in zip(CAPS, inks):
     h, w = a.shape
     CAP_TOP = AXIS_Y - h // 2

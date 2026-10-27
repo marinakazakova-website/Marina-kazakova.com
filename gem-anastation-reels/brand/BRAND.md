@@ -130,6 +130,8 @@ Applies automatically whenever a cover "with three phrases on one line" is asked
   one baseline, the line centred on the horizontal axis y = 675 (50 % height).
 - Outer phrases on x = 81 (left edge) and x = 972 (right edge); the middle
   phrase placed with equal gaps to both neighbours.
+- Two-phrase variant (e.g. YOUR NATURAL TONE / YOUR GEMSTONE): same axis and
+  type, left phrase from x = 81, right phrase ending at x = 972, centre open.
 - The text position never moves to suit the photo: the photo is chosen or
   framed for the line, not the other way round.
 - Website line by the house rule (text top 1228, centred).
