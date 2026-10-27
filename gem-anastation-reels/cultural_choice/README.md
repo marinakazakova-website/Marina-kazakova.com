@@ -10,3 +10,5 @@
   emerald #5CC197, spessartine #E0955A, sapphire #7F9BE0); copy AvantGarde 21 px / 1.55.
 - Placement: 01 upper-left, 02 upper-right (higher), 03 upper-left (lower),
   04 lower-right, 05 upper-left wide.
+
+Cover (00): `python3 tools/cover.py` — banana-flower photo full bleed (scale 1.556 to width, crop top 120), original GA monogram (×0.40) + GEM ANASTATION wordmark, wordmark text top y 1228, centred. No other text.
