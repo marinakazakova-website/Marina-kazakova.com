@@ -10,22 +10,25 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = ROOT.parent / "founder" / "build" / "url_on_light.png"
-COVERS = {            # name: (photo, crop offset in px after scaling to 1080 wide)
-    "river": ("sources/photo_river.jpg", 227),
-    "mountain": ("sources/photo_mountain.jpg", 40),
+COVERS = {            # name: (photo, crop offset in px after scaling, frame height)
+    "river": ("sources/photo_river.jpg", 227, 1350),
+    "mountain": ("sources/photo_mountain.jpg", 40, 1350),
+    "river_story": ("sources/photo_river.jpg", 0, 1920),     # Stories 1080×1920
 }
 IVORY, NAVY = np.array([243, 238, 229.]), np.array([16, 37, 55.])
 (ROOT / "build").mkdir(exist_ok=True)
 alpha = cv2.imread(str(URL), cv2.IMREAD_UNCHANGED)[..., 3]
-for name, (src, off) in COVERS.items():
+for name, (src, off, FH) in COVERS.items():
     im = cv2.cvtColor(cv2.imread(str(ROOT / src)), cv2.COLOR_BGR2RGB).astype(np.float32)
-    s = 1080 / im.shape[1]
-    im = cv2.resize(im, (1080, round(im.shape[0] * s)), interpolation=cv2.INTER_LANCZOS4)
-    im = im[off:off + 1350]
-    assert im.shape[0] == 1350, name
+    s = max(1080 / im.shape[1], FH / im.shape[0])
+    im = cv2.resize(im, (round(im.shape[1] * s), round(im.shape[0] * s)), interpolation=cv2.INTER_LANCZOS4)
+    x0 = (im.shape[1] - 1080) // 2
+    im = im[off:off + FH, x0:x0 + 1080]
+    assert im.shape[:2] == (FH, 1080), name
     cv2.imwrite(str(ROOT / "build" / f"{name}.jpg"), cv2.cvtColor(im.clip(0, 255).astype(np.uint8), cv2.COLOR_RGB2BGR),
                 [cv2.IMWRITE_JPEG_QUALITY, 96])
-    band = im[1205:1255, 360:720].reshape(-1, 3).mean(0)
+    uy = 1228 if FH == 1350 else 1744                     # website line text top (post / Stories rule)
+    band = im[uy - 23:uy + 27, 360:720].reshape(-1, 3).mean(0)
     lum = band @ [0.2126, 0.7152, 0.0722] / 255
     col = band + ((IVORY if lum < 0.5 else NAVY) - band) * 0.45
     rgba = np.zeros(alpha.shape + (4,), np.uint8)

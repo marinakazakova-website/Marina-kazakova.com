@@ -20,9 +20,14 @@ STONES = {
     "05_sapphire":    ((497, 256), (760, 733)),
 }
 PAD = 900
+import os
+STORY = os.environ.get("STORY") == "1"     # 1080×1920: stone height share kept, y positions × 1920/1350
+FH = 1920 if STORY else 1350
 for name, ((sx, sy), (tx, ty)) in STONES.items():
+    if STORY:
+        ty = round(ty * FH / 1350)
     im = cv2.imread(str(ROOT / "sources" / f"{name}.jpg")).astype(np.float32)
-    s = 1350 / im.shape[0] * SHRINK
+    s = FH / im.shape[0] * SHRINK
     im = cv2.resize(im, (round(im.shape[1] * s), round(im.shape[0] * s)),
                     interpolation=cv2.INTER_LANCZOS4 if s > 1 else cv2.INTER_AREA)
     h, w = im.shape[:2]
@@ -38,7 +43,7 @@ for name, ((sx, sy), (tx, ty)) in STONES.items():
     t = (t * t * (3 - 2 * t))[..., None]
     comp = big * (1 - t) + soft * t
     x0, y0 = PAD - dx, PAD - dy
-    out = comp[y0:y0 + 1350, x0:x0 + 1080]
-    assert out.shape[:2] == (1350, 1080), name
-    cv2.imwrite(str(ROOT / "build" / f"{name}.jpg"), out.clip(0, 255).astype(np.uint8), [cv2.IMWRITE_JPEG_QUALITY, 96])
+    out = comp[y0:y0 + FH, x0:x0 + 1080]
+    assert out.shape[:2] == (FH, 1080), name
+    cv2.imwrite(str(ROOT / "build" / f"{name}{'_story' if STORY else ''}.jpg"), out.clip(0, 255).astype(np.uint8), [cv2.IMWRITE_JPEG_QUALITY, 96])
     print(f"{name}: scale {s:.3f}, photo at ({dx},{dy}) size {w}x{h}")

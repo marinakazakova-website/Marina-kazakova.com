@@ -28,10 +28,14 @@ const SLIDES = [
     p: "Every gemstone choice is personal. Culture inspires it. Individuality defines it." },
 ];
 
+// STORY=1 → 1080×1920: rubric 140, website line 1739 (text top 1744), groups at
+// y × 1920/1350 (all main type stays within 250–1670).
+const STORY = process.env.STORY === "1";
 const sections = SLIDES.map((s) => {
-  const [x, y, al] = s.pos;
+  const [x, y0, al] = s.pos;
+  const y = STORY ? Math.round(y0 * 1920 / 1350) : y0;
   const side = al === "left" ? `left:${x}px` : `right:${1080 - x}px`;
-  return `<section class="slide" id="s${s.id}" style="background-image:url(build/${s.id}.jpg)">
+  return `<section class="slide" id="s${s.id}" style="background-image:url(build/${s.id}${STORY ? "_story" : ""}.jpg)">
   <div class="rubric">Created by Nature</div>
   <div class="group" style="${side}; top:${y}px; width:${s.w || 440}px; text-align:${al}">
     <div class="idx">${s.idx}</div>
@@ -48,10 +52,10 @@ const html = `<!doctype html>
 <link rel="stylesheet" href="../founder/founder.css">
 <style>
   body { background: #222; display: flex; flex-wrap: wrap; gap: 30px; padding: 30px; width: 5800px; }
-  .slide { position: relative; width: 1080px; height: 1350px; overflow: hidden; background-size: 1080px 1350px; }
-  .rubric { position: absolute; left: 0; width: 1080px; top: 112px; text-align: center; font-family: "AvantGarde";
+  .slide { position: relative; width: 1080px; height: ${STORY ? 1920 : 1350}px; overflow: hidden; background-size: 1080px ${STORY ? 1920 : 1350}px; }
+  .rubric { position: absolute; left: 0; width: 1080px; top: ${STORY ? 140 : 112}px; text-align: center; font-family: "AvantGarde";
     font-size: 17px; letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; line-height: 1; color: #B4996C; }
-  .url { position: absolute; left: 375px; top: 1223px; width: 351px; height: 23px; }
+  .url { position: absolute; left: 375px; top: ${STORY ? 1739 : 1223}px; width: 351px; height: 23px; }
   .group { position: absolute; width: 440px; }
   .idx { font-family: "AvantGarde"; font-size: 14px; letter-spacing: .32em; text-transform: uppercase;
     color: rgba(236,232,224,.66); }
@@ -64,16 +68,17 @@ const html = `<!doctype html>
 </style></head><body>
 ${sections}
 </body></html>`;
-fs.writeFileSync(path.join(root, "slides.html"), html);
+const HTML = STORY ? "slides_story.html" : "slides.html";
+fs.writeFileSync(path.join(root, HTML), html);
 
 const { chromium } = createRequire(import.meta.url)("playwright");
 const b = await chromium.launch({ args: ["--force-color-profile=srgb"] });
-const pg = await b.newPage({ viewport: { width: 5800, height: 2900 } });
-await pg.goto("file://" + path.join(root, "slides.html"));
+const pg = await b.newPage({ viewport: { width: 5800, height: 4200 } });
+await pg.goto("file://" + path.join(root, HTML));
 await pg.evaluate(() => document.fonts.ready);
 await pg.waitForLoadState("networkidle");
 for (const s of SLIDES) {
-  await pg.locator(`#s${s.id}`).screenshot({ path: path.join(root, `output/GA_CulturalChoice_${s.id}.png`) });
+  await pg.locator(`#s${s.id}`).screenshot({ path: path.join(root, STORY ? `output/stories/GA_CulturalChoice_${s.id}_story.png` : `output/GA_CulturalChoice_${s.id}.png`) });
 }
 await b.close();
 console.log("written 5 slides");

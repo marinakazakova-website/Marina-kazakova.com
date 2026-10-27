@@ -13,3 +13,5 @@
   04 lower-right, 05 upper-right wide.
 
 Cover (00): `python3 tools/cover.py` — banana-flower photo full bleed (scale 1.556 to width, crop top 120), website line on the cover rule (text top y 1228, centred, tinted to the photo). No other text.
+
+Stories: `STORY=1 python3 tools/crop.py && STORY=1 node tools/build.mjs && STORY=1 python3 tools/cover.py` → output/stories/.

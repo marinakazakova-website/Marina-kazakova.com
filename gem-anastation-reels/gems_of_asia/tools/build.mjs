@@ -19,7 +19,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const topo = JSON.parse(fs.readFileSync(path.join(root, "node_modules/world-atlas/countries-50m.json")));
 
 // ---- Layout (px, 1080×1350) -------------------------------------------
-const W = 1080, H = 1350;
+// STORY=1 → 1080×1920 Stories version (house rule: rubric text top 139,
+// website line text top 1744, main type within y 250–1670). The map keeps
+// its post geometry and the whole map layer moves down by STORY_DY.
+const STORY = process.env.STORY === "1";
+const W = 1080, H = STORY ? 1920 : 1350, STORY_DY = 250;
 // The client-marked map area (blue box on the review, 1422 px wide screenshot
 // → 1080 px slide): y 296-893, full width. Nothing of the map leaves it.
 const MAP = { top: 296, bottom: 893 };
@@ -107,7 +111,7 @@ const leaders = items.map((it) => {
   return `<path d="M${it.x.toFixed(1)},${it.y.toFixed(1)} L${tx.toFixed(1)},${ty.toFixed(1)}" />`;
 }).join("");
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="1350" viewBox="0 0 ${W} 1350">
   <defs>
     <linearGradient id="fade" gradientUnits="userSpaceOnUse"
       x1="0" y1="${MAP.top}" x2="0" y2="${MAP.bottom}">
@@ -153,6 +157,7 @@ const html = `<!doctype html>
   .rubric { position: absolute; left: 0; width: ${W}px; top: 112px; text-align: center;
     font-family: "AvantGarde"; font-size: 17px; letter-spacing: .42em; text-indent: .42em;
     text-transform: uppercase; line-height: 1; color: ${COLORS.service}; }
+
   .title { position: absolute; left: 0; width: ${W}px; top: 156px; text-align: center;
     font-family: "GFS Didot"; font-size: 58px; letter-spacing: .08em; text-indent: .08em;
     text-transform: uppercase; color: ${COLORS.text}; line-height: 1; }
@@ -162,30 +167,34 @@ const html = `<!doctype html>
     text-shadow: 0 0 2px ${COLORS.bg}, 0 0 3px ${COLORS.bg}, 0 0 4px ${COLORS.bg}, 0 0 6px ${COLORS.bg}; }
   .copy { position: absolute; left: 96px; top: 1010px; width: 760px;
     font-family: "AvantGarde"; font-size: 23px; line-height: 1.6; color: rgba(233,230,223,.88); }
+  /* Stories overrides (after the base rules so they win) */
+  ${STORY ? ".rubric { top: 140px; } .title { top: 262px; } .copy { top: 1350px; } .url { top: 1739px !important; }" : ""}
 </style></head>
 <body><section class="slide" id="s2">
-  <img src="build/map.svg" width="${W}" height="${H}" style="position:absolute;left:0;top:0" alt="">
+  <div style="position:absolute; left:0; top:${STORY ? STORY_DY : 0}px; width:${W}px; height:1350px">
+  <img src="build/map.svg" width="${W}" height="1350" style="position:absolute;left:0;top:0" alt="">
+  ${labelsHtml}
+  </div>
   <div class="rubric">Created by Nature</div>
   <div class="title">The Gemstone Map</div>
-  ${labelsHtml}
   <p class="copy">Asia is home to an extraordinary world of gemstones — from Myanmar’s rubies
     and Sri Lanka’s sapphires to Vietnam’s spinels and Japan’s pearls. Every region
     has its own natural story.</p>
   <!-- Website line: house rule for posts — text top y = 1228, x 382-695 (540 axis),
        the exact rendered line of the Gem AnaStation layouts. -->
-  <img src="build/url_on_dark.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="www.gemanastation.com">
+  <img class="url" src="build/url_on_dark.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="www.gemanastation.com">
 </section></body></html>`;
-fs.writeFileSync(path.join(root, "slide02.html"), html);
+fs.writeFileSync(path.join(root, STORY ? "slide02_story.html" : "slide02.html"), html);
 
 // ---- Export -------------------------------------------------------------------
 const { chromium } = require("playwright");
 const browser = await chromium.launch({ args: ["--force-color-profile=srgb"] });
 const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
-await page.goto("file://" + path.join(root, "slide02.html"));
+await page.goto("file://" + path.join(root, STORY ? "slide02_story.html" : "slide02.html"));
 await page.evaluate(() => document.fonts.ready);
 await page.waitForLoadState("networkidle");
-fs.mkdirSync(path.join(root, "output"), { recursive: true });
-await page.locator("#s2").screenshot({ path: path.join(root, "output/GA_GemsOfAsia_02_map.png") });
+fs.mkdirSync(path.join(root, "output/stories"), { recursive: true });
+await page.locator("#s2").screenshot({ path: path.join(root, STORY ? "output/stories/GA_GemsOfAsia_02_map_story.png" : "output/GA_GemsOfAsia_02_map.png") });
 // measured label boxes, for a precise overlap check with real font metrics
 const boxes = await page.$$eval(".label", (els) => els.map((e) => {
   const r = e.getBoundingClientRect(); return [e.textContent, r.left, r.top, r.right, r.bottom];

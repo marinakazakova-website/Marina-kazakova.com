@@ -115,13 +115,18 @@ const missing = [PHOTO, ...GEMS.map((g) => g.file)].filter((f) => !fs.existsSync
 if (missing.length) console.warn("MISSING INPUTS (left empty in the draft):\n  " + missing.join("\n  "));
 
 // ---- Layout -----------------------------------------------------------------
-const W = 1080, H = 1350, PHOTO_H = 648;                // 48 % of the height
+// STORY=1 → 1080×1920 Stories version: photo band 920 (48 %), title below the
+// Stories UI zone (y ≥ 250), ivory content shifted by D, website line 1744.
+const STORY = process.env.STORY === "1";
+const W = 1080, H = STORY ? 1920 : 1350, PHOTO_H = STORY ? 920 : 648;   // 48 % of the height
+const D = PHOTO_H - 648;                                 // ivory shift
+const mapY = (y) => STORY ? 210 + y * (PHOTO_H - 250) / 648 : y;
 const C = { navy: "#102537", turq: "#439090", gold: "#BBA375", ivory: "#F3EEE5", ink: "#1C1C1C" };
 
 // Map: the region's countries fitted into the right part of the photo band.
 const all = feature(topo, topo.objects.countries).features;
 const pick = R.countries.map((n) => all.find((f) => f.properties.name === n));
-const projection = geoMercator().fitExtent(R.mapBox, { type: "FeatureCollection", features: pick });
+const projection = geoMercator().fitExtent(R.mapBox.map(([x, y]) => [x, mapY(y)]), { type: "FeatureCollection", features: pick });
 const pg = geoPath(projection);
 const fmt = (d) => (d || "").replace(/(\d+\.\d)\d+/g, "$1");   // "" when no shared borders
 const SET = new Set(R.countries);
@@ -134,7 +139,7 @@ for (const [n, ll] of MARKERS) {
 const marks = MARKERS.map(([n, ll, dx, dy, anchor]) => {
   const [x, y] = projection(ll);
   const lx = Array.isArray(dx) ? dx[0] : x + dx;
-  const ly = Array.isArray(dx) && dx.length > 1 ? dx[1] : y + dy;   // [x, y] = absolute label position
+  const ly = Array.isArray(dx) && dx.length > 1 ? mapY(dx[1]) : y + dy;   // [x, y] = absolute label position
   return { n, x, y, lx, ly, anchor, leader: Array.isArray(dx) };
 });
 
@@ -148,7 +153,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${PHOT
   <g fill="${C.turq}" stroke="#FFFFFF" stroke-width="1.5">${marks.map((m) =>
     `<circle cx="${m.x.toFixed(1)}" cy="${m.y.toFixed(1)}" r="6"/>`).join("")}</g>
 </svg>`;
-fs.writeFileSync(path.join(root, `build/map${ID}.svg`), svg);
+fs.writeFileSync(path.join(root, `build/map${ID}${STORY ? "s" : ""}.svg`), svg);
 
 const labels = marks.map((m) => `<div class="mlabel" style="${m.anchor === "end"
   ? `right:${(W - m.lx).toFixed(1)}px` : `left:${m.lx.toFixed(1)}px`}; top:${(m.ly - 16).toFixed(1)}px">${m.n}</div>`).join("\n  ");
@@ -157,7 +162,7 @@ const labels = marks.map((m) => `<div class="mlabel" style="${m.anchor === "end"
 // Gem discs: 22 % smaller than the first approved size (client, final pass);
 // each disc keeps the old disc's centre line, so the row gains air below.
 const n = GEMS.length, OLD_D = { 3: 216, 4: 196, 5: 156 }[n], GEM_D = Math.round(OLD_D * 0.78);
-const GEM_TOP = (R.gemTop || 900) + (OLD_D - GEM_D) / 2;
+const GEM_TOP = (R.gemTop || 900) + (OLD_D - GEM_D) / 2 + D;
 const pitch = n === 3 ? 312 : (888 - OLD_D) / (n - 1);   // 3: approved slide 03 rhythm
 const centers = GEMS.map((_, i) => 540 + (i - (n - 1) / 2) * pitch);
 const CAP_W = n === 3 ? OLD_D : pitch - 8;
@@ -186,7 +191,7 @@ const html = `<!doctype html>
   /* legibility veil over the photo: darker on the left (title) and at the top */
   .veil { position: absolute; inset: 0;
     background: linear-gradient(90deg, rgba(16,37,55,.62) 0%, rgba(16,37,55,.40) 45%, rgba(16,37,55,.34) 100%); }
-  .title { position: absolute; left: 96px; top: 80px; font-family: "GFS Didot"; color: #F4F1EA;
+  .title { position: absolute; left: 96px; top: ${STORY ? 262 : 80}px; font-family: "GFS Didot"; color: #F4F1EA;
     font-size: 58px; line-height: 1.06; letter-spacing: .05em; text-transform: uppercase; }
   .title .part { display: block; margin-top: 18px; font-family: "AvantGarde"; font-size: 18px;
     letter-spacing: .42em; color: ${C.gold}; }
@@ -194,7 +199,7 @@ const html = `<!doctype html>
     text-transform: uppercase; color: #7CCBC6; font-weight: 600; white-space: nowrap;
     text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: ${PHOTO_H}px; width: ${W}px; height: 1px; background: ${C.navy}; opacity: .5; }
-  .textblock { position: absolute; left: 96px; top: 700px; width: 900px; }
+  .textblock { position: absolute; left: 96px; top: ${700 + D}px; width: 900px; }
   /* Ivory headings: true Didot Italic (stand-in Bodoni Moda Italic), regular weight, no faux bold */
   .h2 { margin: 0 0 ${68 - 46}px; width: 900px; font-family: "Didot Italic"; font-style: italic; font-weight: 400;
     color: ${C.navy}; font-size: 40px; line-height: 1.15; letter-spacing: 0; }
@@ -211,13 +216,13 @@ const html = `<!doctype html>
     letter-spacing: ${n === 5 ? ".2em" : ".3em"}; text-indent: ${n === 5 ? ".2em" : ".3em"};
     text-transform: uppercase; color: ${C.turq}; }
   .stone { display: block; margin-top: 8px; font-family: "Didot Italic"; font-style: italic; font-size: ${{ 3: 26, 4: 24, 5: 22 }[n]}px; ${n === 3 ? "" : "line-height: 1.12; "}color: ${C.navy}; }
-  .arrow { position: absolute; left: 932px; top: 1228px; }
+  .arrow { position: absolute; left: 932px; top: ${STORY ? 1744 : 1228}px; }
 </style></head>
 <body><section class="slide" id="s3">
   <div class="band">
     ${fs.existsSync(path.join(root, PHOTO)) ? `<img class="photo" src="${PHOTO}" alt="">` : ""}
     <div class="veil"></div>
-    <img src="build/map${ID}.svg" width="${W}" height="${PHOTO_H}" style="position:absolute;left:0;top:0" alt="">
+    <img src="build/map${ID}${STORY ? "s" : ""}.svg" width="${W}" height="${PHOTO_H}" style="position:absolute;left:0;top:0" alt="">
     <div class="title">${R.title}${R.part ? `<span class="part">${R.part}</span>` : ""}</div>
     ${labels}
   </div>
@@ -227,20 +232,21 @@ const html = `<!doctype html>
 
   ${gemsHtml}
 
-  <img src="build/url_on_light.png" style="position:absolute; left:375px; top:1223px" width="351" height="23" alt="www.gemanastation.com">
+  <img src="build/url_on_light.png" style="position:absolute; left:375px; top:${STORY ? 1739 : 1223}px" width="351" height="23" alt="www.gemanastation.com">
   <!-- next-slide cue, on the website line's height, right margin -->
   <svg class="arrow" width="52" height="14" viewBox="0 0 52 14"><path d="M0 7 H50 M43 1 L50 7 L43 13"
     fill="none" stroke="${C.gold}" stroke-width="1.4"/></svg>
 </section></body></html>`;
-fs.writeFileSync(path.join(root, `slide${ID}.html`), html);
+fs.writeFileSync(path.join(root, `slide${ID}${STORY ? "_story" : ""}.html`), html);
 
 const { chromium } = require("playwright");
 const browser = await chromium.launch({ args: ["--force-color-profile=srgb"] });
 const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
-await page.goto("file://" + path.join(root, `slide${ID}.html`));
+await page.goto("file://" + path.join(root, `slide${ID}${STORY ? "_story" : ""}.html`));
 await page.evaluate(() => document.fonts.ready);
 await page.waitForLoadState("networkidle");
-const out = missing.length ? `build/draft_${ID}.png` : `output/${R.out}`;
+const out = missing.length ? `build/draft_${ID}.png`
+  : STORY ? `output/stories/${R.out.replace(".png", "_story.png")}` : `output/${R.out}`;
 await page.locator("#s3").screenshot({ path: path.join(root, out) });
 await browser.close();
 console.log("written", out);

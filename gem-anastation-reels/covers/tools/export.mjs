@@ -5,7 +5,7 @@ import path from "node:path";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const { chromium } = createRequire(import.meta.url)("playwright");
 const browser = await chromium.launch({ args: ["--force-color-profile=srgb"] });
-const page = await browser.newPage({ viewport: { width: 2400, height: 1430 }, deviceScaleFactor: 1 });
+const page = await browser.newPage({ viewport: { width: 3600, height: 2000 }, deviceScaleFactor: 1 });
 await page.goto("file://" + path.join(root, "covers.html"));
 await page.evaluate(() => document.fonts.ready);
 await page.waitForLoadState("networkidle");

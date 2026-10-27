@@ -11,3 +11,6 @@ Founder's Note 66 px). Gem discs 22 % smaller than first approval
 (168 / 153 / 122 px for 3 / 4 / 5 gems), centred on the old disc line.
 GFS Didot has no italic, so the ivory italic headings stay in Bodoni Moda
 Italic (true italic) until licensed Didot Italic arrives.
+
+## Stories (1080×1920)
+`stories/` — same slides on the Stories rule (rubric text top 139, website line text top 1744, main type within 250–1670). Rebuild: `STORY=1` before each build command (covers: section `river_story` in covers.html).
