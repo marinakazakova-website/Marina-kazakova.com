@@ -16,6 +16,11 @@ SETS = {
         "nature": (120, 136, 800),   # stamens slightly left of centre, mid-height
         "gem":    (427, 682, 480),   # front stone low-left, second stone top-right
     },
+    "lavender_spinel": {
+        "human":  (0, 0, 960),       # the full 4:5 portrait
+        "nature": (10, 196, 780),    # orchid cluster filling the tile
+        "gem":    (0, 330, 1125),    # stone just right of centre, above the middle
+    },
 }
 # Global colour match to the approved mock-up where the client graded a photo
 # (per-channel mean/std transfer; a tonal operation only, nothing retouched).

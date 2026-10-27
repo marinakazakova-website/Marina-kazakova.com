@@ -12,6 +12,7 @@ import path from "node:path";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SETS = {
   green_tourmaline: { plaque: "#7888AA", ink: "#D6BF94", words: ["Nature", "Gemstone", "Identity"] },
+  lavender_spinel:  { plaque: "#D6B7BC", ink: "#FFFBFB", words: ["Nature", "Gemstone", "Identity"] },
 };
 const id = process.argv[2] || "green_tourmaline", S = SETS[id];
 const html = `<!doctype html><html><head><meta charset="utf-8">
