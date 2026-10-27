@@ -93,3 +93,10 @@ The font files live in `brand/fonts_licensed/` locally and are git-ignored —
 they are licensed with the client's Mac and must not be published. To rebuild
 in a fresh session, extract them again from the client's `Didot.ttc`
 (`fontTools.ttLib.TTCollection`) into that folder.
+
+## Covers — type 1 title (rule)
+The main message on a type-1 cover (GEMS OF ASIA, MY TOP 3 GEMS …) is always
+the same size on every cover: Apple Didot Bold 106 px, tracking 0.025 em,
+centred, one line. Position follows the photo (top on a landscape, under the
+stone on a stone shot). If a title would not fit the width at that size,
+shorten the wording rather than shrink the type.
