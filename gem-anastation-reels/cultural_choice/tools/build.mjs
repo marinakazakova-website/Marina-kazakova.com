@@ -12,19 +12,19 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // pos: block anchor — [x, y, align]; stone side alternates R / L / R / L / R.
 const SLIDES = [
   { id: "01_jade", idx: "01 / China", pos: [96, 236, "left"],
-    h: "Green is more<br>than a color.",
+    h: "Green is more<br>than a color",
     p: "In Chinese tradition, jade symbolizes virtue, protection and enduring value." },
   { id: "02_ruby", idx: "02 / Southeast Asia", pos: [984, 196, "right"], w: 380,
-    h: "The power<br>of red.",
+    h: "The power<br>of red",
     p: "Across Southeast Asia, rubies and red spinels have long been treasured for their beauty and associations with vitality and good fortune." },
   { id: "03_emerald", idx: "03 / India", pos: [96, 300, "left"],
-    h: "The language<br>of emeralds.",
+    h: "The language<br>of emeralds",
     p: "In India, emeralds hold a special place where cultural traditions, personal beliefs and astrology meet." },
   { id: "04_spessartine", idx: "04 / Asia today", pos: [984, 975, "right"], w: 560,
-    h: "Tradition evolves.",
+    h: "Tradition evolves",
     p: "From vivid orange spessartines to neon-blue gemstones, contemporary tastes are expanding Asia’s traditional color palette." },
   { id: "05_sapphire", idx: "05 / Personal choice", pos: [984, 236, "right"], w: 560,
-    h: "Beyond color.<br>Beyond tradition.",
+    h: "Beyond color<br>Beyond tradition",
     p: "Every gemstone choice is personal. Culture inspires it. Individuality defines it." },
 ];
 
