@@ -1,18 +1,19 @@
 # Founder's Note — closing slide template (1080 × 1350)
 
-One fixed composition for every closing "Founder's Note". A new note = a new
-entry in `NOTES` in `tools/build.mjs` (portrait, gem, headline, letter, CTA);
-nothing else changes. `NODE_PATH=$(npm root -g) node tools/build.mjs <id>`.
+Composition taken from the client reference: navy #102537 page, three
+rounded panels (18 px radius) in one row, 15 px gaps, top y = 221, height 833:
 
-| Element | Spec |
-|---|---|
-| Background | ivory #F3EEE5 |
-| Portrait | 330 × 430 frame at (96, 112) — ≈ 10 % of the page; photo untouched, only cropped by the frame |
-| Gem | free-standing cut-out, 330 px box at (600, 196), soft shadow; caption mono caps 14 px #BBA375 |
-| Headline | Didot caps 100 px / 0.98, #102537, at (96, 640), two lines |
-| Letter | AvantGarde 22 px / 1.6, #102537, 470 px column at (96, 880) |
-| CTA | own column at (620, 884): 48 px #439090 rule, Didot italic 32 px lead, AvantGarde 19 px #439090 line |
-| Signature | ANASTASIA Didot 24 px 0.32 em + FOUNDER & GEM EXPERT mono 15 px, both #BBA375, at (96, 1092) |
-| Website | post rule: text top y = 1228, centred (approved #8E7550 line) |
+| Panel | x / width | Content |
+|---|---|---|
+| Left | 20 / 326 | original founder portrait, cropped by the frame only (no retouching) |
+| Centre | 361 / 358 | ivory text column, 38 px inner margin |
+| Right | 734 / 326 | real gemstone photo (cut-out), scaled only, on a warm ivory–sand light |
 
-No GA logo, no arrow.
+Centre column: gold 90 px rule → Didot caps 47 px headline (#102537) →
+AvantGarde 22 px letter → gold 64 px rule → Didot italic 40 px CTA lead in
+deep teal #1A4043 → AvantGarde 21 px CTA line → ANASTASIA Didot 30 px 0.2 em
+#BBA375 → FOUNDER & GEM EXPERT AvantGarde caps 13 px.
+Website line: post rule (text top y = 1228, centred), #BBA375. No logo, no arrow.
+
+A new note = a new entry in `NOTES` in `tools/build.mjs`:
+`NODE_PATH=$(npm root -g) node tools/build.mjs <id>`.
