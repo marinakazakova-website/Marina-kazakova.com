@@ -34,3 +34,16 @@ non-crossing leaders; positions are in `COUNTRIES` in the script.
 npm install
 NODE_PATH=$(npm root -g) node tools/build.mjs   # needs playwright
 ```
+
+# Slide 03: SOUTHEAST ASIA / PART I
+
+Output: `output/GA_GemsOfAsia_03_southeast_asia_I.png`. Build:
+`python3 tools/cutout_gems.py && NODE_PATH=$(npm root -g) node tools/build03.mjs`.
+
+- Top 648 px (48 %): client landscape photo, navy legibility veil, real
+  outlines of Thailand, Vietnam and Cambodia (Natural Earth, Mercator),
+  filled #439090 at 38 %, markers #439090, labels off-land with leaders.
+- Bottom: ivory field, Didot caps heading, AvantGarde copy, three client
+  gem photos (white background removed by `tools/cutout_gems.py`, stone
+  untouched) in 216 px discs; country #439090, mineral in Didot italic.
+- Website line on the post rule (y = 1228), gold arrow on the right margin.

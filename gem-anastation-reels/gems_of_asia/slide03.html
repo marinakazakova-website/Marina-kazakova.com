@@ -9,14 +9,14 @@
   .band > img.photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
   /* legibility veil over the photo: darker on the left (title) and at the top */
   .veil { position: absolute; inset: 0;
-    background: linear-gradient(90deg, rgba(16,37,55,.62) 0%, rgba(16,37,55,.30) 45%, rgba(16,37,55,.12) 100%); }
+    background: linear-gradient(90deg, rgba(16,37,55,.62) 0%, rgba(16,37,55,.40) 45%, rgba(16,37,55,.34) 100%); }
   .title { position: absolute; left: 96px; top: 80px; font-family: "Didot Title"; color: #F4F1EA;
     font-size: 58px; line-height: 1.06; letter-spacing: .05em; text-transform: uppercase; }
   .title .part { display: block; margin-top: 18px; font-family: "AvantGarde"; font-size: 18px;
     letter-spacing: .42em; color: #BBA375; }
   .mlabel { position: absolute; font-family: "AvantGarde"; font-size: 20px; line-height: 1; letter-spacing: .12em;
-    text-transform: uppercase; color: #8FD0CC; white-space: nowrap;
-    text-shadow: 0 0 6px rgba(16,37,55,.9), 0 0 2px rgba(16,37,55,.9); }
+    text-transform: uppercase; color: #7CCBC6; font-weight: 600; white-space: nowrap;
+    text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: 648px; width: 1080px; height: 1px; background: #102537; opacity: .5; }
   .h2 { position: absolute; left: 96px; top: 700px; width: 900px; font-family: "Didot Title"; color: #102537;
     font-size: 40px; line-height: 1.15; letter-spacing: .05em; text-transform: uppercase; }
@@ -25,7 +25,9 @@
   .gem { position: absolute; margin: 0; width: 216px; text-align: center; }
   .disc { width: 216px; height: 216px; border-radius: 50%; overflow: hidden;
     background: #EAE4D9; box-shadow: inset 0 0 0 1px rgba(16,37,55,.12); }
-  .disc img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .disc { display: flex; align-items: center; justify-content: center; }
+  .disc img { width: 76%; height: 76%; object-fit: contain; display: block;
+    filter: drop-shadow(0 6px 10px rgba(16,37,55,.18)); }
   figcaption { margin-top: 18px; }
   .country { display: block; font-family: "AvantGarde"; font-size: 16px; letter-spacing: .3em; text-indent: .3em;
     text-transform: uppercase; color: #439090; }
@@ -49,15 +51,15 @@
     spinels — each country reveals a different side of Asia’s gemstone heritage.</p>
 
   <figure class="gem" style="left:120px; top:900px">
-    <div class="disc"></div>
+    <div class="disc"><img src="sources/gem_thailand_blue_sapphire.png" alt="Blue Sapphire"></div>
     <figcaption><span class="country">Thailand</span><span class="stone">Blue Sapphire</span></figcaption>
   </figure>
   <figure class="gem" style="left:432px; top:900px">
-    <div class="disc"></div>
+    <div class="disc"><img src="sources/gem_vietnam_pink_spinel.png" alt="Pink Spinel"></div>
     <figcaption><span class="country">Vietnam</span><span class="stone">Pink Spinel</span></figcaption>
   </figure>
   <figure class="gem" style="left:744px; top:900px">
-    <div class="disc"></div>
+    <div class="disc"><img src="sources/gem_cambodia_blue_zircon.png" alt="Blue Zircon"></div>
     <figcaption><span class="country">Cambodia</span><span class="stone">Blue Zircon</span></figcaption>
   </figure>
 

@@ -65,7 +65,7 @@ const marks = MARKERS.map(([n, ll, dx, dy, anchor]) => {
 });
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${PHOTO_H}" viewBox="0 0 ${W} ${PHOTO_H}">
-  <g fill="${C.turq}" fill-opacity="0.22" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round">
+  <g fill="${C.turq}" fill-opacity="0.38" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round">
     ${pick.map((f) => `<path d="${fmt(pg(f))}"/>`).join("\n    ")}
   </g>
   <path d="${fmt(pg(inner))}" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="1"/>
@@ -100,14 +100,14 @@ const html = `<!doctype html>
   .band > img.photo { width: 100%; height: 100%; object-fit: cover; object-position: ${PHOTO_POSITION}; display: block; }
   /* legibility veil over the photo: darker on the left (title) and at the top */
   .veil { position: absolute; inset: 0;
-    background: linear-gradient(90deg, rgba(16,37,55,.62) 0%, rgba(16,37,55,.30) 45%, rgba(16,37,55,.12) 100%); }
+    background: linear-gradient(90deg, rgba(16,37,55,.62) 0%, rgba(16,37,55,.40) 45%, rgba(16,37,55,.34) 100%); }
   .title { position: absolute; left: 96px; top: 80px; font-family: "Didot Title"; color: #F4F1EA;
     font-size: 58px; line-height: 1.06; letter-spacing: .05em; text-transform: uppercase; }
   .title .part { display: block; margin-top: 18px; font-family: "AvantGarde"; font-size: 18px;
     letter-spacing: .42em; color: ${C.gold}; }
   .mlabel { position: absolute; font-family: "AvantGarde"; font-size: 20px; line-height: 1; letter-spacing: .12em;
-    text-transform: uppercase; color: #8FD0CC; white-space: nowrap;
-    text-shadow: 0 0 6px rgba(16,37,55,.9), 0 0 2px rgba(16,37,55,.9); }
+    text-transform: uppercase; color: #7CCBC6; font-weight: 600; white-space: nowrap;
+    text-shadow: 0 0 8px rgba(16,37,55,.95), 0 0 3px rgba(16,37,55,.95), 0 0 1px rgba(16,37,55,1); }
   .rule { position: absolute; left: 0; top: ${PHOTO_H}px; width: ${W}px; height: 1px; background: ${C.navy}; opacity: .5; }
   .h2 { position: absolute; left: 96px; top: 700px; width: 900px; font-family: "Didot Title"; color: ${C.navy};
     font-size: 40px; line-height: 1.15; letter-spacing: .05em; text-transform: uppercase; }
@@ -116,7 +116,9 @@ const html = `<!doctype html>
   .gem { position: absolute; margin: 0; width: ${GEM_D}px; text-align: center; }
   .disc { width: ${GEM_D}px; height: ${GEM_D}px; border-radius: 50%; overflow: hidden;
     background: #EAE4D9; box-shadow: inset 0 0 0 1px rgba(16,37,55,.12); }
-  .disc img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .disc { display: flex; align-items: center; justify-content: center; }
+  .disc img { width: 76%; height: 76%; object-fit: contain; display: block;
+    filter: drop-shadow(0 6px 10px rgba(16,37,55,.18)); }
   figcaption { margin-top: 18px; }
   .country { display: block; font-family: "AvantGarde"; font-size: 16px; letter-spacing: .3em; text-indent: .3em;
     text-transform: uppercase; color: ${C.turq}; }
