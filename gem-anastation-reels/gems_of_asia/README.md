@@ -38,7 +38,7 @@ NODE_PATH=$(npm root -g) node tools/build.mjs   # needs playwright
 # Slide 03: SOUTHEAST ASIA / PART I
 
 Output: `output/GA_GemsOfAsia_03_southeast_asia_I.png`. Build:
-`python3 tools/cutout_gems.py && NODE_PATH=$(npm root -g) node tools/build03.mjs`.
+
 
 - Top 648 px (48 %): client landscape photo, navy legibility veil, real
   outlines of Thailand, Vietnam and Cambodia (Natural Earth, Mercator),
@@ -47,3 +47,15 @@ Output: `output/GA_GemsOfAsia_03_southeast_asia_I.png`. Build:
   gem photos (white background removed by `tools/cutout_gems.py`, stone
   untouched) in 216 px discs; country #439090, mineral in Didot italic.
 - Website line on the post rule (y = 1228), gold arrow on the right margin.
+
+# Regional system (slides 03, 04, …)
+
+All regional slides come from one script and one composition:
+`NODE_PATH=$(npm root -g) node tools/build_region.mjs 03|04` — per-slide
+content (photo, countries, label positions, texts, gems) in `REGIONS`.
+Gem cut-outs: `tools/cutout_gems.py` (faceted stones on white) and
+`tools/cutout_round.py raw.jpg out.png` (pearls: circular mask).
+
+Slide 04, SOUTHEAST ASIA / PART II — `output/GA_GemsOfAsia_04_southeast_asia_II.png`:
+archipelago photo; Myanmar, Malaysia, Indonesia, Philippines; four gems
+(196 px discs, same top line and caption styles as slide 03).
