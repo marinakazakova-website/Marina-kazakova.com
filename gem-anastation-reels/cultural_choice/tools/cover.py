@@ -1,8 +1,6 @@
 """Cover: banana-flower photo full bleed (uniform scale to 1080 wide, vertical
-crop only, colours untouched) + the original Gem AnaStation logo (GA monogram
-and GEM ANASTATION wordmark layers, never redrawn) at the bottom: wordmark
-text top on the bottom service line (y = 1228), centred; monogram scaled
-uniformly 0.40, 18 px above it. Usage: python3 tools/cover.py"""
+crop only, colours untouched) + the website line on the cover rule
+(text top y = 1228, centred, tinted to the photo). No other text. Usage: python3 tools/cover.py"""
 from pathlib import Path
 import cv2
 import numpy as np
@@ -34,12 +32,17 @@ def ink_box(a):
     return xs.min(), xs.max(), ys.min(), ys.max()
 
 
-wm = layer("s1_wordmark")
-x0, x1, y0, _ = ink_box(wm)
-put(im, wm, round(540 - (x0 + x1) / 2), 1228 - y0)
-mono = layer("s1_logo_ga", 0.40)
-mx0, mx1, _, my1 = ink_box(mono)
-put(im, mono, round(540 - (mx0 + mx1) / 2), 1228 - 18 - my1)
+# Website line — cover rule: the approved rendered line, text top y = 1228,
+# centred; tinted to the photo: the band's own colour moved 45 % toward
+# ivory (dark band) or navy (light band), 90 % opacity.
+url_a = cv2.imread(str(ROOT.parent / "founder" / "build" / "url_on_light.png"), cv2.IMREAD_UNCHANGED)[..., 3] / 255.0
+band = im[1205:1255, 360:720].reshape(-1, 3).mean(0) * 255
+lum = band @ [0.2126, 0.7152, 0.0722] / 255
+target = np.array([243, 238, 229.]) if lum < 0.5 else np.array([16, 37, 55.])
+col = (band + (target - band) * 0.45) / 255
+al = (url_a * 0.9)[..., None]
+im[1223:1223 + al.shape[0], 375:375 + al.shape[1]] = im[1223:1223 + al.shape[0], 375:375 + al.shape[1]] * (1 - al) + col * al
+print("website line colour #" + "".join(f"{int(round(c * 255)):02X}" for c in col))
 out = (np.clip(im, 0, 1) * 255 + 0.5).astype(np.uint8)
 cv2.imwrite(str(ROOT / "output/GA_CulturalChoice_00_cover.png"), cv2.cvtColor(out, cv2.COLOR_RGB2BGR))
 print("written output/GA_CulturalChoice_00_cover.png", f"scale {s:.3f}")

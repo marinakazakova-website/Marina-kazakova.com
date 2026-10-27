@@ -11,4 +11,4 @@
 - Placement: 01 upper-left, 02 upper-right (higher), 03 upper-left (lower),
   04 lower-right, 05 upper-left wide.
 
-Cover (00): `python3 tools/cover.py` — banana-flower photo full bleed (scale 1.556 to width, crop top 120), original GA monogram (×0.40) + GEM ANASTATION wordmark, wordmark text top y 1228, centred. No other text.
+Cover (00): `python3 tools/cover.py` — banana-flower photo full bleed (scale 1.556 to width, crop top 120), website line on the cover rule (text top y 1228, centred, tinted to the photo). No other text.
