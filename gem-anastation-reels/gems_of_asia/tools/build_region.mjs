@@ -55,11 +55,11 @@ const REGIONS = {
       ["Indonesia",   [113.5, -1.5], [500], 40, "end"],
       ["Philippines", [121.0, 15.5], [862], -52, "start"], // above Luzon
     ],
-    h2: "From rubies to ocean pearls.",
+    h2: "From rubies to ocean pearls",
     copy: "From Myanmar’s celebrated rubies and spinels to the ocean pearls of Malaysia, Indonesia and the Philippines — Southeast Asia reveals a remarkable diversity of natural treasures.",
     gems: [
       { country: "Myanmar",     stone: "Red Ruby",               file: "sources/gem_myanmar_red_ruby.png" },
-      { country: "Malaysia",    stone: "Marine Pearl",           file: "sources/gem_malaysia_marine_pearl.png" },
+      { country: "Malaysia",    stone: "Sea Pearl",              file: "sources/gem_malaysia_marine_pearl.png" },
       { country: "Indonesia",   stone: "South Sea Pearl",        file: "sources/gem_indonesia_south_sea_pearl.png" },
       { country: "Philippines", stone: "Golden<br>South Sea Pearl", file: "sources/gem_philippines_golden_south_sea_pearl.png" },
     ],
